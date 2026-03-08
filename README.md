@@ -1,73 +1,42 @@
-👋 Olá, eu sou @japaprp!
+# Yago Fellipe Amorim
 
-💻 Sou um desenvolvedor iniciante, apaixonado por tecnologia e inovação. Tenho grande interesse em desenvolvimento web, automação de processos e bancos de dados. Atualmente, estou focado em aprimorar minhas habilidades técnicas e desenvolver soluções que agreguem valor a empresas e comunidades.
+Desenvolvedor web focado em transformar ideias em sites e sistemas com estrutura profissional, visual forte e foco em resultado.
 
-🚀 Habilidades e Tecnologias
+## Portfolio
 
-📌 Linguagens de Programação:
-✔️ Python – Automação, análise de dados e integração de sistemas.
-✔️ JavaScript – Desenvolvimento web e interatividade.
+- Site oficial: [japaprp.github.io/portifolio](https://japaprp.github.io/portifolio/)
 
-📌 Desenvolvimento Web:
-✔️ HTML | CSS | JavaScript – Construção de interfaces responsivas e dinâmicas.
-✔️ React.js (aprendendo) – Desenvolvimento de aplicações modernas.
+## Projetos Em Destaque
 
-📌 Bancos de Dados & Cloud:
-✔️ MySQL – Modelagem e gerenciamento de dados.
-✔️ AWS – Integração de bancos de dados na nuvem.
+### 1. Horti-fruit (Varejao do Povo)
+- Front-end: [Demo publica](https://japaprp.github.io/varejao-backend/)
+- Back-end API: [Render](https://varejao-backend-1.onrender.com/produtos)
+- Stack: HTML, CSS, JavaScript, Node.js, Express
 
-📌 Outras Tecnologias:
-✔️ APIs – Consumo e integração de serviços externos.
-✔️ Automação – Aplicação de scripts para otimização de processos.
+### 2. Sistema de RH
+- Sistema interno com modulos de pessoas, solicitacoes, beneficios, permissoes e auditoria.
+- Stack: PHP, MySQL, RBAC
+- Status: demonstração privada (prints e detalhes no portfolio)
 
+### 3. Chacara Estancia Renascer Belvedere
+- Site institucional com foco em comunicacao, galeria e captacao de reservas.
+- Demo: [Acessar site](https://japaprp.github.io/estacia-renascer-belvedere/)
+- Repositorio: [GitHub](https://github.com/japaprp/estacia-renascer-belvedere)
 
+### 4. Lanchonete com Sistema de PDVs
+- Projeto de escala operacional com cardapio digital e fluxo multi-PDV.
+- Stack: Laravel 11, multi-tenant
+- Status: em evolucao
 
-🔥 Projetos Destacados
+## Competencias
 
-📌 Sistema de Gestão para Estância Renascer Belvedere
+- Desenvolvimento de landing pages e sites institucionais
+- Sistemas web sob medida para operacao interna
+- Integracao de APIs e modelagem de fluxo operacional
+- Estruturacao de front-end responsivo e usabilidade
 
-Descrição: Desenvolvimento de um sistema para gerenciar reservas, clientes e estoque de insumos para eventos em um espaço de turismo e natureza.
-🛠 Tecnologias: Python, MySQL, Automação de Processos.
+## Contato
 
-📌 Site para Hortifruti
-
-Descrição: Desenvolvimento de um site para um hortifruti local, permitindo a exibição de produtos, preços e promoções.
-🛠 Tecnologias: HTML, CSS, JavaScript, MySQL.
-
-📌 Aplicativo para Enriquecimento de Leads
-
-Descrição: Aplicação para captação e qualificação de leads, automatizando a coleta e análise de dados para melhorar conversões.
-🛠 Tecnologias: Python, Automação, Banco de Dados.
-
-📌 Integração de Banco de Dados AWS para Hortifruti
-
-Descrição: Criação e gerenciamento de um banco de dados MySQL na AWS para organização de produtos, categorias e estoque de um hortifruti.
-🛠 Tecnologias: MySQL, AWS, SQL Queries.
-
-
-
-🌱 O que estou aprendendo atualmente?
-
-🚀 Aprofundando conhecimento em React.js para desenvolvimento frontend.
-🚀 Explorando automação de processos para otimizar fluxos de trabalho.
-🚀 Melhorando habilidades em bancos de dados e integrações em nuvem.
-
-
-
-📈 Estatísticas do GitHub
-
-
-
-📬 Como me encontrar
-
-📧 E-mail: yagoamorim.oficial@outlook.com 
-🔗 LinkedIn: Yago Fellipe Amorim 
-🐙 GitHub: @japaprp
-
-
-
-💡 Curiosidade: Sou um entusiasta da tecnologia, sempre buscando aprender e aplicar novos conhecimentos. Cada projeto concluído me motiva a explorar mais, construir soluções e enfrentar desafios reais.
-<!---
-japaprp/japaprp é um repositório ✨ especial ✨ porque o `README.md` (este arquivo) aparece no seu perfil do GitHub.
-Você pode clicar no link Preview para ver as alterações.
---->
+- WhatsApp: [16 99114-5034](https://wa.me/5516991145034)
+- E-mail: [yagoamorim.oficial@outlook.com](mailto:yagoamorim.oficial@outlook.com)
+- GitHub: [@japaprp](https://github.com/japaprp)
