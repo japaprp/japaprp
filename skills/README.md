@@ -36,16 +36,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 
 ## Princípios comuns
 
-1. Ler as instruções locais relevantes e identificar a stack real antes de agir.
-2. Usar logs, diff, símbolos e testes focados antes de abrir grandes quantidades de arquivos.
-3. Separar fatos observados, inferências e hipóteses.
-4. Não expor segredos, tokens, cookies, chaves, dados pessoais nem valores sensíveis de configuração.
-5. Definir escopo e critério de aceitação; preservar alterações existentes e contratos do sistema.
-6. Fazer a menor mudança que resolva a causa real; não reescrever módulos sem evidência.
-7. Rodar verificações proporcionais ao risco e relatar exatamente o que foi executado, o resultado e as limitações.
-8. Não executar operações destrutivas, alterar produção, fazer deploy ou publicar alterações fora do escopo autorizado.
-9. Não alegar instalação, teste, renderização, inspeção visual, medição de tokens ou deploy sem evidência.
-10. Em engenharia reversa, analisar apenas software próprio ou autorizado; não contornar controles nem coletar dados de terceiros.
+As regras transversais de investigação, segurança, edição mínima, autorização e relato de testes têm uma única fonte de verdade: [engineering-brain-router](./engineering-brain-router/SKILL.md). As skills especializadas devem conter apenas procedimentos específicos de seu domínio, evitando repetir o protocolo geral.
 
 ## Referências públicas selecionadas
 
