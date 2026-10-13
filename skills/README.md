@@ -29,6 +29,10 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 
 - [Router smoke tests](./tests/ROUTER_EVALS.md) — cenários baseados em stacks e problemas reais para revisar seleção de skills, economia de contexto e limites de segurança. São casos esperados; só conte como benchmark depois de executá-los no agente-alvo e registrar os resultados.
 
+## Memória por projeto
+
+- [Template Project Passport](./templates/PROJECT_CONTEXT.md) — modelo curto para registrar stack, comandos comprovados, arquitetura, integrações, riscos, decisões e estado validado de cada projeto. Copie para o repositório correspondente somente quando for útil; não preencha por suposição nem inclua segredos.
+
 ## Regras de composição
 
 1. Use uma skill principal e no máximo duas complementares, salvo motivo técnico explícito.
