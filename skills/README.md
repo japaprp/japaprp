@@ -17,6 +17,20 @@ Skills autorais para usar com agentes de programação no VS Code, Codex e ferra
 - [premium-distinctive-web-design](./premium-distinctive-web-design/SKILL.md) — direção de arte premium e interfaces sem aparência genérica de IA.
 - [forms-crud-data-integrity](./forms-crud-data-integrity/SKILL.md) — cadastros, CRUD, validação, duplicidade e integridade dos dados.
 
+- [anthropic-frontend-design](./anthropic-frontend-design/SKILL.md) — direção de arte distintiva inspirada na skill pública da Anthropic.
+- [vercel-react-performance](./vercel-react-performance/SKILL.md) — desempenho React/Next.js com referência às práticas públicas da Vercel.
+- [vercel-web-design-audit](./vercel-web-design-audit/SKILL.md) — auditoria de acessibilidade, UX, formulários e responsividade baseada nas diretrizes públicas da Vercel.
+- [supabase-postgres-specialist](./supabase-postgres-specialist/SKILL.md) — PostgreSQL, RLS, schema e segurança para projetos Supabase.
+
+## Referências públicas selecionadas
+
+- [Anthropic Skills](https://github.com/anthropics/skills) — frontend-design e criação/manutenção de skills.
+- [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills) — React/Next.js e auditoria de interfaces.
+- [obra/superpowers](https://github.com/obra/superpowers) — depuração sistemática e desenvolvimento guiado por testes.
+- [Supabase Agent Skills](https://github.com/supabase/agent-skills) — práticas de PostgreSQL e segurança específicas do Supabase.
+
+As skills locais são adaptações autorais com links para as fontes; consulte licenças e conteúdo original antes de redistribuir material de terceiros. Prefira carregar apenas a skill pertinente à tarefa, não toda a coleção.
+
 ## Princípios comuns
 
 1. Ler primeiro as instruções do repositório (`README`, `AGENTS.md`, arquivos de contribuição e configuração do agente).
