@@ -25,6 +25,10 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Análise assistida com REA | [rea-assisted-analysis](./rea-assisted-analysis/SKILL.md) | engenharia reversa se necessário |
 | Economia de contexto/créditos de IA | [ai-token-budget](./ai-token-budget/SKILL.md) | roteador para reduzir leitura redundante |
 
+## Validação do roteador
+
+- [Router smoke tests](./tests/ROUTER_EVALS.md) — cenários baseados em stacks e problemas reais para revisar seleção de skills, economia de contexto e limites de segurança. São casos esperados; só conte como benchmark depois de executá-los no agente-alvo e registrar os resultados.
+
 ## Regras de composição
 
 1. Use uma skill principal e no máximo duas complementares, salvo motivo técnico explícito.
