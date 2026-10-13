@@ -9,6 +9,14 @@ Skills autorais para usar com agentes de programação no VS Code, Codex e ferra
 - [hyperframes-video-pipeline](./hyperframes-video-pipeline/SKILL.md) — criar e diagnosticar composições HTML/CSS/JS e pipelines de renderização com HyperFrames.
 - [rea-assisted-analysis](./rea-assisted-analysis/SKILL.md) — conduzir análises autorizadas com REA, documentando evidências e limites.
 
+- [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) — infraestrutura, banco, migrações, deploy e custos.
+- [application-security-auth](./application-security-auth/SKILL.md) — autenticação, autorização, cadastro seguro, isolamento multi-tenant e vulnerabilidades.
+- [testing-regression-quality](./testing-regression-quality/SKILL.md) — testes unitários, integração, E2E, acessibilidade e regressão.
+- [targeted-debugging-performance](./targeted-debugging-performance/SKILL.md) — bugs, travamentos, lentidão e diagnóstico por evidência sem ler tudo.
+- [ai-token-budget](./ai-token-budget/SKILL.md) — economia de tokens/créditos e regras para medidor honesto de uso.
+- [premium-distinctive-web-design](./premium-distinctive-web-design/SKILL.md) — direção de arte premium e interfaces sem aparência genérica de IA.
+- [forms-crud-data-integrity](./forms-crud-data-integrity/SKILL.md) — cadastros, CRUD, validação, duplicidade e integridade dos dados.
+
 ## Princípios comuns
 
 1. Ler primeiro as instruções do repositório (`README`, `AGENTS.md`, arquivos de contribuição e configuração do agente).
