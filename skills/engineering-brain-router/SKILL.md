@@ -1,56 +1,107 @@
 ---
 name: engineering-brain-router
-description: Orquestrar tarefas de engenharia escolhendo o menor conjunto de skills necessário, ferramentas e verificações; use no início de tarefas de programação quando for preciso decidir por onde começar ou como evitar trabalho e contexto redundantes.
+description: Orquestrar tarefas de engenharia escolhendo o menor conjunto de skills, ferramentas e verificações; roteia por intenção, stack, risco e custo de contexto, sem duplicar procedimentos especializados.
 ---
 
 # Engineering Brain — roteador enxuto
 
-**Missão:** entregar a menor mudança segura que resolve o problema real, com evidência e custo de contexto mínimo. Não é uma enciclopédia: encaminha para a skill especializada e só carrega detalhes quando necessários.
+**Missão:** resolver o problema real com a menor mudança segura, evidência verificável e custo mínimo de contexto. Esta é a camada de decisão; as skills de domínio guardam os procedimentos específicos.
 
-## Protocolo de decisão
+## 1. Classifique antes de agir
 
-1. Reescreva mentalmente o pedido como resultado esperado, restrições e critério verificável de conclusão. Faça pergunta apenas se uma ambiguidade bloquear uma decisão importante.
-2. Identifique repositório, branch, estado do trabalho, stack e instruções locais. Comece por `git status`, diff, logs, busca de símbolos e arquivos de entrada; não faça leitura total por padrão.
-3. Escolha **uma skill principal** e, no máximo, duas complementares quando houver necessidade concreta. Não leia todas as skills nem copie instruções de uma para outra.
-4. Use ferramentas determinísticas para descobrir fatos (busca, testes, lint, typecheck, profiler, logs, SQL EXPLAIN) e o modelo para raciocínio, decisões e mudanças que exigem julgamento.
-5. Trace somente o caminho de execução relacionado ao pedido. Separe fato observado, inferência e hipótese; teste a hipótese mais provável com a menor verificação útil.
-6. Planeje um diff mínimo antes de editar. Preserve arquitetura, contratos, estilo, alterações locais e arquivos não relacionados.
-7. Valide a mudança pelo risco: teste focal primeiro; amplie para integração, regressão, build ou E2E quando o impacto justificar.
-8. Revise o diff final, efeitos colaterais e comandos executados. Pare quando os critérios de aceitação estiverem atendidos; não comece tarefas extras sem necessidade.
+Identifique quatro coisas:
+- **Resultado:** o que precisa estar funcionando ou ser entregue.
+- **Stack e ambiente:** tecnologias reais, comandos, integrações e limites disponíveis.
+- **Risco:** impacto em dados, autenticação, produção, custos, privacidade e compatibilidade.
+- **Evidência de conclusão:** teste, comportamento, diff, log ou resultado observável que comprovará a solução.
 
-## Roteamento por intenção
+Pergunte só se uma ambiguidade bloqueia uma decisão importante. Se não bloquear, declare uma suposição pequena e reversível e prossiga.
 
-- Entender repositório, onboarding, fluxo de dados ou arquitetura desconhecida → `repo-reverse-engineering`.
-- Bug, crash, lentidão ou regressão → `targeted-debugging-performance`; acrescente `testing-regression-quality` para regressão verificável.
-- Login, permissões, sessão, tenant, exposição de dados ou segredos → `application-security-auth`.
-- Infra, deploy, migração, banco, conexão, rollback ou custo operacional → `infrastructure-database-engineering`.
-- Formulários, cadastro, CRUD, duplicidade ou consistência → `forms-crud-data-integrity`; acrescente segurança quando houver controle de acesso ou dados privados.
-- Testes, qualidade de release ou mudança de comportamento → `testing-regression-quality`.
-- UI nova ou redesign → `premium-distinctive-web-design`; ela também cobre a auditoria de UX/acessibilidade. Não carregue uma segunda skill de design.
-- React/Next.js com gargalo de performance → `vercel-react-performance`, junto da skill de debug apenas quando necessário.
-- Supabase/PostgreSQL e RLS → `supabase-postgres-specialist`. Não aplicar comandos ou sintaxe específicos ao MySQL; adaptar apenas conceitos portáveis.
-- Remotion ou HyperFrames → a skill específica do pipeline utilizado.
-- REA / análise assistida autorizada → `rea-assisted-analysis`.
-- Reduzir custo de contexto ou uso de IA → `ai-token-budget`.
-- Criar ou revisar as próprias skills → usar as práticas de autoria do catálogo e referências públicas; auditar gatilhos e sobreposição antes de criar qualquer skill nova.
+## 2. Modo de trabalho adaptativo
 
-## Guardrails comuns
+Escolha o modo mais barato que atende ao risco:
 
-- Não expor segredos, tokens, dados pessoais nem valores de variáveis sensíveis em logs ou relatórios.
+- **Express:** tarefa pequena, localizada e reversível. Inspecione o trecho, faça a mudança mínima e execute a verificação focal.
+- **Standard:** mudança em vários arquivos ou comportamento relevante. Faça um plano curto, trace o fluxo, implemente e rode testes relacionados.
+- **High assurance:** autenticação, autorização, dados privados, pagamentos, migrações, produção, deploy ou mudança destrutiva. Amplie análise de ameaças, testes, rollback e verificação; exija autorização para operações de alto impacto.
+
+Não transforme tarefa simples em relatório longo. Não use o modo rápido para pular segurança em tarefas de alto risco.
+
+## 3. Descubra contexto e ferramentas reais
+
+1. Identifique repositório, branch, estado do Git e instruções locais. Leia primeiro AGENTS.md, README relevante, manifests e configuração que realmente orientam a tarefa.
+2. Comece por git status, diff, logs, busca de símbolos, entrypoints e testes relacionados. Não leia o repositório inteiro por padrão.
+3. Descubra quais comandos, extensões, MCPs, conectores e permissões estão realmente disponíveis. Não presuma que uma extensão esteja instalada, uma conta esteja conectada ou que o agente tenha acesso ao navegador/terminal.
+4. Escolha a ferramenta pelo tipo de evidência: busca para localizar; leitura de arquivo para compreender; terminal para reproduzir; testes para comportamento; profiler/EXPLAIN para desempenho; integração oficial para dados externos quando autorizada.
+5. Prefira ferramenta determinística para fatos e use o modelo para síntese, julgamento e mudanças que exigem raciocínio. Evite executar várias ferramentas que respondem à mesma pergunta.
+
+## 4. Selecione skills sem redundância
+
+Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma segunda complementar apenas se houver necessidade clara; três no total é o limite padrão, não uma meta. Carregue apenas a seção pertinente.
+
+- Arquitetura ou repositório desconhecido → repo-reverse-engineering.
+- Bug, crash, lentidão ou regressão → targeted-debugging-performance; acrescente testes apenas se necessário.
+- Login, permissões, sessão, tenant ou exposição de dados → application-security-auth.
+- Infra, banco, migração, deploy, rollback ou custo → infrastructure-database-engineering.
+- Cadastro, formulário, CRUD ou integridade → forms-crud-data-integrity; segurança quando envolver dados privados/permissões.
+- Testes ou release → testing-regression-quality.
+- UI, redesign, UX ou acessibilidade → premium-distinctive-web-design; não carregar outra skill geral de design.
+- Performance React/Next.js → vercel-react-performance, apenas nessa stack e quando houver necessidade.
+- Supabase/PostgreSQL/RLS → supabase-postgres-specialist; não aplicar comandos específicos a MySQL.
+- Remotion/HyperFrames → skill específica do pipeline usado.
+- REA / análise assistida autorizada → rea-assisted-analysis.
+- Eficiência de IA/contexto → ai-token-budget.
+- Skills novas → primeiro identificar lacuna real, sobreposição e teste de utilidade; não criar por popularidade.
+
+## 5. Memória técnica por projeto
+
+Use as instruções e documentos do próprio repositório como fonte principal. Quando houver necessidade e permissão, mantenha um resumo curto do projeto contendo:
+- propósito, stack e comandos comprovados;
+- arquitetura e fluxos críticos;
+- integrações, variáveis **pelos nomes**, sem valores secretos;
+- decisões tomadas e motivos;
+- bugs conhecidos, estado validado e próximos passos;
+- verificações de build/teste e data/contexto em que foram executadas.
+
+Atualize o resumo apenas depois de confirmar a mudança. Diferencie estado atual de histórico, marque informação incerta e remova fatos obsoletos. Não misture projetos, não registre prompts inteiros, dados pessoais, tokens, chaves ou conteúdo sensível. Não crie nem altere arquivos de documentação fora do escopo sem autorização.
+
+## 6. Investigue, implemente e valide
+
+1. Trace somente o caminho de execução relacionado ao pedido.
+2. Separe observação direta, inferência e hipótese; teste a hipótese mais provável com a menor verificação útil.
+3. Planeje um diff mínimo e preserve arquitetura, contratos, estilo e alterações do usuário.
+4. Use testes existentes e comandos descobertos no projeto; comece pelo teste focal e amplie conforme o risco.
+5. Revise o diff final e procure regressões, segredos acidentais, mudanças de schema/contrato e efeitos colaterais.
+6. Pare quando os critérios de aceitação forem atendidos. Não emende refatorações, melhorias cosméticas ou tarefas não solicitadas.
+
+## 7. Melhoria contínua com evidência
+
+- Só proponha alterar uma skill quando uma lacuna real for observada, uma regra falhar repetidamente ou um conflito entre instruções for demonstrado.
+- Antes de adicionar conteúdo, procure a regra equivalente e melhore a fonte única de verdade; prefira consolidar a criar outra skill.
+- Preserve instruções gerais no roteador e conhecimento especializado na skill de domínio.
+- Valide mudanças de roteamento com cenários curtos: bug simples, fluxo de autenticação, CRUD, redesign de UI e deploy/banco. O roteador deve selecionar a skill correta, não carregar o catálogo inteiro.
+- Compare utilidade, erros de seleção, verificações executadas e tamanho do contexto quando houver métricas disponíveis. Não invente redução de tokens nem declare benchmark sem medição.
+- Nunca faça autoalterações silenciosas em skills, configurações, permissões ou repositórios.
+
+## Guardrails de alto impacto
+
+- Não expor segredos, tokens, cookies, dados pessoais nem valores sensíveis de configuração.
 - Não executar exclusões, reset, migração destrutiva, alteração de permissões/segredos, mudança de DNS, commit/push ou deploy sem autorização adequada ao impacto.
-- Nunca enfraquecer autenticação, autorização ou testes para fazer a verificação passar.
+- Nunca enfraquecer autenticação, autorização ou testes para fazer uma verificação passar.
 - Não inventar comandos, ferramentas, resultados, telemetria, testes, screenshots ou deploys.
-- Em projetos do usuário, respeitar a identidade correta do repositório e da aplicação; confirme pelo contexto do código antes de tocar no backend.
-- Em stack desconhecida, descubra a tecnologia real antes de aplicar uma skill específica.
-- Não adicionar dependência, infraestrutura paga ou serviço externo sem justificar benefício e custo.
-- Não inventar arquitetura ou reescrever o sistema quando uma correção localizada basta.
+- Confirme a identidade do repositório e da aplicação pelo contexto do código antes de tocar no backend.
+- Em stack desconhecida, descubra a tecnologia antes de aplicar uma skill específica.
+- Não adicionar dependência, infraestrutura paga ou serviço externo sem justificar benefício, custo e autorização.
+- Não reescrever o sistema quando uma correção localizada resolve o problema.
 
 ## Saída padrão
 
-Se a tarefa for simples, responda com o resultado e a verificação em poucas linhas. Se for complexa, informe apenas:
-1. Diagnóstico/evidência.
-2. Mudança realizada e arquivos afetados.
-3. Testes realmente executados e resultados.
-4. Risco ou bloqueio restante.
+Tarefa simples: resultado e verificação em poucas linhas.
 
-Não narre cada passo. Não repita informações já presentes no diff ou nos logs. Se não for possível concluir, diga exatamente qual evidência ou acesso falta e indique o próximo passo mínimo.
+Tarefa complexa:
+1. Diagnóstico/evidência.
+2. Mudança e arquivos afetados.
+3. Testes realmente executados e resultados.
+4. Riscos, limitações ou próximo passo bloqueado.
+
+Não narre cada passo nem repita o que já está claro no diff/log. Se não concluir, diga qual evidência ou acesso falta e o menor próximo passo.
