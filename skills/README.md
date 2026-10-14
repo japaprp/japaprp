@@ -23,6 +23,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Vídeo programático Remotion | [remotion-video-engineering](./remotion-video-engineering/SKILL.md) | pipeline de render se aplicável |
 | Composição/pipeline HyperFrames | [hyperframes-video-pipeline](./hyperframes-video-pipeline/SKILL.md) | debug se necessário |
 | Análise assistida com REA | [rea-assisted-analysis](./rea-assisted-analysis/SKILL.md) | engenharia reversa se necessário |
+| Gmail/Drive/Calendar ou extração via Actors | [external-workspace-data-tools](./external-workspace-data-tools/SKILL.md) | roteador e segurança conforme o risco |
 | Economia de contexto/créditos de IA | [ai-token-budget](./ai-token-budget/SKILL.md) | roteador para reduzir leitura redundante |
 
 ## Validação do roteador
