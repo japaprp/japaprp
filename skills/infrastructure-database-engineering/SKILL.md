@@ -28,5 +28,15 @@ description: Auditar infraestrutura, banco de dados, migrações, conexões, dep
 - Não habilite serviços pagos nem faça upgrade sem autorização expressa.
 - Diferencie local, staging e produção; use timeouts explícitos e encerramento gracioso.
 
+## Confiabilidade, observabilidade e release
+
+- Defina health checks que testem dependências críticas sem tornar uma dependência transitória uma indisponibilidade total desnecessária.
+- Para serviços com tráfego real, identifique sinais úteis: taxa de erro, latência p95/p99 quando disponível, saturação, falhas de dependências e freshness dos dados.
+- Antes de deploy, confirme escopo, ambiente, migrações, compatibilidade de versão, smoke tests e procedimento de rollback.
+- Prefira releases graduais quando suportadas; não prometa zero downtime sem validar arquitetura e plataforma.
+- Para incidentes, preserve logs relevantes sem segredos, estabeleça impacto, mitigue primeiro e faça análise de causa após estabilizar.
+- Meça baseline antes de otimizar. Não invente SLO, percentis, redução de custo ou ganho de desempenho sem dados.
+- Não adicione monitoramento pago nem altere planos/limites de hospedagem sem autorização de custo.
+
 ## Entrega
 Causa comprovada ou hipóteses, arquivos envolvidos, correção mínima, migration/rollback, testes, impacto operacional/custo e pontos não verificados.
