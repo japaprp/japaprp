@@ -59,6 +59,7 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Remotion/HyperFrames → skill específica do pipeline usado.
 - REA / análise assistida autorizada → rea-assisted-analysis.
 - Eficiência de IA/contexto → ai-token-budget.
+- Pessoa iniciante, stack desconhecida ou não sabe qual skill escolher → skill-onboarding-profiler para entrevista simples e recomendações explicadas; não presumir tecnologias.
 - Skills novas → primeiro identificar lacuna real, sobreposição e teste de utilidade; não criar por popularidade.
 
 ## 5. Memória técnica por projeto
