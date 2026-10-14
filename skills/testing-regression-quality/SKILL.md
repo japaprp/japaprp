@@ -27,6 +27,15 @@ description: Planejar e executar testes unitários, integração, ponta a ponta,
 
 ## Gate de entrega
 Revise diff, efeitos colaterais, logs, lint/types/testes e rollback. Liste explicitamente testes não executados e o motivo.
+## Gate de evidência e prontidão
+
+- Compare comportamento implementado com os critérios de aceitação reais; não acrescente requisitos cosméticos que não foram combinados.
+- Para interface, use screenshot para evidência visual e assertions/resultado persistido para evidência funcional. Screenshot de formulário preenchido não comprova envio nem persistência.
+- Revise a implementação real e os resultados de teste; diferencie **PASS**, **FAIL** e **NÃO TESTADO**. Ausência de ferramenta/evidência é uma limitação de cobertura, não automaticamente um defeito do produto.
+- Não atribua notas numéricas nem declare “pronto para produção” sem rubrica explícita, escopo testado e evidência proporcional ao risco.
+- Relate apenas defeitos reproduzíveis ou discrepâncias demonstráveis. Registre gaps de cobertura e riscos remanescentes sem fabricar problemas.
+- Use um gate mais rigoroso para autenticação, pagamentos, dados privados e release; não bloqueie por preferências visuais subjetivas.
+
 ## E2E com navegador real (Playwright)
 
 Use Playwright quando o risco ou o pedido exigir comprovação do comportamento visível no navegador; não o torne obrigatório para toda alteração.
