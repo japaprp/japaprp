@@ -46,6 +46,10 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Cadastro, formulário, CRUD ou integridade → forms-crud-data-integrity; segurança quando envolver dados privados/permissões.
 - Testes ou release → testing-regression-quality.
 - Revisão de diff/PR ou correção cirúrgica → code-review-minimal-change; acrescente segurança/testes somente quando os achados ou o risco exigirem.
+- Design, criação ou mudança de API/webhook/contrato → api-engineering-contracts; segurança e testes apenas conforme o risco.
+- Aplicativo móvel/Flutter → mobile-flutter-engineering; acrescente API, segurança ou testes somente se o fluxo exigir.
+- Integração de modelos/API de IA, avaliação de prompts ou RAG → ai-integration-evaluation; use ai-token-budget para controle de contexto/custo, não como substituta da avaliação.
+- Ideia ampla, definição de MVP, priorização ou plano de lançamento → product-discovery-delivery; não carregue para bug técnico claramente definido.
 - UI, redesign, UX ou acessibilidade → premium-distinctive-web-design; não carregar outra skill geral de design.
 - Performance React/Next.js → vercel-react-performance, apenas nessa stack e quando houver necessidade.
 - Supabase/PostgreSQL/RLS → supabase-postgres-specialist; não aplicar comandos específicos a MySQL.
