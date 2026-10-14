@@ -36,6 +36,19 @@ description: Planejar, implementar e auditar interfaces web distintivas, acessí
 - Navegação e estado na URL quando isso for útil; datas, moeda e números localizados corretamente.
 - Console, requests, layout shifts, tamanho do bundle e Core Web Vitals quando houver ferramentas para verificar.
 
+## Contrato de design e gate de acabamento
+
+Antes de revisar ou redesenhar uma tela, resuma: usuário e tarefa principal, objeto que deve chamar atenção primeiro, ação primária, densidade de informação, modelo de interação, prioridades responsivas e restrições de marca/stack. Marque suposições quando o contexto for insuficiente.
+
+Na revisão final:
+1. Inspecione a implementação real, não apenas o briefing ou uma lista de componentes.
+2. Verifique se a hierarquia visual corresponde às decisões e tarefas reais do usuário, em vez de padrões genéricos.
+3. Compare desktop e mobile; valide estados de carregamento, vazio, erro, foco, seleção e desabilitado conforme aplicável.
+4. Converta cada crítica em uma mudança observável e uma condição de verificação. Separe problema de usabilidade/acessibilidade de preferência estética.
+5. Declare **PASS** quando os critérios acordados forem atendidos com evidência suficiente; **HOLD** quando houver bloqueador real. Se não houver screenshots/browser, marque a inspeção visual como não executada, sem fingir aprovação.
+
+Não exija pesquisa externa nem referências de terceiros por padrão. Use padrões de produtos comparáveis apenas quando ajudarem a resolver uma questão concreta, sem copiar a interface inteira.
+
 ## Sistema de design e implementação
 
 - Defina tokens reutilizáveis para cor, tipografia, espaçamento, grid, radius, foco, motion e breakpoints.
