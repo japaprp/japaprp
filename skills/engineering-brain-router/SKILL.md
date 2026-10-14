@@ -50,6 +50,9 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Aplicativo móvel/Flutter → mobile-flutter-engineering; acrescente API, segurança ou testes somente se o fluxo exigir.
 - Integração de modelos/API de IA, avaliação de prompts ou RAG → ai-integration-evaluation; use ai-token-budget para controle de contexto/custo, não como substituta da avaliação.
 - Ideia ampla, definição de MVP, priorização ou plano de lançamento → product-discovery-delivery; não carregue para bug técnico claramente definido.
+- Pagamento, checkout, reembolso, cashback, split ou webhook financeiro → payments-billing-integrations; acrescente API/segurança/testes conforme o fluxo.
+- Construir/alterar servidor ou ferramenta MCP para agentes → mcp-tooling-engineering; use API/segurança conforme as integrações expostas.
+- Roteiro, descrição, CTA, publicação ou distribuição de conteúdo curto/afiliado → content-commerce-distribution; use skill de vídeo apenas quando a edição/render for parte da tarefa.
 - UI, redesign, UX ou acessibilidade → premium-distinctive-web-design; não carregar outra skill geral de design.
 - Performance React/Next.js → vercel-react-performance, apenas nessa stack e quando houver necessidade.
 - Supabase/PostgreSQL/RLS → supabase-postgres-specialist; não aplicar comandos específicos a MySQL.
@@ -106,6 +109,7 @@ Atualize o resumo apenas depois de confirmar a mudança. Diferencie estado atual
 - **Playwright CLI / navegador real:** para afirmar que um fluxo de interface funciona, prefira uma execução E2E observável: abrir a aplicação, preencher dados sintéticos, interagir, validar o estado final e guardar screenshot/log quando útil. Verifique que a ferramenta está instalada e que o servidor de teste está ativo; screenshot isolado não substitui assertions. Nunca use dados reais de clientes nem execute compras/envios/ações irreversíveis em produção.
 - **Agent Skills externas (ex.: Addy Osmani):** trate-as como referências de procedimento, não como ferramentas instaladas. Compare cada orientação com as regras locais, incorpore somente lacunas comprovadas e preserve uma única fonte de verdade. Não copie coleções inteiras nem crie skills redundantes.
 - **Agency Agents:** use seletivamente os padrões de Code Reviewer, Minimal Change Engineer, Reality Checker/Evidence Collector e UI Finish-Gate Reviewer. Não adote comandos específicos de um agente sem verificar stack/ferramentas locais. Se a tarefa realmente envolver um sistema multiagente, considere contratos explícitos de entrada/saída, menor privilégio, fallback, observabilidade, orçamento de contexto e avaliação; não proponha orquestração multiagente para tarefas que um agente resolve com segurança.
+- **Auditoria de competências:** para tarefas de API, Flutter/mobile, IA/RAG, pagamentos, MCP, produto e distribuição de conteúdo, use as skills dedicadas do catálogo. Backend/frontend/banco/segurança/design já cobertos devem ser reutilizados; crie outra skill somente quando houver lacuna distinta demonstrável.
 - **Vídeo/HyperFrames/HeyGen:** use a skill HyperFrames ou Remotion conforme o pipeline real. Não presuma integração/API do HeyGen apenas porque o fluxo produz vídeos; confirme CLI, credenciais, permissões e versão antes de automatizar serviços externos.
 
 ## Saída padrão
