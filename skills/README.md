@@ -19,6 +19,9 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Aplicativos móveis, especialmente Flutter/Dart | [mobile-flutter-engineering](./mobile-flutter-engineering/SKILL.md) | API, segurança ou testes conforme o fluxo |
 | Integração de modelos e APIs de IA, prompts e RAG | [ai-integration-evaluation](./ai-integration-evaluation/SKILL.md) | API, segurança ou ai-token-budget conforme a necessidade |
 | Descoberta de produto, MVP, critérios de aceitação e lançamento | [product-discovery-delivery](./product-discovery-delivery/SKILL.md) | design, API, testes ou infraestrutura conforme o risco |
+| Pagamentos, reembolsos, cashback e webhooks financeiros | [payments-billing-integrations](./payments-billing-integrations/SKILL.md) | API, segurança e testes conforme o fluxo |
+| Ferramentas MCP e integrações para agentes | [mcp-tooling-engineering](./mcp-tooling-engineering/SKILL.md) | API, segurança e testes conforme o fluxo |
+| Conteúdo curto, afiliados e distribuição entre plataformas | [content-commerce-distribution](./content-commerce-distribution/SKILL.md) | vídeo/pipeline ou produto conforme o objetivo |
 | Login, autorização, sessão, isolamento de dados | [application-security-auth](./application-security-auth/SKILL.md) | CRUD/testes quando necessário |
 | Infra, banco, migração, deploy, rollback e custo | [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) | segurança ou testes conforme o risco |
 | Formulários, cadastro, CRUD e integridade | [forms-crud-data-integrity](./forms-crud-data-integrity/SKILL.md) | segurança se houver dados privados ou permissões |
@@ -44,6 +47,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 1. Use uma skill principal e no máximo duas complementares, salvo motivo técnico explícito.
 2. Não carregue várias skills que cobrem o mesmo comportamento. A direção de arte e a auditoria geral de UI estão consolidadas em `premium-distinctive-web-design`; React/Next performance continua separada por ser específica da stack.
 3. `supabase-postgres-specialist` é específica de Supabase/PostgreSQL. Não aplicar diretamente comandos ou sintaxe ao MySQL; adaptar apenas princípios portáveis.
+4. Skills de API, mobile, IA, pagamentos e MCP têm escopos distintos; combine apenas as necessárias para o fluxo real e não presuma provedores, ferramentas, SDKs ou autenticação disponíveis.
 4. Consulte referências públicas para aprofundar quando houver necessidade; não copie conteúdo inteiro nem crie skill nova apenas por popularidade.
 5. Prefira instruções curtas e de alta prioridade em `SKILL.md`; materiais longos e exemplos devem ser carregados sob demanda.
 6. As skills não instalam extensões, não ativam MCPs e não concedem acesso automaticamente. Use somente ferramentas realmente disponíveis no ambiente e confirme a execução antes de relatar sucesso.
@@ -59,7 +63,7 @@ As skills locais são guias autorais adaptados para os projetos e o fluxo de tra
 - [OpenAI Codex — boas práticas](https://developers.openai.com/codex/learn/best-practices) — contexto, instruções persistentes, ferramentas e fluxos reutilizáveis.
 - [Anthropic Skills](https://github.com/anthropics/skills) — frontend-design e autoria de skills.
 - [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills) — React/Next.js e diretrizes de interface.
-- [Agency Agents](https://github.com/msitarzewski/agency-agents) — catálogo amplo de engenharia, APIs, mobile, IA, segurança, testes, produto, operações e marketing. Usado como matriz de auditoria; incorporar só lacunas úteis, não instalar todos os perfis.
+- [Agency Agents](https://github.com/msitarzewski/agency-agents) — catálogo amplo de engenharia, APIs, mobile, IA, segurança, testes, produto, operações e marketing. Auditado seletivamente como matriz de lacunas; incorporar só competências úteis, não instalar todos os perfis.
 - [obra/superpowers](https://github.com/obra/superpowers) — depuração sistemática e desenvolvimento guiado por testes.
 - [Supabase Agent Skills](https://github.com/supabase/agent-skills) — PostgreSQL, RLS e práticas específicas do Supabase.
 - [Agent Skills format](https://github.com/Open-Dot-Agents/SKILL.md) — estrutura interoperável de skills.
