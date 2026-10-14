@@ -14,6 +14,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Entender repositório, arquitetura e fluxo | [repo-reverse-engineering](./repo-reverse-engineering/SKILL.md) | debug ou segurança se a investigação exigir |
 | Bug, crash, lentidão, regressão | [targeted-debugging-performance](./targeted-debugging-performance/SKILL.md) | [testing-regression-quality](./testing-regression-quality/SKILL.md) |
 | Testes e qualidade de release | [testing-regression-quality](./testing-regression-quality/SKILL.md) | segurança ou infraestrutura conforme o risco |
+| Revisão de diff/PR e correção cirúrgica | [code-review-minimal-change](./code-review-minimal-change/SKILL.md) | testes, segurança ou infraestrutura conforme os achados |
 | Login, autorização, sessão, isolamento de dados | [application-security-auth](./application-security-auth/SKILL.md) | CRUD/testes quando necessário |
 | Infra, banco, migração, deploy, rollback e custo | [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) | segurança ou testes conforme o risco |
 | Formulários, cadastro, CRUD e integridade | [forms-crud-data-integrity](./forms-crud-data-integrity/SKILL.md) | segurança se houver dados privados ou permissões |
@@ -54,6 +55,7 @@ As skills locais são guias autorais adaptados para os projetos e o fluxo de tra
 - [OpenAI Codex — boas práticas](https://developers.openai.com/codex/learn/best-practices) — contexto, instruções persistentes, ferramentas e fluxos reutilizáveis.
 - [Anthropic Skills](https://github.com/anthropics/skills) — frontend-design e autoria de skills.
 - [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills) — React/Next.js e diretrizes de interface.
+- [Agency Agents](https://github.com/msitarzewski/agency-agents) — referência seletiva para revisão de código, mudança mínima, QA baseado em evidência e design finish-gates; não importar perfis em massa.
 - [obra/superpowers](https://github.com/obra/superpowers) — depuração sistemática e desenvolvimento guiado por testes.
 - [Supabase Agent Skills](https://github.com/supabase/agent-skills) — PostgreSQL, RLS e práticas específicas do Supabase.
 - [Agent Skills format](https://github.com/Open-Dot-Agents/SKILL.md) — estrutura interoperável de skills.
