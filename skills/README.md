@@ -5,11 +5,15 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 ## Comece pelo cérebro
 
 - [engineering-brain-router](./engineering-brain-router/SKILL.md) — roteia a tarefa para o menor conjunto de skills necessário; use como ponto de entrada quando a tarefa não for óbvia.
+- [skill-onboarding-profiler](./skill-onboarding-profiler/SKILL.md) — entrevista iniciantes para identificar área, objetivo, stack e nível; recomenda skills e explica como começar.
+- [Guia para iniciantes e compartilhamento](./GUIA-PARA-AMIGOS.md) — explicação simples de todas as skills, exemplos de uso e cuidados ao compartilhar o pacote.
 - [Princípios comuns](#princípios-comuns) — regras transversais de segurança, evidência e entrega.
 
 ## Catálogo por tarefa
 
 | Necessidade | Skill principal | Complementar somente quando necessário |
+|---|---|---|
+| Não sei qual skill ou tecnologia usar; preciso explicar meu trabalho | [skill-onboarding-profiler](./skill-onboarding-profiler/SKILL.md) | [engineering-brain-router](./engineering-brain-router/SKILL.md) |
 |---|---|---|
 | Entender repositório, arquitetura e fluxo | [repo-reverse-engineering](./repo-reverse-engineering/SKILL.md) | debug ou segurança se a investigação exigir |
 | Bug, crash, lentidão, regressão | [targeted-debugging-performance](./targeted-debugging-performance/SKILL.md) | [testing-regression-quality](./testing-regression-quality/SKILL.md) |
