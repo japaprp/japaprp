@@ -94,6 +94,14 @@ Atualize o resumo apenas depois de confirmar a mudança. Diferencie estado atual
 - Não adicionar dependência, infraestrutura paga ou serviço externo sem justificar benefício, custo e autorização.
 - Não reescrever o sistema quando uma correção localizada resolve o problema.
 
+## 8. Ferramentas externas e skills de engenharia
+
+- **Google Workspace CLI (gws):** quando a tarefa exige Gmail, Drive ou Calendar, confirme que o CLI existe, a conta está autenticada e os escopos/permissões são adequados. Prefira leitura e consultas limitadas antes de qualquer escrita. Não exponha e-mails, anexos, tokens ou dados pessoais em logs; confirme antes de enviar mensagens, alterar eventos, compartilhar arquivos ou excluir conteúdo.
+- **Apify Store:** para extração de dados, procure primeiro Actors existentes e confirme finalidade, entrada, saída, custo/uso de créditos, limites e termos do site-alvo. Use apenas acesso autorizado, respeite privacidade e controles de taxa. Faça uma amostra pequena antes de execução em escala; não contorne login, paywall, CAPTCHA ou controles de acesso.
+- **Playwright CLI / navegador real:** para afirmar que um fluxo de interface funciona, prefira uma execução E2E observável: abrir a aplicação, preencher dados sintéticos, interagir, validar o estado final e guardar screenshot/log quando útil. Verifique que a ferramenta está instalada e que o servidor de teste está ativo; screenshot isolado não substitui assertions. Nunca use dados reais de clientes nem execute compras/envios/ações irreversíveis em produção.
+- **Agent Skills externas (ex.: Addy Osmani):** trate-as como referências de procedimento, não como ferramentas instaladas. Compare cada orientação com as regras locais, incorpore somente lacunas comprovadas e preserve uma única fonte de verdade. Não copie coleções inteiras nem crie skills redundantes.
+- **Vídeo/HyperFrames/HeyGen:** use a skill HyperFrames ou Remotion conforme o pipeline real. Não presuma integração/API do HeyGen apenas porque o fluxo produz vídeos; confirme CLI, credenciais, permissões e versão antes de automatizar serviços externos.
+
 ## Saída padrão
 
 Tarefa simples: resultado e verificação em poucas linhas.
