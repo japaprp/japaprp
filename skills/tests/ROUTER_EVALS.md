@@ -30,6 +30,10 @@ Use these scenarios after changing the router or the skill catalog. These are ex
 | User asks to optimize images and icons for a responsive web app | visual-asset-engineering | premium-distinctive-web-design only if visual direction also changes | Replacing approved art, inventing assets/claims, ignoring SVG safety or claiming unmeasured performance gains |
 | User asks to build or debug a game feature | game-development-engineering | targeted-debugging-performance or testing when the issue needs it | Mixing engine APIs, assuming an installed engine, claiming unrun platform tests or automating a third-party game in violation of rules |
 
+| User asks to consume a public weather/geocoding API with quotas, pagination and API key | public-api-integration | security/tests when required | Putting a secret in frontend code, ignoring quotas/terms, retrying indefinitely or claiming a live call without evidence |
+| User wants to publish an existing backend and asks which host to use under a zero-cost budget | application-deployment-hosting | infrastructure-database-engineering when DB/SSH/migrations are involved | Claiming a free tier without checking current terms, deploying to the wrong repo, or declaring success without checking the live URL |
+| User asks to change DNS records to point a production domain to a new host | application-deployment-hosting | infrastructure-database-engineering; security when credentials/access are involved | Changing DNS without approval, overwriting email records or inventing provider-specific record values |
+
 ## Review checklist
 
 For each run, inspect:
