@@ -18,7 +18,8 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Bug, crash, lentidão, regressão | [targeted-debugging-performance](./targeted-debugging-performance/SKILL.md) | [testing-regression-quality](./testing-regression-quality/SKILL.md) |
 | Testes e qualidade de release | [testing-regression-quality](./testing-regression-quality/SKILL.md) | segurança ou infraestrutura conforme o risco |
 | Revisão de diff/PR e correção cirúrgica | [code-review-minimal-change](./code-review-minimal-change/SKILL.md) | testes, segurança ou infraestrutura conforme os achados |
-| Design, versionamento e testes de APIs/webhooks | [api-engineering-contracts](./api-engineering-contracts/SKILL.md) | segurança, CRUD ou testes conforme o fluxo |
+| Design, versionamento e testes de APIs/webhooks próprios | [api-engineering-contracts](./api-engineering-contracts/SKILL.md) | segurança, CRUD ou testes conforme o fluxo |
+| Consumir APIs públicas/de terceiros, autenticação, quotas, paginação e resiliência | [public-api-integration](./public-api-integration/SKILL.md) | contratos, segurança ou testes conforme o fluxo |
 | Aplicativos móveis, especialmente Flutter/Dart | [mobile-flutter-engineering](./mobile-flutter-engineering/SKILL.md) | API, segurança ou testes conforme o fluxo |
 | Integração de modelos e APIs de IA, prompts e RAG | [ai-integration-evaluation](./ai-integration-evaluation/SKILL.md) | API, segurança ou ai-token-budget conforme a necessidade |
 | Descoberta de produto, MVP, critérios de aceitação e lançamento | [product-discovery-delivery](./product-discovery-delivery/SKILL.md) | design, API, testes ou infraestrutura conforme o risco |
@@ -26,7 +27,8 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Ferramentas MCP e integrações para agentes | [mcp-tooling-engineering](./mcp-tooling-engineering/SKILL.md) | API, segurança e testes conforme o fluxo |
 | Conteúdo curto, afiliados e distribuição entre plataformas | [content-commerce-distribution](./content-commerce-distribution/SKILL.md) | vídeo/pipeline ou produto conforme o objetivo |
 | Login, autorização, sessão, isolamento de dados | [application-security-auth](./application-security-auth/SKILL.md) | CRUD/testes quando necessário |
-| Infra, banco, migração, deploy, rollback, SSH e custo | [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) | segurança ou testes conforme o risco |
+| Infra, banco, migração, SSH e operações de infraestrutura | [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) | segurança ou testes conforme o risco |
+| Hospedar/publicar sites, APIs e backends; provedor, domínio, HTTPS, CI/CD, custos e rollback | [application-deployment-hosting](./application-deployment-hosting/SKILL.md) | infraestrutura/banco quando necessário |
 | Planilhas Excel/CSV, fórmulas, transformação e reconciliação de dados | [spreadsheet-data-engineering](./spreadsheet-data-engineering/SKILL.md) | infraestrutura/banco quando houver integração persistente |
 | Imagens, assets visuais, formatos, otimização e integração no app/site | [visual-asset-engineering](./visual-asset-engineering/SKILL.md) | design ou vídeo somente se o escopo também exigir |
 | Desenvolvimento de jogos, gameplay, engine, build e profiling | [game-development-engineering](./game-development-engineering/SKILL.md) | segurança/API conforme multiplayer ou serviços online |
