@@ -32,7 +32,10 @@ As explicações abaixo são resumos em linguagem simples. Consulte o arquivo `S
 | `ai-integration-evaluation` | Ajuda a integrar modelos de IA e avaliar respostas, qualidade, privacidade, custo e latência. | Quando seu produto usa IA, prompts, busca com documentos ou RAG. |
 | `ai-token-budget` | Ajuda a economizar contexto, tokens e créditos da IA. | Quando a ferramenta consome muitos créditos ou lê arquivos demais. |
 | `application-security-auth` | Trata login, permissões, sessões e separação dos dados de cada usuário. | Quando há contas, informações privadas ou diferentes tipos de usuário. |
-| `infrastructure-database-engineering` | Orienta hospedagem, bancos de dados, deploy, migrações, monitoramento e recuperação. | Quando o app precisa rodar em servidor ou armazenar dados. |
+| `infrastructure-database-engineering` | Orienta hospedagem, bancos de dados, deploy, migrações, monitoramento, recuperação e operações SSH seguras. | Quando o app precisa rodar em servidor, armazenar dados ou administrar um ambiente remoto. |
+| `spreadsheet-data-engineering` | Trabalha com Excel, CSV, fórmulas, transformação e conferência de dados. | Para limpar, combinar, validar ou gerar planilhas e relatórios. |
+| `visual-asset-engineering` | Organiza, integra e otimiza imagens e outros assets visuais para sites e aplicativos. | Para preparar imagens, ícones, thumbnails e recursos responsivos. |
+| `game-development-engineering` | Orienta engenharia de jogos, gameplay, engines, builds e desempenho. | Para desenvolver ou depurar um jogo; identifica a engine e sua versão antes de recomendar código. |
 | `forms-crud-data-integrity` | Ajuda com cadastros, formulários, criação/edição/exclusão e consistência dos dados. | Para telas de cadastro, painel administrativo e operações sobre registros. |
 | `premium-distinctive-web-design` | Ajuda a criar interfaces web claras, distintas e usáveis, considerando experiência e acessibilidade. | Para criar ou melhorar telas e sites. |
 | `web-motion-design` | Planeja animações de interface com propósito, scroll storytelling, transições e microinterações, com foco em acessibilidade e desempenho. | Quando quer movimento refinado dentro da própria página, sem produzir um arquivo de vídeo. |
@@ -61,6 +64,9 @@ Exemplos:
 - “Quero aceitar pagamentos”: use `payments-billing-integrations` e peça um plano de testes antes de habilitar transações reais.
 - “Quero melhorar um site”: use `premium-distinctive-web-design`; use a skill de React/Next.js somente se essa for a tecnologia do site.
 - “Quero publicar vídeos de produtos”: use `content-commerce-distribution`; acrescente Remotion ou HyperFrames apenas se realmente usar essas ferramentas.
+- “Preciso organizar ou conferir uma planilha”: use `spreadsheet-data-engineering` e preserve o original.
+- “Quero preparar imagens para meu site/app”: use `visual-asset-engineering`; use uma ferramenta de imagem quando precisar criar ou editar a imagem em si.
+- “Quero criar um jogo”: use `game-development-engineering` e confirme a engine e a plataforma antes de implementar.
 
 ## 4. O que informar à IA
 
