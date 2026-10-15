@@ -48,6 +48,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 ## Sistema de execução e melhoria contínua
 
 - [Template de execução](./templates/ENGINEERING_RUN.md) — plano, critérios de aceitação, evidências, riscos e lições para tarefas complexas.
+- [Casos de regressão do roteador](./tests/router-eval-cases.json) — dataset estruturado de prompts, skill esperada, risco e critérios de aceitação.
 - [Template de resultados de avaliação](./tests/EVAL_RESULTS_TEMPLATE.md) — registre resultados reais de avaliações do roteador sem confundir expectativa com benchmark.
 - [Validador estrutural](../scripts/validate_skills.py) e [GitHub Actions](../.github/workflows/validate-skills.yml) — verificam metadados básicos das skills a cada mudança relevante no catálogo. Isso valida estrutura, não competência do agente.
 
