@@ -42,7 +42,7 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Arquitetura ou repositório desconhecido → repo-reverse-engineering.
 - Bug, crash, lentidão ou regressão → targeted-debugging-performance; acrescente testes apenas se necessário.
 - Login, permissões, sessão, tenant ou exposição de dados → application-security-auth.
-- Infra, banco, migração, deploy, rollback ou custo → infrastructure-database-engineering.
+- Infra, banco, migração, deploy, rollback, custo, SSH ou terminal remoto → infrastructure-database-engineering; em operações remotas, confirme host/ambiente, use comandos de leitura primeiro e proteja chaves/segredos.
 - Cadastro, formulário, CRUD ou integridade → forms-crud-data-integrity; segurança quando envolver dados privados/permissões.
 - Testes ou release → testing-regression-quality.
 - Revisão de diff/PR ou correção cirúrgica → code-review-minimal-change; acrescente segurança/testes somente quando os achados ou o risco exigirem.
