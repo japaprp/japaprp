@@ -27,12 +27,14 @@ As explicações abaixo são resumos em linguagem simples. Consulte o arquivo `S
 | `targeted-debugging-performance` | Investiga a causa provável de um erro ou lentidão sem sair mudando tudo. | Quando algo parou de funcionar, está lento ou dá erro. |
 | `testing-regression-quality` | Ajuda a verificar se o sistema funciona e se uma correção não quebrou outra coisa. | Antes de entregar, publicar ou depois de corrigir um bug. |
 | `code-review-minimal-change` | Revisa mudanças procurando problemas importantes e prefere correções pequenas. | Antes de aceitar mudanças de código ou revisar um pull request. |
-| `api-engineering-contracts` | Organiza a comunicação entre sistemas, incluindo APIs, webhooks, validação e compatibilidade. | Quando um site/app precisa conversar com outro serviço. |
+| `api-engineering-contracts` | Organiza contratos de APIs e webhooks que seu sistema oferece ou precisa manter. | Quando está desenhando uma API própria ou mudando seu contrato. |
+| `public-api-integration` | Ensina a consumir APIs públicas/de terceiros com autenticação, paginação, limites, retries e segurança. | Quando o app precisa usar dados ou recursos de outro serviço. |
+| `application-deployment-hosting` | Ajuda a escolher onde hospedar e colocar site, API ou backend no ar, com domínio, HTTPS, custos e rollback. | Quando quer publicar um projeto e confirmar que está funcionando em produção. |
 | `mobile-flutter-engineering` | Orienta a construção e manutenção de aplicativos móveis em Flutter/Dart. | Para apps Android/iOS que usam Flutter. |
 | `ai-integration-evaluation` | Ajuda a integrar modelos de IA e avaliar respostas, qualidade, privacidade, custo e latência. | Quando seu produto usa IA, prompts, busca com documentos ou RAG. |
 | `ai-token-budget` | Ajuda a economizar contexto, tokens e créditos da IA. | Quando a ferramenta consome muitos créditos ou lê arquivos demais. |
 | `application-security-auth` | Trata login, permissões, sessões e separação dos dados de cada usuário. | Quando há contas, informações privadas ou diferentes tipos de usuário. |
-| `infrastructure-database-engineering` | Orienta hospedagem, bancos de dados, deploy, migrações, monitoramento, recuperação e operações SSH seguras. | Quando o app precisa rodar em servidor, armazenar dados ou administrar um ambiente remoto. |
+| `infrastructure-database-engineering` | Orienta bancos de dados, migrações, monitoramento, recuperação e operações SSH seguras. | Quando precisa administrar infraestrutura, banco ou servidor remoto. |
 | `spreadsheet-data-engineering` | Trabalha com Excel, CSV, fórmulas, transformação e conferência de dados. | Para limpar, combinar, validar ou gerar planilhas e relatórios. |
 | `visual-asset-engineering` | Organiza, integra e otimiza imagens e outros assets visuais para sites e aplicativos. | Para preparar imagens, ícones, thumbnails e recursos responsivos. |
 | `game-development-engineering` | Orienta engenharia de jogos, gameplay, engines, builds e desempenho. | Para desenvolver ou depurar um jogo; identifica a engine e sua versão antes de recomendar código. |
@@ -61,6 +63,8 @@ Exemplos:
 - “Não sei por que meu site dá erro”: comece com `targeted-debugging-performance`; use `repo-reverse-engineering` se for preciso entender o projeto primeiro.
 - “Quero criar um app, mas só tenho a ideia”: comece com `product-discovery-delivery`; use o perfilador para descobrir requisitos e nível.
 - “Quero login seguro”: use `application-security-auth`; acrescente testes quando for validar o fluxo.
+- “Quero consumir uma API pública”: use `public-api-integration`; confirme documentação, autenticação, quotas, termos e tratamento de falhas.
+- “Quero colocar meu site ou backend no ar”: use `application-deployment-hosting`; compare limites e custos atuais e valide URL, HTTPS e rota principal.
 - “Quero aceitar pagamentos”: use `payments-billing-integrations` e peça um plano de testes antes de habilitar transações reais.
 - “Quero melhorar um site”: use `premium-distinctive-web-design`; use a skill de React/Next.js somente se essa for a tecnologia do site.
 - “Quero publicar vídeos de produtos”: use `content-commerce-distribution`; acrescente Remotion ou HyperFrames apenas se realmente usar essas ferramentas.
