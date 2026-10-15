@@ -54,6 +54,8 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Construir/alterar servidor ou ferramenta MCP para agentes → mcp-tooling-engineering; use API/segurança conforme as integrações expostas.
 - Roteiro, descrição, CTA, publicação ou distribuição de conteúdo curto/afiliado → content-commerce-distribution; use skill de vídeo apenas quando a edição/render for parte da tarefa.
 - UI, redesign, UX ou acessibilidade → premium-distinctive-web-design; não carregar outra skill geral de design.
+- Motion na interface web (hero, scroll, microinterações, transições, SVG/Lottie, performance de animação) → web-motion-design; combine com premium-distinctive-web-design apenas se a tarefa também exigir mudança de direção de arte/estrutura da UI.
+- Showreel de app, filme de lançamento, demo de produto ou motion highlight → app-showreel-launch-film; acrescente remotion-video-engineering se o vídeo for implementado/renderizado em Remotion.
 - Performance React/Next.js → vercel-react-performance, apenas nessa stack e quando houver necessidade.
 - Supabase/PostgreSQL/RLS → supabase-postgres-specialist; não aplicar comandos específicos a MySQL.
 - Remotion/HyperFrames → skill específica do pipeline usado.
