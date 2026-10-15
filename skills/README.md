@@ -14,7 +14,6 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Necessidade | Skill principal | Complementar somente quando necessário |
 |---|---|---|
 | Não sei qual skill ou tecnologia usar; preciso explicar meu trabalho | [skill-onboarding-profiler](./skill-onboarding-profiler/SKILL.md) | [engineering-brain-router](./engineering-brain-router/SKILL.md) |
-|---|---|---|
 | Entender repositório, arquitetura e fluxo | [repo-reverse-engineering](./repo-reverse-engineering/SKILL.md) | debug ou segurança se a investigação exigir |
 | Bug, crash, lentidão, regressão | [targeted-debugging-performance](./targeted-debugging-performance/SKILL.md) | [testing-regression-quality](./testing-regression-quality/SKILL.md) |
 | Testes e qualidade de release | [testing-regression-quality](./testing-regression-quality/SKILL.md) | segurança ou infraestrutura conforme o risco |
