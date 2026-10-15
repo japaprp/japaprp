@@ -49,7 +49,9 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Desenvolvimento de jogos, gameplay, engine, build, profiling ou multiplayer → game-development-engineering; identifique engine/versão antes de aplicar APIs.
 - Testes ou release → testing-regression-quality.
 - Revisão de diff/PR ou correção cirúrgica → code-review-minimal-change; acrescente segurança/testes somente quando os achados ou o risco exigirem.
-- Design, criação ou mudança de API/webhook/contrato → api-engineering-contracts; segurança e testes apenas conforme o risco.
+- Design, criação ou mudança de contrato de API/webhook próprio → api-engineering-contracts; segurança e testes apenas conforme o risco.
+- Consumir APIs públicas/de terceiros, SDKs, quotas, paginação, rate limits, retries ou contratos externos → public-api-integration; use api-engineering-contracts se também estiver desenhando uma API própria.
+- Publicar site, API, backend, worker ou job; escolher provedor, configurar domínio/HTTPS, CI/CD, health checks, custos ou rollback → application-deployment-hosting; acrescente infrastructure-database-engineering quando houver banco, migração, SSH ou operação de infraestrutura.
 - Aplicativo móvel/Flutter → mobile-flutter-engineering; acrescente API, segurança ou testes somente se o fluxo exigir.
 - Integração de modelos/API de IA, avaliação de prompts ou RAG → ai-integration-evaluation; use ai-token-budget para controle de contexto/custo, não como substituta da avaliação.
 - Ideia ampla, definição de MVP, priorização ou plano de lançamento → product-discovery-delivery; não carregue para bug técnico claramente definido.
