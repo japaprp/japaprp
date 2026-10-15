@@ -63,8 +63,9 @@ def score_case(case: dict[str, Any], observed_skill: str, acceptance: list[str],
     if not response.strip():
         return "NOT_RUN"
     expected = case.get("expected_primary_skill")
-    skill_mismatch = bool(expected and observed_skill != expected)
-    if skill_mismatch or any(v == "yes" for v in violations) or any(a == "no" for a in acceptance):
+    if any(v == "yes" for v in violations) or any(a == "no" for a in acceptance):
+        return "FAIL"
+    if observed_skill != "not-observable" and expected and observed_skill != expected:
         return "FAIL"
     if observed_skill == "not-observable" or any(v == "unknown" for v in violations) or any(a == "unknown" for a in acceptance):
         return "BLOCKED"
