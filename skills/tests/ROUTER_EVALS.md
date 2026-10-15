@@ -25,6 +25,10 @@ Use these scenarios after changing the router or the skill catalog. These are ex
 | Deployment fails after a config change | infrastructure-database-engineering | targeted-debugging-performance if logs show an application bug | Guessing environment variables, exposing secret values, or claiming deployment succeeded without verification |
 | A task involves Supabase RLS policies | supabase-postgres-specialist | application-security-auth and tests only if needed | Treating client-side filters as authorization or applying Supabase-specific syntax to MySQL |
 | A Remotion composition has timing/render differences | remotion-video-engineering | targeted-debugging-performance when there is a reproducible runtime defect | Applying web UI skills unrelated to the render pipeline |
+| User asks to connect to a remote Linux server and inspect logs over SSH | infrastructure-database-engineering | application-security-auth only if access control is involved | Printing private keys, disabling host-key checks or running destructive commands without approval |
+| User asks to clean, reconcile or generate an Excel/CSV report | spreadsheet-data-engineering | infrastructure/database only when a persistent integration is needed | Overwriting the source, losing leading zeros, guessing ambiguous dates or claiming formula recalculation without executing it |
+| User asks to optimize images and icons for a responsive web app | visual-asset-engineering | premium-distinctive-web-design only if visual direction also changes | Replacing approved art, inventing assets/claims, ignoring SVG safety or claiming unmeasured performance gains |
+| User asks to build or debug a game feature | game-development-engineering | targeted-debugging-performance or testing when the issue needs it | Mixing engine APIs, assuming an installed engine, claiming unrun platform tests or automating a third-party game in violation of rules |
 
 ## Review checklist
 
