@@ -27,7 +27,10 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Ferramentas MCP e integrações para agentes | [mcp-tooling-engineering](./mcp-tooling-engineering/SKILL.md) | API, segurança e testes conforme o fluxo |
 | Conteúdo curto, afiliados e distribuição entre plataformas | [content-commerce-distribution](./content-commerce-distribution/SKILL.md) | vídeo/pipeline ou produto conforme o objetivo |
 | Login, autorização, sessão, isolamento de dados | [application-security-auth](./application-security-auth/SKILL.md) | CRUD/testes quando necessário |
-| Infra, banco, migração, deploy, rollback e custo | [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) | segurança ou testes conforme o risco |
+| Infra, banco, migração, deploy, rollback, SSH e custo | [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) | segurança ou testes conforme o risco |
+| Planilhas Excel/CSV, fórmulas, transformação e reconciliação de dados | [spreadsheet-data-engineering](./spreadsheet-data-engineering/SKILL.md) | infraestrutura/banco quando houver integração persistente |
+| Imagens, assets visuais, formatos, otimização e integração no app/site | [visual-asset-engineering](./visual-asset-engineering/SKILL.md) | design ou vídeo somente se o escopo também exigir |
+| Desenvolvimento de jogos, gameplay, engine, build e profiling | [game-development-engineering](./game-development-engineering/SKILL.md) | segurança/API conforme multiplayer ou serviços online |
 | Formulários, cadastro, CRUD e integridade | [forms-crud-data-integrity](./forms-crud-data-integrity/SKILL.md) | segurança se houver dados privados ou permissões |
 | UI nova, redesign e auditoria de UX/acessibilidade | [premium-distinctive-web-design](./premium-distinctive-web-design/SKILL.md) | [vercel-react-performance](./vercel-react-performance/SKILL.md) apenas para React/Next.js com necessidade real |
 | Motion design em interfaces web: hero, scroll, microinterações e transições | [web-motion-design](./web-motion-design/SKILL.md) | [premium-distinctive-web-design](./premium-distinctive-web-design/SKILL.md) apenas se também houver redesign/direção de arte |
@@ -54,9 +57,9 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 2. Não carregue várias skills que cobrem o mesmo comportamento. A direção de arte e a auditoria geral de UI estão consolidadas em `premium-distinctive-web-design`; `web-motion-design` cobre o comportamento de animação da interface, e `app-showreel-launch-film` cobre a narrativa/roteiro de vídeos de produto. `remotion-video-engineering` continua responsável pela implementação e render em Remotion; React/Next performance permanece separada por ser específica da stack.
 3. `supabase-postgres-specialist` é específica de Supabase/PostgreSQL. Não aplicar diretamente comandos ou sintaxe ao MySQL; adaptar apenas princípios portáveis.
 4. Skills de API, mobile, IA, pagamentos e MCP têm escopos distintos; combine apenas as necessárias para o fluxo real e não presuma provedores, ferramentas, SDKs ou autenticação disponíveis.
-4. Consulte referências públicas para aprofundar quando houver necessidade; não copie conteúdo inteiro nem crie skill nova apenas por popularidade.
-5. Prefira instruções curtas e de alta prioridade em `SKILL.md`; materiais longos e exemplos devem ser carregados sob demanda.
-6. As skills não instalam extensões, não ativam MCPs e não concedem acesso automaticamente. Use somente ferramentas realmente disponíveis no ambiente e confirme a execução antes de relatar sucesso.
+5. Consulte referências públicas para aprofundar quando houver necessidade; não copie conteúdo inteiro nem crie skill nova apenas por popularidade.
+6. Prefira instruções curtas e de alta prioridade em `SKILL.md`; materiais longos e exemplos devem ser carregados sob demanda.
+7. As skills não instalam extensões, não ativam MCPs e não concedem acesso automaticamente. Use somente ferramentas realmente disponíveis no ambiente e confirme a execução antes de relatar sucesso.
 
 ## Princípios comuns
 
