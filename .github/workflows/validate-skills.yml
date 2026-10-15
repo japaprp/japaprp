@@ -30,3 +30,7 @@ jobs:
           python-version: "3.12"
       - name: Validate skill structure and eval cases
         run: python scripts/validate_skills.py
+      - name: Check local behavioral evaluation runner syntax
+        run: python -m py_compile scripts/run_router_eval.py
+      - name: Smoke-test local runner and dataset loading
+        run: python scripts/run_router_eval.py --list
