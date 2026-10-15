@@ -36,6 +36,10 @@ Use these scenarios after changing the router or the skill catalog. These are ex
 | A multi-file change needs a plan, verifiable acceptance criteria and a post-task learning note | engineering-brain-router | testing-regression-quality when executable checks are relevant | Treating the plan as proof, marking unrun tests as PASS, or changing general skills based on an unsupported hunch |
 | A skill file is added or edited in the catalog | engineering-brain-router | structural CI validation; update router evals when routing behavior changes | Assuming metadata checks prove agent quality, or claiming a benchmark without running cases in the target agent |
 
+## Machine-readable regression dataset
+
+The structured dataset is [router-eval-cases.json](./router-eval-cases.json). It records prompts, expected primary skill, risk, prohibited failure modes and acceptance checks. The CI validator checks schema, unique IDs and that each expected skill exists. This is dataset integrity validation only; a model must still be run against the cases to measure actual behavior.
+
 ## Review checklist
 
 For each run, inspect:
