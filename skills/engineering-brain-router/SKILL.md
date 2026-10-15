@@ -99,6 +99,12 @@ Atualize o resumo apenas depois de confirmar a mudança. Diferencie estado atual
 - Compare utilidade, erros de seleção, verificações executadas e tamanho do contexto quando houver métricas disponíveis. Não invente redução de tokens nem declare benchmark sem medição.
 - Nunca faça autoalterações silenciosas em skills, configurações, permissões ou repositórios.
 
+## Ciclo operacional obrigatório
+
+Para tarefas complexas, incidentes, mudanças multi-arquivo, segurança ou deploy, siga o protocolo em [OPERATING_CYCLE.md](./OPERATING_CYCLE.md): classificar → planejar → executar → verificar → revisar → aprender. Defina critérios de aceitação antes de editar; classifique cada verificação como `PASS`, `FAIL`, `BLOCKED` ou `NOT RUN`. Não marque teste não executado como aprovado. Use [o registro de execução](../templates/ENGINEERING_RUN.md) quando a rastreabilidade agregar valor; não imponha burocracia a tarefas triviais.
+
+O aprendizado precisa ser rastreável: evidência observada → classificação da falha → menor melhoria proposta → avaliação de regressão. Corrija problemas locais no projeto; ajuste skill existente quando houver lacuna procedimental; ajuste o roteador quando a seleção falhar. Só crie skill nova após análise de sobreposição. Nenhuma autoalteração silenciosa.
+
 ## Guardrails de alto impacto
 
 - Não expor segredos, tokens, cookies, dados pessoais nem valores sensíveis de configuração.
