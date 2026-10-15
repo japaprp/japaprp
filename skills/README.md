@@ -30,8 +30,10 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Infra, banco, migração, deploy, rollback e custo | [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) | segurança ou testes conforme o risco |
 | Formulários, cadastro, CRUD e integridade | [forms-crud-data-integrity](./forms-crud-data-integrity/SKILL.md) | segurança se houver dados privados ou permissões |
 | UI nova, redesign e auditoria de UX/acessibilidade | [premium-distinctive-web-design](./premium-distinctive-web-design/SKILL.md) | [vercel-react-performance](./vercel-react-performance/SKILL.md) apenas para React/Next.js com necessidade real |
+| Motion design em interfaces web: hero, scroll, microinterações e transições | [web-motion-design](./web-motion-design/SKILL.md) | [premium-distinctive-web-design](./premium-distinctive-web-design/SKILL.md) apenas se também houver redesign/direção de arte |
 | Performance React/Next.js | [vercel-react-performance](./vercel-react-performance/SKILL.md) | debug/testes se a tarefa exigir |
 | Supabase/PostgreSQL/RLS | [supabase-postgres-specialist](./supabase-postgres-specialist/SKILL.md) | segurança/testes quando necessário |
+| Showreel de app, vídeo de lançamento, product demo e motion highlights | [app-showreel-launch-film](./app-showreel-launch-film/SKILL.md) | [remotion-video-engineering](./remotion-video-engineering/SKILL.md) quando o vídeo for produzido em Remotion |
 | Vídeo programático Remotion | [remotion-video-engineering](./remotion-video-engineering/SKILL.md) | pipeline de render se aplicável |
 | Composição/pipeline HyperFrames | [hyperframes-video-pipeline](./hyperframes-video-pipeline/SKILL.md) | debug se necessário |
 | Análise assistida com REA | [rea-assisted-analysis](./rea-assisted-analysis/SKILL.md) | engenharia reversa se necessário |
@@ -49,7 +51,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 ## Regras de composição
 
 1. Use uma skill principal e no máximo duas complementares, salvo motivo técnico explícito.
-2. Não carregue várias skills que cobrem o mesmo comportamento. A direção de arte e a auditoria geral de UI estão consolidadas em `premium-distinctive-web-design`; React/Next performance continua separada por ser específica da stack.
+2. Não carregue várias skills que cobrem o mesmo comportamento. A direção de arte e a auditoria geral de UI estão consolidadas em `premium-distinctive-web-design`; `web-motion-design` cobre o comportamento de animação da interface, e `app-showreel-launch-film` cobre a narrativa/roteiro de vídeos de produto. `remotion-video-engineering` continua responsável pela implementação e render em Remotion; React/Next performance permanece separada por ser específica da stack.
 3. `supabase-postgres-specialist` é específica de Supabase/PostgreSQL. Não aplicar diretamente comandos ou sintaxe ao MySQL; adaptar apenas princípios portáveis.
 4. Skills de API, mobile, IA, pagamentos e MCP têm escopos distintos; combine apenas as necessárias para o fluxo real e não presuma provedores, ferramentas, SDKs ou autenticação disponíveis.
 4. Consulte referências públicas para aprofundar quando houver necessidade; não copie conteúdo inteiro nem crie skill nova apenas por popularidade.
