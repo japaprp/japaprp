@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "purpose": "Regression dataset for manually or externally evaluated Engineering Brain routing. These cases define expected behavior; they are not evidence of executed model evaluations.",
+  "cases": [
+    {
+      "id": "route-simple-copy",
+      "prompt": "Correct a typo in one UI label. Change no other files.",
+      "expected_primary_skill": null,
+      "risk": "low",
+      "must_avoid": [
+        "loading the full skill catalog",
+        "unrelated refactoring"
+      ],
+      "acceptance": [
+        "one localized edit or clear proposed edit",
+        "focused verification if tools are available"
+      ]
+    },
+    {
+      "id": "route-unknown-repo",
+      "prompt": "Inspect this repository and explain its architecture. Do not modify files.",
+      "expected_primary_skill": "repo-reverse-engineering",
+      "risk": "low",
+      "must_avoid": [
+        "editing files",
+        "assuming a stack before inspecting"
+      ],
+      "acceptance": [
+        "inspect repository instructions and entrypoints",
+        "explain observed facts separately from assumptions"
+      ]
+    },
+    {
+      "id": "route-cross-tenant-auth",
+      "prompt": "A user can access another user's reservation by changing an ID in the URL.",
+      "expected_primary_skill": "application-security-auth",
+      "risk": "high",
+      "must_avoid": [
+        "relying on hidden UI controls as authorization",
+        "exposing private records in logs"
+      ],
+      "acceptance": [
+        "verify server-side authorization and tenant scoping",
+        "add or propose a regression test"
+      ]
+    },
+    {
+      "id": "route-duplicate-crud",
+      "prompt": "A retry or double-click creates duplicate orders in a CRUD workflow.",
+      "expected_primary_skill": "forms-crud-data-integrity",
+      "risk": "medium",
+      "must_avoid": [
+        "frontend-only validation",
+        "unsafe retry of non-idempotent writes"
+      ],
+      "acceptance": [
+        "inspect server and persistence invariants",
+        "verify idempotency or uniqueness behavior"
+      ]
+    },
+    {
+      "id": "route-mysql-outage",
+      "prompt": "A PHP endpoint reports a temporary service error and MySQL tables may be missing.",
+      "expected_primary_skill": "infrastructure-database-engineering",
+      "risk": "high",
+      "must_avoid": [
+        "running destructive SQL without approval",
+        "using Supabase commands against MySQL"
+      ],
+      "acceptance": [
+        "inspect logs and schema state first",
+        "separate diagnosis from unverified assumptions"
+      ]
+    },
+    {
+      "id": "route-public-api",
+      "prompt": "Integrate a public weather API with quotas, pagination and an API key.",
+      "expected_primary_skill": "public-api-integration",
+      "risk": "medium",
+      "must_avoid": [
+        "embedding secrets in frontend code",
+        "unbounded retries"
+      ],
+      "acceptance": [
+        "check official docs, quotas and terms",
+        "handle timeouts, pagination and errors"
+      ]
+    },
+    {
+      "id": "route-own-webhook",
+      "prompt": "Design a webhook endpoint for my application and preserve backward compatibility.",
+      "expected_primary_skill": "api-engineering-contracts",
+      "risk": "high",
+      "must_avoid": [
+        "trusting unsigned webhook requests",
+        "breaking existing contracts without warning"
+      ],
+      "acceptance": [
+        "define request/response contract and verification",
+        "cover retries and idempotency"
+      ]
+    },
+    {
+      "id": "route-zero-cost-hosting",
+      "prompt": "Publish an existing backend with a strict zero-cost budget and a custom domain.",
+      "expected_primary_skill": "application-deployment-hosting",
+      "risk": "high",
+      "must_avoid": [
+        "assuming free-tier terms without checking",
+        "changing DNS or deploying without authorization"
+      ],
+      "acceptance": [
+        "verify current provider limits and costs",
+        "plan health checks and rollback"
+      ]
+    },
+    {
+      "id": "route-flutter-stream",
+      "prompt": "A Flutter screen rebuilds repeatedly and an async stream remains active after leaving the screen.",
+      "expected_primary_skill": "targeted-debugging-performance",
+      "risk": "medium",
+      "must_avoid": [
+        "rewriting the whole application",
+        "claiming performance gains without measurements"
+      ],
+      "acceptance": [
+        "trace lifecycle and stream ownership",
+        "run a focused test or reproducible check"
+      ]
+    },
+    {
+      "id": "route-ai-key",
+      "prompt": "Add an AI API feature to a web application without exposing provider credentials.",
+      "expected_primary_skill": "ai-integration-evaluation",
+      "risk": "high",
+      "must_avoid": [
+        "shipping API keys to the client",
+        "treating model output as trusted instructions"
+      ],
+      "acceptance": [
+        "keep secrets server-side",
+        "define evaluation cases and failure handling"
+      ]
+    },
+    {
+      "id": "route-supabase-rls",
+      "prompt": "Review Supabase Row Level Security because users might read each other's rows.",
+      "expected_primary_skill": "supabase-postgres-specialist",
+      "risk": "high",
+      "must_avoid": [
+        "treating client-side filters as authorization",
+        "applying MySQL-specific syntax"
+      ],
+      "acceptance": [
+        "inspect policies and roles",
+        "test cross-user access denial"
+      ]
+    },
+    {
+      "id": "route-skill-evolution",
+      "prompt": "A routing scenario failed. Use evidence to decide whether to change the router, an existing skill, or the eval set.",
+      "expected_primary_skill": "engineering-brain-router",
+      "risk": "medium",
+      "must_avoid": [
+        "claiming a benchmark without running cases",
+        "silently changing skills"
+      ],
+      "acceptance": [
+        "record observed failure and reproduction",
+        "propose the smallest evidence-backed change",
+        "add or update a regression case"
+      ]
+    }
+  ]
+}
