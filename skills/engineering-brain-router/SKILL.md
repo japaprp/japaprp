@@ -44,6 +44,9 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Login, permissões, sessão, tenant ou exposição de dados → application-security-auth.
 - Infra, banco, migração, deploy, rollback, custo, SSH ou terminal remoto → infrastructure-database-engineering; em operações remotas, confirme host/ambiente, use comandos de leitura primeiro e proteja chaves/segredos.
 - Cadastro, formulário, CRUD ou integridade → forms-crud-data-integrity; segurança quando envolver dados privados/permissões.
+- Planilhas Excel/CSV/TSV, fórmulas, reconciliação ou transformação tabular → spreadsheet-data-engineering.
+- Gerar, editar, integrar ou otimizar imagens e assets visuais → visual-asset-engineering; use ferramenta de imagem real quando a tarefa exigir criação/edição.
+- Desenvolvimento de jogos, gameplay, engine, build, profiling ou multiplayer → game-development-engineering; identifique engine/versão antes de aplicar APIs.
 - Testes ou release → testing-regression-quality.
 - Revisão de diff/PR ou correção cirúrgica → code-review-minimal-change; acrescente segurança/testes somente quando os achados ou o risco exigirem.
 - Design, criação ou mudança de API/webhook/contrato → api-engineering-contracts; segurança e testes apenas conforme o risco.
