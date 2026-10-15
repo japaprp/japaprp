@@ -35,6 +35,7 @@ As explicações abaixo são resumos em linguagem simples. Consulte o arquivo `S
 | `infrastructure-database-engineering` | Orienta hospedagem, bancos de dados, deploy, migrações, monitoramento e recuperação. | Quando o app precisa rodar em servidor ou armazenar dados. |
 | `forms-crud-data-integrity` | Ajuda com cadastros, formulários, criação/edição/exclusão e consistência dos dados. | Para telas de cadastro, painel administrativo e operações sobre registros. |
 | `premium-distinctive-web-design` | Ajuda a criar interfaces web claras, distintas e usáveis, considerando experiência e acessibilidade. | Para criar ou melhorar telas e sites. |
+| `web-motion-design` | Planeja animações de interface com propósito, scroll storytelling, transições e microinterações, com foco em acessibilidade e desempenho. | Quando quer movimento refinado dentro da própria página, sem produzir um arquivo de vídeo. |
 | `vercel-react-performance` | Trata desempenho específico de aplicações React/Next.js. | Quando o projeto realmente usa React/Next.js e existe uma necessidade de performance. |
 | `supabase-postgres-specialist` | Foca em Supabase e PostgreSQL, incluindo políticas de acesso a linhas (RLS). | Quando o banco é Supabase/PostgreSQL; não copie comandos diretamente para MySQL. |
 | `payments-billing-integrations` | Trata pagamentos, reembolsos, cashback, webhooks e conferência financeira. | Em checkout, cobranças ou saldos financeiros. Exige cuidado extra com ambiente de teste e transações reais. |
@@ -42,6 +43,7 @@ As explicações abaixo são resumos em linguagem simples. Consulte o arquivo `S
 | `mcp-tooling-engineering` | Ajuda a criar ferramentas e integrações que agentes de IA podem usar via MCP. | Quando está construindo ferramentas para um agente, e não apenas usando um chat. |
 | `external-workspace-data-tools` | Orienta o uso seguro de integrações de trabalho e extração de dados por ferramentas compatíveis. | Quando há uma integração real disponível e autorizada; não dá acesso automaticamente. |
 | `content-commerce-distribution` | Planeja vídeos curtos, conteúdo comercial, links de afiliado e adaptação entre plataformas. | Para divulgar produtos e conteúdo em redes sociais. |
+| `app-showreel-launch-film` | Planeja showreels, demonstrações de apps, filmes de lançamento e motion highlights com storyboard e revisão visual. | Para apresentar ou lançar um aplicativo em vídeo; combina com Remotion quando for renderizar por código. |
 | `remotion-video-engineering` | Orienta vídeos criados por código com Remotion. | Para vídeos programáticos baseados em componentes/código. |
 | `hyperframes-video-pipeline` | Ajuda com composição e fluxo de produção de vídeo usando HyperFrames. | Quando o projeto já usa HyperFrames. |
 | `rea-assisted-analysis` | Apoia um fluxo específico de análise assistida chamado REA. | Quando seu trabalho já utiliza esse método. |
