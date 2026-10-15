@@ -12,6 +12,7 @@ on:
     paths:
       - "skills/**"
       - "scripts/validate_skills.py"
+      - "scripts/run_router_eval.py"
       - ".github/workflows/validate-skills.yml"
   workflow_dispatch:
 
