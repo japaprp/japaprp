@@ -23,6 +23,17 @@ description: Auditar infraestrutura, banco de dados, migrações, conexões, dep
 - Considere concorrência, idempotência, locks, deadlocks, retries com backoff e limites de pool.
 - Não copie dados de produção para testes sem anonimização.
 
+## SSH, terminal remoto e servidores
+
+- Confirme host, usuário, ambiente e finalidade da conexão antes de executar comandos; use apenas conexões e contas autorizadas.
+- Prefira chaves SSH protegidas e permissões mínimas. Nunca solicite, imprima, registre ou comite chaves privadas, senhas, tokens ou conteúdo de arquivos sensíveis.
+- Verifique fingerprint/host key por canal confiável; não desative validação de host para contornar erros.
+- Comece com comandos de leitura (pwd, whoami, hostname, status e logs limitados) e confirme o diretório e o ambiente antes de qualquer escrita.
+- Use timeouts, sessões reproduzíveis e logs redigidos. Evite despejar logs extensos ou variáveis de ambiente que possam conter segredos.
+- Antes de reiniciar serviços, mudar firewall/permissões, editar configuração, instalar pacotes ou encerrar processos, avalie impacto, janela, rollback e autorização.
+- Não execute comandos destrutivos ou encadeados difíceis de revisar. Explique comandos de alto impacto e peça aprovação quando a autorização não estiver clara.
+- Ao copiar arquivos, valide origem/destino, permissões, integridade e exposição de dados; não transfira dados de produção para máquinas não autorizadas.
+
 ## Infraestrutura e custo
 - Verifique limites de CPU/RAM, armazenamento, egress, backups e retenção.
 - Não habilite serviços pagos nem faça upgrade sem autorização expressa.
