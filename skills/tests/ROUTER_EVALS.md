@@ -33,6 +33,8 @@ Use these scenarios after changing the router or the skill catalog. These are ex
 | User asks to consume a public weather/geocoding API with quotas, pagination and API key | public-api-integration | security/tests when required | Putting a secret in frontend code, ignoring quotas/terms, retrying indefinitely or claiming a live call without evidence |
 | User wants to publish an existing backend and asks which host to use under a zero-cost budget | application-deployment-hosting | infrastructure-database-engineering when DB/SSH/migrations are involved | Claiming a free tier without checking current terms, deploying to the wrong repo, or declaring success without checking the live URL |
 | User asks to change DNS records to point a production domain to a new host | application-deployment-hosting | infrastructure-database-engineering; security when credentials/access are involved | Changing DNS without approval, overwriting email records or inventing provider-specific record values |
+| A multi-file change needs a plan, verifiable acceptance criteria and a post-task learning note | engineering-brain-router | testing-regression-quality when executable checks are relevant | Treating the plan as proof, marking unrun tests as PASS, or changing general skills based on an unsupported hunch |
+| A skill file is added or edited in the catalog | engineering-brain-router | structural CI validation; update router evals when routing behavior changes | Assuming metadata checks prove agent quality, or claiming a benchmark without running cases in the target agent |
 
 ## Review checklist
 
@@ -45,5 +47,7 @@ For each run, inspect:
 - Was any skill missing, contradictory, too broad, or unnecessarily loaded?
 
 ## How to use
+
+For recorded evaluation runs, copy [EVAL_RESULTS_TEMPLATE.md](./EVAL_RESULTS_TEMPLATE.md), record the catalog commit and actual observed results, and compare against prior runs. Structural CI checks do not substitute for these behavioral evaluations.
 
 Run these cases manually in the target agent after installing the catalog. Record observed routing and failures before changing instructions. Do not label the catalog “benchmarked” until the cases have actually been executed and results recorded.
