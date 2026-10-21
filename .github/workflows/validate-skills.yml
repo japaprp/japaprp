@@ -3,6 +3,7 @@ name: Validate engineering skills
 on:
   pull_request:
     paths:
+      - "AGENTS.md"
       - "skills/**"
       - "scripts/validate_skills.py"
       - "scripts/run_router_eval.py"
