@@ -112,3 +112,63 @@ Reduzir trabalho manual e tempo de conclusão usando ferramentas gratuitas ou co
 - [ ] Os testes reportam PASS/FAIL/BLOCKED/NOT RUN com evidência real.
 - [ ] Dependências, serviços e APIs têm licença, custo/cota, limitações e alternativa documentados.
 - [ ] Cada projeto mantém seu próprio passaporte e suas próprias credenciais/ambientes.
+
+
+## Engenharia reversa autorizada e reaproveitamento de código aberto
+
+### Regra de entrada
+
+- [ ] Só iniciar engenharia reversa depois de registrar o alvo, o objetivo técnico, a autorização/base legítima e o ambiente de teste.
+- [ ] Priorizar primeiro código-fonte, documentação, changelog, issues, testes, formatos públicos e APIs oficiais; usar análise de binários ou tráfego quando isso for necessário e permitido.
+- [ ] Não usar estas técnicas para roubar credenciais, extrair sessões/cookies, contornar licenças ou DRM, burlar autenticação/pagamento, explorar terceiros ou acessar dados sem autorização.
+- [ ] Não reutilizar código de terceiros sem conferir licença, atribuições, avisos, obrigações de distribuição e compatibilidade com o projeto.
+- [ ] Registrar evidência reproduzível: versão/commit da ferramenta, comandos relevantes sem segredos, hashes de artefatos de teste, observações e limitações.
+- [ ] Tratar tráfego capturado, binários e arquivos desconhecidos como dados não confiáveis; usar sandbox, fixtures sintéticas e dados minimizados.
+- [ ] Nunca guardar payloads com tokens, cookies, dados pessoais ou segredos em issues, commits, logs ou checkpoints; sanitizar antes de compartilhar.
+
+### Catálogo inicial de ferramentas open source a avaliar
+
+| Necessidade | Candidato | Uso possível | Cautela |
+|---|---|---|---|
+| Entender chamadas HTTP/API e WebSockets | [mitmproxy](https://github.com/mitmproxy/mitmproxy) | Inspecionar, gravar e reproduzir tráfego de desenvolvimento autorizado; útil para depurar integrações próprias | Capturas podem conter tokens e dados pessoais; sanitizar e restringir a ambiente autorizado |
+| Analisar binários e engenharia reversa nativa | [Ghidra](https://github.com/NationalSecurityAgency/ghidra) | Inspeção estática e análise de binários próprios ou autorizados | Requer conhecimento técnico; análise dinâmica deve ocorrer em ambiente isolado |
+| Análise de binários e arquitetura | [radare2](https://github.com/radareorg/radare2) | Inspeção, desmontagem e análise de executáveis | Verificar suporte ao formato/arquitetura e validar conclusões |
+| Inspecionar aplicações Android | [JADX](https://github.com/skylot/jadx) | Decompilar DEX/APK para leitura e pesquisa do código recuperável | Código decompilado pode ser incompleto; usar somente apps próprios ou autorizados |
+| Inspecionar e reconstruir recursos de APK | [Apktool](https://github.com/iBotPeaches/Apktool) | Examinar recursos e estrutura de apps Android de teste | Não presumir que reconstruir APK concede direito de redistribuir ou modificar app de terceiros |
+| Encontrar vulnerabilidades conhecidas em dependências | [OSV-Scanner](https://github.com/google/osv-scanner) | Verificar dependências e avisos de vulnerabilidade | Revisar resultados e atualizar em branch de teste; não atualizar produção automaticamente |
+| Gerar inventário de componentes (SBOM) | [Syft](https://github.com/anchore/syft) | Mapear bibliotecas e pacotes presentes em projeto/imagem | Conferir falsos positivos e escopo do inventário |
+| Analisar vulnerabilidades de componentes | [Grype](https://github.com/anchore/grype) | Cruzar SBOM/artefatos com bases de vulnerabilidade | Validar severidade, versão afetada e correção aplicável |
+| Verificar licenças de dependências | [OSV-Scanner — licença](https://github.com/google/osv-scanner/blob/main/docs/license-scanning.md) | Criar inventário e identificar licenças que exigem revisão | Scanner não substitui revisão jurídica das obrigações |
+
+Ferramentas acima são candidatas, não dependências aprovadas automaticamente. Antes de adotar qualquer uma, confirmar repositório oficial, licença vigente, releases, manutenção, requisitos, vulnerabilidades conhecidas, tamanho, compatibilidade com o ambiente e custo operacional.
+
+### Fluxo operacional por projeto
+
+1. [ ] Formular a pergunta concreta (por exemplo: “por que o cliente desconecta?”, “qual formato a API espera?” ou “qual componente causa a incompatibilidade?”).
+2. [ ] Procurar código/documentação públicos e issues existentes antes de instrumentar um sistema.
+3. [ ] Criar branch e fixture mínima reproduzível; manter o alvo de análise isolado.
+4. [ ] Escolher a técnica menos invasiva: leitura do código → testes/logs sanitizados → análise estática → captura autorizada de tráfego → análise de binário, se necessária.
+5. [ ] Separar observações, inferências e hipóteses; não tratar saída de ferramenta como prova conclusiva.
+6. [ ] Criar teste de regressão que demonstre o comportamento antes de alterar a implementação.
+7. [ ] Comparar a solução local com alternativas open source e APIs oficiais; preferir reutilizar componentes bem mantidos quando licença e arquitetura permitirem.
+8. [ ] Fazer revisão de segurança/licença e teste em ambiente isolado antes de propor PR.
+9. [ ] Registrar resultado e próxima decisão no passaporte/checkpoint daquele projeto, sem copiar segredos ou dados de outro projeto.
+
+### Aplicação por tipo de projeto
+
+- **Guerra Infinita:** priorizar leitura do código, logs sanitizados, testes determinísticos e análise autorizada de tráfego para entender autenticação, persistência, desconexões e concorrência. Nunca usar contas/dados de terceiros nem capturar tokens reais para fixtures.
+- **ReservaRP/EventosRP:** estudar máquina de estados, webhooks documentados, idempotência, reconciliação e testes de concorrência; usar payloads sintéticos e não reproduzir pagamentos reais em testes.
+- **Perifa Pro:** investigar codecs, formatos de vídeo, pipelines de upload e bibliotecas de edição; testar em clipes próprios/autorizados e estimar CPU, armazenamento e banda antes de adicionar processamento automático.
+- **Portfolio e sites:** comparar padrões públicos de acessibilidade, animação e layout; reaproveitar bibliotecas somente após avaliar licença, peso e compatibilidade.
+- **Planilhas/Portal RH/Casa Prática:** engenharia reversa de estrutura de arquivo e fluxo de dados deve preservar dados pessoais e links/identificadores privados; usar amostras sintéticas sempre que possível.
+
+### Critério de decisão para incorporar um repositório
+
+- [ ] A licença permite o uso pretendido e as obrigações estão documentadas.
+- [ ] O repositório é oficial ou a origem e os mantenedores são confiáveis.
+- [ ] Há atividade/releases ou justificativa clara para usar um projeto sem manutenção ativa.
+- [ ] Dependências, vulnerabilidades, permissões e comportamento de rede foram revisados.
+- [ ] A ferramenta resolve uma necessidade concreta e não duplica capacidade já disponível.
+- [ ] O impacto em RAM/CPU, armazenamento, tempo de CI e cotas foi avaliado.
+- [ ] Existe teste de aceitação e plano de remoção/rollback.
+- [ ] A adoção fica limitada ao projeto que precisa dela, sem compartilhamento automático de credenciais ou dados.
