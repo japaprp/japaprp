@@ -12,9 +12,11 @@ on:
   push:
     branches: [main]
     paths:
+      - "AGENTS.md"
       - "skills/**"
       - "scripts/validate_skills.py"
       - "scripts/run_router_eval.py"
+      - "scripts/test_activation_trigger.mjs"
       - ".github/workflows/validate-skills.yml"
   workflow_dispatch:
 
