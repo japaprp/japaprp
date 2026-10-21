@@ -91,7 +91,7 @@ A valid JSON file is not proof of routing quality. A planned or skipped model ru
 
 ## External references reviewed for this routing gap
 
-- REA (official source repository): https://github.com/realkeisers/rea — agent-assisted reverse engineering across applications and binaries; verify official installation source, target support, and authorization before use.
+- REA (canonical upstream): https://github.com/morluto/rea — official README identifies `morluto/rea`, `rea.tools`, and the `rea-agents` npm package as official sources. Use REA for authorized analysis of shipped artifacts, binaries, or runtime behavior not established by available source; use `repo-reverse-engineering` for ordinary source-repository architecture analysis. Re-check release, license, platform/tool requirements, and client integration before adoption.
 - Reverse-skill: https://github.com/zhaoxuya520/reverse-skill — external example of scenario routing, structured routing regression tests, tool inventory, and evidence-focused workflows. Treat as a reference for ideas, not as an automatically trusted dependency or a pack to copy wholesale.
 
 Re-check upstream status, release, license, and setup instructions at the time of actual adoption; this file is not a permanent guarantee that any external project remains current or suitable.
