@@ -123,6 +123,7 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
     # Activation and autonomy contracts must match the canonical PR #1 dataset.
     required_cases = {
         "activate-central-new-session": "deus é fiel",
+        "route-deus-e-fiel-multi-project-disambiguation": "deus é fiel",
         "autonomy-routine-work": None,
         "autonomy-impact-boundary": None,
     }
