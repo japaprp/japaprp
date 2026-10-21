@@ -40,6 +40,8 @@ for (const id of [
   'route-deus-e-fiel-multi-project-disambiguation',
   'autonomy-routine-work',
   'autonomy-impact-boundary',
+  'route-rea-vs-source-repository',
+  'route-rea-authorized-shipped-artifact',
 ]) {
   assert.ok(cases.some((item) => item.id === id), `required regression case must exist: ${id}`);
 }
@@ -47,6 +49,17 @@ const activationCase = cases.find((item) => item.id === 'activate-central-new-se
 assert.ok(activationCase.prompt.toLowerCase().includes(trigger.toLowerCase()), 'activation regression prompt must include the trigger');
 assert.equal(activationCase.expected_primary_skill, 'engineering-brain-router',
   'activation must route to the engineering brain router');
+
+const reaBoundaryCases = [
+  ['route-rea-vs-source-repository', 'repo-reverse-engineering'],
+  ['route-rea-authorized-shipped-artifact', 'rea-assisted-analysis'],
+];
+for (const [id, expectedSkill] of reaBoundaryCases) {
+  const testCase = cases.find((item) => item.id === id);
+  assert.ok(testCase, `required REA routing regression case must exist: ${id}`);
+  assert.equal(testCase.expected_primary_skill, expectedSkill,
+    `REA routing regression case ${id} must expect ${expectedSkill}`);
+}
 
 console.log('PASS: activation bootstrap, Copilot repository instructions, and router procedure are present.');
 console.log('PASS: routine autonomy and impact/critical approval boundaries are explicit.');
