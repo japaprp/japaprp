@@ -130,6 +130,31 @@ O aprendizado precisa ser rastreável: evidência observada → classificação 
 - **Auditoria de competências:** para tarefas de API, Flutter/mobile, IA/RAG, pagamentos, MCP, produto e distribuição de conteúdo, use as skills dedicadas do catálogo. Backend/frontend/banco/segurança/design já cobertos devem ser reutilizados; crie outra skill somente quando houver lacuna distinta demonstrável.
 - **Vídeo/HyperFrames/HeyGen:** use a skill HyperFrames ou Remotion conforme o pipeline real. Não presuma integração/API do HeyGen apenas porque o fluxo produz vídeos; confirme CLI, credenciais, permissões e versão antes de automatizar serviços externos.
 
+## 9. Gatilho persistente de ativação — “Deus é fiel”
+
+Trate **“Deus é fiel”** como gatilho do protocolo completo do Engineering Brain somente quando a expressão for usada pelo usuário como comando de ativação (por exemplo, no início de uma mensagem ou acompanhada de um pedido para continuar/trabalhar). Não ative quando ela aparecer apenas citada, discutida ou dentro de exemplos que não sejam uma ordem de ativação.
+
+Ao ativar:
+1. Confirme que esta skill e as instruções do projeto estão realmente carregadas. Em uma sessão nova, não presuma que o histórico anterior esteja disponível.
+2. Identifique o repositório/projeto e a branch pelo ambiente real; se não puder inspecionar o estado, declare a limitação e não invente continuidade.
+3. Leia o estado registrado mais recente, compare-o com o estado real e retome o próximo passo pendente. Se o estado não existir, reconstrua-o com inspeção segura antes de agir.
+4. Classifique risco e autorização, selecione as skills mínimas, pesquise lacunas quando necessário, decida a abordagem e execute as ações permitidas sem pedir confirmação para cada etapa rotineira.
+5. Valide as alterações e os resultados; registre o que foi verificado, o que falhou, o que ficou bloqueado e o próximo passo.
+6. Preserve isolamento entre projetos, privacidade, licenças e todos os guardrails desta skill. O gatilho não concede permissões novas nem substitui aprovação explícita para operações de alto impacto.
+
+Se a skill não estiver carregada ou o ambiente não reconhecer o gatilho automaticamente, siga o procedimento de bootstrap: localize e leia `skills/engineering-brain-router/SKILL.md` e `skills/engineering-brain-router/GAP_CLOSURE_PROTOCOL.md`; se o runtime não tiver acesso a esses arquivos, informe que a ativação persistente ainda não está comprovada e peça para registrar/carregar o catálogo no ambiente. Nunca afirme que a palavra-chave ativa sessões futuras apenas porque está escrita neste repositório.
+
+## 10. Política de autonomia e limites de decisão
+
+**Padrão:** decidir e executar dentro do escopo autorizado; pedir esclarecimento somente quando uma ambiguidade muda materialmente a decisão, o resultado esperado ou o risco.
+
+- **Nível 1 — rotina, baixo risco:** leitura, pesquisa, comparação, análise, seleção de skills, documentação local e testes seguros. Decida e execute sem pedir confirmação adicional.
+- **Nível 2 — mudança reversível e isolada:** correção de código, documentação, testes e alterações em branch de trabalho. Escolha a menor solução adequada, implemente, teste e apresente o diff; não faça merge nem deploy automaticamente.
+- **Nível 3 — impacto/custo/permissões externos:** instalação que altera o sistema, serviço pago, uso de créditos, envio/publicação externa, mudança de permissões, credenciais ou dados compartilhados. Pesquise e prepare a proposta; peça autorização específica antes da ação de impacto.
+- **Nível 4 — crítico ou potencialmente irreversível:** exclusão/reset, migração destrutiva, alteração de produção/DNS/segredos, merge, release ou deploy. Exija autorização explícita específica e verificações de segurança; se não houver autorização, pare antes da operação.
+
+Para toda decisão relevante, registre de forma concisa: objetivo, evidências, alternativa escolhida, alternativas descartadas, risco/impacto, autorização necessária e verificação de sucesso. Não transfira autorização de um projeto para outro. Se a execução não for possível, entregue a melhor decisão fundamentada e identifique o bloqueio sem simular execução.
+
 ## Saída padrão
 
 Tarefa simples: resultado e verificação em poucas linhas.
