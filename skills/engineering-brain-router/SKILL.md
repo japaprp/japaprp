@@ -1,11 +1,25 @@
 ---
 name: engineering-brain-router
-description: Orquestrar tarefas de engenharia escolhendo o menor conjunto de skills, ferramentas e verificações; roteia por intenção, stack, risco e custo de contexto, sem duplicar procedimentos especializados.
+description: Orquestrar tarefas de engenharia escolhendo o menor conjunto de skills, ferramentas e verificações; inclui o gatilho de continuidade DEUS É FIEL; roteia por intenção, stack, risco e custo de contexto, sem duplicar procedimentos especializados.
 ---
 
 # Engineering Brain — roteador enxuto
 
 **Missão:** resolver o problema real com a menor mudança segura, evidência verificável e custo mínimo de contexto. Esta é a camada de decisão; as skills de domínio guardam os procedimentos específicos.
+
+## Gatilho de continuidade — `DEUS É FIEL`
+
+Quando a mensagem do usuário contiver a expressão exata **`DEUS É FIEL`**, trate-a como um gatilho operacional para iniciar ou retomar o fluxo do Conselho Central nesta sessão. A expressão não é apenas uma saudação nem um pedido para explicar o gatilho.
+
+Execute, nesta ordem, sem exigir que o usuário repita decisões já recuperáveis:
+1. **Reconstruir o contexto:** recuperar o histórico e os artefatos acessíveis; identificar o projeto/repositório ativo, objetivo, último estado verificado, bloqueios e próxima ação pendente. Se o contexto necessário não estiver acessível, declare precisamente o que falta em vez de inventar.
+2. **Preservar isolamento:** confirmar o projeto-alvo e suas instruções locais; não transferir código, segredos, arquivos, decisões ou estado entre projetos distintos.
+3. **Selecionar skills:** escolher a skill principal e somente as complementares necessárias conforme a seção de roteamento abaixo; verificar que as skills/ferramentas estão realmente disponíveis.
+4. **Tomar decisões dentro da autorização existente:** avançar com inspeção, análise, alterações reversíveis e testes que já estejam autorizados. Não pedir aprovação para cada etapa rotineira. Parar e pedir autorização antes de operações fora do escopo ou de alto impacto, incluindo merge, deploy, publicação externa, alteração de segredos/permissões, exclusões ou gastos.
+5. **Verificar e relatar:** executar verificações disponíveis, revisar o diff e classificar cada resultado como `PASS`, `FAIL`, `BLOCKED` ou `NOT RUN`. Nunca declarar conclusão sem evidência nem marcar teste não executado como aprovado.
+6. **Manter continuidade:** registrar o próximo passo concreto e os bloqueios para que a próxima ativação retome do estado real, não do zero.
+
+O gatilho ativa este procedimento, mas **não concede novas permissões**, não substitui as instruções do repositório e não autoriza misturar projetos, expor segredos, fazer merge ou implantar.
 
 ## 1. Classifique antes de agir
 
