@@ -6,12 +6,16 @@ import { dirname, resolve } from 'node:path';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const trigger = 'Deus é fiel';
 const bootstrap = readFileSync(resolve(root, 'AGENTS.md'), 'utf8');
+const copilotInstructions = readFileSync(resolve(root, '.github/copilot-instructions.md'), 'utf8');
 const skill = readFileSync(resolve(root, 'skills/engineering-brain-router/SKILL.md'), 'utf8');
 const protocol = readFileSync(resolve(root, 'skills/engineering-brain-router/GAP_CLOSURE_PROTOCOL.md'), 'utf8');
 const testPlan = readFileSync(resolve(root, 'skills/tests/ACTIVATION_AUTONOMY_TESTS.md'), 'utf8');
 const dataset = JSON.parse(readFileSync(resolve(root, 'skills/tests/router-eval-cases.json'), 'utf8'));
 
-assert.ok(bootstrap.includes(trigger), 'repository bootstrap must expose the activation phrase');
+assert.ok(bootstrap.toLowerCase().includes(trigger.toLowerCase()), 'repository bootstrap must expose the activation phrase');
+assert.ok(copilotInstructions.toLowerCase().includes(trigger.toLowerCase()), 'Copilot repository instructions must expose the activation phrase');
+assert.match(copilotInstructions, /grants no new permissions/i, 'Copilot instructions must preserve authorization boundaries');
+assert.match(copilotInstructions, /do not merge, deploy/i, 'Copilot instructions must preserve merge/deploy boundaries');
 assert.match(bootstrap, /Read `skills\/engineering-brain-router\/SKILL\.md` and `skills\/engineering-brain-router\/GAP_CLOSURE_PROTOCOL\.md`/i,
   'bootstrap must instruct the agent to load the router and gap-closure protocol');
 assert.match(skill, /Gatilho persistente de ativação/i, 'router must define the activation procedure');
@@ -44,7 +48,7 @@ assert.ok(activationCase.prompt.toLowerCase().includes(trigger.toLowerCase()), '
 assert.equal(activationCase.expected_primary_skill, 'engineering-brain-router',
   'activation must route to the engineering brain router');
 
-console.log('PASS: activation bootstrap and router procedure are present.');
+console.log('PASS: activation bootstrap, Copilot repository instructions, and router procedure are present.');
 console.log('PASS: routine autonomy and impact/critical approval boundaries are explicit.');
 console.log('PASS: fresh-session, autonomy, and approval-boundary test plans exist.');
 console.log('PASS: activation, multi-project isolation, and autonomy regression cases exist with unique IDs.');
