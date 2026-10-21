@@ -36,6 +36,10 @@ Use these scenarios after changing the router or the skill catalog. These are ex
 | A multi-file change needs a plan, verifiable acceptance criteria and a post-task learning note | engineering-brain-router | testing-regression-quality when executable checks are relevant | Treating the plan as proof, marking unrun tests as PASS, or changing general skills based on an unsupported hunch |
 | A skill file is added or edited in the catalog | engineering-brain-router | structural CI validation; update router evals when routing behavior changes | Assuming metadata checks prove agent quality, or claiming a benchmark without running cases in the target agent |
 
+| User asks to find open-source code that could solve a concrete project problem | repo-reverse-engineering | Domain skill (e.g. API/security/video) only when needed | Blindly adopting a repository without license, maintenance, dependency, security or cost review |
+| User asks to reverse engineer an app/protocol/binary they own or are authorized to inspect | rea-assisted-analysis | repo-reverse-engineering for source-code mapping; security/testing only when relevant | Proceeding without confirmed scope, capturing secrets, bypassing access controls, treating static analysis as runtime proof, or changing system configuration without approval |
+| User asks how to consume a documented public API | public-api-integration | api-engineering-contracts only when designing their own API too | Unnecessarily reverse engineering a documented API, ignoring official terms/rate limits, or exposing credentials |
+
 ## Machine-readable regression dataset
 
 The structured dataset is [router-eval-cases.json](./router-eval-cases.json). It records prompts, expected primary skill, risk, prohibited failure modes and acceptance checks. The CI validator checks schema, unique IDs and that each expected skill exists. This is dataset integrity validation only; a model must still be run against the cases to measure actual behavior.
