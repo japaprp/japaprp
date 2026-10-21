@@ -170,6 +170,25 @@
         "propose the smallest evidence-backed change",
         "add or update a regression case"
       ]
+    },
+    {
+      "id": "route-open-source-reverse-engineering",
+      "prompt": "Investigate an unfamiliar public open-source repository to understand how a feature works. First determine whether existing local skills and tools cover the task; research trustworthy upstream references if a capability gap remains. Do not modify the target repository.",
+      "expected_primary_skill": "repo-reverse-engineering",
+      "risk": "medium",
+      "must_avoid": [
+        "assuming an external skill or tool is installed without checking",
+        "copying an entire external skill collection or adopting unverified instructions",
+        "modifying the target repository or installing tools without authorization",
+        "claiming runtime behavior from static inspection alone"
+      ],
+      "acceptance": [
+        "inspect repository instructions, entrypoints, dependencies and relevant execution path",
+        "search local skills first and use authoritative upstream documentation or source repositories to close demonstrated gaps",
+        "record source links, license/compatibility considerations and what remains unknown",
+        "select rea-assisted-analysis only when the target and authorized analysis scope warrant it",
+        "separate observed facts, inferences and unknowns, and propose a minimal regression case for any confirmed routing gap"
+      ]
     }
   ]
 }
