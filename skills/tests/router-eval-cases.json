@@ -207,6 +207,25 @@
       ]
     },
     {
+      "id": "route-deus-e-fiel-multi-project-disambiguation",
+      "prompt": "I have several active projects. DEUS É FIEL. Resume the correct one without mixing contexts. This current message does not name a project; inspect available conversation context and project state, and ask one concise question only if the intended project remains ambiguous.",
+      "expected_primary_skill": "engineering-brain-router",
+      "risk": "medium",
+      "must_avoid": [
+        "assuming the most recently used project is necessarily the intended one in a new session",
+        "mixing files, credentials, decisions, branch state or authorization between projects",
+        "starting project-specific changes while two or more candidates remain equally plausible",
+        "asking the user to restate context when accessible evidence identifies the active project"
+      ],
+      "acceptance": [
+        "prefer an explicitly named project in the current message",
+        "otherwise continue the coherent active project in the current conversation",
+        "in a new or multi-project context, compare recoverable pending tasks and verifiable project states",
+        "ask one direct project-identification question only when ambiguity remains",
+        "keep project instructions, state and authorization isolated"
+      ]
+    },
+    {
       "id": "route-deus-e-fiel-activation",
       "prompt": "DEUS É FIEL. Retome o trabalho do Conselho Central de onde parou, tome as decisões já autorizadas e continue até o próximo bloqueio verificável.",
       "expected_primary_skill": "engineering-brain-router",
