@@ -119,7 +119,7 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
         for field in ("must_avoid", "acceptance"):
             if not isinstance(case[field], list) or not case[field] or not all(isinstance(v, str) and v.strip() for v in case[field]):
                 errors.append(f"{prefix}: {field} must be a non-empty array of strings")
-    # The activation phrase is a routing contract, not merely an example prompt.
+    # The activation phrase and multi-project disambiguation are routing contracts.
     activation_case = next((case for case in cases if isinstance(case, dict) and case.get("id") == "route-deus-e-fiel-activation"), None)
     if activation_case is None:
         errors.append("router eval dataset: missing route-deus-e-fiel-activation regression case")
@@ -128,6 +128,15 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
             errors.append("activation regression case: prompt must contain the exact trigger 'DEUS É FIEL'")
         if activation_case.get("expected_primary_skill") != "engineering-brain-router":
             errors.append("activation regression case: expected_primary_skill must be engineering-brain-router")
+
+    multi_project_case = next((case for case in cases if isinstance(case, dict) and case.get("id") == "route-deus-e-fiel-multi-project-disambiguation"), None)
+    if multi_project_case is None:
+        errors.append("router eval dataset: missing route-deus-e-fiel-multi-project-disambiguation regression case")
+    else:
+        if "DEUS É FIEL" not in multi_project_case.get("prompt", ""):
+            errors.append("multi-project regression case: prompt must contain the exact trigger 'DEUS É FIEL'")
+        if multi_project_case.get("expected_primary_skill") != "engineering-brain-router":
+            errors.append("multi-project regression case: expected_primary_skill must be engineering-brain-router")
 
     router_path = SKILLS_DIR / "engineering-brain-router" / "SKILL.md"
     if not router_path.is_file():
@@ -139,6 +148,10 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
             "DEUS É FIEL",
             "## Gatilho de continuidade",
             "Reconstruir o contexto",
+            "Prioridade 1: se a mensagem atual nomear explicitamente um projeto",
+            "Prioridade 2: se não houver nome explícito",
+            "Prioridade 3: se a mensagem abrir uma nova sessão ou mencionar vários trabalhos",
+            "faça uma única pergunta direta",
             "Preservar isolamento",
             "Selecionar skills",
             "Tomar decisões dentro da autorização existente",
