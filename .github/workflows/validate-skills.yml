@@ -7,6 +7,7 @@ on:
       - "skills/**"
       - "scripts/validate_skills.py"
       - "scripts/run_router_eval.py"
+      - "scripts/test_activation_trigger.mjs"
       - ".github/workflows/validate-skills.yml"
   push:
     branches: [main]
@@ -37,3 +38,7 @@ jobs:
         run: python -m py_compile scripts/run_router_eval.py
       - name: Smoke-test local runner and dataset loading
         run: python scripts/run_router_eval.py --list
+      - name: Check activation regression script syntax
+        run: node --check scripts/test_activation_trigger.mjs
+      - name: Run deterministic activation regression
+        run: node scripts/test_activation_trigger.mjs
