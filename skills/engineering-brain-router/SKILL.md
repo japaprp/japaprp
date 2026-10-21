@@ -12,7 +12,11 @@ description: Orquestrar tarefas de engenharia escolhendo o menor conjunto de ski
 Quando a mensagem do usuário contiver a expressão exata **`DEUS É FIEL`**, trate-a como um gatilho operacional para iniciar ou retomar o fluxo do Conselho Central nesta sessão. A expressão não é apenas uma saudação nem um pedido para explicar o gatilho.
 
 Execute, nesta ordem, sem exigir que o usuário repita decisões já recuperáveis:
-1. **Reconstruir o contexto:** recuperar o histórico e os artefatos acessíveis; identificar o projeto/repositório ativo, objetivo, último estado verificado, bloqueios e próxima ação pendente. Se o contexto necessário não estiver acessível, declare precisamente o que falta em vez de inventar.
+1. **Reconstruir o contexto e desambiguar o projeto:** recuperar o histórico e os artefatos acessíveis; identificar o projeto/repositório ativo, objetivo, último estado verificado, bloqueios e próxima ação pendente.
+   - Prioridade 1: se a mensagem atual nomear explicitamente um projeto, use esse projeto.
+   - Prioridade 2: se não houver nome explícito, continue o projeto ativo e coerente com a conversa atual.
+   - Prioridade 3: se a mensagem abrir uma nova sessão ou mencionar vários trabalhos, compare os contextos recuperáveis, a última tarefa pendente e o estado verificável de cada projeto; não escolha só porque um projeto foi usado mais recentemente em outra conversa.
+   - Se dois ou mais projetos continuarem igualmente plausíveis, faça uma única pergunta direta para identificar o projeto antes de executar alterações específicas. Não invente contexto nem misture trabalhos.
 2. **Preservar isolamento:** confirmar o projeto-alvo e suas instruções locais; não transferir código, segredos, arquivos, decisões ou estado entre projetos distintos.
 3. **Selecionar skills:** escolher a skill principal e somente as complementares necessárias conforme a seção de roteamento abaixo; verificar que as skills/ferramentas estão realmente disponíveis.
 4. **Tomar decisões dentro da autorização existente:** avançar com inspeção, análise, alterações reversíveis e testes que já estejam autorizados. Não pedir aprovação para cada etapa rotineira. Parar e pedir autorização antes de operações fora do escopo ou de alto impacto, incluindo merge, deploy, publicação externa, alteração de segredos/permissões, exclusões ou gastos.
