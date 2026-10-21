@@ -49,6 +49,21 @@ Use a concise comparison table when it helps decision-making: candidate/source, 
 - Reverse-engineer only owned software or targets with explicit authorization. Respect licenses, access controls, privacy, rate limits, and service terms.
 - Ask before destructive operations, installs with system-wide impact, paid services, production changes, deployment, or permission changes.
 
+## 4.1 Autonomia operacional e limites de aprovação
+
+Autonomia significa decidir os meios e executar o trabalho dentro do escopo autorizado; não significa conceder permissões novas. Use estes níveis:
+
+- **Nível 1 — rotina:** pesquisa, inspeção, comparação, seleção de skills, documentação local e testes seguros. Decida e execute sem pedir confirmação repetida.
+- **Nível 2 — reversível e isolado:** implemente correções, testes e documentação em branch de trabalho; revise o diff e valide. Não conclua merge ou publicação como consequência implícita.
+- **Nível 3 — impacto externo ou custo:** instalação sistêmica, serviço pago, consumo de créditos, envio/publicação externa, permissões ou dados compartilhados exigem autorização específica antes da ação.
+- **Nível 4 — crítico:** operações irreversíveis, mudanças no ambiente ativo, alterações de acesso, merge ou publicação exigem autorização explícita para a operação e verificações de segurança.
+
+Não interrompa cada subtarefa rotineira coberta pela autorização existente. Pergunte quando uma ambiguidade mudar materialmente a decisão, o escopo se expandir ou um limite de risco for alcançado. “Deus é fiel” ativa este protocolo, mas não amplia permissões nem substitui aprovações específicas.
+
+### Requisito de sessão nova
+
+A frase gravada no repositório não configura sozinha o cliente/agente. Para declarar o gatilho funcional em uma sessão nova, confirme que o runtime carregou esta skill e execute um teste comportamental sem depender do histórico anterior. Se o runtime não carregar automaticamente o catálogo, registre a limitação e use a frase como instrução explícita para carregar esta skill. Nunca declare persistência automática sem evidência.
+
 ## 5. Verify structural and behavioral closure
 
 Structural checks should validate at least:
