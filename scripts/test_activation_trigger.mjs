@@ -33,6 +33,7 @@ const ids = cases.map((item) => item.id);
 assert.equal(new Set(ids).size, ids.length, 'routing eval case IDs must be unique');
 for (const id of [
   'activate-central-new-session',
+  'route-deus-e-fiel-multi-project-disambiguation',
   'autonomy-routine-work',
   'autonomy-impact-boundary',
 ]) {
@@ -46,5 +47,5 @@ assert.equal(activationCase.expected_primary_skill, 'engineering-brain-router',
 console.log('PASS: activation bootstrap and router procedure are present.');
 console.log('PASS: routine autonomy and impact/critical approval boundaries are explicit.');
 console.log('PASS: fresh-session, autonomy, and approval-boundary test plans exist.');
-console.log('PASS: activation and multi-project regression cases exist with unique IDs.');
+console.log('PASS: activation, multi-project isolation, and autonomy regression cases exist with unique IDs.');
 console.log('LIMIT: deterministic structural regression only; fresh-session runtime behavior is not proven.');
