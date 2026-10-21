@@ -67,7 +67,9 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - REA / análise assistida autorizada → rea-assisted-analysis.
 - Eficiência de IA/contexto → ai-token-budget.
 - Pessoa iniciante, stack desconhecida ou não sabe qual skill escolher → skill-onboarding-profiler para entrevista simples e recomendações explicadas; não presumir tecnologias.
-- Skills novas → primeiro identificar lacuna real, sobreposição e teste de utilidade; não criar por popularidade.
+- Engenharia reversa / descoberta de código aberto → `repo-reverse-engineering` para repositório-fonte e arquitetura; `rea-assisted-analysis` para análise estática/dinâmica autorizada de aplicações, artefatos ou binários; segurança apenas se o escopo envolver controles de acesso ou risco real. Verifique fontes oficiais e licenças antes de adotar ferramentas externas.
+- Lacuna de skill, ferramenta, procedimento ou avaliação → seguir `GAP_CLOSURE_PROTOCOL.md`: pesquisar primeiro o catálogo local e fontes públicas confiáveis, comparar alternativas, testar se a capacidade já existe, reutilizar/ajustar skill existente quando suficiente e só criar uma nova skill se a lacuna for distinta e demonstrável.
+- Skills novas → nunca criar por popularidade ou ausência presumida; pesquisar, registrar fontes/licença/limitações, definir critérios de aceitação e adicionar regressão para cada lacuna de roteamento confirmada.
 
 ## 5. Memória técnica por projeto
 
@@ -92,6 +94,8 @@ Atualize o resumo apenas depois de confirmar a mudança. Diferencie estado atual
 
 ## 7. Melhoria contínua com evidência
 
+- Quando uma capacidade necessária estiver ausente ou incerta, não deixe a tarefa vaga: aplique `GAP_CLOSURE_PROTOCOL.md` para pesquisar, comparar, decidir e fechar a lacuna com uma mudança mínima revisável.
+- Toda nova categoria de roteamento identificada deve receber ao menos um caso de regressão positivo e casos negativos/limítrofes quando houver risco de confusão; valide a integridade do dataset e execute a avaliação comportamental no agente-alvo quando possível.
 - Só proponha alterar uma skill quando uma lacuna real for observada, uma regra falhar repetidamente ou um conflito entre instruções for demonstrado.
 - Antes de adicionar conteúdo, procure a regra equivalente e melhore a fonte única de verdade; prefira consolidar a criar outra skill.
 - Preserve instruções gerais no roteador e conhecimento especializado na skill de domínio.
