@@ -37,6 +37,7 @@ Use these scenarios after changing the router or the skill catalog. These are ex
 | A skill file is added or edited in the catalog | engineering-brain-router | structural CI validation; update router evals when routing behavior changes | Assuming metadata checks prove agent quality, or claiming a benchmark without running cases in the target agent |
 | User asks to reverse-engineer an unfamiliar public open-source repository and close missing capability gaps | repo-reverse-engineering | rea-assisted-analysis only for authorized app/binary/static-runtime analysis; security/tests as needed | Assuming tools are installed, copying external skill packs wholesale, modifying target without authorization, or claiming unobserved runtime behavior |
 | A required skill/tool/procedure is missing or uncertain | engineering-brain-router | the relevant domain skill after discovery | Stopping at “not found,” inventing capabilities, adding redundant skills, or claiming certainty without evidence |
+| User asks for the leading skills/tools in a category | engineering-brain-router | repo-reverse-engineering or the relevant domain skill after selecting a candidate | Choosing the first result, inventing downloads/rankings, equating stars with quality, or skipping license/maintenance/compatibility checks |
 
 ## Machine-readable regression dataset
 
