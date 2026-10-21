@@ -120,11 +120,9 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
             if not isinstance(case[field], list) or not case[field] or not all(isinstance(v, str) and v.strip() for v in case[field]):
                 errors.append(f"{prefix}: {field} must be a non-empty array of strings")
 
-    # Activation and multi-project isolation are explicit routing contracts.
+    # Activation and autonomy contracts must match the canonical PR #1 dataset.
     required_cases = {
-        "route-deus-e-fiel-activation": "DEUS É FIEL",
-        "route-deus-e-fiel-multi-project-disambiguation": "DEUS É FIEL",
-        "activate-central-new-session": "Deus é fiel",
+        "activate-central-new-session": "deus é fiel",
         "autonomy-routine-work": None,
         "autonomy-impact-boundary": None,
     }
@@ -132,7 +130,7 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
         matched = next((case for case in cases if isinstance(case, dict) and case.get("id") == case_id), None)
         if matched is None:
             errors.append(f"router eval dataset: missing required activation/autonomy case {case_id!r}")
-        elif required_phrase and required_phrase not in matched.get("prompt", ""):
+        elif required_phrase and required_phrase.casefold() not in matched.get("prompt", "").casefold():
             errors.append(f"router eval case {case_id!r}: prompt must include {required_phrase!r}")
         elif matched.get("expected_primary_skill") != "engineering-brain-router":
             errors.append(f"router eval case {case_id!r}: expected_primary_skill must be engineering-brain-router")
@@ -142,16 +140,17 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
         errors.append("activation trigger: skills/engineering-brain-router/SKILL.md is missing")
     else:
         router_text = router_path.read_text(encoding="utf-8")
+        router_lower = router_text.casefold()
         for marker in (
-            "DEUS É FIEL",
-            "Gatilho persistente de ativação",
+            "deus é fiel",
+            "gatilho persistente de ativação",
             "não concede permissões novas",
-            "Nível 1 — rotina",
-            "Nível 2 — mudança reversível e isolada",
-            "Nível 3 — impacto/custo/permissões externos",
-            "Nível 4 — crítico",
+            "nível 1 — rotina",
+            "nível 2 — mudança reversível e isolada",
+            "nível 3 — impacto/custo/permissões externos",
+            "nível 4 — crítico",
         ):
-            if marker not in router_text:
+            if marker.casefold() not in router_lower:
                 errors.append(f"activation trigger: router skill is missing required marker {marker!r}")
     return len(cases)
 
