@@ -20,6 +20,14 @@ REA supports different analysis depths depending on target type and installed pr
 5. Identify optional dependencies such as Hopper, Ghidra, IDA, or target-specific tools. Do not install or change system-wide configuration without approval.
 6. Work on a copy or isolated test environment when modifying a sample is necessary.
 
+## Fit and evidence discipline
+
+- **Do not use REA by default for a complete source repository.** Start with `repo-reverse-engineering` and ordinary source/search/test tools. Choose REA when the question depends on a shipped package or binary, decompilation, authorized runtime observation, or behavior not established by available source.
+- **Start summary-first.** Request a bounded overview or summary when target size is unknown; expand only to answer a named question. Reuse retained evidence/session references when the tool exposes them. Do not repeat an identical analysis unless the input changed or a specific blocker was resolved.
+- **Treat previews as potentially incomplete.** If a client truncates a tool result, do not parse the preview as the complete canonical record. Use a supported focused view/page or export mechanism when available; otherwise report the limitation.
+- **Tie conclusions to evidence.** Preserve artifact identity (for example, path/version/hash when available), evidence IDs or exact source locations, the scope searched, and remaining unknowns. Distinguish direct static observations, runtime observations, and inferences; static analysis alone does not prove runtime behavior.
+- **Keep the investigation bounded.** Maintain a short checklist of questions and required evidence; mark each answered, partial, or unresolved. Avoid claiming the whole target was covered when only selected modules, records, or paths were inspected.
+
 ## Investigation loop
 
 ### 1. Form a narrow question
