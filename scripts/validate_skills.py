@@ -119,6 +119,36 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
         for field in ("must_avoid", "acceptance"):
             if not isinstance(case[field], list) or not case[field] or not all(isinstance(v, str) and v.strip() for v in case[field]):
                 errors.append(f"{prefix}: {field} must be a non-empty array of strings")
+    # The activation phrase is a routing contract, not merely an example prompt.
+    activation_case = next((case for case in cases if isinstance(case, dict) and case.get("id") == "route-deus-e-fiel-activation"), None)
+    if activation_case is None:
+        errors.append("router eval dataset: missing route-deus-e-fiel-activation regression case")
+    else:
+        if "DEUS É FIEL" not in activation_case.get("prompt", ""):
+            errors.append("activation regression case: prompt must contain the exact trigger 'DEUS É FIEL'")
+        if activation_case.get("expected_primary_skill") != "engineering-brain-router":
+            errors.append("activation regression case: expected_primary_skill must be engineering-brain-router")
+
+    router_path = SKILLS_DIR / "engineering-brain-router" / "SKILL.md"
+    if not router_path.is_file():
+        errors.append("activation trigger: skills/engineering-brain-router/SKILL.md is missing")
+    else:
+        router_text = router_path.read_text(encoding="utf-8")
+        required_markers = (
+            "description:",
+            "DEUS É FIEL",
+            "## Gatilho de continuidade",
+            "Reconstruir o contexto",
+            "Preservar isolamento",
+            "Selecionar skills",
+            "Tomar decisões dentro da autorização existente",
+            "Verificar e relatar",
+            "Manter continuidade",
+            "não concede novas permissões",
+        )
+        for marker in required_markers:
+            if marker not in router_text:
+                errors.append(f"activation trigger: router skill is missing required marker {marker!r}")
     return len(cases)
 
 
