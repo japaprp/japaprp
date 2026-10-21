@@ -189,6 +189,26 @@
         "select rea-assisted-analysis only when the target and authorized analysis scope warrant it",
         "separate observed facts, inferences and unknowns, and propose a minimal regression case for any confirmed routing gap"
       ]
+    },
+    {
+      "id": "route-rank-category-leaders",
+      "prompt": "Find a skill/tool for category X. Compare leading candidates across GitHub and relevant public registries/communities, using current adoption/download/rank signals where actually published. Choose the best fit for the task; do not modify the project or install anything.",
+      "expected_primary_skill": "engineering-brain-router",
+      "risk": "medium",
+      "must_avoid": [
+        "choosing the first search result without comparing credible alternatives",
+        "inventing downloads, rankings, or community consensus",
+        "equating GitHub stars with downloads or technical quality",
+        "adopting a popular tool without checking maintenance, license, compatibility, security, and fit",
+        "installing tools or modifying the project without authorization"
+      ],
+      "acceptance": [
+        "define the capability category and compare a defensible shortlist of leading candidates",
+        "record observation date and link primary sources for available stars/forks, downloads, releases/activity, and category ranking",
+        "mark unavailable or non-comparable metrics as unknown rather than guessing",
+        "separate popularity, maintenance, security, and task fit in the decision",
+        "explain selection and rejected alternatives, then propose the smallest safe next step"
+      ]
     }
   ]
 }
