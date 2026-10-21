@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "AGENTS.md"
+      - ".github/copilot-instructions.md"
       - "skills/**"
       - "scripts/validate_skills.py"
       - "scripts/run_router_eval.py"
