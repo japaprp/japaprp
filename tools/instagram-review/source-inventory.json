@@ -12,12 +12,12 @@
         },
         {
           "path": "skills/ig-caption/caption.py",
-          "git_blob_sha": "SOURCE_BLOB_SHA_RECORDED_DURING_RETRIEVAL",
+          "git_blob_sha": "b53780779f08461260502172ed2e45ad7bc6998f",
           "local_copy": "tools/instagram-review/caption.py"
         },
         {
           "path": "skills/ig-reel/hookscore.py",
-          "git_blob_sha": "SOURCE_BLOB_SHA_RECORDED_DURING_RETRIEVAL",
+          "git_blob_sha": "c5299c59687070dc9b22561dcf3842908f204d96",
           "local_copy": "tools/instagram-review/hookscore_instagram.py"
         }
       ],
