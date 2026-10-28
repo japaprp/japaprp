@@ -78,3 +78,28 @@ The consolidation is ready for implementation only after CSD-02 through CSD-08 h
 - Scope limitation: these are tested helper modules and test fixtures, not yet wired into a production/runtime router or a full content-generation agent. Brand isolation test verifies the selector contract, not every downstream model prompt or external app.
 - Dependency result: the reviewed Python copies use only allowlisted Python standard-library imports; the static scan found no disallowed imports or flagged operation tokens. This is not a complete software supply-chain audit of the full upstream repositories, their Claude skill instructions, or future versions.
 - No external packages were installed. No Instagram accounts, tokens, API, posting, scheduling, or messaging were accessed.
+
+
+## Follow-up: canonical routing, synthetic brand isolation, dependency inventory (2026-10-28)
+
+### Canonical routing
+- Added Instagram/content selection rules to `skills/engineering-brain-router/SKILL.md`, which is the single source of truth.
+- `tools/instagram-review/routing.py` remains a deterministic regression oracle only; it is not represented as wired into a production runtime.
+- The workflow trigger now includes changes to the canonical router and this evidence document.
+
+### Synthetic end-to-end isolation
+- Extended `brand_context.py` with `build_brand_payload`, which rejects fields outside the allowlist for the explicitly selected brand.
+- Added synthetic payload tests for Casa Prática OFC and Instância Renascer Belvedere, cross-brand field injection rejection, unknown-brand rejection, and non-mutation of canonical profiles.
+- These tests validate the local payload boundary; they do not prove isolation in every future prompt, conversation history, or external integration.
+
+### Dependency and license review
+- Added `source-inventory.json` pinning exact Git blob SHAs for reviewed source copies, local copy paths, and their license files.
+- Preserved MIT license text for both upstream repositories in separate files.
+- Recursive Git tree inspection found no repository-root `package.json`, `pyproject.toml`, `requirements*.txt`, `Pipfile*`, `poetry.lock`, or `uv.lock` in this branch. The added review copies require only Python standard-library imports; no third-party package was installed.
+- Static AST/import and risky-token scan is intentionally scoped to `tools/instagram-review/*.py`. This is not a complete SCA/CVE scan, does not audit every upstream skill instruction/script, and is not a security sandbox.
+- Source version pinning uses immutable blob SHAs rather than upstream release tags/full repository commit SHAs; this is explicit in the inventory.
+
+### CI and review status
+- Regression suite expanded to 20 tests across hook score equivalence, Reel baselines/output paths, Portuguese caption checks, canonical routing documentation, synthetic brand isolation, license files and source inventory.
+- Final workflow for the latest code commit must finish successfully before this PR can be considered test-verified. A successful earlier run is not substituted for a run on the final HEAD.
+- PR remains draft/open; no merge, deployment, account connection, scheduling, or publication was performed.
