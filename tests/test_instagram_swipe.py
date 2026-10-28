@@ -51,7 +51,7 @@ class SwipeRegressionTests(unittest.TestCase):
             output_path = Path(tmp) / "swipe.md"
             input_path.write_text("account\tfollowers\tviews\thook\n@conta\t100\t300\tComo economizar hoje\n", encoding="utf-8")
             completed = subprocess.run(
-                [sys.executable, str(SCRIPT), str(input_path), "--out", str(output_path), "--json"],
+                [sys.executable, str(SCRIPT), str(input_path), "--out", "swipe.md", "--json"],
                 capture_output=True, text=True, cwd=tmp, check=False,
             )
             self.assertEqual(completed.returncode, 0, completed.stderr)
