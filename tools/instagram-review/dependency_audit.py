@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW_DIR = ROOT / "tools" / "instagram-review"
 STDLIB_ALLOWED = {
-    "argparse", "json", "os", "re", "statistics", "sys", "textwrap",
+    "argparse", "dataclasses", "json", "os", "pathlib", "re", "statistics", "sys", "textwrap",
 }
 FORBIDDEN_IMPORT_ROOTS = {
     "requests", "httpx", "urllib3", "aiohttp", "socket", "webbrowser",
