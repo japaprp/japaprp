@@ -64,5 +64,5 @@ The consolidation is ready for implementation only after CSD-02 through CSD-08 h
 - Corrected baseline consistency: when any Reel has a median baseline, rows without a median are left unranked instead of silently switching to follower count.
 - Corrected output path handling: `--out swipe.md` no longer attempts to create an empty parent directory; file writes use a context manager.
 - Added 8 unit tests for mixed/missing/zero baselines, output paths, Portuguese caption parsing/link handling, and hook-score equivalence.
-- GitHub Actions run #9: **SUCCESS**; job `swipe-regression` completed successfully for commit `9e75bce646c18448b85612f19a37bc5a5d582abd`.
+- GitHub Actions run #13: **SUCCESS**; job `swipe-regression` completed successfully for commit `50696611c77a13e96c0821ed0d230e95077597cb`, including the regression test using a bare relative output filename.
 - This is a successful isolated regression run, not a full integration, runtime routing test, live Instagram test, or brand-isolation proof.
