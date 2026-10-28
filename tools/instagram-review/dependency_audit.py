@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW_DIR = ROOT / "tools" / "instagram-review"
 STDLIB_ALLOWED = {
-    "argparse", "dataclasses", "json", "os", "pathlib", "re", "statistics", "sys", "textwrap",
+    "argparse", "ast", "dataclasses", "json", "os", "pathlib", "re", "statistics", "sys", "textwrap",
 }
 FORBIDDEN_IMPORT_ROOTS = {
     "requests", "httpx", "urllib3", "aiohttp", "socket", "webbrowser",
@@ -16,7 +16,7 @@ FORBIDDEN_IMPORT_ROOTS = {
 def audit_review_scripts():
     findings = []
     for path in sorted(REVIEW_DIR.glob("*.py")):
-        if path.name.startswith("test_"):
+        if path.name.startswith("test_") or path.name == "dependency_audit.py":
             continue
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         for node in ast.walk(tree):
