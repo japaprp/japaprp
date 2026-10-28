@@ -118,5 +118,64 @@ class CaptionAndHookScoreTests(unittest.TestCase):
                 self.assertEqual(ig_flags, vir_flags)
 
 
+ROUTER_SCRIPT = ROOT / "tools" / "instagram-review" / "routing.py"
+ROUTER_SPEC = importlib.util.spec_from_file_location("review_routing", ROUTER_SCRIPT)
+router = importlib.util.module_from_spec(ROUTER_SPEC)
+sys.modules[ROUTER_SPEC.name] = router
+ROUTER_SPEC.loader.exec_module(router)
+
+BRAND_SCRIPT = ROOT / "tools" / "instagram-review" / "brand_context.py"
+BRAND_SPEC = importlib.util.spec_from_file_location("review_brand_context", BRAND_SCRIPT)
+brand_context = importlib.util.module_from_spec(BRAND_SPEC)
+sys.modules[BRAND_SPEC.name] = brand_context
+BRAND_SPEC.loader.exec_module(brand_context)
+
+AUDIT_SCRIPT = ROOT / "tools" / "instagram-review" / "dependency_audit.py"
+AUDIT_SPEC = importlib.util.spec_from_file_location("review_dependency_audit", AUDIT_SCRIPT)
+dependency_audit = importlib.util.module_from_spec(AUDIT_SPEC)
+sys.modules[AUDIT_SPEC.name] = dependency_audit
+AUDIT_SPEC.loader.exec_module(dependency_audit)
+
+
+class RoutingIsolationAndDependencyTests(unittest.TestCase):
+    def test_general_affiliate_content_routes_to_primary_workflow_only(self):
+        result = router.route_content(platform="Kwai", intent="criar legenda de produto afiliado")
+        self.assertEqual(result.primary, "content-commerce-distribution")
+        self.assertEqual(result.optional, ())
+
+    def test_instagram_caption_uses_specific_module_without_replacing_primary(self):
+        result = router.route_content(platform="Instagram", intent="revisar legenda")
+        self.assertEqual(result.primary, "content-commerce-distribution")
+        self.assertIn("ig-caption", result.optional)
+
+    def test_instagram_reel_benchmark_routes_to_ig_viral(self):
+        result = router.route_content(platform="Instagram Reels", intent="benchmark de reels por mediana")
+        self.assertIn("ig-viral", result.optional)
+
+    def test_publishing_request_stays_draft_review_only(self):
+        result = router.route_content(platform="Instagram", intent="publicar automaticamente")
+        self.assertIn("draft/review only", result.reason)
+
+    def test_missing_or_unknown_brand_fails_closed(self):
+        for value in ("", "unknown", "casa pratica"):
+            with self.subTest(brand=value):
+                with self.assertRaises(ValueError):
+                    brand_context.select_brand_context(value)
+
+    def test_brand_contexts_are_separate_and_canonical(self):
+        casa = brand_context.select_brand_context("casa_pratica_ofc")
+        renascer = brand_context.select_brand_context("instancia_renascer_belvedere")
+        self.assertNotEqual(casa["brand_id"], renascer["brand_id"])
+        self.assertIn("affiliate home products", casa["allowed_context"])
+        self.assertNotIn("affiliate home products", renascer["allowed_context"])
+        self.assertIn("organization identity", renascer["allowed_context"])
+        self.assertNotIn("organization identity", casa["allowed_context"])
+        casa["allowed_context"] = "tampered"
+        self.assertNotEqual(brand_context.select_brand_context("casa_pratica_ofc")["allowed_context"], "tampered")
+
+    def test_static_dependency_audit_has_no_findings(self):
+        self.assertEqual(dependency_audit.audit_review_scripts(), [])
+
+
 if __name__ == "__main__":
     unittest.main()
