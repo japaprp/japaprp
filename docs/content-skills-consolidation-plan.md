@@ -66,3 +66,15 @@ The consolidation is ready for implementation only after CSD-02 through CSD-08 h
 - Added 8 unit tests for mixed/missing/zero baselines, output paths, Portuguese caption parsing/link handling, and hook-score equivalence.
 - GitHub Actions run #13: **SUCCESS**; job `swipe-regression` completed successfully for commit `50696611c77a13e96c0821ed0d230e95077597cb`, including the regression test using a bare relative output filename.
 - This is a successful isolated regression run, not a full integration, runtime routing test, live Instagram test, or brand-isolation proof.
+
+
+## Routing, brand isolation, and dependency audit follow-up (2026-10-28)
+
+- Added `tools/instagram-review/routing.py`: deterministic intent/platform routing keeps `content-commerce-distribution` primary and adds Instagram-specific modules only for matching requests. Publishing-related intents remain draft/review-only.
+- Added `tools/instagram-review/brand_context.py`: explicit allowlisted brand IDs for Casa Prática OFC and Instância Renascer Belvedere; missing/unknown brand IDs fail closed rather than guessing.
+- Added `tools/instagram-review/dependency_audit.py`: AST-based import allowlist plus a small risky-operation token scan for the isolated review copies.
+- Added tests for general-content routing, Instagram caption routing, Reel benchmark routing, publishing boundary, unknown-brand rejection, non-overlapping brand contexts, immutable canonical profile behavior, and a clean static dependency audit.
+- GitHub Actions push run #24: **SUCCESS**, job `swipe-regression`, commit `eef59f5f2128daa6528b1cc7dfb25579a737fb89`.
+- Scope limitation: these are tested helper modules and test fixtures, not yet wired into a production/runtime router or a full content-generation agent. Brand isolation test verifies the selector contract, not every downstream model prompt or external app.
+- Dependency result: the reviewed Python copies use only allowlisted Python standard-library imports; the static scan found no disallowed imports or flagged operation tokens. This is not a complete software supply-chain audit of the full upstream repositories, their Claude skill instructions, or future versions.
+- No external packages were installed. No Instagram accounts, tokens, API, posting, scheduling, or messaging were accessed.
