@@ -6,6 +6,7 @@ on:
       - "tools/instagram-review/**"
       - "skills/engineering-brain-router/SKILL.md"
       - "docs/content-skills-consolidation-plan.md"
+      - "docs/router-runtime-entrypoint-investigation.md"
       - "tools/instagram-review/source-inventory.json"
       - "tools/instagram-review/LICENSE*.txt"
       - "tests/test_instagram_swipe.py"
@@ -16,6 +17,8 @@ on:
     paths:
       - "tools/instagram-review/**"
       - "skills/engineering-brain-router/SKILL.md"
+      - "docs/content-skills-consolidation-plan.md"
+      - "docs/router-runtime-entrypoint-investigation.md"
       - "tools/instagram-review/source-inventory.json"
       - "tools/instagram-review/LICENSE*.txt"
       - "tests/test_instagram_swipe.py"
