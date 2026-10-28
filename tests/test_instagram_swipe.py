@@ -66,5 +66,57 @@ class SwipeRegressionTests(unittest.TestCase):
         self.assertEqual(result["reels"][0]["outlier"], 3.0)
 
 
+CAPTION_SCRIPT = ROOT / "tools" / "instagram-review" / "caption.py"
+CAPTION_SPEC = importlib.util.spec_from_file_location("review_caption", CAPTION_SCRIPT)
+caption = importlib.util.module_from_spec(CAPTION_SPEC)
+sys.modules[CAPTION_SPEC.name] = caption
+CAPTION_SPEC.loader.exec_module(caption)
+
+HOOK_IG_SCRIPT = ROOT / "tools" / "instagram-review" / "hookscore_instagram.py"
+HOOK_IG_SPEC = importlib.util.spec_from_file_location("review_hookscore_ig", HOOK_IG_SCRIPT)
+hook_ig = importlib.util.module_from_spec(HOOK_IG_SPEC)
+sys.modules[HOOK_IG_SPEC.name] = hook_ig
+HOOK_IG_SPEC.loader.exec_module(hook_ig)
+
+HOOK_VIRAL_SCRIPT = ROOT / "tools" / "instagram-review" / "hookscore_virality.py"
+HOOK_VIRAL_SPEC = importlib.util.spec_from_file_location("review_hookscore_virality", HOOK_VIRAL_SCRIPT)
+hook_virality = importlib.util.module_from_spec(HOOK_VIRAL_SPEC)
+sys.modules[HOOK_VIRAL_SPEC.name] = hook_virality
+HOOK_VIRAL_SPEC.loader.exec_module(hook_virality)
+
+
+class CaptionAndHookScoreTests(unittest.TestCase):
+    def test_brazilian_portuguese_caption_preserves_links_and_accents(self):
+        text = "Sua cozinha organizada sem gastar muito. Confira: https://example.com/produto\n#CasaPratica"
+        result = caption.analyse(text)
+        self.assertIn("cozinha organizada", result["visible"])
+        self.assertIn("https://example.com/produto", result["links"][0])
+        self.assertIn("#CasaPratica", result["hashtags"])
+        self.assertEqual(text.strip(), text)  # linter analyzes; it does not rewrite the draft
+
+    def test_caption_does_not_claim_link_is_clickable(self):
+        result = caption.analyse("Veja os detalhes: https://example.com/produto")
+        link_check = next(c for c in result["checks"] if c["check"] == "LINKS")
+        self.assertEqual(link_check["status"], "WARN")
+        self.assertIn("not clickable", link_check["detail"])
+
+    def test_hook_scoring_panel_is_equivalent_for_representative_inputs(self):
+        examples = [
+            "Você está perdendo R$ 200 por mês sem perceber",
+            "Como organizar sua cozinha em 5 minutos",
+            "Hey guys, welcome to my video",
+            "Sua casa merece mais praticidade",
+            "Pare de cometer este erro na cozinha",
+        ]
+        for hook in examples:
+            with self.subTest(hook=hook):
+                ig_results, ig_score, ig_verdict, ig_flags = hook_ig.run(hook)
+                vir_results, vir_score, vir_verdict, vir_flags = hook_virality.run(hook)
+                self.assertEqual(ig_results, vir_results)
+                self.assertEqual(ig_score, vir_score)
+                self.assertEqual(ig_verdict, vir_verdict)
+                self.assertEqual(ig_flags, vir_flags)
+
+
 if __name__ == "__main__":
     unittest.main()
