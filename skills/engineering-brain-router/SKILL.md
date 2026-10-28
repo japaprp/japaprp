@@ -69,6 +69,26 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Pessoa iniciante, stack desconhecida ou não sabe qual skill escolher → skill-onboarding-profiler para entrevista simples e recomendações explicadas; não presumir tecnologias.
 - Skills novas → primeiro identificar lacuna real, sobreposição e teste de utilidade; não criar por popularidade.
 
+## 4.1 Roteamento de conteúdo e skills de Instagram (fonte única)
+
+Esta seção é a **fonte de verdade** para seleção de skills de conteúdo. `tools/instagram-review/routing.py` é apenas um oráculo de regressão/teste; não é um segundo roteador de produção nem pode divergir silenciosamente desta tabela.
+
+1. Comece sempre com `content-commerce-distribution` para conteúdo curto, afiliados, legendas, roteiros, CTAs e distribuição entre plataformas.
+2. Acrescente no máximo os módulos especializados estritamente necessários:
+   - Instagram/Reels + análise de desempenho, benchmark, concorrentes ou mediana de visualizações → `ig-viral`.
+   - Instagram + revisão de legenda/caption → `ig-caption`.
+   - Instagram + roteiro, Reel ou gancho → `ig-reel`.
+   - Instagram + perfil ou bio → `ig-profile`.
+   - Instagram + auditoria de perfil/conteúdo → `ig-audit`.
+   - Avaliação genérica de hooks, ou análise de viralidade para TikTok/Kwai/YouTube Shorts → `virality`, quando disponível e sem substituir a skill principal.
+3. Não carregar módulos Instagram para tarefas de conteúdo genérico de Kwai, Casa Prática ou outros canais, salvo se a intenção pedir explicitamente análise comparativa de viralidade.
+4. Não manter um segundo hook scorer em produção sem diferença de comportamento documentada e teste correspondente. A comparação atual indica que a pontuação base é equivalente em exemplos avaliados, enquanto `virality` oferece classificação de fórmula/payoff adicional.
+5. Pedidos para publicar, agendar ou enviar mensagens continuam em rascunho/revisão humana. Publicação real requer fluxo de integração separado, permissão e autorização explícita para aquela ação.
+6. Toda tarefa de conteúdo deve declarar um identificador explícito de marca. Para `casa_pratica_ofc` e `instancia_renascer_belvedere`, carregar apenas o contexto correspondente; se o identificador estiver ausente/desconhecido, falhar fechado e pedir esclarecimento. Nunca inferir a marca por histórico vizinho.
+7. O roteador seleciona procedimentos; ele não instala skills externas, não acessa contas, não obtém credenciais e não publica.
+
+**Critério de regressão:** os casos do módulo de teste precisam corresponder a esta tabela. Se a tabela mudar, atualizar os testes na mesma alteração; se o roteamento real do runtime for implementado depois, os testes devem chamar o entrypoint real em vez do oráculo.
+
 ## 5. Memória técnica por projeto
 
 Use as instruções e documentos do próprio repositório como fonte principal. Quando houver necessidade e permissão, mantenha um resumo curto do projeto contendo:
