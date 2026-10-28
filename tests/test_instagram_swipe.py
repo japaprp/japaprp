@@ -221,6 +221,18 @@ class CanonicalRoutingAndEndToEndBrandTests(unittest.TestCase):
         text = license_path.read_text(encoding="utf-8")
         self.assertIn("Permission is hereby granted", text)
 
+    def test_source_inventory_is_valid_and_uses_exact_blob_shas(self):
+        import json
+        inventory_path = ROOT / "tools" / "instagram-review" / "source-inventory.json"
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        self.assertEqual(len(inventory["external_sources"]), 2)
+        for source in inventory["external_sources"]:
+            self.assertTrue((ROOT / source["license_file"]).is_file())
+            for item in source["files"]:
+                self.assertEqual(len(item["git_blob_sha"]), 40)
+                self.assertTrue(all(ch in "0123456789abcdef" for ch in item["git_blob_sha"]))
+                self.assertTrue((ROOT / item["local_copy"]).is_file())
+
 
 if __name__ == "__main__":
     unittest.main()
