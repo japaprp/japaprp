@@ -1,0 +1,39 @@
+name: Instagram skill regression tests
+
+on:
+  pull_request:
+    paths:
+      - "tools/instagram-review/**"
+      - "skills/engineering-brain-router/SKILL.md"
+      - "docs/content-skills-consolidation-plan.md"
+      - "docs/router-runtime-entrypoint-investigation.md"
+      - "tools/instagram-review/source-inventory.json"
+      - "tools/instagram-review/LICENSE*.txt"
+      - "tests/test_instagram_swipe.py"
+      - ".github/workflows/instagram-skill-tests.yml"
+  push:
+    branches:
+      - chore/content-skills-consolidation
+    paths:
+      - "tools/instagram-review/**"
+      - "skills/engineering-brain-router/SKILL.md"
+      - "docs/content-skills-consolidation-plan.md"
+      - "docs/router-runtime-entrypoint-investigation.md"
+      - "tools/instagram-review/source-inventory.json"
+      - "tools/instagram-review/LICENSE*.txt"
+      - "tests/test_instagram_swipe.py"
+      - ".github/workflows/instagram-skill-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  swipe-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run isolated regression tests
+        run: python -m unittest discover -s tests -p 'test_instagram_swipe.py' -v

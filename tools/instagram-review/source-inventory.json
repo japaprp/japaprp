@@ -1,0 +1,51 @@
+{
+  "scope": "isolated review copies only; not a runtime package manifest",
+  "generated_on": "2026-10-28",
+  "external_sources": [
+    {
+      "repository": "Jakeschincariol/instagram-agent-skill",
+      "files": [
+        {
+          "path": "skills/ig-viral/swipe.py",
+          "git_blob_sha": "fa2c5fa631b0978b47addf695a35633cfa6efda2",
+          "local_copy": "tools/instagram-review/swipe.py"
+        },
+        {
+          "path": "skills/ig-caption/caption.py",
+          "git_blob_sha": "b53780779f08461260502172ed2e45ad7bc6998f",
+          "local_copy": "tools/instagram-review/caption.py"
+        },
+        {
+          "path": "skills/ig-reel/hookscore.py",
+          "git_blob_sha": "c5299c59687070dc9b22561dcf3842908f204d96",
+          "local_copy": "tools/instagram-review/hookscore_instagram.py"
+        }
+      ],
+      "license": "MIT",
+      "license_file": "tools/instagram-review/LICENSE-MIT.txt"
+    },
+    {
+      "repository": "Jakeschincariol/master-skills",
+      "files": [
+        {
+          "path": "skills/virality/tools/hookscore.py",
+          "git_blob_sha": "7559fb045861cfc89931f71adaa6154eccede04e",
+          "local_copy": "tools/instagram-review/hookscore_virality.py"
+        }
+      ],
+      "license": "MIT",
+      "license_file": "tools/instagram-review/LICENSE-MASTER-SKILLS-MIT.txt"
+    }
+  ],
+  "dependency_audit": {
+    "local_external_packages_installed": false,
+    "reviewed_script_imports": "Python standard library allowlist; checked by dependency_audit.py",
+    "repository_dependency_manifests": "No root package.json, pyproject.toml, requirements*.txt, Pipfile*, poetry.lock, or uv.lock found in the reviewed branch tree.",
+    "limitations": [
+      "Upstream skills may contain non-Python instructions or scripts not copied into this review area.",
+      "This inventory pins reviewed source blobs, not a release tag or full upstream repository commit.",
+      "Static import/token scanning is not a sandbox and cannot prove arbitrary code safe.",
+      "No full software composition analysis or vulnerability database scan was run."
+    ]
+  }
+}
