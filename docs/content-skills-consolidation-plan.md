@@ -36,14 +36,14 @@ Run these checks before incorporating code or installing modules:
 | ID | Check | Acceptance criteria | Status |
 |---|---|---|---|
 | CSD-01 | Inventory current local skill and target external files | Paths and versions are recorded; installation status is not inferred from GitHub | NOT RUN |
-| CSD-02 | Compare hook scoring implementations | Diff logic and dependencies; document any behavior differences | NOT RUN |
-| CSD-03 | Test equivalent hook examples | Same inputs produce explained outputs; no unsupported prediction of virality | NOT RUN |
-| CSD-04 | Test Instagram-specific Reel analysis | Account median and view data are handled correctly; missing data is flagged | NOT RUN |
-| CSD-05 | Test caption review in Brazilian Portuguese | Useful edits without changing verified facts, affiliate links, or brand voice | NOT RUN |
-| CSD-06 | Test routing | General content routes to CSD; Instagram-specific analysis calls the optional module only when needed | NOT RUN |
-| CSD-07 | Test brand separation | Casa Prática facts/instructions do not appear in Renascer output and vice versa | NOT RUN |
-| CSD-08 | Review scripts/dependencies | No unsafe network activity, credential collection, unbounded scraping, or unnecessary paid dependency | NOT RUN |
-| CSD-09 | Verify publishing boundary | Draft-only by default; no real account changes during tests | NOT RUN |
+| CSD-02 | Compare hook scoring implementations | Diff logic and dependencies; document any behavior differences | PASS — five representative hooks produced identical scoring-panel results in CI; virality adds formula/payoff analysis |
+| CSD-03 | Test equivalent hook examples | Same inputs produce explained outputs; no unsupported prediction of virality | PASS — 5 paired examples; this validates score equivalence only, not predictive accuracy |
+| CSD-04 | Test Instagram-specific Reel analysis | Account median and view data are handled correctly; missing data is flagged | PARTIAL — baseline mixing, missing baseline, zero baseline and output-path regressions covered by 5 unit tests; no real account dataset supplied |
+| CSD-05 | Test caption review in Brazilian Portuguese | Useful edits without changing verified facts, affiliate links, or brand voice | PARTIAL — lint preserves Portuguese text, detects URL/hashtag, and warns that caption URLs are not clickable; no rewrite model is being tested |
+| CSD-06 | Test routing | General content routes to CSD; Instagram-specific analysis calls the optional module only when needed | NOT RUN — routing is documented, not wired into runtime |
+| CSD-07 | Test brand separation | Casa Prática facts/instructions do not appear in Renascer output and vice versa | NOT RUN — requires actual isolated brand-context fixtures/runtime |
+| CSD-08 | Review scripts/dependencies | No unsafe network activity, credential collection, unbounded scraping, or unnecessary paid dependency | PARTIAL — reviewed copies of swipe/caption/hookscore are local-only by static inspection; full dependency/package audit not run |
+| CSD-09 | Verify publishing boundary | Draft-only by default; no real account changes during tests | PASS for this test harness — no publishing/API/account integration is included; this does not certify any external runtime |
 
 ## Safety and scope
 
@@ -56,3 +56,13 @@ Run these checks before incorporating code or installing modules:
 ## Exit criteria
 
 The consolidation is ready for implementation only after CSD-02 through CSD-08 have evidence, the minimal reusable capability is selected, and a reviewer approves the proposed diff. Until then, this document is a plan, not a claim of completed integration.
+
+
+## Regression run evidence (2026-10-28)
+
+- Added isolated, MIT-attributed review copies under `tools/instagram-review/`; upstream license text is retained in `tools/instagram-review/LICENSE-MIT.txt`.
+- Corrected baseline consistency: when any Reel has a median baseline, rows without a median are left unranked instead of silently switching to follower count.
+- Corrected output path handling: `--out swipe.md` no longer attempts to create an empty parent directory; file writes use a context manager.
+- Added 8 unit tests for mixed/missing/zero baselines, output paths, Portuguese caption parsing/link handling, and hook-score equivalence.
+- GitHub Actions run #9: **SUCCESS**; job `swipe-regression` completed successfully for commit `9e75bce646c18448b85612f19a37bc5a5d582abd`.
+- This is a successful isolated regression run, not a full integration, runtime routing test, live Instagram test, or brand-isolation proof.
