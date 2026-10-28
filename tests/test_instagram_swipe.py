@@ -177,5 +177,50 @@ class RoutingIsolationAndDependencyTests(unittest.TestCase):
         self.assertEqual(dependency_audit.audit_review_scripts(), [])
 
 
+class CanonicalRoutingAndEndToEndBrandTests(unittest.TestCase):
+    def test_canonical_router_document_is_source_of_truth(self):
+        router_doc = ROOT / "skills" / "engineering-brain-router" / "SKILL.md"
+        text = router_doc.read_text(encoding="utf-8")
+        self.assertIn("Esta seção é a **fonte de verdade**", text)
+        self.assertIn("content-commerce-distribution", text)
+        self.assertIn("ig-viral", text)
+        self.assertIn("falhar fechado", text)
+        self.assertIn("oráculo de regressão/teste", text)
+
+    def test_synthetic_brand_payloads_are_isolated_end_to_end(self):
+        casa = brand_context.build_brand_payload(
+            "casa_pratica_ofc",
+            {"product_facts": ["pote com tampa"], "verified_affiliate_links": ["https://example.test/casa"]},
+        )
+        renascer = brand_context.build_brand_payload(
+            "instancia_renascer_belvedere",
+            {"organization_facts": ["comunicado institucional"], "official_links": ["https://example.test/renascer"]},
+        )
+        self.assertEqual(casa["brand"]["brand_id"], "casa_pratica_ofc")
+        self.assertEqual(renascer["brand"]["brand_id"], "instancia_renascer_belvedere")
+        self.assertNotIn("organization_facts", casa["facts"])
+        self.assertNotIn("product_facts", renascer["facts"])
+        self.assertNotIn("https://example.test/renascer", str(casa))
+        self.assertNotIn("https://example.test/casa", str(renascer))
+
+    def test_cross_brand_fact_injection_is_rejected(self):
+        with self.assertRaises(ValueError):
+            brand_context.build_brand_payload("casa_pratica_ofc", {
+                "product_facts": ["item"],
+                "organization_facts": ["should not leak"],
+            })
+        with self.assertRaises(ValueError):
+            brand_context.build_brand_payload("instancia_renascer_belvedere", {
+                "approved_announcements": ["comunicado"],
+                "verified_affiliate_links": ["https://example.test/affiliate"],
+            })
+
+    def test_upstream_license_notice_is_present(self):
+        license_path = ROOT / "tools" / "instagram-review" / "LICENSE-MIT.txt"
+        self.assertTrue(license_path.is_file())
+        text = license_path.read_text(encoding="utf-8")
+        self.assertIn("Permission is hereby granted", text)
+
+
 if __name__ == "__main__":
     unittest.main()
