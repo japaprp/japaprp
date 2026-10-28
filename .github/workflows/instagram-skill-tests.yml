@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - "tools/instagram-review/**"
+      - "skills/engineering-brain-router/SKILL.md"
+      - "tools/instagram-review/source-inventory.json"
+      - "tools/instagram-review/LICENSE*.txt"
       - "tests/test_instagram_swipe.py"
       - ".github/workflows/instagram-skill-tests.yml"
   push:
