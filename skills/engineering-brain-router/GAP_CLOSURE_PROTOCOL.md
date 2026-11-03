@@ -95,3 +95,18 @@ A valid JSON file is not proof of routing quality. A planned or skipped model ru
 - Reverse-skill: https://github.com/zhaoxuya520/reverse-skill — external example of scenario routing, structured routing regression tests, tool inventory, and evidence-focused workflows. Treat as a reference for ideas, not as an automatically trusted dependency or a pack to copy wholesale.
 
 Re-check upstream status, release, license, and setup instructions at the time of actual adoption; this file is not a permanent guarantee that any external project remains current or suitable.
+
+## Unity / Android / 3D references reviewed (2026-11-02)
+
+- Unity IL2CPP skill reference: https://github.com/trilwu/secskills/tree/main/secskills-core/skills/reversing-unity-il2cpp — MIT. Its APK/IPA markers and managed-to-native mapping workflow match a confirmed gap. The local skill was written independently and narrowed to static analysis; memory dumping, protection bypass, anti-cheat work, and live-service manipulation are excluded.
+- Il2CppDumper: https://github.com/Perfare/Il2CppDumper — established IL2CPP metadata/binary pairing and symbol-script generation; check exact version support before use. Do not treat protected-metadata bypass features as an approved fallback.
+- Cpp2IL: https://github.com/SamboyCoding/Cpp2IL — maintained alternative for IL2CPP metadata/code recovery; compare its result with other parsers when needed. Its output remains a reconstruction, not original source.
+- UnityPy: https://github.com/K0lb3/UnityPy — MIT; useful for scripted SerializedFile, TypeTree and PPtr inspection. Requires a compatible Python runtime and package dependencies, so availability must be checked first.
+- UABEA: https://github.com/nesrak1/UABEA — MIT; useful for focused AssetBundle/SerializedFile inspection. Its own README recommends AssetRipper/AssetStudio for bulk extraction.
+- AssetRipper: https://github.com/AssetRipper/AssetRipper — GPL-3.0; broad Unity asset extraction/conversion, but export completeness and legal use of extracted game assets must be reviewed. Do not copy its code into this catalog.
+- Blender Agent Studio validation reference: https://github.com/ifBars/blender-agent-studio — MIT; useful fresh-import, geometry and evidence methodology. Its optional plugin/MCP runtime requires additional local tooling, so only the portable validation procedure was adapted; no plugin was installed.
+- T-REX: https://github.com/xxmisaoxx/t-rex — GPL-3.0-only; strong cross-session investigation state and optional Ghidra/Rizin adapter concepts. Not adopted as a dependency because it introduces a separate investigation-state/toolchain model and copyleft distribution obligations; the existing local evidence protocol already covers the essential continuity requirements.
+- Binary Analysis skill: https://github.com/magnus919/agent-skills/tree/main/binary-analysis — MIT, but the reviewed version explicitly reports that its Ghidra analysis backend is not implemented. Rejected as an operational dependency.
+- Il2CppInspector: https://github.com/djkaty/Il2CppInspector — development is suspended upstream; do not select it as the primary maintained parser. Keep as a historical fallback reference only.
+
+Selection outcome: add only three local skills for the demonstrated gaps (Unity IL2CPP static analysis, Unity AssetBundle/CAB/PPtr forensics, and Blender OBJ/FBX validation). Keep the external projects as references/tools, not automatically installed dependencies. No binary-analysis tool, Python package, Blender plugin, or paid provider was installed during this catalog update.
