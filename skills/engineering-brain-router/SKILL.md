@@ -47,6 +47,9 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Planilhas Excel/CSV/TSV, fórmulas, reconciliação ou transformação tabular → spreadsheet-data-engineering.
 - Gerar, editar, integrar ou otimizar imagens e assets visuais → visual-asset-engineering; use ferramenta de imagem real quando a tarefa exigir criação/edição.
 - Desenvolvimento de jogos, gameplay, engine, build, profiling ou multiplayer → game-development-engineering; identifique engine/versão antes de aplicar APIs.
+- APK/IPA Unity com libil2cpp.so, global-metadata.dat, Assembly-CSharp.dll ou análise ELF/ARM64 → unity-il2cpp-analysis; use análise estática e só combine rea-assisted-analysis se houver provider real e escopo autorizado.
+- AssetBundles, CAB, SerializedFiles, TypeTrees, PathID/FileID, PPtr, catálogos Addressables ou dependências entre materiais/texturas/modelos → unity-assetbundle-forensics; não confunda PathID entre arquivos nem modifique bundles originais.
+- Inspeção/round-trip OBJ, FBX, métricas de malha, materiais, UVs, bounds ou reimportação limpa no Blender → blender-asset-validation; não declare fidelidade apenas por contagem de vértices/faces.
 - Testes ou release → testing-regression-quality.
 - Revisão de diff/PR ou correção cirúrgica → code-review-minimal-change; acrescente segurança/testes somente quando os achados ou o risco exigirem.
 - Design, criação ou mudança de contrato de API/webhook próprio → api-engineering-contracts; segurança e testes apenas conforme o risco.
