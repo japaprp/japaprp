@@ -320,6 +320,76 @@
         "separate observations, inferences, and unknowns with evidence references",
         "report unsupported or unexecuted runtime checks honestly"
       ]
+    },
+    {
+      "id": "route-unity-il2cpp-native-analysis",
+      "prompt": "Inspect an authorized Unity Android package containing libil2cpp.so and global-metadata.dat. Map one named managed method to its ARM64 native function using static evidence only.",
+      "expected_primary_skill": "unity-il2cpp-analysis",
+      "risk": "high",
+      "must_avoid": [
+        "pairing binary and metadata from different builds or ABIs",
+        "confusing file offsets, RVAs, ELF virtual addresses and runtime addresses",
+        "bypassing protected metadata, anti-cheat or live-service controls",
+        "claiming decompiled pseudocode is original source or runtime proof"
+      ],
+      "acceptance": [
+        "record artifact identity, architecture, versions and SHA-256 hashes",
+        "select a parser based on actual Unity/metadata version support",
+        "verify sample method-to-native mappings and supporting cross-references",
+        "separate observed static evidence from inference and unknowns"
+      ]
+    },
+    {
+      "id": "route-unity-assetbundle-pptr",
+      "prompt": "Resolve a Unity AssetBundle object's FileID/PathID reference to a material and then to its texture in another CAB/SerializedFile. Preserve the original files.",
+      "expected_primary_skill": "unity-assetbundle-forensics",
+      "risk": "high",
+      "must_avoid": [
+        "treating PathID as globally unique across all files",
+        "guessing CAB identity from its filename alone",
+        "claiming a PPtr is resolved without verifying the external file and destination object",
+        "editing or repacking the original bundle or catalog"
+      ],
+      "acceptance": [
+        "inventory and hash source containers",
+        "resolve FileID through the correct external-file table",
+        "resolve PathID only inside the selected target SerializedFile",
+        "record each dependency edge and unresolved reason"
+      ]
+    },
+    {
+      "id": "route-blender-obj-fbx-roundtrip",
+      "prompt": "Compare a source OBJ with an FBX exported from Blender by importing the FBX in a fresh clean Blender process. Check geometry, materials, UVs, transforms and bounds without overwriting either original.",
+      "expected_primary_skill": "blender-asset-validation",
+      "risk": "medium",
+      "must_avoid": [
+        "assuming changed vertex counts always mean corruption",
+        "claiming visual fidelity from metrics without inspecting visual evidence",
+        "overwriting the source OBJ or candidate FBX",
+        "using importer/exporter flags without checking the installed Blender version"
+      ],
+      "acceptance": [
+        "record Blender version and source/output hashes",
+        "capture source baseline and fresh-import metrics",
+        "compare explicit invariants with format-aware tolerances",
+        "classify every required validation PASS, FAIL, BLOCKED or NOT RUN"
+      ]
+    },
+    {
+      "id": "route-unity-source-vs-binary-boundary",
+      "prompt": "Inspect a complete Unity source repository with Assets and ProjectSettings and explain a gameplay feature from source. Do not analyze a shipped APK or native binary.",
+      "expected_primary_skill": "repo-reverse-engineering",
+      "risk": "low",
+      "must_avoid": [
+        "selecting unity-il2cpp-analysis solely because the project uses Unity",
+        "loading AssetBundle forensics when no serialized game assets are relevant",
+        "editing files during a read-only source investigation"
+      ],
+      "acceptance": [
+        "trace the feature through source files and project metadata",
+        "use game-development-engineering only for relevant Unity implementation concepts",
+        "state observed source facts separately from behavior not executed"
+      ]
     }
   ]
 }
