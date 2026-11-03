@@ -89,6 +89,12 @@ As skills locais são guias autorais adaptados para os projetos e o fluxo de tra
 - [obra/superpowers](https://github.com/obra/superpowers) — depuração sistemática e desenvolvimento guiado por testes.
 - [Supabase Agent Skills](https://github.com/supabase/agent-skills) — PostgreSQL, RLS e práticas específicas do Supabase.
 - [Agent Skills format](https://github.com/Open-Dot-Agents/SKILL.md) — estrutura interoperável de skills.
+- [Unity IL2CPP reverse engineering skill (secskills)](https://github.com/trilwu/secskills/tree/main/secskills-core/skills/reversing-unity-il2cpp) — referência MIT para identificação de APK Unity e mapeamento de metadados IL2CPP; adaptada com limites estáticos e de autorização.
+- [Il2CppDumper](https://github.com/Perfare/Il2CppDumper) e [Cpp2IL](https://github.com/SamboyCoding/Cpp2IL) — ferramentas de análise de metadados/código IL2CPP; verificar versão e compatibilidade antes do uso.
+- [UnityPy](https://github.com/K0lb3/UnityPy), [UABEA](https://github.com/nesrak1/UABEA) e [AssetRipper](https://github.com/AssetRipper/AssetRipper) — ferramentas complementares para SerializedFiles, PPtr, CABs e extração; conferir runtimes e licenças (MIT/MIT/GPL-3.0).
+- [Blender Agent Studio](https://github.com/ifBars/blender-agent-studio) — referência MIT para validação de malhas e reimportação independente; o plugin/MCP não foi instalado.
+- [T-REX](https://github.com/xxmisaoxx/t-rex) — referência GPL-3.0-only para estado de investigação e continuidade entre sessões; não incorporado como dependência.
+- [Il2CppInspector](https://github.com/djkaty/Il2CppInspector) — referência histórica; upstream informa que o desenvolvimento está suspenso.
 
 ## Uso
 
