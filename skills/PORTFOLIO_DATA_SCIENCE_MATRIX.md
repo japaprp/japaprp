@@ -26,6 +26,44 @@ Criar padrões e módulos reutilizáveis, não um banco compartilhado entre apli
 5. Não tratar a base como prova de conformidade nem como substituta de avaliação jurídica, RIPD ou decisão do controlador.
 6. Reutilizar essa referência entre projetos apenas como fonte pública; nunca compartilhar dados pessoais, imagens, biometria, credenciais ou documentos privados entre projetos.
 
+
+## Referências open-source — criptografia e análise de credenciais
+
+> Pesquisa inicial em 2026-11-05. Os números de stars são sinais de adoção observados na consulta, não medidas de segurança ou qualidade. Nenhuma ferramenta foi clonada, instalada ou executada.
+
+| Projeto | Evidência pública consultada | Uso recomendado no Conselho | Licença / maturidade / limites |
+|---|---|---|---|
+| [CrypTool 2](https://github.com/CrypToolProject/CrypTool-2) | Repositório oficial descreve ambiente interativo de aprendizagem de criptografia e criptoanálise; 169 stars e 125 forks na página consultada. | Primeira escolha educacional para visualizar cifras, algoritmos, protocolos e conceitos de criptoanálise com exemplos didáticos. | Apache-2.0 declarada no GitHub. Projeto educacional; verificar requisitos de Windows/.NET e releases antes de qualquer instalação. |
+| [CyberChef](https://github.com/gchq/CyberChef) | Ferramenta web para codificação, parsing, hashes, checksums, AES/DES/Blowfish, hexdumps e análise de dados; aproximadamente 36,3 mil stars e 4,2 mil forks. README informa execução local no navegador, sem envio do conteúdo ao servidor na versão não modificada; algumas operações específicas fazem chamadas externas. | Ferramenta prática para inspecionar formatos, transformar dados de laboratório, calcular hashes e explorar operações criptográficas sem criar scripts para cada tarefa. | Apache-2.0; atividade recente observada no repositório GCHQ. Preferir versão standalone verificada para dados sensíveis e revisar operações que fazem chamadas externas. |
+| [OpenSSL](https://github.com/openssl/openssl) | Biblioteca/toolkit geral para TLS/DTLS/QUIC e primitivas criptográficas; aproximadamente 31,2 mil stars e 11,6 mil forks. | Referência técnica para certificados, chaves, assinaturas, hashes, TLS e interoperabilidade; útil para validar parâmetros e formatos em ambientes próprios. | Apache-2.0; projeto maduro e ativo. Exige cuidado com versões, opções legadas e configuração segura. |
+| [GnuPG](https://github.com/gpg/gnupg) | Implementação livre de OpenPGP com criptografia, assinatura e gestão de chaves; o espelho GitHub consultado declara GPL e alerta que não é o canal de manutenção oficial. | Estudar cadeia de confiança, pares de chaves, assinaturas, revogação, exportação e formatos OpenPGP. | GPL; usar o site/repositório oficial do projeto para releases e suporte, não tratar o espelho GitHub como fonte primária de manutenção. |
+| [Wireshark](https://github.com/wireshark/wireshark) | Analisador de protocolos e capturas; repositório GitHub é espelho read-only do GitLab oficial. Licença GPL-2.0; histórico extenso de commits. | Estudar negociação TLS/SSH, metadados de protocolo, certificados e comportamento de rede em capturas próprias ou sintéticas. | GPL-2.0; usar o repositório oficial GitLab para desenvolvimento. Capturas podem conter dados pessoais, tokens e conteúdo privado: sanitizar e limitar escopo. |
+| [hashcat](https://github.com/hashcat/hashcat) | Plataforma de auditoria/recuperação offline de hashes com CPU/GPU, múltiplos backends e centenas de formatos; aproximadamente 27,3 mil stars e 3,6 mil forks. Licença MIT declarada. | Laboratório avançado para medir resistência de hashes sintéticos e avaliar políticas de senha com parâmetros controlados; também permite benchmarks para comparar custo de KDFs. | Ferramenta dual-use de alto potencial. Não integrar automaticamente nem apontar para dumps, contas ou serviços reais. Usar somente hashes sintéticos ou conjuntos próprios formalmente autorizados, com escopo e limites de execução documentados. |
+| [John the Ripper (jumbo)](https://github.com/openwall/john) | Auditoria e recuperação offline de senhas; suporta numerosos formatos de hashes, arquivos e chaves protegidas. O projeto alerta que parte do código jumbo tem maturidade variável. | Alternativa para laboratório de hashes sintéticos e avaliação de formatos protegidos, comparando cobertura e compatibilidade com hashcat. | GPL-2.0-or-later com exceções e componentes sob termos distintos; revisar LICENSE e licenças por componente. Não usar em dados de terceiros ou credenciais de serviços. |
+
+### Priorização para o Conselho
+
+1. **Começar por CrypTool 2 + CyberChef** para ensino visual, parsing e experimentos reproduzíveis com dados sintéticos.
+2. **Usar OpenSSL + GnuPG** como referências técnicas para operações reais de criptografia, certificados, assinaturas e gestão de chaves em ambiente próprio.
+3. **Adicionar Wireshark** quando a pergunta exigir análise de tráfego/capturas autorizadas.
+4. **Manter hashcat e John the Ripper como referências de laboratório avançado**, não como ferramentas padrão acionadas pelo roteador. A skill deve primeiro classificar o material, confirmar propriedade/autorização e limitar testes a hashes sintéticos ou próprios.
+5. Não instalar nem clonar agora. Antes de adoção, verificar release atual, assinatura/checksum, dependências, compatibilidade com Windows/Android/Termux, consumo de RAM/CPU/GPU e licença aplicável.
+
+### Regra de experimentação de credenciais
+
+- Preferir hashes artificiais gerados para o laboratório e senhas descartáveis sem reutilização.
+- Medir custo/tempo de derivação e comparar MD5/SHA simples com Argon2id, scrypt e bcrypt para fins didáticos; não transformar resultados em listas de senhas reais.
+- Nunca inserir credenciais de jogo, dumps de usuários, tokens, arquivos de autenticação ou chaves privadas em serviços online de análise.
+- Não testar login, SSH ou autenticação de serviços de terceiros. Para SSH, priorizar análise de configuração, fingerprint, algoritmo negociado e validação de host key em laboratório próprio.
+- Preservar os originais; qualquer arquivo de teste deve ser descartável e isolado.
+
+### Estado desta pesquisa
+- PASS — GitHub Actions #66 da branch concluiu com sucesso no commit `ad74f15357b74150f1c5e902df08f3ee0bb1a4cf`.
+- PASS — páginas oficiais/GitHub consultadas para CrypTool 2, CyberChef, OpenSSL, GnuPG, Wireshark, hashcat e John the Ripper.
+- PASS — licenças declaradas e limitações relevantes registradas quando visíveis.
+- NOT RUN — clonagem, instalação, execução, benchmark ou integração de qualquer ferramenta.
+- NOT RUN — teste de compatibilidade em Windows, Galaxy Book Go, Galaxy S21 ou Termux.
+
 ## Matriz por projeto
 
 | Projeto | Repositório identificado | Oportunidades iniciais | Dados mínimos a confirmar | Prioridade |
