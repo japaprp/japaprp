@@ -54,6 +54,7 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Publicar site, API, backend, worker ou job; escolher provedor, configurar domínio/HTTPS, CI/CD, health checks, custos ou rollback → application-deployment-hosting; acrescente infrastructure-database-engineering quando houver banco, migração, SSH ou operação de infraestrutura.
 - Aplicativo móvel/Flutter → mobile-flutter-engineering; acrescente API, segurança ou testes somente se o fluxo exigir.
 - Integração de modelos/API de IA, avaliação de prompts ou RAG → ai-integration-evaluation; use ai-token-budget para controle de contexto/custo, não como substituta da avaliação.
+- Visão computacional, câmeras, detecção/rastreamento de pessoas e objetos, OCR/LPR/ANPR ou reconhecimento facial → computer-vision-video-intelligence; combine com application-security-auth e ai-integration-evaluation apenas quando necessário. Trate biometria como alto risco e exija avaliação jurídica/privacidade e autorização antes de processamento real.
 - Ideia ampla, definição de MVP, priorização ou plano de lançamento → product-discovery-delivery; não carregue para bug técnico claramente definido.
 - Pagamento, checkout, reembolso, cashback, split ou webhook financeiro → payments-billing-integrations; acrescente API/segurança/testes conforme o fluxo.
 - Construir/alterar servidor ou ferramenta MCP para agentes → mcp-tooling-engineering; use API/segurança conforme as integrações expostas.
