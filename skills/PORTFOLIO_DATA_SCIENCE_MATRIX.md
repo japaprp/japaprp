@@ -39,6 +39,7 @@ Criar padrões e módulos reutilizáveis, não um banco compartilhado entre apli
 - Foram localizados modelos de pedidos, itens, estoque, ficha técnica/receita e agregados diários por tenant, canal, tipo de pedido e PDV.
 - QA estático em DailySalesAggregateService.php: a consulta de pedidos não seleciona payment_status, mas paid_orders_count tenta ler esse atributo; a contagem fica incorreta. A margem soma itens de todos os pedidos do grupo, enquanto receita soma apenas status finais, podendo incluir cancelados/pendentes.
 - QA estático em ReportService.php: salesByDay aplica escopo de tenant na consulta, mas a chave de cache contém somente intervalo de datas. Como a API define TenantContext por usuário, duas empresas consultando o mesmo intervalo podem compartilhar a mesma chave e receber resultado de outra empresa. Risco alto de vazamento entre tenants; precisa de teste de regressão e correção incluindo tenant_id na chave.
+- QA estático no índice unique de daily_sales_aggregates: inclui pdv_id nullable. O teste usa SQLite e SQLite permite múltiplos NULL em índices UNIQUE; assim, agregações sem PDV podem duplicar em upserts repetidos. Confirmar também no driver de produção e adicionar teste de idempotência.
 - BelongsToTenant só adiciona filtro quando TenantContext não é null. A rota API inspecionada usa middleware tenant e limpa o contexto em finally; o comando agendado roda sem tenant e agrega explicitamente todos os tenants por grupo. Manter esse comportamento batch apenas se for intencional e documentado; consultas de negócio sem contexto devem falhar fechadas ou exigir tenant explícito.
 - A tabela daily_sales_aggregates tem unique composto incluindo pdv_id nullable. Em bancos que permitem múltiplos NULL em índices únicos, upsert pode não ser idempotente para linhas sem PDV; confirmar no SGBD configurado e cobrir teste.
 - O modelo DailySalesAggregate é tenant-aware. Conclusão: a estrutura de dados é promissora, mas existem defeitos de contagem, margem e isolamento/cache que precisam ser corrigidos e testados antes de confiar nos indicadores ou treinar modelos.
@@ -77,10 +78,14 @@ Criar padrões e módulos reutilizáveis, não um banco compartilhado entre apli
 - PASS — repositórios listados como confirmados encontrados na conta GitHub conectada.
 - PASS — README do Beginner Data Science Projects consultado para categorias e exemplos.
 - PASS — README e metadados do ARES consultados para escopo e licença declarada.
-- PASS — inspeção estática inicial de serviços de analytics/estoque do Horti-fruit e modelos/agregador/relatórios/middleware da Hamburgueria.
-- PASS — defeito de seleção de payment_status e risco de chave de cache sem tenant identificados diretamente no código.
-- BLOCKED — volume, histórico real, qualidade e persistência dos dados não foram validados em ambiente de execução; SGBD configurado não foi confirmado para testar a unicidade com pdv_id NULL.
+- PASS — inspeção estática inicial de analytics/estoque e snapshot database.json do Horti-fruit.
+- PASS — inspeção estática de modelos/agregador/relatórios/middleware/migration da Hamburgueria.
+- PASS — defeito de seleção de payment_status, margem sem filtro de status e risco de chave de cache sem tenant identificados diretamente no código.
+- PASS — no snapshot versionado do Horti-fruit, pedidos, entradasEstoque e perdasEstoque estão vazios; previsão não pode ser validada com esse conjunto.
+- PASS — o phpunit.xml configura SQLite em memória; o índice UNIQUE com pdv_id nullable requer teste específico de idempotência.
+- BLOCKED — dados de produção, volume histórico e driver real de produção não foram consultados.
 - NOT RUN — notebooks externos não foram executados.
 - NOT RUN — testes de agregação, correção de payment_status/margem, isolamento de cache multi-tenant e upsert com pdv_id NULL não foram executados.
+- NOT RUN — testes de concorrência/persistência do Varejão, filtro de status em giro de estoque e ordenação temporal da série não foram executados.
 - NOT RUN — nenhum modelo foi treinado, implantado ou conectado aos aplicativos.
 - NOT RUN — auditoria ARES não foi executada.
