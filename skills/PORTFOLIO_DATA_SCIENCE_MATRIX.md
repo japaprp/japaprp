@@ -12,6 +12,20 @@ Criar padrões e módulos reutilizáveis, não um banco compartilhado entre apli
 | [Beginner-Data-Science-Projects](https://github.com/tkarim45/Beginner-Data-Science-Projects) | README organiza notebooks em classificação, regressão, séries temporais, NLP, clustering, recomendação, anomalias, EDA e visão computacional. Inclui retail sales forecasting, product recommendation, market basket e supply-chain demand prediction. | Catálogo educacional para estudar técnicas e selecionar notebooks pontuais. | Não importar tudo. Metadados consultados indicam aprox. 862 MB; evitar clone completo no equipamento limitado. Inspecionar notebook, dataset, dependências e licença antes de reutilizar. |
 | [Mafifrizi/ARES](https://github.com/Mafifrizi/ARES) | README descreve plataforma red-team direcionada por operador, com FastAPI/Python, React, controles de escopo e módulos MITRE ATT&CK. Metadados consultados indicam MIT, 827 stars e 168 forks em 2026-11-05. | Referência separada para estudar controles de escopo, auditoria e validação de segurança autorizada. | Não é plataforma de analytics nem dependência de negócio. Não executar módulos ofensivos nos sistemas reais. Revisar código, dependências e escopo antes de qualquer teste. |
 
+## Referência transversal — legislação brasileira e governança
+
+| Repositório | Evidência consultada em 2026-11-05 | Uso no Conselho Central | Limitações e controles obrigatórios |
+|---|---|---|---|
+| [ctresb/leis — Todas as leis do Brasil](https://github.com/ctresb/leis) | Repositório público; página consultada exibia aproximadamente 2,5 mil stars e 418 forks. Organiza legislação em Markdown, com metadados estruturados e link de origem. A estrutura inclui normas federais, estaduais/distritais, municipais, reguladores, tratados e parte da jurisprudência. | Fonte de descoberta e referência para localizar normas brasileiras, apoiar análise preliminar de requisitos legais e orientar skills de governança, privacidade, segurança, RH, biometria, câmeras e operações. Não é uma dependência de runtime nem um parecer jurídico. | O próprio README declara que as conversões/OCR são informativas e não substituem Diário Oficial; exige conferir a fonte. A cobertura tem lacunas declaradas (inclusive municipal e atos infralegais), e a atualização/qualidade varia por fonte. Verificar versão, vigência, alterações, jurisdição e texto oficial antes de qualquer decisão. Não presumir que “todas as leis” signifique cobertura completa. |
+
+### Regra de uso jurídico
+1. Pesquisar primeiro nesta referência catalogada e identificar a norma/artigo potencialmente aplicável.
+2. Confirmar o texto, vigência, alterações, regulamentação e jurisprudência em fonte oficial competente (por exemplo, Planalto, Diário Oficial, órgão regulador ou tribunal).
+3. Registrar jurisdição, data da consulta, URL oficial, versão e contexto de aplicação.
+4. Separar informação geral de interpretação jurídica; apontar incerteza e encaminhar questões materiais a profissional qualificado.
+5. Não tratar a base como prova de conformidade nem como substituta de avaliação jurídica, RIPD ou decisão do controlador.
+6. Reutilizar essa referência entre projetos apenas como fonte pública; nunca compartilhar dados pessoais, imagens, biometria, credenciais ou documentos privados entre projetos.
+
 ## Matriz por projeto
 
 | Projeto | Repositório identificado | Oportunidades iniciais | Dados mínimos a confirmar | Prioridade |
