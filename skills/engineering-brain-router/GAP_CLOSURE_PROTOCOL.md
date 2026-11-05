@@ -12,10 +12,11 @@ This protocol is mandatory when a task reveals a missing, uncertain, or poorly c
 ## 2. Search in a controlled order
 
 1. Search the local skill catalog, router, scripts, tests, and project instructions.
-2. Search official upstream documentation and source repositories for the relevant tool or project.
-3. Search reputable public GitHub projects and community discussions (including Discord/forum links only when public and accessible) for alternatives and known limitations.
-4. Verify repository identity, recent maintenance, license, installation requirements, platform compatibility, permissions, dependencies, supply-chain risks, and whether the capability is actually needed.
-5. Do not treat popularity, stars, snippets, generated summaries, or an agent's assertion as proof. Prefer primary sources and corroborate material claims.
+2. Search the Council Central's registered repository/reference inventory and the user's existing repositories that are relevant to the current capability. Inspect only relevant files and metadata; do not mix projects, credentials, datasets, tenants, or application scope. Prefer reuse of already-owned/approved components when technically suitable.
+3. If a capability is already present in an internal repository, record the exact repository, path, branch/commit, license/ownership, evidence, and whether it is implemented, experimental, documented, or merely proposed. Do not assume that a repository is safe or production-ready because it belongs to the user.
+4. Only when the gap remains, search official upstream documentation and source repositories, then reputable public GitHub projects and community discussions (including Discord/forum links only when public and accessible).
+5. Verify repository identity, recent maintenance, license, installation requirements, platform compatibility, permissions, dependencies, supply-chain risks, and whether the capability is actually needed.
+6. Do not treat popularity, stars, snippets, generated summaries, or an agent's assertion as proof. Prefer primary sources and corroborate material claims.
 
 ### 2.1 Compare category leaders, not just the first result
 
