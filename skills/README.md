@@ -57,6 +57,11 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 
 - [Router smoke tests](./tests/ROUTER_EVALS.md) — cenários baseados em stacks e problemas reais para revisar seleção de skills, economia de contexto e limites de segurança. São casos esperados; só conte como benchmark depois de executá-los no agente-alvo e registrar os resultados.
 
+## Inteligência de dados do portfólio
+
+- [Matriz de oportunidades de Data Science e segurança](./PORTFOLIO_DATA_SCIENCE_MATRIX.md) — relaciona referências open-source a oportunidades, dados necessários, prioridades e limites. É planejamento, não implementação.
+- [business-data-intelligence](./business-data-intelligence/SKILL.md) — procedimento reutilizável para analytics, previsão e modelos de negócio com isolamento entre projetos.
+
 ## Memória por projeto
 
 - [Template Project Passport](./templates/PROJECT_CONTEXT.md) — modelo curto para registrar stack, comandos comprovados, arquitetura, integrações, riscos, decisões e estado validado de cada projeto. Copie para o repositório correspondente somente quando for útil; não preencha por suposição nem inclua segredos.
