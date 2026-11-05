@@ -16,8 +16,8 @@ Criar padrões e módulos reutilizáveis, não um banco compartilhado entre apli
 
 | Projeto | Repositório identificado | Oportunidades iniciais | Dados mínimos a confirmar | Prioridade |
 |---|---|---|---|---|
-| Horti-fruit / Varejão do Povo | [japaprp/varejao-backend](https://github.com/japaprp/varejao-backend) — público | Vendas por SKU/dia; sazonalidade; previsão de demanda; estoque mínimo; perdas/validade; cesta de produtos. | Pedidos concluídos, itens, SKU, preço, custo, estoque, entradas/saídas, perdas, datas e promoções. | Alta |
-| Lanchonete / Hamburgueria com PDVs | [japaprp/hamburgueria](https://github.com/japaprp/hamburgueria) — privado | Demanda por hora/dia; previsão de ingredientes; ficha técnica; margem por item/combo; desperdício. | Pedidos por item, ficha técnica, custo, estoque, cancelamentos, preparo e timestamps. | Alta |
+| Horti-fruit / Varejão do Povo | [japaprp/varejao-backend](https://github.com/japaprp/varejao-backend) — público | Já há serviço de analytics com resumo por período, série diária e top produtos; serviço de estoque registra entradas e perdas. Próximo: validar histórico e persistência antes de prever demanda. | O código usa pedidos, itens, saídas, entradasEstoque e perdasEstoque em database.json; confirmar volume/histórico real, custo por item, datas e integridade. | Alta oportunidade; prontidão de ML ainda baixa |
+| Lanchonete / Hamburgueria com PDVs | [japaprp/hamburgueria](https://github.com/japaprp/hamburgueria) — privado | Modelos Order, OrderItem, InventoryItem, RecipeItem e DailySalesAggregate; serviço de agregação por data/tenant; entradas para demanda, custo e margem. | Confirmar histórico real e cobertura temporal; revisar agregador antes de usar métricas em modelos. | Alta oportunidade; prontidão de dados promissora, QA pendente |
 | Sistema de RH | Repositório ainda não confirmado; o portfólio lista o sistema, mas não associa inequivocamente um repo. | Indicadores agregados de quadro, absenteísmo, rotatividade e treinamento. | Dados minimizados/autorizados, definições, departamento, períodos e regras de acesso. | Alta, controles reforçados |
 | Perifa Pro | [japaprp/Perifa-Pro](https://github.com/japaprp/Perifa-Pro) — privado | Adoção, funis, retenção, uso de funcionalidades e indicadores agregados. | Eventos, definições de usuário ativo/conversão, timestamps e finalidade. | Média |
 | Guerra Infinita | [japaprp/infinit-war-guerra-infinita](https://github.com/japaprp/infinit-war-guerra-infinita) — privado | Balanceamento, telemetria de gameplay, progressão, retenção e anomalias operacionais. | Eventos, versões, progressão, economia, sessões e definições de métricas. | Média; não misturar com dados de Dark War: Survival |
@@ -26,6 +26,20 @@ Criar padrões e módulos reutilizáveis, não um banco compartilhado entre apli
 | Salão do Arthur | [japaprp/salao-do-arthur](https://github.com/japaprp/salao-do-arthur) — público; também existe repo legado arquivado salao-do-artur. | Reutilizar padrões confirmados; agenda, recorrência e serviços. | Confirmar qual repo é fonte ativa e quais dados existem. | Pendente |
 | EventosRP | [japaprp/eventosrp](https://github.com/japaprp/eventosrp) — público | Demanda por datas, ocupação, conversão de consultas e receita por evento. | Consultas, reservas, calendário, status, tipo e valores. | Média |
 | Casa Prática OFC | Repositório de aplicação próprio ainda não confirmado; WA-AKG é referência separada, não app comprovadamente instalado. | Ranking de produtos, cliques/conversões, comissão, sazonalidade e campanhas. | Relatórios autorizados de afiliado, cliques, pedidos, comissão, SKU e datas; respeitar termos da plataforma. | Pendente |
+
+## Evidências da primeira inspeção de código
+
+### Horti-fruit / Varejão do Povo
+- O backend contém analyticsService.js com resumo por dia/semana/mês/ano, série temporal e top 10 produtos.
+- inventoryService.js registra entradas e perdas e calcula giro/saídas; database.json contém catálogo de produtos de exemplo.
+- repository.js lê e grava database.json diretamente no filesystem. Isso é uma limitação importante para analytics confiável em operação concorrente/produção; não tratar o arquivo versionado como histórico real de vendas.
+- Conclusão: há lógica inicial de indicadores, mas a prontidão para previsão depende de validar origem, persistência, volume e qualidade do histórico.
+
+### Hamburgueria
+- Foram localizados modelos de pedidos, itens, estoque, ficha técnica/receita e agregados diários por tenant, canal, tipo de pedido e PDV.
+- Atenção de QA estático em DailySalesAggregateService.php: a consulta de pedidos seleciona campos sem incluir payment_status, mas depois calcula paid_orders_count usando payment_status; essa contagem pode ficar incorreta. Além disso, estimated_margin_cents agrega itens de todos os pedidos do grupo, enquanto receita bruta/líquida filtra status finais. Revisar e testar essas regras antes de confiar nos indicadores ou treinar modelos.
+- O modelo DailySalesAggregate é tenant-aware, mas o isolamento e o cálculo devem ser cobertos por testes com múltiplos tenants.
+- Conclusão: a estrutura de dados é mais promissora que a do Horti-fruit, mas os agregados precisam de revisão e validação antes de uso analítico.
 
 ## Sequência recomendada
 1. Inventariar schema, granularidade, cobertura, qualidade, atualização, permissões e isolamento em cada repo.
@@ -61,7 +75,9 @@ Criar padrões e módulos reutilizáveis, não um banco compartilhado entre apli
 - PASS — repositórios listados como confirmados encontrados na conta GitHub conectada.
 - PASS — README do Beginner Data Science Projects consultado para categorias e exemplos.
 - PASS — README e metadados do ARES consultados para escopo e licença declarada.
-- BLOCKED — schema, qualidade e disponibilidade dos dados dos aplicativos ainda não inspecionados.
+- PASS — inspeção estática inicial de serviços de analytics/estoque do Horti-fruit e modelos/agregador da Hamburgueria.
+- BLOCKED — volume, histórico real, qualidade e persistência dos dados não foram validados em ambiente de execução.
 - NOT RUN — notebooks externos não foram executados.
+- NOT RUN — testes de agregação, correção de payment_status/margem e isolamento multi-tenant não foram executados.
 - NOT RUN — nenhum modelo foi treinado, implantado ou conectado aos aplicativos.
 - NOT RUN — auditoria ARES não foi executada.
