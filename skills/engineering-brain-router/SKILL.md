@@ -66,6 +66,7 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Supabase/PostgreSQL/RLS → supabase-postgres-specialist; não aplicar comandos específicos a MySQL.
 - Remotion/HyperFrames → skill específica do pipeline usado.
 - REA / análise assistida autorizada → rea-assisted-analysis.
+- Criptografia, hashes, KDFs, protocolos TLS/SSH, certificados, formatos de chaves, auditoria de implementações ou recuperação legítima de arquivos/chaves próprios → cryptography-security-analysis; combine com rea-assisted-analysis apenas quando for necessário localizar ou observar rotinas em binários, e com application-security-auth quando autenticação/contas fizerem parte do escopo. Para repositórios-fonte completos, use repo-reverse-engineering como principal quando a pergunta for arquitetura geral.
 - Eficiência de IA/contexto → ai-token-budget.
 - Pessoa iniciante, stack desconhecida ou não sabe qual skill escolher → skill-onboarding-profiler para entrevista simples e recomendações explicadas; não presumir tecnologias.
 - Engenharia reversa / descoberta de código aberto → `repo-reverse-engineering` para repositório-fonte e arquitetura; `rea-assisted-analysis` para análise estática/dinâmica autorizada de aplicações, artefatos ou binários; segurança apenas se o escopo envolver controles de acesso ou risco real. Verifique fontes oficiais e licenças antes de adotar ferramentas externas.
