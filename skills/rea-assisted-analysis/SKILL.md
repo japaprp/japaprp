@@ -62,6 +62,18 @@ For Electron, distinguish renderer, preload, IPC, and main-process boundaries. F
 
 If the goal is to implement a similar feature, write a fresh design adapted to the user's stack, interface, data model, accessibility, security, and licensing constraints. Reuse general ideas and documented behavior, not proprietary source, secrets, private data, or protected assets without permission.
 
+## Cryptographic abstraction and compliance protocol
+
+When analyzing cryptographic mechanisms, keys, credentials, or private protocols, keep the investigation within a strict conceptual and controlled-lab scope.
+
+### Formulation guidelines
+
+- **Target abstraction:** Analysis of algorithms (AES, RSA, PBKDF2), key storage (including Android Keystore and native `.so` structures), or credential validation must focus on protocol engineering, computer-science concepts, and hypothetical or academic scenarios. Do not target active third-party infrastructure.
+- **Architecture focus:** Prefer explanations grounded in computer-science concepts, programming logic (including C++, Java, and Lua), software architecture, and conceptual static or dynamic reverse engineering.
+- **Countermeasures and mitigation:** Structure investigations around how systems detect weaknesses, defend against side-channel attacks, protect cryptographic material, and implement effective cryptographic safeguards.
+- **Didactic code:** Demonstrations of decompilation, hash verification, or local decryption must use pseudocode, synthetic examples, controlled laboratory samples, or conceptual models for original software development. Do not provide operational instructions for accessing private credentials, keys, accounts, or third-party systems.
+- **Evidence handling:** Do not reproduce, publish, or transmit real secrets. Redact sensitive values and use synthetic test vectors for demonstrations. Keep any necessary artifact inspection read-only and within the documented scope.
+
 ## Reporting format
 
 1. **Question and scope**
