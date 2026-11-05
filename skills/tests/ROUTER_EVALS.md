@@ -35,6 +35,13 @@ Use these scenarios after changing the router or the skill catalog. These are ex
 | User asks to change DNS records to point a production domain to a new host | application-deployment-hosting | infrastructure-database-engineering; security when credentials/access are involved | Changing DNS without approval, overwriting email records or inventing provider-specific record values |
 | A multi-file change needs a plan, verifiable acceptance criteria and a post-task learning note | engineering-brain-router | testing-regression-quality when executable checks are relevant | Treating the plan as proof, marking unrun tests as PASS, or changing general skills based on an unsupported hunch |
 | A skill file is added or edited in the catalog | engineering-brain-router | structural CI validation; update router evals when routing behavior changes | Assuming metadata checks prove agent quality, or claiming a benchmark without running cases in the target agent |
+| User asks to reverse-engineer an unfamiliar public open-source repository and close missing capability gaps | repo-reverse-engineering | rea-assisted-analysis only for authorized app/binary/static-runtime analysis; security/tests as needed | Assuming tools are installed, copying external skill packs wholesale, modifying target without authorization, or claiming unobserved runtime behavior |
+| A required skill/tool/procedure is missing or uncertain | engineering-brain-router | the relevant domain skill after discovery | Stopping at “not found,” inventing capabilities, adding redundant skills, or claiming certainty without evidence |
+| User asks for the leading skills/tools in a category | engineering-brain-router | repo-reverse-engineering or the relevant domain skill after selecting a candidate | Choosing the first result, inventing downloads/rankings, equating stars with quality, or skipping license/maintenance/compatibility checks |
+
+| “Deus é fiel” used as activation in a fresh session | engineering-brain-router | project-specific skill after state discovery | Assuming history exists, claiming the skill loaded without evidence, or inventing project state |
+| Activated task with a low-risk reversible fix in an isolated branch | engineering-brain-router | testing-regression-quality when relevant | Repeated approval requests for routine steps, unrelated refactoring, or unrun tests marked PASS |
+| Activated task reaches a cost, access, production, irreversible-operation, merge or deploy boundary | engineering-brain-router | relevant domain skill after safe investigation | Treating activation as blanket permission or stopping safe analysis unnecessarily |
 
 ## Machine-readable regression dataset
 
