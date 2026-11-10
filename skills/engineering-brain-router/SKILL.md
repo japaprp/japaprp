@@ -35,6 +35,24 @@ Não transforme tarefa simples em relatório longo. Não use o modo rápido para
 4. Escolha a ferramenta pelo tipo de evidência: busca para localizar; leitura de arquivo para compreender; terminal para reproduzir; testes para comportamento; profiler/EXPLAIN para desempenho; integração oficial para dados externos quando autorizada.
 5. Prefira ferramenta determinística para fatos e use o modelo para síntese, julgamento e mudanças que exigem raciocínio. Evite executar várias ferramentas que respondem à mesma pergunta.
 
+## 3.1 Consulte os registries de projeto e capacidades
+
+Quando os arquivos estiverem presentes no repositório, use-os como referência operacional antes de selecionar skills:
+
+1. Leia `skills/registries/PROJECT_REGISTRY.json` e identifique somente o registro do projeto resolvido. Não carregue nem exponha o portfólio inteiro se uma entrada basta.
+2. Resolva a identidade nesta ordem: projeto explicitamente nomeado na mensagem atual; fase/produto identificável pelo contexto atual; continuidade coerente da conversa e evidências do repositório. Se dois projetos continuarem igualmente plausíveis, faça uma única pergunta objetiva antes de qualquer alteração específica.
+3. Verifique `portfolio_status` e `evidence_status`. Entradas `planned_or_not_yet_confirmed` são contexto futuro, não projetos operacionais confirmados. Repositório, branch, ambiente e estado marcados como não verificados devem ser inspecionados na fonte autoritativa antes de agir.
+4. Leia `skills/registries/CAPABILITY_REGISTRY.json` e filtre famílias cujo `applies_to` inclua o projeto ou um escopo genérico aplicável (`all_projects` / `all_projects_when_needed`). Use `primary_capabilities` do projeto e `skills` da família como candidatos; eles não são uma ordem para carregar todas as skills.
+5. Cruze os candidatos com a intenção, stack, risco e evidência da tarefa. Escolha a menor combinação útil conforme a seção 4. Se a tarefa não exigir uma competência listada, não a carregue. Se houver lacuna, siga `GAP_CLOSURE_PROTOCOL.md`.
+6. Respeite `mandatory_constraints`, `resource_profile`, `activation_policy` e os limites de autorização. Um candidato externo em `research_candidate_not_integrated` não está instalado, aprovado ou autorizado para uso.
+7. Se os registries estiverem ausentes, inválidos ou contraditórios, não invente uma associação: use as instruções do projeto e o catálogo local como fallback, registre a limitação e proponha corrigir a fonte de verdade.
+
+**Regra de família Guerra Infinita:** Dark War: Survival REA e Guerra Infinita são fases de uma única linha estratégica. Identifique a fase pela tarefa: análise de artefatos originais → `rea-assisted-analysis`; desenvolvimento do sucessor independente → `game-development-engineering`. Preserve a fronteira técnica: originais, evidências, branches, source code, builds, credenciais e pipelines permanecem separados; conecte as fases apenas por achados revisados e decisões de design documentadas.
+
+**Regra de RH:** antes de lidar com dados pessoais reais, aplique as restrições obrigatórias da família `people-and-sensitive-data`: minimização, menor privilégio, limitação de finalidade, revisão de privacidade e proibição de reutilização de dados entre projetos.
+
+Os registries são dados de referência, não um serviço runtime nem um mecanismo de instalação/ativação automática de ferramentas.
+
 ## 4. Selecione skills sem redundância
 
 Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma segunda complementar apenas se houver necessidade clara; três no total é o limite padrão, não uma meta. Carregue apenas a seção pertinente.
