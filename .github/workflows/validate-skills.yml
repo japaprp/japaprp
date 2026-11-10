@@ -18,6 +18,8 @@ on:
       - ".github/copilot-instructions.md"
       - "skills/**"
       - "scripts/validate_skills.py"
+      - "scripts/validate_registries.py"
+      - "scripts/test_registry_routing.mjs"
       - "scripts/run_router_eval.py"
       - "scripts/test_activation_trigger.mjs"
       - ".github/workflows/validate-skills.yml"
@@ -49,3 +51,7 @@ jobs:
         run: node --check scripts/test_activation_trigger.mjs
       - name: Run deterministic activation regression
         run: node scripts/test_activation_trigger.mjs
+      - name: Check registry routing regression syntax
+        run: node --check scripts/test_registry_routing.mjs
+      - name: Run deterministic registry routing regression
+        run: node scripts/test_registry_routing.mjs
