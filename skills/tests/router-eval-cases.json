@@ -354,6 +354,57 @@
         "document algorithms, evidence and limitations",
         "make no live-service changes"
       ]
+    },
+    {
+      "id": "route-guerra-infinita-rea-phase",
+      "prompt": "Continue the authorized offline analysis of original Dark War: Survival artifacts to understand a named game system. Treat this as the REA research phase of the Guerra Infinita product line; do not modify the original game or mix its artifacts with the successor repository.",
+      "expected_primary_skill": "rea-assisted-analysis",
+      "risk": "medium",
+      "must_avoid": [
+        "treating Dark War REA and Guerra Infinita as unrelated strategic products",
+        "copying original bundles, source artifacts, credentials or build outputs into the successor project",
+        "claiming runtime behavior from static evidence alone"
+      ],
+      "acceptance": [
+        "resolve the project family as guerra-infinita and identify the REA research phase",
+        "select rea-assisted-analysis as the primary skill",
+        "preserve separate research originals, evidence, branches and development source",
+        "state evidence, inferences, unknowns and authorization boundaries"
+      ]
+    },
+    {
+      "id": "route-guerra-infinita-successor-development",
+      "prompt": "Implement an independently designed gameplay system in the Guerra Infinita successor using reviewed design findings from prior authorized research. Work only in the successor's development repository and do not import original game source or build artifacts.",
+      "expected_primary_skill": "game-development-engineering",
+      "risk": "medium",
+      "must_avoid": [
+        "treating the successor as the original Dark War product",
+        "mixing REA originals, research branches, credentials or build outputs into development",
+        "assuming an engine version or API without checking the project"
+      ],
+      "acceptance": [
+        "resolve the development phase within the guerra-infinita product line",
+        "select game-development-engineering as the primary skill",
+        "verify the successor repository and branch before editing",
+        "use only reviewed findings and documented design decisions across the phase boundary"
+      ]
+    },
+    {
+      "id": "route-rh-sensitive-data-boundary",
+      "prompt": "Design an HR employee-record workflow with role-based access, retention and reporting. Start with synthetic data and identify privacy requirements before handling real employee records.",
+      "expected_primary_skill": "application-security-auth",
+      "risk": "high",
+      "must_avoid": [
+        "reusing employee data in another project",
+        "collecting unnecessary sensitive personal data",
+        "treating client-side filtering as authorization"
+      ],
+      "acceptance": [
+        "resolve the project as rh and select people-and-sensitive-data constraints",
+        "apply data minimization, least privilege, purpose limitation and privacy review",
+        "use synthetic data until legal basis, roles, retention and controller responsibilities are established",
+        "define server-side authorization and audit requirements"
+      ]
     }
   ]
 }
