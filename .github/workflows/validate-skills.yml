@@ -8,6 +8,7 @@ on:
       - "skills/**"
       - "scripts/validate_skills.py"
       - "scripts/validate_registries.py"
+      - "scripts/test_registry_routing.mjs"
       - "scripts/run_router_eval.py"
       - "scripts/test_activation_trigger.mjs"
       - ".github/workflows/validate-skills.yml"
