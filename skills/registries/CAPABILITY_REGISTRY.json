@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "registry_kind": "capability_registry",
+  "updated_on": "2026-11-10",
+  "activation_policy": {
+    "selection": "Select capabilities per task from the project's verified context; do not load the whole catalog.",
+    "default_skill_budget": "One primary skill and zero or one complementary skill; three total is an exceptional ceiling, not a target.",
+    "deactivation": "A capability not selected for the current task is simply not loaded or invoked. This registry does not claim automatic installation or runtime enable/disable of system tools.",
+    "gap_discovery": "Use the existing GAP_CLOSURE_PROTOCOL.md before adding a capability or external dependency.",
+    "resource_gate": "Check platform compatibility, RAM, storage, CPU/GPU, network use, licensing, maintenance, permissions, and cost before adoption.",
+    "approval_gate": "Research and read-only inspection are routine. System-wide installation, paid services, external publication, permission changes, secret changes, merge, deploy, and destructive operations require explicit authorization."
+  },
+  "capability_families": [
+    {
+      "capability_id": "portfolio-orchestration",
+      "purpose": "Resolve project identity, scope, context, dependencies, risk, and the minimum useful capability set.",
+      "skills": ["engineering-brain-router", "skill-onboarding-profiler", "product-discovery-delivery"],
+      "applies_to": ["all_projects"]
+    },
+    {
+      "capability_id": "source-repository-engineering",
+      "purpose": "Understand source repositories, architecture, dependencies, execution paths, and make minimal verified changes.",
+      "skills": ["repo-reverse-engineering", "code-review-minimal-change", "targeted-debugging-performance", "testing-regression-quality"],
+      "applies_to": ["all_projects_when_needed"]
+    },
+    {
+      "capability_id": "authorized-rea-and-game-development",
+      "purpose": "Analyze authorized shipped artifacts and develop the independent Guerra Infinita successor.",
+      "skills": ["rea-assisted-analysis", "game-development-engineering", "visual-asset-engineering", "cryptography-security-analysis"],
+      "applies_to": ["guerra-infinita"]
+    },
+    {
+      "capability_id": "commerce-and-content",
+      "purpose": "Product research, affiliate content, distribution, public integrations, and conversion analysis.",
+      "skills": ["content-commerce-distribution", "public-api-integration", "business-data-intelligence", "spreadsheet-data-engineering"],
+      "applies_to": ["casa-pratica-ofc", "hamburgueria", "hortifruti"]
+    },
+    {
+      "capability_id": "business-operations",
+      "purpose": "Requirements, operational workflows, records, inventory, orders, payments, and reporting.",
+      "skills": ["product-discovery-delivery", "forms-crud-data-integrity", "business-data-intelligence", "payments-billing-integrations"],
+      "applies_to": ["hamburgueria", "hortifruti", "future_business_projects"]
+    },
+    {
+      "capability_id": "people-and-sensitive-data",
+      "purpose": "Handle HR workflows and personal data with purpose limitation, access control, retention, and legal review.",
+      "skills": ["application-security-auth", "forms-crud-data-integrity", "business-data-intelligence"],
+      "applies_to": ["rh"],
+      "mandatory_constraints": ["data_minimization", "least_privilege", "purpose_limitation", "privacy_review", "no_cross_project_data_reuse"]
+    },
+    {
+      "capability_id": "security-and-infrastructure",
+      "purpose": "Authentication, authorization, cryptography, databases, APIs, deployment planning, and incident-safe operations.",
+      "skills": ["application-security-auth", "cryptography-security-analysis", "infrastructure-database-engineering", "api-engineering-contracts", "mcp-tooling-engineering"],
+      "applies_to": ["all_projects_when_needed"]
+    },
+    {
+      "capability_id": "visualization-and-documentation",
+      "purpose": "Create architecture maps, process diagrams, UI wireframes, and maintainable technical documentation.",
+      "skills": ["visual-asset-engineering", "premium-distinctive-web-design", "web-motion-design"],
+      "applies_to": ["all_projects_when_needed"]
+    }
+  ],
+  "external_tool_candidates": [
+    {
+      "tool_id": "excalidraw",
+      "name": "Excalidraw",
+      "source": "https://github.com/excalidraw/excalidraw",
+      "capability": "visualization-and-documentation",
+      "status": "research_candidate_not_integrated",
+      "proposed_use": "Architecture diagrams, process flows, dependency maps, and wireframes.",
+      "adoption_gate": "Evaluate hosted/browser-first use and export/import workflow before considering a local or embedded integration.",
+      "resource_note": "Prefer browser use first; no installation or runtime dependency is required for initial evaluation.",
+      "license_note": "Verify current upstream LICENSE and dependency terms at adoption time."
+    },
+    {
+      "tool_id": "gitreverse",
+      "name": "GitReverse",
+      "source": "https://github.com/filiksyos/gitreverse",
+      "capability": "source-repository-engineering",
+      "status": "research_candidate_not_integrated",
+      "proposed_use": "Generate an initial repository-understanding prompt from public repository metadata, shallow root structure, and README; use only as a triage aid.",
+      "limitations": "Not binary reverse engineering, not a complete source-code audit, and not proof of runtime behavior. Generated prompts must be checked against actual source and tests.",
+      "adoption_gate": "Recheck repository identity, maintenance, license, dependencies, data handling, and local resource requirements before use."
+    }
+  ],
+  "registry_notes": [
+    "This is an initial portfolio and capability map, not proof that every listed skill is loaded or every project is currently active in a runtime.",
+    "Project-specific skills and tools must be chosen from actual task requirements; capability mappings are suggestions, not automatic execution commands.",
+    "Do not create a new skill when an existing skill plus a small routing or evaluation update is sufficient."
+  ]
+}
