@@ -14,51 +14,115 @@
     {
       "capability_id": "portfolio-orchestration",
       "purpose": "Resolve project identity, scope, context, dependencies, risk, and the minimum useful capability set.",
-      "skills": ["engineering-brain-router", "skill-onboarding-profiler", "product-discovery-delivery"],
-      "applies_to": ["all_projects"]
+      "skills": [
+        "engineering-brain-router",
+        "skill-onboarding-profiler",
+        "product-discovery-delivery"
+      ],
+      "applies_to": [
+        "all_projects"
+      ]
     },
     {
       "capability_id": "source-repository-engineering",
       "purpose": "Understand source repositories, architecture, dependencies, execution paths, and make minimal verified changes.",
-      "skills": ["repo-reverse-engineering", "code-review-minimal-change", "targeted-debugging-performance", "testing-regression-quality"],
-      "applies_to": ["all_projects_when_needed"]
+      "skills": [
+        "repo-reverse-engineering",
+        "code-review-minimal-change",
+        "targeted-debugging-performance",
+        "testing-regression-quality"
+      ],
+      "applies_to": [
+        "all_projects_when_needed"
+      ]
     },
     {
       "capability_id": "authorized-rea-and-game-development",
       "purpose": "Analyze authorized shipped artifacts and develop the independent Guerra Infinita successor.",
-      "skills": ["rea-assisted-analysis", "game-development-engineering", "visual-asset-engineering", "cryptography-security-analysis"],
-      "applies_to": ["guerra-infinita"]
+      "skills": [
+        "rea-assisted-analysis",
+        "game-development-engineering",
+        "visual-asset-engineering",
+        "cryptography-security-analysis"
+      ],
+      "applies_to": [
+        "guerra-infinita"
+      ]
     },
     {
       "capability_id": "commerce-and-content",
       "purpose": "Product research, affiliate content, distribution, public integrations, and conversion analysis.",
-      "skills": ["content-commerce-distribution", "public-api-integration", "business-data-intelligence", "spreadsheet-data-engineering"],
-      "applies_to": ["casa-pratica-ofc", "hamburgueria", "hortifruti"]
+      "skills": [
+        "content-commerce-distribution",
+        "public-api-integration",
+        "business-data-intelligence",
+        "spreadsheet-data-engineering"
+      ],
+      "applies_to": [
+        "casa-pratica-ofc",
+        "hamburgueria",
+        "hortifruti"
+      ]
     },
     {
       "capability_id": "business-operations",
       "purpose": "Requirements, operational workflows, records, inventory, orders, payments, and reporting.",
-      "skills": ["product-discovery-delivery", "forms-crud-data-integrity", "business-data-intelligence", "payments-billing-integrations"],
-      "applies_to": ["hamburgueria", "hortifruti", "future_business_projects"]
+      "skills": [
+        "product-discovery-delivery",
+        "forms-crud-data-integrity",
+        "business-data-intelligence",
+        "payments-billing-integrations"
+      ],
+      "applies_to": [
+        "hamburgueria",
+        "hortifruti",
+        "future_business_projects"
+      ]
     },
     {
       "capability_id": "people-and-sensitive-data",
       "purpose": "Handle HR workflows and personal data with purpose limitation, access control, retention, and legal review.",
-      "skills": ["application-security-auth", "forms-crud-data-integrity", "business-data-intelligence"],
-      "applies_to": ["rh"],
-      "mandatory_constraints": ["data_minimization", "least_privilege", "purpose_limitation", "privacy_review", "no_cross_project_data_reuse"]
+      "skills": [
+        "application-security-auth",
+        "forms-crud-data-integrity",
+        "business-data-intelligence"
+      ],
+      "applies_to": [
+        "rh"
+      ],
+      "mandatory_constraints": [
+        "data_minimization",
+        "least_privilege",
+        "purpose_limitation",
+        "privacy_review",
+        "no_cross_project_data_reuse"
+      ]
     },
     {
       "capability_id": "security-and-infrastructure",
       "purpose": "Authentication, authorization, cryptography, databases, APIs, deployment planning, and incident-safe operations.",
-      "skills": ["application-security-auth", "cryptography-security-analysis", "infrastructure-database-engineering", "api-engineering-contracts", "mcp-tooling-engineering"],
-      "applies_to": ["all_projects_when_needed"]
+      "skills": [
+        "application-security-auth",
+        "cryptography-security-analysis",
+        "infrastructure-database-engineering",
+        "api-engineering-contracts",
+        "mcp-tooling-engineering"
+      ],
+      "applies_to": [
+        "all_projects_when_needed"
+      ]
     },
     {
       "capability_id": "visualization-and-documentation",
       "purpose": "Create architecture maps, process diagrams, UI wireframes, and maintainable technical documentation.",
-      "skills": ["visual-asset-engineering", "premium-distinctive-web-design", "web-motion-design"],
-      "applies_to": ["all_projects_when_needed"]
+      "skills": [
+        "visual-asset-engineering",
+        "premium-distinctive-web-design",
+        "web-motion-design"
+      ],
+      "applies_to": [
+        "all_projects_when_needed"
+      ]
     }
   ],
   "external_tool_candidates": [
@@ -71,7 +135,8 @@
       "proposed_use": "Architecture diagrams, process flows, dependency maps, and wireframes.",
       "adoption_gate": "Evaluate hosted/browser-first use and export/import workflow before considering a local or embedded integration.",
       "resource_note": "Prefer browser use first; no installation or runtime dependency is required for initial evaluation.",
-      "license_note": "Verify current upstream LICENSE and dependency terms at adoption time."
+      "license_note": "Verify current upstream LICENSE and dependency terms at adoption time.",
+      "maintenance_observation": "GitHub metadata was checked on 2026-11-10: public, active repository; verify current license and release requirements before embedding."
     },
     {
       "tool_id": "gitreverse",
@@ -81,7 +146,10 @@
       "status": "research_candidate_not_integrated",
       "proposed_use": "Generate an initial repository-understanding prompt from public repository metadata, shallow root structure, and README; use only as a triage aid.",
       "limitations": "Not binary reverse engineering, not a complete source-code audit, and not proof of runtime behavior. Generated prompts must be checked against actual source and tests.",
-      "adoption_gate": "Recheck repository identity, maintenance, license, dependencies, data handling, and local resource requirements before use."
+      "adoption_gate": "Recheck repository identity, maintenance, license, dependencies, data handling, and local resource requirements before use.",
+      "maintenance_observation": "GitHub metadata was checked on 2026-11-10: repository is public, not archived, TypeScript, MIT metadata, created 2026-03-31, and had a push on 2026-11-10. Stars/forks are interest signals only, not quality or security proof.",
+      "operational_requirements": "The current README says at least one LLM API key is required for quick reverse. It supports multiple providers; GitHub token is optional for higher API limits. Supabase and Stripe are optional features. Do not provide Council Central, project, or personal secrets to the hosted service; do not configure or incur API costs without explicit approval.",
+      "resource_note": "Avoid cloning or self-hosting initially. Evaluate only public, non-sensitive repositories; any local trial must use an approved LLM provider/key and a strict cost limit."
     }
   ],
   "registry_notes": [
