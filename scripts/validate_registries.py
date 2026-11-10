@@ -111,7 +111,9 @@ def main() -> int:
             errors.append(f"capability {family_id!r}: applies_to must be an array")
         else:
             for scope in scopes:
-                if scope not in project_ids and scope not in allowed_scope_tokens:
+                if not isinstance(scope, str) or (
+                    scope not in project_ids and scope not in allowed_scope_tokens
+                ):
                     errors.append(
                         f"capability {family_id!r}: unknown applies_to project/scope {scope!r}"
                     )
@@ -121,7 +123,7 @@ def main() -> int:
             continue
         tool_id = candidate.get("tool_id", "<unknown>")
         family_id = candidate.get("capability")
-        if family_id not in family_ids:
+        if not isinstance(family_id, str) or family_id not in family_ids:
             errors.append(
                 f"external tool {tool_id!r}: unknown capability family {family_id!r}"
             )
@@ -138,13 +140,16 @@ def main() -> int:
     ) if isinstance(projects, list) else None
     if guerra:
         relationship = guerra.get("relationship_model", {})
-        if relationship.get("single_strategic_product_line") is not True:
-            errors.append("guerra-infinita: must remain one strategic product line")
-        if not relationship.get("technical_isolation"):
-            errors.append("guerra-infinita: technical_isolation rule is required")
-        for phase in ("research_phase", "development_phase"):
-            if not isinstance(relationship.get(phase), dict):
-                errors.append(f"guerra-infinita: missing relationship_model.{phase}")
+        if not isinstance(relationship, dict):
+            errors.append("guerra-infinita: relationship_model must be an object")
+        else:
+            if relationship.get("single_strategic_product_line") is not True:
+                errors.append("guerra-infinita: must remain one strategic product line")
+            if not relationship.get("technical_isolation"):
+                errors.append("guerra-infinita: technical_isolation rule is required")
+            for phase in ("research_phase", "development_phase"):
+                if not isinstance(relationship.get(phase), dict):
+                    errors.append(f"guerra-infinita: missing relationship_model.{phase}")
 
     print(
         f"Validated {len(project_ids)} projects, {len(family_ids)} capability "
