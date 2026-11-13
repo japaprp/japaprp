@@ -30,7 +30,8 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Login, autorização, sessão, isolamento de dados | [application-security-auth](./application-security-auth/SKILL.md) | CRUD/testes quando necessário |
 | Infra, banco, migração, SSH e operações de infraestrutura | [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) | segurança ou testes conforme o risco |
 | Hospedar/publicar sites, APIs e backends; provedor, domínio, HTTPS, CI/CD, custos e rollback | [application-deployment-hosting](./application-deployment-hosting/SKILL.md) | infraestrutura/banco quando necessário |
-| Planilhas Excel/CSV, fórmulas, transformação e reconciliação de dados | [spreadsheet-data-engineering](./spreadsheet-data-engineering/SKILL.md) | infraestrutura/banco quando houver integração persistente |
+| Análises de negócio, KPIs, previsão, demanda, estoque, recomendação e modelos tabulares | [business-data-intelligence](./business-data-intelligence/SKILL.md) | [spreadsheet-data-engineering](./spreadsheet-data-engineering/SKILL.md) para arquivos tabulares; segurança quando houver dados pessoais |
+| Visão computacional, câmeras, detecção/rastreamento de pessoas e objetos, OCR/LPR e biometria facial autorizada | [computer-vision-video-intelligence](./computer-vision-video-intelligence/SKILL.md) | [application-security-auth](./application-security-auth/SKILL.md) e [ai-integration-evaluation](./ai-integration-evaluation/SKILL.md) somente quando necessário |\n| Planilhas Excel/CSV, fórmulas, transformação e reconciliação de dados | [spreadsheet-data-engineering](./spreadsheet-data-engineering/SKILL.md) | infraestrutura/banco quando houver integração persistente |
 | Imagens, assets visuais, formatos, otimização e integração no app/site | [visual-asset-engineering](./visual-asset-engineering/SKILL.md) | design ou vídeo somente se o escopo também exigir |
 | Desenvolvimento de jogos, gameplay, engine, build e profiling | [game-development-engineering](./game-development-engineering/SKILL.md) | segurança/API conforme multiplayer ou serviços online |
 | Formulários, cadastro, CRUD e integridade | [forms-crud-data-integrity](./forms-crud-data-integrity/SKILL.md) | segurança se houver dados privados ou permissões |
@@ -42,6 +43,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Vídeo programático Remotion | [remotion-video-engineering](./remotion-video-engineering/SKILL.md) | pipeline de render se aplicável |
 | Composição/pipeline HyperFrames | [hyperframes-video-pipeline](./hyperframes-video-pipeline/SKILL.md) | debug se necessário |
 | Análise assistida com REA | [rea-assisted-analysis](./rea-assisted-analysis/SKILL.md) | engenharia reversa se necessário |
+| Criptografia, hashes, protocolos, chaves e recuperação autorizada de dados próprios | [cryptography-security-analysis](./cryptography-security-analysis/SKILL.md) | [rea-assisted-analysis](./rea-assisted-analysis/SKILL.md) para análise de binários; segurança de autenticação quando necessário |
 | Gmail/Drive/Calendar ou extração via Actors | [external-workspace-data-tools](./external-workspace-data-tools/SKILL.md) | roteador e segurança conforme o risco |
 | Economia de contexto/créditos de IA | [ai-token-budget](./ai-token-budget/SKILL.md) | roteador para reduzir leitura redundante |
 
@@ -56,6 +58,11 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 ## Validação do roteador
 
 - [Router smoke tests](./tests/ROUTER_EVALS.md) — cenários baseados em stacks e problemas reais para revisar seleção de skills, economia de contexto e limites de segurança. São casos esperados; só conte como benchmark depois de executá-los no agente-alvo e registrar os resultados.
+
+## Inteligência de dados do portfólio
+
+- [Matriz de oportunidades de Data Science e segurança](./PORTFOLIO_DATA_SCIENCE_MATRIX.md) — relaciona referências open-source a oportunidades, dados necessários, prioridades e limites. É planejamento, não implementação.
+- [business-data-intelligence](./business-data-intelligence/SKILL.md) — procedimento reutilizável para analytics, previsão e modelos de negócio com isolamento entre projetos.
 
 ## Memória por projeto
 
