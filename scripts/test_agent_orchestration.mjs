@@ -66,4 +66,21 @@ assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task
 console.log('PASS: DAG planner admits only ready tasks, respects concurrency and exclusive resource locks.');
 console.log('PASS: planner rejects duplicate IDs, cross-project tasks, invalid limits and dependency cycles.');
 
+const adversarialProtocol = read('skills/agent-orchestration/ADVERSARIAL_DECISION_REVIEW.md');
+const adversarialGate = read('scripts/adversarial_review_gate.py');
+assert.match(skill, /Revisão adversarial de decisões consequenciais/);
+assert.match(contract, /pode rejeitar a maioria/);
+assert.match(router, /ADVERSARIAL_DECISION_REVIEW/);
+assert.match(adversarialProtocol, /não decide por maioria/i);
+assert.match(adversarialProtocol, /inconclusive/);
+assert.match(adversarialProtocol, /single_agent_multi_perspective/);
+assert.match(adversarialGate, /def should_trigger/);
+for (const id of [
+  'route-adversarial-consequential-decision',
+  'route-adversarial-routine-negative',
+  'route-adversarial-boundary-two-signals'
+]) assert.ok(cases.some((testCase) => testCase.id === id), `missing adversarial routing regression: ${id}`);
+assert.equal(cases.find((testCase) => testCase.id === 'route-adversarial-routine-negative').expected_primary_skill, null);
+console.log('PASS: adversarial review is integrated into the existing orchestration skill without duplication.');
+console.log('PASS: majority-independent synthesis, dissent, uncertainty, independence labeling and trigger regressions are present.');
 console.log('LIMIT: the planner selects work but does not spawn agents; live agent dispatch remains unverified.');
