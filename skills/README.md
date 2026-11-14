@@ -64,6 +64,11 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 - [Inventário de engines](./ENGINE_STATUS.md) — diferencia validação estrutural, comportamento do agente e operação real.
 - [Validador estrutural](../scripts/validate_skills.py), [auditoria de cobertura](../scripts/audit_capability_coverage.py) e [GitHub Actions](../.github/workflows/validate-skills.yml) — verificam metadados, referências e cobertura do catálogo. Isso valida estrutura, não competência do agente.
 
+## Revisão adversarial dentro da orquestração
+
+- [Protocolo de revisão adversarial](./agent-orchestration/ADVERSARIAL_DECISION_REVIEW.md) — extensão da skill `agent-orchestration`, sem criar uma skill duplicada.
+- [Gate determinístico](../scripts/adversarial_review_gate.py), [testes](../scripts/test_adversarial_review_gate.py) e [modelos de contexto/registro](./templates/ADVERSARIAL_DECISION_CONTEXT.json) / [registro completo](./templates/ADVERSARIAL_DECISION_RECORD.json) — acionamento objetivo e validação estrutural; não provam a veracidade das evidências nem independência dos agentes.
+
 ## Validação do roteador
 
 - [Router smoke tests](./tests/ROUTER_EVALS.md) — cenários baseados em stacks e problemas reais para revisar seleção de skills, economia de contexto e limites de segurança. São casos esperados; só conte como benchmark depois de executá-los no agente-alvo e registrar os resultados.
