@@ -11,6 +11,7 @@ on:
       - "scripts/audit_capability_coverage.py"
       - "scripts/test_capability_engines.mjs"
       - "scripts/test_agent_orchestration.mjs"
+      - "scripts/agent-orchestration-planner.mjs"
       - "scripts/test_registry_routing.mjs"
       - "scripts/run_router_eval.py"
       - "scripts/test_activation_trigger.mjs"
