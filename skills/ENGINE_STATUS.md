@@ -20,6 +20,10 @@ The repository has a working structural catalog and CI validation, but it does n
 | Agent/client adapters | AGENTS.md and Copilot repository instructions exist | PARTIAL | Verify Codex/VS Code and other target clients separately; repository files do not globally configure every client |
 | Runtime tool/plugin installation | No evidence that Ponytail plugin/hooks or all external candidates are installed in Codex/VS Code | NOT VERIFIED | Do not install without explicit system-level authorization and hook review |
 
+## Current implementation branch
+
+Branch: `feat/cacd-autonomy-ponytail-engine-audit`, based on PR #4's registry revision. This branch adds two focused skills (`ponytail-engineering` and `capability-gap-closure`), maps them to the Council's capability families, adds a local coverage auditor, and extends routing/autonomy regressions from 25 to 29 cases. These additions are implemented but remain pending this branch's own CI and behavioral verification until those checks complete.
+
 ## What "working" means
 
 - **Structural PASS:** files, schemas, references, scripts, and CI checks are valid.
