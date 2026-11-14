@@ -477,24 +477,28 @@
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "rh_documentos.php lists active users at line 200 without filtering by the authenticated session's empresa_id.",
-        "rh_documentos.php lists all non-deleted rh_documentos at line 207 without a company predicate.",
-        "Document validation at lines 63-69 updates by funcionario_id and tipo only; it does not require the target employee/document to belong to the current session company.",
-        "Document upload at lines 149-160 derives empresa_id from the submitted funcionario_id rather than first validating that the target employee belongs to the authenticated user's company.",
-        "Document deletion at line 189 updates by funcionario_id and tipo only, without empresa_id. seguranca.php loads empresa_id into the session but the inspected document queries do not enforce it.",
-        "This is a source-level cross-company isolation failure; no employee data, live database rows, or document contents were accessed, and no two-company runtime test has been executed."
+        "rh_documentos.php lists active users at line 200 and all non-deleted documents at line 207 without filtering by the authenticated session's empresa_id.",
+        "Document validation at lines 63-69 updates by funcionario_id and tipo only; upload at lines 149-160 derives empresa_id from the submitted target funcionario_id; deletion at line 189 updates by funcionario_id and tipo only. None verifies the target employee belongs to the authenticated user's company.",
+        "rh_ponto.php requires only the global ver_cartao_ponto permission; it lists all pessoas at line 75 and all matching rh_ponto rows through queries at lines 126-148 without an empresa_id predicate. Insert at line 40 omits empresa_id and deletion at line 61 uses only the point-row ID.",
+        "rh_ferias.php requires only the global definir_ferias permission; it lists all users at line 68, lists vacation records at lines 82-90 without empresa_id, inserts without empresa_id at line 38, and deletes by row ID at line 53.",
+        "pessoas.php lists and searches the pessoas table at lines 64-77 without empresa_id. pessoa_cadastrar.php inserts people without setting empresa_id. The foundation migration adds empresa_id to pessoas, rh_documentos, rh_ferias and rh_ponto, but these existing write/read paths do not consistently use it.",
+        "dossie_colaborador.php allows managers with global RH permissions to choose from all active users at lines 24-34 without restricting the list to the session company.",
+        "seguranca.php refreshes the user's empresa_id into the session, but the inspected HR queries and mutations do not consistently enforce that scope.",
+        "This is a source-level cross-company isolation failure across employee, document, time and vacation modules. No employee data, live database rows, or document contents were accessed; no two-company runtime test has been executed."
       ],
       "fix": null,
       "regression_test": {
-        "path": "two-company synthetic MySQL integration suite for rh_documentos.php (not yet implemented)",
-        "test": "Create Company A and Company B with separate users and documents; verify A cannot list, upload, validate, delete, or access B's documents by changing funcionario_id or tipo; verify B remains unchanged."
+        "path": "two-company synthetic MySQL integration suite covering rh_documentos.php, rh_ponto.php, rh_ferias.php, pessoas.php and dossie_colaborador.php",
+        "test": "Create two companies with separate HR managers and employees. Verify each manager can only list, create, validate, delete and view employees/documents/time/vacations in their own company; verify all new records persist the authenticated empresa_id; test cross-company IDs and row IDs are rejected."
       },
       "closure_gate": [
-        "Derive the authorized company from the authenticated user record, never from the submitted target employee ID.",
-        "Filter employee and document reads by the session user's empresa_id.",
-        "For upload, validation and deletion, verify the target employee and document share the authorized empresa_id inside the mutation query.",
-        "Add two-company integration tests covering list, upload, validate, delete and direct document access.",
-        "Run the tests against synthetic data and review all RH modules for the same missing company predicate before marking PASS."
+        "Use the authenticated user's empresa_id as the only tenant scope; never derive authorization from a submitted funcionario_id or row ID.",
+        "Add empresa_id to every relevant SELECT, INSERT, UPDATE and DELETE in documents, time, vacation, people and dossier flows; preserve global super-admin access only through an explicit audited policy.",
+        "For document operations, verify the employee and document empresa_id match the session company in the mutation statement itself.",
+        "For point and vacation creation, write the authorized empresa_id and validate the employee belongs to that company before insert.",
+        "Restrict dossier employee pickers and data loaders to the session company.",
+        "Add two-company synthetic MySQL tests for read, create, update, delete and IDOR-style cross-company IDs.",
+        "Run all PHP lint and relevant integration tests; inspect remaining RH pages for tenant predicates before marking PASS."
       ]
     },
     {
