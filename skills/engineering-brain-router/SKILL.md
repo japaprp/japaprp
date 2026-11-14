@@ -54,6 +54,7 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Publicar site, API, backend, worker ou job; escolher provedor, configurar domínio/HTTPS, CI/CD, health checks, custos ou rollback → application-deployment-hosting; acrescente infrastructure-database-engineering quando houver banco, migração, SSH ou operação de infraestrutura.
 - Aplicativo móvel/Flutter → mobile-flutter-engineering; acrescente API, segurança ou testes somente se o fluxo exigir.
 - Integração de modelos/API de IA, avaliação de prompts ou RAG → ai-integration-evaluation; use ai-token-budget para controle de contexto/custo, não como substituta da avaliação.
+- Decisões técnicas/operacionais consequenciais com alto impacto, irreversibilidade, efeito externo, fronteira de segurança ou múltiplos sinais de incerteza → `adversarial-decision-review`; use somente após o gate objetivo, sem duplicar revisão de código ou avaliação de modelos.
 - Visão computacional, câmeras, detecção/rastreamento de pessoas e objetos, OCR/LPR/ANPR ou reconhecimento facial → computer-vision-video-intelligence; combine com application-security-auth e ai-integration-evaluation apenas quando necessário. Trate biometria como alto risco e exija avaliação jurídica/privacidade e autorização antes de processamento real.
 - Ideia ampla, definição de MVP, priorização ou plano de lançamento → product-discovery-delivery; não carregue para bug técnico claramente definido.
 - Pagamento, checkout, reembolso, cashback, split ou webhook financeiro → payments-billing-integrations; acrescente API/segurança/testes conforme o fluxo.
@@ -104,6 +105,12 @@ Atualize o resumo apenas depois de confirmar a mudança. Diferencie estado atual
 - Valide mudanças de roteamento com cenários curtos: bug simples, fluxo de autenticação, CRUD, redesign de UI e deploy/banco. O roteador deve selecionar a skill correta, não carregar o catálogo inteiro.
 - Compare utilidade, erros de seleção, verificações executadas e tamanho do contexto quando houver métricas disponíveis. Não invente redução de tokens nem declare benchmark sem medição.
 - Nunca faça autoalterações silenciosas em skills, configurações, permissões ou repositórios.
+
+## Revisão adversarial de decisões consequenciais
+
+Antes de invocar `adversarial-decision-review`, avalie o contexto com `scripts/adversarial_review_gate.py`. O gate aciona revisão para impacto alto/crítico, irreversibilidade, efeito externo, fronteira de segurança/dados sensíveis ou pelo menos dois sinais de atenção. Uma tarefa rotineira e reversível não deve gerar conselho.
+
+A revisão deve preservar rascunhos independentes, proveniência das evidências, dissenso, incerteza e limites de recursos. Uma síntese pode rejeitar a maioria quando a evidência sustentar isso. Não declare multiagente sem contextos realmente separados e observáveis; não transforme personas simuladas em alegação de independência. A skill não concede autorização e não executa chamadas pagas por conta própria.
 
 ## Ciclo operacional obrigatório
 
