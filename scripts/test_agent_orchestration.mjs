@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { selectReadyTasks, validatePlan } from './agent-orchestration-planner.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (path) => readFileSync(resolve(root, path), 'utf8');
@@ -39,4 +40,25 @@ assert.ok(orchestrationCase.must_avoid.some((v) => /100 agents/i.test(v)));
 console.log('PASS: hierarchy, DAG, admission control, QA, isolation, and owner approval gates are specified.');
 console.log('PASS: orchestration capability is mapped only to the Council Central project.');
 console.log('PASS: routing regression covers one-command multi-agent orchestration.');
-console.log('LIMIT: these deterministic checks validate the contract, not live agent dispatch.');
+
+const plan = {
+  project_id: 'central-council',
+  tasks: [
+    { task_id: 'research', project_id: 'central-council', assigned_role: 'researcher', risk: 'low', resources: ['repo:docs'], depends_on: [] },
+    { task_id: 'unit-tests', project_id: 'central-council', assigned_role: 'qa', risk: 'medium', resources: ['tests:unit'], depends_on: [] },
+    { task_id: 'docs-update', project_id: 'central-council', assigned_role: 'technical-writer', risk: 'low', resources: ['repo:docs'], depends_on: ['research'] },
+    { task_id: 'integration-qa', project_id: 'central-council', assigned_role: 'independent-qa', risk: 'high', resources: ['qa:integration'], depends_on: ['unit-tests', 'docs-update'] }
+  ]
+};
+assert.equal(validatePlan(plan).taskCount, 4);
+assert.deepEqual(selectReadyTasks(plan, { maxConcurrency: 2 }), ['research', 'unit-tests']);
+assert.deepEqual(selectReadyTasks(plan, { completedIds: ['research'], runningIds: ['unit-tests'], maxConcurrency: 2 }), ['docs-update']);
+assert.deepEqual(selectReadyTasks(plan, { completedIds: ['research', 'unit-tests', 'docs-update'], maxConcurrency: 2 }), ['integration-qa']);
+assert.throws(() => validatePlan({ ...plan, tasks: [...plan.tasks, { ...plan.tasks[0] }] }), /duplicate task_id/);
+assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, project_id: 'guerra-infinita' } : task) }), /cross-project task rejected/);
+assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, depends_on: ['docs-update'] } : task) }), /dependency cycle detected/);
+assert.throws(() => selectReadyTasks(plan, { maxConcurrency: 0 }), /positive integer/);
+console.log('PASS: DAG planner admits only ready tasks, respects concurrency and exclusive resource locks.');
+console.log('PASS: planner rejects duplicate IDs, cross-project tasks, invalid limits and dependency cycles.');
+
+console.log('LIMIT: the planner selects work but does not spawn agents; live agent dispatch remains unverified.');
