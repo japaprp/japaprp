@@ -92,6 +92,16 @@ Se dois agentes discordarem:
 4. aplique o menor desenho compatível com requisitos e segurança;
 5. escale ao Owner somente quando houver decisão irreversível, ambiguidade material ou conflito de autoridade.
 
+## 7.1 Revisão adversarial de decisões consequenciais
+
+Quando o gate objetivo indicar decisão consequencial, aplique o protocolo detalhado em [ADVERSARIAL_DECISION_REVIEW.md](./ADVERSARIAL_DECISION_REVIEW.md). Não crie uma skill paralela: esta revisão é uma capacidade interna da própria orquestração.
+
+Acione quando houver impacto alto/crítico, irreversibilidade, efeito externo, fronteira de segurança/dados sensíveis, ou pelo menos dois sinais entre incerteza material, evidência conflitante, mudança arquitetural, custo relevante e dependência entre projetos. Não acione para trabalho rotineiro e reversível.
+
+Use até quatro perspectivas de análise independentes e um sintetizador, com rascunhos cegos entre si. O sintetizador não decide por maioria: avalia a qualidade das evidências, responde às objeções, preserva dissenso e pode declarar inconclusivo. Se contextos separados não forem comprovados, registre revisão multi-perspectiva de agente único, nunca multiagente.
+
+Limites padrão: até cinco perspectivas, uma rodada cruzada, uma síntese, sem recursão automática e no máximo uma repetição por falha transitória. Registre decision_id, project_id, fontes exatas, confiança, incertezas, dissenso, orçamento e ligação com findings/testes/commits. Reabra decisões quando surgirem evidências novas. A revisão não concede autorização nem inicia chamadas pagas.
+
 ## 8. Relatório final obrigatório
 
 Para cada frente: responsável/papel, resultado, evidência, testes, recursos/custo conhecido, status e próximo bloqueio. O relatório global deve distinguir:
