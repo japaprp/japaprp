@@ -7,7 +7,7 @@ This is a source/repository audit snapshot, not production certification. A READ
 
 ## Seven-front readiness snapshot
 
-Council Central structural verification was refreshed by PR #6 GitHub Actions run #98: 19 projects, 13 capability families, 17 repository records, 37 skill folders, and 2 external candidates validated; coverage audit found 37 referenced skills, zero unreferenced skills, and zero skills without a direct route evaluation. This is structural evidence only, not proof of live agent behavior or application runtime readiness.
+Council Central structural verification was refreshed by PR #6 GitHub Actions run #104: 19 projects, 13 capability families, 17 repository records, 37 skill folders, and 2 external candidates validated; coverage audit found 37 referenced skills, zero unreferenced skills, and zero skills without a direct route evaluation. A separate Test D1–D3 protocol now specifies how to verify real child-agent dispatch, independent QA, resource locks and approval boundaries. The protocol is not yet executed. This is structural evidence only, not proof of live agent behavior or application runtime readiness.
 
 | Front | Conselho Central | Application portfolio |
 |---|---|---|
