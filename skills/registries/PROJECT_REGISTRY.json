@@ -16,9 +16,9 @@
       "purpose": "Multi-project orchestration, skill routing, capability discovery, governance, and evidence-based execution.",
       "repository": {
         "url": "https://github.com/japaprp/japaprp",
-        "branch": "evolve/router-gap-closure-and-open-source-discovery",
-        "verified_commit_at_registry_creation": "ff5b9357102ebe06a34961a06e68f5b48fb8abab",
-        "verification_note": "Repository and commit were inspected through GitHub during registry creation."
+        "branch": "feat/cacd-autonomy-ponytail-engine-audit",
+        "verified_commit_at_registry_creation": "7c8b93a79bc2b2081011dada57b0dd9749efd6dd",
+        "verification_note": "Feature branch inspected 2026-11-14; CI run #79 passed. Not main."
       },
       "project_family": null,
       "phases": [
@@ -63,7 +63,15 @@
           "role": "Build an independently identified and improved successor; do not present it as the original Dark War product.",
           "repository": {
             "url": "https://github.com/japaprp/infinit-war-guerra-infinita",
-            "branch": "work/formation-heroes-20261028"
+            "default_branch": "main",
+            "branch": null,
+            "observed_branches": [
+              "feat/alliance-help-reinforcement",
+              "feat/supabase-postgres-persistence",
+              "fix/firebase-id-token-validation",
+              "integration/postgres-auth-isolated"
+            ],
+            "evidence_status": "repository_and_branch_names_verified_2026-11-14; working_branch_must_be_selected_per_task"
           },
           "evidence_status": "conversation_context_unverified_in_this_commit"
         },
@@ -89,7 +97,7 @@
         "storage_policy": "Preserve the existing research backup and approximately 3 GB reserved research workspace; do not extract or duplicate large bundles without a demonstrated need.",
         "cost_policy": "No paid compute, large downloads, or new tool installation without checking device capacity and obtaining required approval."
       },
-      "evidence_status": "portfolio_relationship_confirmed_by_user; repository_state_not_live_verified"
+      "evidence_status": "portfolio_relationship_confirmed_by_user; development_repository_and_branch_names_live_inspected_2026-11-14; REA_local_artifacts_and_backup_state_remain_conversation_context_unverified_in_this_commit"
     },
     {
       "project_id": "casa-pratica-ofc",
@@ -116,47 +124,295 @@
     {
       "project_id": "hamburgueria",
       "display_name": "Hamburgueria",
-      "portfolio_status": "planned_or_not_yet_confirmed",
-      "purpose": "Future business/project context; requirements and operational scope have not yet been established.",
+      "portfolio_status": "active",
+      "purpose": "Multi-tenant restaurant SaaS for orders, POS/cash, payments, inventory, finance, delivery, permissions and audit. Static audit findings remain open.",
       "project_family": null,
-      "repository": null,
+      "repository": {
+        "url": "https://github.com/japaprp/hamburgueria",
+        "branch": "main",
+        "observed_recent_commit_sha": "34eb3f57e2bf83b6703bef46bcc89a4bbd9ce677",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
       "primary_capabilities": [
         "product-discovery-delivery",
         "business-data-intelligence",
         "forms-crud-data-integrity",
         "payments-billing-integrations"
       ],
-      "evidence_status": "mentioned_by_user; details_not_yet_confirmed"
+      "evidence_status": "repository_and_readme_verified_2026-11-14; production_audit_findings_require_remediation"
     },
     {
       "project_id": "rh",
       "display_name": "RH",
-      "portfolio_status": "planned_or_not_yet_confirmed",
-      "purpose": "Future HR-related project context; requirements, legal scope, and data-controller responsibilities must be established before implementation.",
+      "portfolio_status": "active",
+      "purpose": "Portal RH / SGE: PHP/MySQL HR operations with RBAC, employee documents, time, leave, requests, reporting and audit. Cross-company document isolation findings require remediation.",
       "project_family": null,
-      "repository": null,
+      "repository": {
+        "url": "https://github.com/japaprp/web",
+        "branch": "main",
+        "observed_recent_commit_sha": "d8f77a77c82d17f5d161913f1c7f6f41fc05bea5",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
       "primary_capabilities": [
         "product-discovery-delivery",
         "application-security-auth",
         "forms-crud-data-integrity",
         "business-data-intelligence"
       ],
-      "evidence_status": "mentioned_by_user; details_not_yet_confirmed"
+      "evidence_status": "repository_and_readme_verified_2026-11-14; privacy_and_tenant_isolation_findings_require_remediation"
     },
     {
       "project_id": "hortifruti",
       "display_name": "Hortifruti",
-      "portfolio_status": "planned_or_not_yet_confirmed",
-      "purpose": "Future retail/produce project context; requirements and operational scope have not yet been established.",
+      "portfolio_status": "active",
+      "purpose": "Varejão do Povo / Hortifruti: online retail and POS commerce with cart, checkout, Mercado Pago, admin, SSE/polling, inventory and financial workflows. JSON persistence and payment/auth findings are production blockers.",
       "project_family": null,
-      "repository": null,
+      "repository": {
+        "url": "https://github.com/japaprp/varejao-backend",
+        "branch": "main",
+        "observed_recent_commit_sha": "1b4198953e1b9a5fa0cf58638a5fc9691f0617da",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
       "primary_capabilities": [
         "product-discovery-delivery",
         "business-data-intelligence",
         "spreadsheet-data-engineering",
         "forms-crud-data-integrity"
       ],
-      "evidence_status": "mentioned_by_user; details_not_yet_confirmed"
+      "evidence_status": "repository_and_readme_verified_2026-11-14; critical_persistence_and_payment_authorization_risks"
+    },
+    {
+      "project_id": "perifa-pro",
+      "display_name": "Perifa Pro",
+      "portfolio_status": "active",
+      "purpose": "Multi-tenant sports platform for tournaments, teams, players, fans, organizers, chat, ticketing, photos and commerce. Security and mobile validation issues remain.",
+      "repository": {
+        "url": "https://github.com/japaprp/Perifa-Pro",
+        "branch": "main",
+        "observed_recent_commit_sha": "ec3cf469f6417af2c4bdaa186c10b81680a93191",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
+      "primary_capabilities": [
+        "product-discovery-delivery",
+        "application-security-auth",
+        "forms-crud-data-integrity",
+        "payments-billing-integrations",
+        "mobile-flutter-engineering",
+        "testing-regression-quality",
+        "infrastructure-database-engineering"
+      ],
+      "evidence_status": "repository_and_readme_verified_2026-11-14; open_issues_14_13_6_3"
+    },
+    {
+      "project_id": "eventos-rp",
+      "display_name": "EventosRP / Reservas RP",
+      "portfolio_status": "active",
+      "purpose": "Marketplace for event-space listings and reservations using PHP/MySQL, Firebase Authentication and Mercado Pago Checkout Pro. Payment lifecycle CI is reported PASS; host OAuth, commission and live validation remain pending.",
+      "repository": {
+        "url": "https://github.com/japaprp/eventosrp",
+        "branch": "main",
+        "observed_recent_commit_sha": "8304f1e463d93b62f350ffabbfd0eb1d7476a6dc",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
+      "primary_capabilities": [
+        "product-discovery-delivery",
+        "forms-crud-data-integrity",
+        "payments-billing-integrations",
+        "api-engineering-contracts",
+        "application-security-auth",
+        "testing-regression-quality",
+        "infrastructure-database-engineering"
+      ],
+      "evidence_status": "repository_and_readme_verified_2026-11-14; issue_6_reports_CI_pass; issues_4_5_7_open"
+    },
+    {
+      "project_id": "estacia-renascer-belvedere",
+      "display_name": "Estância Renascer Belvedere",
+      "portfolio_status": "active",
+      "purpose": "Institutional and commercial event-venue website with gallery, availability fallback, contact and reservation conversion. Calendar source and live contact/reservation behavior need verification.",
+      "repository": {
+        "url": "https://github.com/japaprp/estacia-renascer-belvedere",
+        "branch": "main",
+        "observed_recent_commit_sha": "6bfda893a9761be273c09beb752e064b531fa462",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
+      "primary_capabilities": [
+        "product-discovery-delivery",
+        "premium-distinctive-web-design",
+        "visual-asset-engineering",
+        "public-api-integration",
+        "forms-crud-data-integrity",
+        "testing-regression-quality"
+      ],
+      "evidence_status": "repository_and_readme_verified_2026-11-14; runtime_not_verified"
+    },
+    {
+      "project_id": "portfolio-site",
+      "display_name": "Portfólio profissional",
+      "portfolio_status": "active",
+      "purpose": "Professional portfolio and product showcase. Claims about products must be backed by implemented, tested and verified flows.",
+      "repository": {
+        "url": "https://github.com/japaprp/portifolio",
+        "branch": "main",
+        "observed_recent_commit_sha": "bab3e3e12e8eb2919a5520313bd1eeba6767fd0b",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
+      "primary_capabilities": [
+        "premium-distinctive-web-design",
+        "web-motion-design",
+        "visual-asset-engineering",
+        "app-showreel-launch-film",
+        "remotion-video-engineering",
+        "vercel-react-performance",
+        "testing-regression-quality"
+      ],
+      "evidence_status": "repository_and_readme_verified_2026-11-14; visual_runtime_not_verified"
+    },
+    {
+      "project_id": "leitor-de-codigo",
+      "display_name": "Leitor de Código",
+      "portfolio_status": "active",
+      "purpose": "Android auxiliary POS app with barcode scanning, table/order workflows, offline queue, multi-tenant adapter and backend integration. Mock authentication and client-authoritative totals are production blockers.",
+      "repository": {
+        "url": "https://github.com/japaprp/leitordecodigo",
+        "branch": "main",
+        "observed_recent_commit_sha": "30b7f9ae22f0c30e00a5e702db2a809d9a7d103b",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
+      "primary_capabilities": [
+        "mobile-flutter-engineering",
+        "api-engineering-contracts",
+        "application-security-auth",
+        "forms-crud-data-integrity",
+        "testing-regression-quality",
+        "infrastructure-database-engineering"
+      ],
+      "evidence_status": "repository_and_readme_verified_2026-11-14; static_audit_risks_open"
+    },
+    {
+      "project_id": "salao-da-lu",
+      "display_name": "Salão da Lu",
+      "portfolio_status": "active",
+      "purpose": "Multi-tenant salon platform with backend, web and Flutter clients. Appointment concurrency, tenant FK integrity, schema drift and trusted pricing require remediation.",
+      "repository": {
+        "url": "https://github.com/japaprp/salao",
+        "branch": "main",
+        "observed_recent_commit_sha": "b22a7b43d2f55f1e457f03f0408ecaaf267aa8f2",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
+      "primary_capabilities": [
+        "product-discovery-delivery",
+        "forms-crud-data-integrity",
+        "application-security-auth",
+        "infrastructure-database-engineering",
+        "mobile-flutter-engineering",
+        "payments-billing-integrations",
+        "testing-regression-quality"
+      ],
+      "evidence_status": "repository_and_readme_verified_2026-11-14; static_audit_risks_open"
+    },
+    {
+      "project_id": "barbearia-do-artur",
+      "display_name": "Barbearia do Artur",
+      "portfolio_status": "active",
+      "purpose": "Separate barbershop product with web, backend and mobile foundations. Production-hardening roadmap exists; full security, scheduling, finance and device validation are not evidenced.",
+      "repository": {
+        "url": "https://github.com/japaprp/salao-do-arthur",
+        "branch": "main",
+        "observed_recent_commit_sha": "c4e37de80e81c0976d20039ff2b23852e55d74db",
+        "verification_note": "README and repository metadata inspected 2026-11-14; recent commit lookup is repository-wide."
+      },
+      "primary_capabilities": [
+        "product-discovery-delivery",
+        "forms-crud-data-integrity",
+        "application-security-auth",
+        "infrastructure-database-engineering",
+        "mobile-flutter-engineering",
+        "payments-billing-integrations",
+        "testing-regression-quality"
+      ],
+      "evidence_status": "repository_and_recent_commits_verified_2026-11-14; full_audit_not_completed"
+    },
+    {
+      "project_id": "me-conta-prototype",
+      "display_name": "Me Conta (protótipo)",
+      "portfolio_status": "planned_or_not_yet_confirmed",
+      "purpose": "Initial HTML prototype only; product purpose, scope and acceptance criteria are not confirmed.",
+      "repository": {
+        "url": "https://github.com/japaprp/me-conta",
+        "branch": "main",
+        "observed_recent_commit_sha": "217047b5daa8e0628e85e7c4ff07a6bcb3861eaa",
+        "verification_note": "Initial commit verified 2026-11-14; README not found; do not infer product scope."
+      },
+      "primary_capabilities": [],
+      "evidence_status": "initial_commit_verified; product_scope_unconfirmed"
+    },
+    {
+      "project_id": "memorias-amigos",
+      "display_name": "Memórias Amigos",
+      "portfolio_status": "planned_or_not_yet_confirmed",
+      "purpose": "Repository has an initial uploaded commit, but no README or confirmed product scope was found.",
+      "repository": {
+        "url": "https://github.com/japaprp/memorias-amigos",
+        "branch": "main",
+        "observed_recent_commit_sha": "0220dcaa51e7a5468d80a08e578391fcdddf191d",
+        "verification_note": "Commit verified 2026-11-14; README not found; product scope unknown."
+      },
+      "primary_capabilities": [],
+      "evidence_status": "repository_and_commit_verified; product_scope_unconfirmed"
+    },
+    {
+      "project_id": "reboquei-repo-placeholder",
+      "display_name": "Reboquei (repositório vazio)",
+      "portfolio_status": "planned_or_not_yet_confirmed",
+      "purpose": "GitHub repository is empty; no code, README, requirements or runtime could be audited.",
+      "repository": {
+        "url": "https://github.com/japaprp/Reboquei",
+        "branch": "main",
+        "verification_note": "GitHub returned 409 for commit listing and 404 for README because repository is empty."
+      },
+      "primary_capabilities": [],
+      "evidence_status": "repository_listed; empty_repository_confirmed"
+    },
+    {
+      "project_id": "elegance-repo-placeholder",
+      "display_name": "Elegance (repositório vazio)",
+      "portfolio_status": "planned_or_not_yet_confirmed",
+      "purpose": "GitHub repository is empty; no code, README, requirements or runtime could be audited.",
+      "repository": {
+        "url": "https://github.com/japaprp/elegance",
+        "branch": "main",
+        "verification_note": "GitHub returned 409 for commit listing and 404 for README because repository is empty."
+      },
+      "primary_capabilities": [],
+      "evidence_status": "repository_listed; empty_repository_confirmed"
+    },
+    {
+      "project_id": "barbearia-do-artur-legacy",
+      "display_name": "Barbearia do Artur — repositório legado (salao-do-artur)",
+      "portfolio_status": "archived",
+      "purpose": "Archived repository with a similar name. Kept separate from active salao-do-arthur; do not merge or assume shared state.",
+      "repository": {
+        "url": "https://github.com/japaprp/salao-do-artur",
+        "branch": "main",
+        "verification_note": "Repository metadata shows archived=true; no changes made."
+      },
+      "primary_capabilities": [],
+      "evidence_status": "archived_repository_metadata_verified"
+    },
+    {
+      "project_id": "central-bridge",
+      "display_name": "Central Bridge",
+      "portfolio_status": "active",
+      "purpose": "Read-only bridge between Windows and Android. Windows worker/device_info previously PASS; Android registration and cross-device integration remain NOT RUN.",
+      "repository": null,
+      "primary_capabilities": [
+        "mcp-tooling-engineering",
+        "api-engineering-contracts",
+        "application-security-auth",
+        "testing-regression-quality"
+      ],
+      "evidence_status": "conversation_context_last_verified_2026-11-10; windows_pass_android_not_run; no_GitHub_repository_confirmed"
     }
   ]
 }
