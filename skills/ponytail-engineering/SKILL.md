@@ -26,7 +26,7 @@ Stop at the first option that fully solves the requirement:
 
 - Read the touched code and trace affected callers, tests, fixtures, configuration, exports, and data flows before editing.
 - Fix root causes at the narrowest shared point; do not patch symptoms at multiple call sites.
-- Preserve existing validation, error handling, authorization, data-loss protections, accessibility, and compatibility.
+- Never cut trust-boundary validation, error handling that prevents data loss, authorization, accessibility, or compatibility to reduce code.
 - Add one focused test or assert-based check for new non-trivial logic (branches, loops, parsers, money, security, or a new script).
 - Prefer established repository conventions over introducing new abstractions, wrappers, options, or dependencies.
 - When a deliberate shortcut has a known limit, document the limit and the condition that would justify upgrading it. Never hide a known limitation.
