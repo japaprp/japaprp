@@ -13,7 +13,7 @@ const status = read('skills/ENGINE_STATUS.md');
 const catalog = read('skills/README.md');
 const dataset = JSON.parse(read('skills/tests/router-eval-cases.json'));
 const registry = JSON.parse(read('skills/registries/CAPABILITY_REGISTRY.json'));
-const skillIds = [...catalog.matchAll(/\]\(\.\/([^/]+)\/SKILL\.md\)/g)].map((match) => match[1]);
+const skillIds = [...new Set([...catalog.matchAll(/\]\(\.\/([^/]+)\/SKILL\.md\)/g)].map((match) => match[1]))];
 
 assert.match(router, /capability-gap-closure/i, 'router must route demonstrated capability gaps to the dedicated workflow');
 assert.match(router, /ponytail-engineering/i, 'router must expose the minimal-change engineering lens');
