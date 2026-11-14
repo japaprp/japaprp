@@ -163,8 +163,12 @@
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "Issue #44 records a historical 28P01 password-authentication failure and a Render deploy failure on 2026-10-16.",
-        "The issue explicitly requires read-only service/config inspection and isolated credential validation; secret values must not be printed or changed."
+        "PR #31 current head 107121a3ad22d54374df0272b97c002fc18b6b9d remains draft; Backend tests run #527, Backend Integration #1338 and Client Persistence #983 passed on that exact SHA.",
+        "The PR #31 description records PostgreSQL error 28P01 (password authentication rejected) on earlier connection-check commit 5fe46ff1a49cdbe632568f13b51b1e522c1b0d5a. PG_CONNECTION_OK was not observed there. No dedicated real-connection workflow is present among the three workflows on current HEAD, so a successful live PostgreSQL connection is still NOT VERIFIED.",
+        "PR #40 head da6cf0c1cf3fefd66ad152aa4ad94e4b7c394900 has Backend Integration run #1233 SUCCESS, but its own validation notes the real Supabase connection failed with 28P01 and the isolated persistence probe was skipped.",
+        "PR #35 head dfd2a89750fd5b085d9cf829b59db061c8ed58c1 adds MYSQL_PASSWORD fallback to DB_PASSWORD and has Backend tests #406, Backend Integration #1154 and Client Persistence #847 SUCCESS. Its description explicitly says live PostgreSQL connection and Render startup after configuration correction were not tested; it is a separate configuration fix, not proof that 28P01 is resolved.",
+        "PR #32 head e5b2679e0d50bb6183af981fc5346abf961568cf is 3 commits ahead and 35 behind its target branch and is dirty. The target branch already contains a stronger fail-closed check and explicit CA certificate validation; PR #32 is stale and should not be merged over it (details in GI-008).",
+        "All relevant PRs remain open drafts and no merge/deploy was performed. No GitHub secret value, database password, live game table or production connection string was read or changed."
       ],
       "fix": {
         "pr_numbers": [
@@ -177,13 +181,16 @@
         "correction_commit": "da6cf0c1cf3fefd66ad152aa4ad94e4b7c394900"
       },
       "regression_test": {
-        "path": "issue #44 required sequence",
-        "test": "Isolated connection, read/write, restart persistence and concurrency checks against synthetic/test data only."
+        "path": "backend/scripts/check-postgres-connection.mjs; backend/test/postgres-connection-check.test.js; isolated PostgreSQL persistence probe",
+        "test": "Using the intended project-specific connection settings without exposing credentials, obtain PG_CONNECTION_OK on the exact current integration commit, then run read-only schema checks and temporary-table insert/read/update/stale-revision/rollback tests only in an isolated test database; keep production game tables untouched."
       },
       "closure_gate": [
-        "Current Render service branch and non-secret connection mode are verified read-only.",
-        "Isolated credentials and database connectivity pass without exposing or changing secrets.",
-        "Restart persistence and concurrency tests pass against test data."
+        "Identify the intended Supabase project host and database username using metadata only; never reveal or alter secret values without explicit authorization.",
+        "Verify the GitHub Actions connection secret is scoped to the intended Guerra Infinita database and obtain PG_CONNECTION_OK on the exact current commit.",
+        "Retain explicit PEM CA validation and rejectUnauthorized=true; do not revert to weaker TLS behavior.",
+        "Run the isolated persistence probe against a dedicated non-production database and verify rollback, stale-revision rejection, reconnect and concurrency behavior.",
+        "Verify Render environment variable names and CORS origin read-only; no live configuration change or deployment without explicit authorization.",
+        "Re-run Backend tests, Backend Integration, Client Persistence and the dedicated PostgreSQL connection workflow on the exact final SHA; only then reconsider BLOCKED."
       ]
     },
     {
