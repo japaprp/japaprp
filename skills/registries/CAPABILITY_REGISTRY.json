@@ -64,7 +64,9 @@
       "applies_to": [
         "casa-pratica-ofc",
         "hamburgueria",
-        "hortifruti"
+        "hortifruti",
+        "perifa-pro",
+        "eventos-rp"
       ]
     },
     {
@@ -79,7 +81,12 @@
       "applies_to": [
         "hamburgueria",
         "hortifruti",
-        "future_business_projects"
+        "future_business_projects",
+        "perifa-pro",
+        "eventos-rp",
+        "leitor-de-codigo",
+        "salao-da-lu",
+        "barbearia-do-artur"
       ]
     },
     {
