@@ -1,0 +1,12 @@
+{
+  "impact": "medium",
+  "irreversible": false,
+  "external_effect": false,
+  "security_boundary": false,
+  "sensitive_data": false,
+  "material_uncertainty": true,
+  "conflicting_evidence": true,
+  "architectural_change": false,
+  "meaningful_cost": false,
+  "cross_project_dependency": false
+}
