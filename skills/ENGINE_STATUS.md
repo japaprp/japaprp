@@ -8,21 +8,21 @@ The repository has a working structural catalog and CI validation, but it does n
 
 | Engine / subsystem | Verified state | Status | Remaining work |
 |---|---|---|---|
-| Skill catalog and metadata validator | 34 unique skills were cataloged on the parent PR branch; validator is in CI | PASS — structural | Re-run on this branch after additions; audit unreferenced/overlapping skills |
+| Skill catalog and metadata validator | 36 unique skills; structural validator and catalog checks pass on this branch | PASS — structural | Continue periodic overlap and maintenance review |
 | Project registry | 6 project records, with active/planned status and evidence qualifiers | PASS — structural | Re-verify each project's live repository before project-specific operations |
-| Capability registry | 8 capability families and 2 external research candidates | PASS — structural | Add coverage audit and keep candidate state/evidence current |
+| Capability registry | 12 capability families map all 36 skills; 2 external research candidates remain explicitly unintegrated | PASS — structural | Keep candidate state/evidence current and re-check project applicability |
 | Engineering Brain router | Routing, project isolation, skill budget, autonomy and approval boundaries documented | PARTIAL | Runtime depends on the host loading repository instructions and selected skills |
 | Activation bootstrap | AGENTS.md and Copilot repository instructions contain the trigger procedure; deterministic structural test exists | PARTIAL | Fresh-session activation in each target client has not been behaviorally proven |
-| Capability gap closure | Detailed protocol exists, but the previous flow did not guarantee the agent would search, compare, implement and verify when a gap appeared | PARTIAL — principal gap | Add a dedicated operational skill, explicit router trigger, regression cases and a local coverage audit |
-| Ponytail engineering principles | Upstream 5.3.3 skill and MIT metadata inspected; existing review/audit capabilities overlap with local skills | RESEARCHED | Integrate only minimal-change implementation rules; do not install plugin/hooks by default |
-| Behavioral evaluation harness | 49 routing cases and a manual no-API runner exist | PARTIAL | Run the target agent in a fresh session and record actual responses/traces; runner itself does not call a model |
-| GitHub Actions validation | Parent PR #4 commit f446b4f had workflow run #69 completed successfully, all 11 validation steps passed | PASS — parent revision only | New branch must run its own CI before its changes can be called validated |
+| Capability gap closure | Dedicated skill, router dispatch, internal-first/external GitHub discovery contract, isolated closure procedure and regression coverage exist | PASS — structural; PARTIAL — behavior | Prove the target agent actually discovers, compares and closes a gap in a fresh session |
+| Ponytail engineering principles | Selective local minimal-change skill integrated; upstream review/audit/debt/gain functions intentionally not duplicated | PASS — local skill | Plugin/hooks remain uninstalled; review separately only if explicitly needed |
+| Behavioral evaluation harness | 49 routing cases cover all 36 primary skills; manual no-API runner exists | PARTIAL | Run the target agent in a fresh session and record actual responses/traces; runner itself does not call a model |
+| GitHub Actions validation | Current branch workflow run #77 completed successfully; all 14 validation steps passed and coverage audit returned PASS with zero warnings | PASS — current revision | Re-run after any subsequent change |
 | Agent/client adapters | AGENTS.md and Copilot repository instructions exist | PARTIAL | Verify Codex/VS Code and other target clients separately; repository files do not globally configure every client |
 | Runtime tool/plugin installation | No evidence that Ponytail plugin/hooks or all external candidates are installed in Codex/VS Code | NOT VERIFIED | Do not install without explicit system-level authorization and hook review |
 
 ## Current implementation branch
 
-Branch: `feat/cacd-autonomy-ponytail-engine-audit`, based on PR #4's registry revision. This branch adds two focused skills (`ponytail-engineering` and `capability-gap-closure`), maps all 36 catalog skills into 12 capability families, adds a local coverage auditor, and expands direct routing/autonomy regressions from 25 to 49 cases. The audit now targets 36/36 skill-to-family mappings and 36/36 direct primary-route evals. These additions are implemented but remain pending this branch's own CI and behavioral verification until those checks complete.
+Branch: `feat/cacd-autonomy-ponytail-engine-audit`, based on PR #4's registry revision. This branch adds two focused skills (`ponytail-engineering` and `capability-gap-closure`), maps all 36 catalog skills into 12 capability families, adds a local coverage auditor, and expands direct routing/autonomy regressions from 25 to 49 cases. The audit now targets 36/36 skill-to-family mappings and 36/36 direct primary-route evals. These additions passed structural CI in run #77 (14/14 steps). Coverage is 36/36 skills mapped to 12 families and 36/36 with direct primary-route evals; 0 unreferenced skills and 0 missing direct evals. Fresh-session behavioral tests A/B/C remain NOT RUN in the target Codex/VS Code environment.
 
 ## What "working" means
 
