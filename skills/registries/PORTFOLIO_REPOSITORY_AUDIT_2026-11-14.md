@@ -7,10 +7,12 @@ This is a source/repository audit snapshot, not production certification. A READ
 
 ## Seven-front readiness snapshot
 
+Council Central structural verification was refreshed by PR #6 GitHub Actions run #95: 19 projects, 13 capability families, 17 repository records, 37 skill folders, and 2 external candidates validated; coverage audit found 37 referenced skills, zero unreferenced skills, and zero skills without a direct route evaluation. This is structural evidence only, not proof of live agent behavior or application runtime readiness.
+
 | Front | Conselho Central | Application portfolio |
 |---|---|---|
 | Núcleo central | PARTIAL — routing and registries exist; runtime activation is not proven | Independent application cores have different maturity levels. |
-| Skills | PASS — 36 skills and 12 families structurally mapped on inspected branch | Domain skills can be routed; project-specific findings still need implementation. |
+| Skills | PASS — 37 skills and 13 families structurally mapped on inspected branch | Domain skills can be routed; project-specific findings still need implementation. |
 | Motores | PARTIAL — local Ponytail and capability-gap procedure exist; runtime hooks/plugin not installed | Game, POS, booking, HR, salon and commerce engines have unfinished invariants. |
 | Integrações | PARTIAL — instructions and tool discovery exist; global runtime availability not proven | Payment, DB, Firebase, Render, mobile and calendar integrations require project-specific checks. |
 | Governança | PASS — isolation and approval boundaries documented structurally | Production, data, payment and tenant controls need project-specific enforcement. |
