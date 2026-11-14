@@ -42,7 +42,7 @@ Retry exige causa identificada, limite de tentativas e idempotência. Não repet
 | Alto volume | 20–30 | filas, locks, cancelamento, observabilidade e orçamento testados |
 | Aspiracional | 100+ | teste de carga, isolamento, quotas e supervisão; nunca padrão |
 
-O helper determinístico scripts/agent-orchestration-planner.mjs valida IDs, dependências, ciclos, projeto único, concorrência e locks exclusivos; ele seleciona tarefas READY, mas não inicia agentes nem executa ferramentas.\n\nO limite efetivo é min(runtime, ferramentas, quotas, recursos, orçamento, política). Se a capacidade do runtime não estiver confirmada, não simular agentes reais: marcar dispatch multiagente como NOT RUN e executar apenas o paralelismo de ferramentas disponível.
+O helper determinístico scripts/agent-orchestration-planner.mjs valida IDs, dependências, ciclos, projeto único, concorrência e locks exclusivos; ele seleciona tarefas READY, mas não inicia agentes nem executa ferramentas. O limite implementado no planejador é no máximo 10 tarefas concorrentes; o padrão é 5. Valores superiores são rejeitados até que um runtime e uma política de escala sejam testados e aprovados.\n\nO limite efetivo é min(runtime, ferramentas, quotas, recursos, orçamento, política). Se a capacidade do runtime não estiver confirmada, não simular agentes reais: marcar dispatch multiagente como NOT RUN e executar apenas o paralelismo de ferramentas disponível.
 
 ## Matriz de autoridade
 
