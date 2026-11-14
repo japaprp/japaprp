@@ -21,6 +21,7 @@ assert.match(router, /fronteira técnica/i);
 assert.match(router, /Regra de RH/i);
 assert.match(router, /capability-gap-closure/i);
 assert.match(router, /ponytail-engineering/i);
+assert.match(router, /agent-orchestration/i);
 
 const projects = projectsRegistry.projects;
 const families = capabilitiesRegistry.capability_families;
@@ -49,6 +50,9 @@ assert.ok(council.primary_capabilities.includes('capability-gap-closure'));
 assert.ok(council.primary_capabilities.includes('ponytail-engineering'));
 assert.ok(familyById.get('portfolio-orchestration').skills.includes('capability-gap-closure'));
 assert.ok(familyById.get('source-repository-engineering').skills.includes('ponytail-engineering'));
+assert.ok(council.primary_capabilities.includes('agent-orchestration'));
+assert.ok(familyById.get('multi-agent-orchestration').skills.includes('agent-orchestration'));
+assert.ok(familyById.get('multi-agent-orchestration').applies_to.includes('central-council'));
 
 const rh = projectById.get('rh');
 assert.ok(rh, 'RH project entry must exist');
