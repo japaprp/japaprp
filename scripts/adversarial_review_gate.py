@@ -31,7 +31,7 @@ def should_trigger(context: dict[str, Any]) -> tuple[bool, list[str]]:
     """Return whether consequential review is warranted and why."""
     reasons: list[str] = []
     impact = context.get("impact", "unknown")
-    if impact in {"high", "critical"}:
+    if isinstance(impact, str) and impact in {"high", "critical"}:
         reasons.append(f"impact:{impact}")
     for flag in STRONG_FLAGS:
         if context.get(flag) is True:
@@ -50,7 +50,7 @@ def validate_record(record: dict[str, Any]) -> list[str]:
             errors.append(f"{key} must be a non-empty string")
 
     status = record.get("status")
-    if status not in {"decided", "inconclusive", "blocked"}:
+    if not isinstance(status, str) or status not in {"decided", "inconclusive", "blocked"}:
         errors.append("status must be decided, inconclusive, or blocked")
 
     evidence = record.get("evidence")
@@ -84,7 +84,7 @@ def validate_record(record: dict[str, Any]) -> list[str]:
     if not isinstance(record.get("authorization"), str) or not record["authorization"].strip():
         errors.append("authorization must state required approval or 'none'")
     independence = record.get("independence")
-    if independence not in {"verified_separate_contexts", "single_agent_multi_perspective", "not_verified"}:
+    if not isinstance(independence, str) or independence not in {"verified_separate_contexts", "single_agent_multi_perspective", "not_verified"}:
         errors.append("independence must explicitly state its verification level")
     if record.get("status") == "decided" and record.get("confidence") in (None, "", "unknown"):
         errors.append("decided records must state confidence")
