@@ -726,9 +726,13 @@
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "GitHub reports mergeable=false and mergeable_state=dirty for PR #22 (base fix/deployment-config-prep, head fix/firebase-id-token-validation).",
-        "Backend tests run #115 and Backend Integration run #828 passed on the exact PR head 1d4a8c98e5f2b54cef8333848e654fcf13346454.",
-        "Passing CI does not remove the integration conflict or prove hosted Firebase configuration."
+        "GitHub reports mergeable=false and mergeable_state=dirty for PR #22; head 1d4a8c98e5f2b54cef8333848e654fcf13346454 is 53 commits ahead and 7 behind fix/deployment-config-prep.",
+        "The current target-branch HEAD is b435bdde043c54f67a307662166f26e5487bfcbd; its Backend tests #252, Drop Probability Calibration #504, Backend Integration #1001 and Client Persistence #676 workflows passed.",
+        "PR #22's own Backend tests #115, Drop Probability Calibration #473, Backend Integration #828 and Client Persistence #512 workflows passed on its exact head; this does not resolve the dirty merge state.",
+        "The base and head both modify DEPLOYMENT_PREPARATION.md, backend/test/deployment-config.test.js and index.html. The index.html API meta value differs: the current base sets https://infinit-war-api.onrender.com, while the PR head leaves it blank.",
+        "The base api/config.js enforces exact HTTPS origins and local-only localhost through URL parsing; the PR head contains an older, less strict version. The base implementation must be preserved.",
+        "A safe integration must retain the current base API origin and strict URL-validation tests, while adding the Firebase login UI, FIREBASE_PROJECT_ID production requirement, signed-token verification and its regression tests.",
+        "The API does not expose a definitive per-file conflict list in the metadata response; shared-file overlap is verified, but only the index.html API-meta divergence is confirmed as a same-line conflict candidate."
       ],
       "fix": {
         "pr_numbers": [
@@ -742,9 +746,11 @@
         "test": "After conflict resolution on an isolated branch, rerun backend unit/configuration and integration token-verification tests on the new final commit."
       },
       "closure_gate": [
-        "Resolve the dirty merge state without force-pushing or overwriting unrelated commits.",
-        "Review the full resulting diff and confirm it preserves Firebase token verification and legacy-route hardening.",
-        "Rerun all required tests on the exact new final commit and verify the PR is mergeable."
+        "Resolve the index.html API-meta divergence on an isolated integration branch without overwriting the current verified API origin.",
+        "Preserve the base branch's strict api/config.js validation and its existing deployment-config regressions while combining Firebase project-ID tests.",
+        "Review the complete merged diff for legacy and v1 authentication routes, server-generated production guest IDs, and Firebase signature/claim validation.",
+        "Rerun backend tests, backend integration, client persistence and API configuration regressions on the exact resulting commit.",
+        "Verify the new PR head is mergeable before considering any further integration; do not merge or deploy automatically."
       ]
     },
     {
