@@ -17,7 +17,8 @@
       "skills": [
         "engineering-brain-router",
         "skill-onboarding-profiler",
-        "product-discovery-delivery"
+        "product-discovery-delivery",
+        "capability-gap-closure"
       ],
       "applies_to": [
         "all_projects"
@@ -30,7 +31,8 @@
         "repo-reverse-engineering",
         "code-review-minimal-change",
         "targeted-debugging-performance",
-        "testing-regression-quality"
+        "testing-regression-quality",
+        "ponytail-engineering"
       ],
       "applies_to": [
         "all_projects_when_needed"
