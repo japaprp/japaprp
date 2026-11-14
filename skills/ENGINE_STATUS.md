@@ -1,6 +1,6 @@
 # Conselho Central — engine and subsystem status
 
-Audit snapshot: 2026-11-14, updated after PR #6 run #99. Scope: the Council Central repository `japaprp/japaprp` and its agent-routing/governance machinery. This is not a health check of the separate Dark War REA, Guerra Infinita, Casa Prática, or other application runtimes.
+Audit snapshot: 2026-11-14, updated after PR #6 run #103. Scope: the Council Central repository `japaprp/japaprp` and its agent-routing/governance machinery. This is not a health check of the separate Dark War REA, Guerra Infinita, Casa Prática, or other application runtimes.
 
 ## Executive result
 
@@ -8,7 +8,7 @@ The repository has a working structural catalog and CI validation, but it does n
 
 | Engine / subsystem | Verified state | Status | Remaining work |
 |---|---|---|---|
-| Skill catalog and metadata validator | 37 unique skill names and 50 routing cases validated by PR #6 CI run #99 | PASS — structural | Re-run after subsequent changes |
+| Skill catalog and metadata validator | 37 unique skill names and 50 routing cases validated by PR #6 CI run #103 | PASS — structural | Re-run after subsequent changes |
 | Project registry | 19 projects validated with cross-references against 17 repository records by PR #6 CI run #95 | PASS — structural | Re-verify each project's live repository before project-specific operations |
 | Capability registry | 13 capability families; all 37 skills referenced and directly evaluated, with zero missing or unreferenced skills in PR #6 CI run #95 | PASS — structural | Re-run after registry/catalog changes |
 | Engineering Brain router | Routing, project isolation, skill budget, autonomy and approval boundaries documented | PARTIAL | Runtime depends on the host loading repository instructions and selected skills |
@@ -17,7 +17,7 @@ The repository has a working structural catalog and CI validation, but it does n
 | Ponytail engineering principles | Selective local minimal-change skill integrated; upstream review/audit/debt/gain functions intentionally not duplicated | PASS — local skill | Plugin/hooks remain uninstalled; review separately only if explicitly needed |
 | Multi-agent orchestration | Hierarchy, DAG planner, task validation, project isolation, exclusive resource locks and hard concurrency ceiling (10; default 5) pass deterministic tests in PR #6 CI run #95 | PASS — planner/contract structural; PARTIAL — operational | Live child-agent dispatch, real isolation, conflict handling, cancellation and recovery remain NOT RUN until a runtime adapter is verified |
 | Behavioral evaluation harness | 50 routing cases cover all 37 primary skills; manual no-API runner exists | PARTIAL | Run the target agent in a fresh session and record actual responses/traces; runner itself does not call a model |
-| GitHub Actions validation | PR #5 run #79 passed; PR #6 run #99 completed successfully with all 16 named job steps passing, including registry validation, coverage audit, capability tests, orchestration planner tests, activation and routing regressions | PASS — PR #6 tested HEAD at 45cdbf6 | Re-run after later commits; the concurrency-ceiling hardening and strict planner input validation passed in run #98 |
+| GitHub Actions validation | PR #5 run #79 passed; PR #6 run #103 completed successfully with all 16 named job steps passing after adding the explicit multi-agent runtime test protocol D1–D3, including registry validation, coverage audit, capability tests, orchestration planner tests, activation and routing regressions | PASS — PR #6 tested HEAD at 45cdbf6 | Re-run after later commits; the concurrency-ceiling hardening and strict planner input validation passed in run #98 |
 | Agent/client adapters | AGENTS.md and Copilot repository instructions exist | PARTIAL | Verify Codex/VS Code and other target clients separately; repository files do not globally configure every client |
 | Runtime tool/plugin installation | No evidence that Ponytail plugin/hooks or all external candidates are installed in Codex/VS Code | NOT VERIFIED | Do not install without explicit system-level authorization and hook review |
 
