@@ -4,6 +4,7 @@
  */
 
 const VALID_RISKS = new Set(['low', 'medium', 'high', 'critical']);
+const MAX_VERIFIED_CONCURRENCY = 10;
 
 export function validatePlan(plan) {
   if (!plan || typeof plan !== 'object' || Array.isArray(plan)) throw new TypeError('plan must be an object');
@@ -18,8 +19,12 @@ export function validatePlan(plan) {
     if (task.project_id !== plan.project_id) throw new Error(`cross-project task rejected: ${task.task_id}`);
     if (typeof task.assigned_role !== 'string' || !task.assigned_role.trim()) throw new Error(`assigned_role is required: ${task.task_id}`);
     if (!VALID_RISKS.has(task.risk)) throw new Error(`invalid risk for task: ${task.task_id}`);
-    if (!Array.isArray(task.depends_on ?? [])) throw new Error(`depends_on must be an array: ${task.task_id}`);
-    if (!Array.isArray(task.resources ?? [])) throw new Error(`resources must be an array: ${task.task_id}`);
+    const dependencies = task.depends_on ?? [];
+    const resources = task.resources ?? [];
+    if (!Array.isArray(dependencies) || dependencies.some((id) => typeof id !== 'string' || !id.trim())) throw new Error(`depends_on must contain non-empty task IDs: ${task.task_id}`);
+    if (new Set(dependencies).size !== dependencies.length) throw new Error(`duplicate dependency: ${task.task_id}`);
+    if (!Array.isArray(resources) || resources.some((resource) => typeof resource !== 'string' || !resource.trim())) throw new Error(`resources must contain non-empty strings: ${task.task_id}`);
+    if (new Set(resources).size !== resources.length) throw new Error(`duplicate resource: ${task.task_id}`);
     byId.set(task.task_id, task);
   }
 
@@ -46,10 +51,17 @@ export function validatePlan(plan) {
 
 export function selectReadyTasks(plan, options = {}) {
   validatePlan(plan);
-  const completed = new Set(options.completedIds ?? []);
-  const running = new Set(options.runningIds ?? []);
+  const completedIds = options.completedIds ?? [];
+  const runningIds = options.runningIds ?? [];
+  if (!Array.isArray(completedIds) || !Array.isArray(runningIds)) throw new Error('completedIds and runningIds must be arrays');
+  const completed = new Set(completedIds);
+  const running = new Set(runningIds);
+  if (completed.size !== completedIds.length || running.size !== runningIds.length) throw new Error('task state IDs must be unique');
+  if ([...completed].some((id) => running.has(id))) throw new Error('a task cannot be completed and running at the same time');
   const maxConcurrency = options.maxConcurrency ?? 5;
-  if (!Number.isInteger(maxConcurrency) || maxConcurrency < 1) throw new Error('maxConcurrency must be a positive integer');
+  if (!Number.isInteger(maxConcurrency) || maxConcurrency < 1 || maxConcurrency > MAX_VERIFIED_CONCURRENCY) {
+    throw new Error(`maxConcurrency must be between 1 and the verified ceiling of ${MAX_VERIFIED_CONCURRENCY}`);
+  }
 
   const byId = new Map(plan.tasks.map((task) => [task.task_id, task]));
   for (const id of [...completed, ...running]) {
