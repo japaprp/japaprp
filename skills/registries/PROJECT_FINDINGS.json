@@ -712,6 +712,75 @@
       "closure_gate": [
         "Project purpose, owner intent and acceptance criteria are documented."
       ]
+    },
+    {
+      "finding_id": "GI-007",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "Firebase ID-token PR #22 is blocked by a dirty merge state",
+      "status": "BLOCKED",
+      "priority": "P0",
+      "source": {
+        "kind": "github_pull_request",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/pull/22",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "GitHub reports mergeable=false and mergeable_state=dirty for PR #22 (base fix/deployment-config-prep, head fix/firebase-id-token-validation).",
+        "Backend tests run #115 and Backend Integration run #828 passed on the exact PR head 1d4a8c98e5f2b54cef8333848e654fcf13346454.",
+        "Passing CI does not remove the integration conflict or prove hosted Firebase configuration."
+      ],
+      "fix": {
+        "pr_numbers": [
+          22
+        ],
+        "branch": "fix/firebase-id-token-validation",
+        "correction_commit": "1d4a8c98e5f2b54cef8333848e654fcf13346454"
+      },
+      "regression_test": {
+        "path": "PR #22 backend tests and integration workflow",
+        "test": "After conflict resolution on an isolated branch, rerun backend unit/configuration and integration token-verification tests on the new final commit."
+      },
+      "closure_gate": [
+        "Resolve the dirty merge state without force-pushing or overwriting unrelated commits.",
+        "Review the full resulting diff and confirm it preserves Firebase token verification and legacy-route hardening.",
+        "Rerun all required tests on the exact new final commit and verify the PR is mergeable."
+      ]
+    },
+    {
+      "finding_id": "GI-008",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "PostgreSQL fail-closed PR #32 is blocked by a dirty merge state",
+      "status": "BLOCKED",
+      "priority": "P0",
+      "source": {
+        "kind": "github_pull_request",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/pull/32",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "GitHub reports mergeable=false and mergeable_state=dirty for PR #32 (base integration/postgres-auth-isolated, head fix/postgres-connection-check-fail-closed).",
+        "Backend Integration run #1078, Backend tests run #331 and Client Persistence run #772 passed on the exact PR head e5b2679e0d50bb6183af981fc5346abf961568cf.",
+        "CI success does not prove that the branch can be integrated or that the historical 28P01 runtime issue is resolved."
+      ],
+      "fix": {
+        "pr_numbers": [
+          32
+        ],
+        "branch": "fix/postgres-connection-check-fail-closed",
+        "correction_commit": "e5b2679e0d50bb6183af981fc5346abf961568cf"
+      },
+      "regression_test": {
+        "path": "PR #32 Backend Integration, Backend tests and Client Persistence workflows",
+        "test": "After conflict resolution on an isolated branch, rerun all three workflows on the exact new final commit and preserve fail-closed behavior when required DB configuration is missing."
+      },
+      "closure_gate": [
+        "Resolve the dirty merge state without force-pushing or overwriting unrelated commits.",
+        "Review the full diff and confirm missing database credentials still fail closed without logging secret values.",
+        "Rerun all three workflows on the exact new final commit.",
+        "Keep isolated 28P01 diagnosis separate from production secrets and production data."
+      ]
     }
   ]
 }
