@@ -355,18 +355,23 @@
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "Prior recorded observation: Lua 5.4.6 backup decoder expects header bytes 0x03 0x54, while family-55 game files use custom 0xA8 0x55.",
-        "The standard Lua 5.5.1 decoder rejected the custom header; no semantic opcode claims are authorized from this structural mismatch."
+        "The REA GitHub branch research/dark-war-survival-captures is at HEAD 3b50de341d7511c0c402fc416acdedc41be55a2c; the latest commit (2026-11-05) changes only the engineering README.",
+        "The repository tree contains no libxlua.so, libil2cpp.so, native library, or native symbol dump; the local S21/Termux native working files are not accessible in this session.",
+        "The existing engineering handoff records that the custom Lua family-55 header 0xA8 0x55 is rejected by standard Lua 5.5.1, and the application-specific decoder/semantic opcode interpretation remains unresolved.",
+        "The requested get_IsLua55, s_isLua55 and 0x30F19C4 native correlation has not been executed against a verified local native binary in this session; no symbol or offset conclusion is claimed.",
+        "The research branch's Backend Integration run #1957 passed on the branch HEAD, but it is a game backend workflow and does not validate REA bytecode or native analysis."
       ],
       "fix": null,
       "regression_test": {
-        "path": "DarkWar_Analysis_Core validation-staging exports",
-        "test": "Hypothesis-driven header/parser fixtures with byte-level provenance and structural round-trip checks; no broad bundle rescan."
+        "path": "local read-only native symbol/range analysis on preserved libil2cpp.so and libxlua.so copies (not available in current session)",
+        "test": "Verify file SHA-256 and ELF architecture; locate exact references to get_IsLua55 and s_isLua55; trace reads/writes and callers around 0x30F19C4; correlate with existing index and manifest evidence; record offsets and disassembly context without modifying original binaries."
       },
       "closure_gate": [
-        "Current source files and exact tool versions are re-verified.",
-        "Custom format handling is proven on isolated fixtures and existing mappings.",
-        "No original bundle is modified and no unsupported semantic claim is made."
+        "Re-establish access to the preserved S21/Termux native analysis workspace or provide the exact preserved native binaries and their SHA-256 manifests.",
+        "Verify binary identity, architecture and hashes before analysis; use read-only copies only.",
+        "Trace get_IsLua55, s_isLua55 and the 0x30F19C4 reference with callers, cross-references and object/global relationships.",
+        "Correlate native findings with the manifest-level LuaTxt/LuaTxt_55 evidence; keep observed, inferred and unknown separate.",
+        "Do not change the Lua parser or claim family-55 semantic decode until a reproducible independent decoder test passes."
       ]
     },
     {
@@ -374,25 +379,33 @@
       "project_id": "guerra-infinita",
       "front": "dark-war-survival-rea",
       "title": "LuaTxt versus LuaTxt_55 manifest crosswalk is pending",
-      "status": "NOT RUN",
+      "status": "BLOCKED",
       "priority": "P1",
       "source": {
-        "kind": "conversation_context",
-        "reference": "verified REA next-step note dated 2026-11-11",
+        "kind": "derived_manifest_analysis",
+        "reference": "research/dark-war-survival/data/manifests/DARKWAR_DATATABLE_ASSET_BUNDLE_MAP_2026-10-30.csv; DARKWAR_LUA_MODULE_BUNDLE_TRACE_2026-10-30.csv; DARKWAR_LUA_DATATABLE_MODULE_CROSSWALK_V2_2026-10-30.csv; DARKWAR_LUA_DATATABLE_DIRECT_REFERENCES_2026-10-30.csv; DARKWAR_LUA_DATATABLE_CANDIDATE_REFERENCES_2026-10-30.csv @ 3b50de341d7511c0c402fc416acdedc41be55a2c",
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "The previously selected safe next step was a read-only manifest cross-reference using existing mappings.",
-        "No broad rescan of the 4,656 bundles is justified by current evidence."
+        "Read-only manifest crosswalk executed against the existing branch files without rescanning or extracting any of the 4,656 bundles.",
+        "The datatable asset map contains 1,064 rows: 469 rows mapped to base LuaTxt bundles, 469 mapped to LuaTxt_55 bundles, and 126 localization rows in separate bundle families.",
+        "The Lua module bundle trace contains 66 records split evenly: 33 base and 33 Lua 5.5.",
+        "The Lua/DataTable crosswalk contains 66 rows across 30 modules: 33 base and 33 Lua 5.5. Extraction-status counts are 20 direct ASCII-token matches, 36 no-direct-token text projections, and 10 semantic links still blocked pending bytecode decompilation.",
+        "The direct-reference manifest contains 34 exact string-token matches: 17 base and 17 Lua 5.5; all 34 have matching LuaVariant/TableVariant and there are zero variant mismatches.",
+        "The candidate-reference manifest contains 14 rows split evenly by variant. HeroLevelUpTemplateManager -> heroes_levelup is MEDIUM confidence in both variants; the remaining 12 candidates are LOW confidence and still require bytecode decompilation.",
+        "This establishes manifest-level variant alignment only; it does not prove runtime selection, native get_IsLua55 behavior, semantic callsites or server authority.",
+        "The analysis is not yet recorded in a committed REA report or a reusable regression script; closure remains BLOCKED until that durable evidence is authorized and added."
       ],
       "fix": null,
       "regression_test": {
-        "path": "existing REA manifests and mappings",
-        "test": "Compare paired manifest entries and record path, bundle, payload hash, header family and mapping provenance without extracting all bundles."
+        "path": "research/dark-war-survival/tools/validate-luatxt-family-crosswalk.js (planned; not yet committed)",
+        "test": "Parse the existing CSV manifests; assert 469 base and 469 Lua 5.5 datatable mappings, 33/33 Lua module traces, 34 direct-reference variant matches with zero mismatches, and 14 candidates split 7/7; report semantic-blocked and low-confidence rows separately."
       },
       "closure_gate": [
-        "Crosswalk output is reproducible and references existing manifest/mapping IDs.",
-        "Unmapped records remain explicit; no semantic interpretation is inferred from filenames alone."
+        "Preserve the read-only manifest results and add a reproducible validator/report to the REA research branch when repository publication is explicitly authorized.",
+        "Keep all 10 semantic-blocked crosswalk rows and 12 low-confidence candidates open; do not promote them to confirmed callsites.",
+        "Correlate table-family alignment with native loader evidence for get_IsLua55/s_isLua55 and the relevant path selection.",
+        "Only claim runtime LuaTxt/LuaTxt_55 selection after a controlled, reproducible test; manifest alignment alone is insufficient."
       ]
     },
     {
