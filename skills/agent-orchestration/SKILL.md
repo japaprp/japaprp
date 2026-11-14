@@ -9,7 +9,7 @@ description: Planejar e coordenar trabalho paralelo entre agentes especializados
 
 Transformar um único comando do usuário em um plano rastreável de tarefas independentes, atribuí-las a agentes especializados, permitir execução paralela quando segura e consolidar resultados com evidências. O objetivo é aumentar throughput sem perder coerência, segurança, controle de custos ou responsabilidade.
 
-Esta skill define o contrato de orquestração. Ela não afirma que um pool de agentes está ativo, que o host consegue iniciar agentes-filhos, nem que 100 agentes podem executar simultaneamente. A capacidade real depende do runtime e das ferramentas verificadas.
+Esta skill define o contrato de orquestração. O helper scripts/agent-orchestration-planner.mjs valida DAGs e seleciona tarefas READY com limites de concorrência e locks exclusivos; ele não inicia agentes nem executa ferramentas. A skill não afirma que um pool de agentes está ativo, que o host consegue iniciar agentes-filhos, nem que 100 agentes podem executar simultaneamente. A capacidade real depende do runtime e das ferramentas verificadas.
 
 ## 1. Hierarquia operacional
 
