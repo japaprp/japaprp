@@ -8,21 +8,22 @@ The repository has a working structural catalog and CI validation, but it does n
 
 | Engine / subsystem | Verified state | Status | Remaining work |
 |---|---|---|---|
-| Skill catalog and metadata validator | 36 unique skills; structural validator and catalog checks pass on this branch | PASS — structural | Continue periodic overlap and maintenance review |
-| Project registry | 6 project records, with active/planned status and evidence qualifiers | PASS — structural | Re-verify each project's live repository before project-specific operations |
-| Capability registry | 12 capability families map all 36 skills; 2 external research candidates remain explicitly unintegrated | PASS — structural | Keep candidate state/evidence current and re-check project applicability |
+| Skill catalog and metadata validator | 37 unique skills; structural validator and catalog checks pass on this branch | PASS — structural | Continue periodic overlap and maintenance review |
+| Project registry | 19 project records, with active/planned status and evidence qualifiers | PASS — structural | Re-verify each project's live repository before project-specific operations |
+| Capability registry | 13 capability families map all 37 skills; 2 external research candidates remain explicitly unintegrated | PASS — structural | Keep candidate state/evidence current and re-check project applicability |
 | Engineering Brain router | Routing, project isolation, skill budget, autonomy and approval boundaries documented | PARTIAL | Runtime depends on the host loading repository instructions and selected skills |
 | Activation bootstrap | AGENTS.md and Copilot repository instructions contain the trigger procedure; deterministic structural test exists | PARTIAL | Fresh-session activation in each target client has not been behaviorally proven |
 | Capability gap closure | Dedicated skill, router dispatch, internal-first/external GitHub discovery contract, isolated closure procedure and regression coverage exist | PASS — structural; PARTIAL — behavior | Prove the target agent actually discovers, compares and closes a gap in a fresh session |
 | Ponytail engineering principles | Selective local minimal-change skill integrated; upstream review/audit/debt/gain functions intentionally not duplicated | PASS — local skill | Plugin/hooks remain uninstalled; review separately only if explicitly needed |
-| Behavioral evaluation harness | 49 routing cases cover all 36 primary skills; manual no-API runner exists | PARTIAL | Run the target agent in a fresh session and record actual responses/traces; runner itself does not call a model |
-| GitHub Actions validation | Current branch workflow run #78 completed successfully; all 14 validation steps passed and coverage audit returned PASS with zero warnings | PASS — current revision | Re-run after any subsequent change |
+| Multi-agent orchestration | Hierarchy, DAG task contract, admission control, concurrency tiers, resource locks, independent QA and owner approval gates documented; routed only to Council Central | PASS — contract structure pending CI | Live child-agent dispatch, isolation, conflict handling, cancellation and recovery remain NOT RUN until a runtime adapter is verified |
+| Behavioral evaluation harness | 50 routing cases cover all 36 primary skills; manual no-API runner exists | PARTIAL | Run the target agent in a fresh session and record actual responses/traces; runner itself does not call a model |
+| GitHub Actions validation | PR #5 run #79 passed 14/14 steps. PR #6 run #80 failed at registry validation due to a SyntaxError in the validator; that syntax was corrected, then the portfolio/orchestration changes were added. No CI result exists yet for the current HEAD | BLOCKED — current HEAD awaiting CI | Re-run and inspect every step on the current PR #6 head |
 | Agent/client adapters | AGENTS.md and Copilot repository instructions exist | PARTIAL | Verify Codex/VS Code and other target clients separately; repository files do not globally configure every client |
 | Runtime tool/plugin installation | No evidence that Ponytail plugin/hooks or all external candidates are installed in Codex/VS Code | NOT VERIFIED | Do not install without explicit system-level authorization and hook review |
 
 ## Current implementation branch
 
-Branch: `feat/cacd-autonomy-ponytail-engine-audit`, based on PR #4's registry revision. This branch adds two focused skills (`ponytail-engineering` and `capability-gap-closure`), maps all 36 catalog skills into 12 capability families, adds a local coverage auditor, and expands direct routing/autonomy regressions from 25 to 49 cases. The audit now targets 36/36 skill-to-family mappings and 36/36 direct primary-route evals. These additions passed structural CI in run #77 (14/14 steps). Coverage is 36/36 skills mapped to 12 families and 36/36 with direct primary-route evals; 0 unreferenced skills and 0 missing direct evals. Fresh-session behavioral tests A/B/C remain NOT RUN in the target Codex/VS Code environment.
+Branch stack: PR #5 `feat/cacd-autonomy-ponytail-engine-audit` → PR #6 `feat/central-portfolio-registry-20261114`. PR #6 extends the portfolio to 19 project records and 17 repository inventory rows, adds the `agent-orchestration` skill and its contract, maps all 37 catalog skills into 13 capability families, and expands direct routing/autonomy regressions to 50 cases. The audit now targets 37/37 skill-to-family mappings and 36/36 direct primary-route evals. These additions passed structural CI in run #77 (14/14 steps). Coverage is 36/36 skills mapped to 12 families and 36/36 with direct primary-route evals; 0 unreferenced skills and 0 missing direct evals. Fresh-session behavioral tests A/B/C and live multi-agent dispatch remain NOT RUN in the target Codex/VS Code environment.
 
 ## What "working" means
 
@@ -39,6 +40,7 @@ Branch: `feat/cacd-autonomy-ponytail-engine-audit`, based on PR #4's registry re
 4. Focused routing cases for capability discovery and minimal-change engineering.
 5. Explicit verification of tool availability before any future plugin or system integration.
 6. Review of the resulting diff; no merge or deployment is implied.
+7. Verify real runtime dispatch with at least two independent tasks, resource isolation, QA, cancellation/recovery and authorization gates before marking orchestration operational.
 
 ## Non-goal
 
