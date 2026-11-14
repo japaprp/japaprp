@@ -751,7 +751,7 @@
       "finding_id": "GI-008",
       "project_id": "guerra-infinita",
       "front": "development",
-      "title": "PostgreSQL fail-closed PR #32 is blocked by a dirty merge state",
+      "title": "PR #32 is stale and superseded by the stronger fail-closed implementation on its target branch",
       "status": "BLOCKED",
       "priority": "P0",
       "source": {
@@ -760,26 +760,23 @@
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "GitHub reports mergeable=false and mergeable_state=dirty for PR #32 (base integration/postgres-auth-isolated, head fix/postgres-connection-check-fail-closed).",
-        "Backend Integration run #1078, Backend tests run #331 and Client Persistence run #772 passed on the exact PR head e5b2679e0d50bb6183af981fc5346abf961568cf.",
-        "CI success does not prove that the branch can be integrated or that the historical 28P01 runtime issue is resolved."
+        "GitHub reports mergeable=false and mergeable_state=dirty for PR #32; its head e5b2679e0d50bb6183af981fc5346abf961568cf is 3 commits ahead and 35 behind integration/postgres-auth-isolated.",
+        "The current target-branch HEAD is 107121a3ad22d54374df0272b97c002fc18b6b9d and already fails closed when GAME_SUPABASE_DATABASE_URL is missing or is not a PostgreSQL URL.",
+        "The target branch also requires an explicit PEM CA certificate and tests missing/malformed CA configuration; the PR head's older script omits this stronger TLS configuration and its test file has less coverage.",
+        "Target-branch CI passed on exact HEAD: Backend tests run #527, Backend Integration #1338 and Client Persistence #983.",
+        "PR #32 CI passed on its own stale HEAD, but its changes are redundant relative to the target branch and must not be merged over the stronger implementation.",
+        "The PR remains open; no PR state change, merge, database access, secret inspection, or deployment was performed."
       ],
-      "fix": {
-        "pr_numbers": [
-          32
-        ],
-        "branch": "fix/postgres-connection-check-fail-closed",
-        "correction_commit": "e5b2679e0d50bb6183af981fc5346abf961568cf"
-      },
+      "fix": null,
       "regression_test": {
-        "path": "PR #32 Backend Integration, Backend tests and Client Persistence workflows",
-        "test": "After conflict resolution on an isolated branch, rerun all three workflows on the exact new final commit and preserve fail-closed behavior when required DB configuration is missing."
+        "path": "backend/test/postgres-connection-check.test.js and backend/scripts/check-postgres-connection.mjs on integration/postgres-auth-isolated",
+        "test": "Verify missing and malformed database URLs fail closed; explicit CA is required and malformed CA is rejected; confirm the test:deploy suite passes on the exact target-branch HEAD."
       },
       "closure_gate": [
-        "Resolve the dirty merge state without force-pushing or overwriting unrelated commits.",
-        "Review the full diff and confirm missing database credentials still fail closed without logging secret values.",
-        "Rerun all three workflows on the exact new final commit.",
-        "Keep isolated 28P01 diagnosis separate from production secrets and production data."
+        "Keep the stronger target-branch CA verification and fail-closed behavior intact.",
+        "Reconfirm the three required workflows on the exact target-branch HEAD after any subsequent change.",
+        "Record PR #32 as superseded; do not merge its stale head.",
+        "Change the PR's open/draft state only after explicit owner disposition; no deployment or production database access is implied."
       ]
     },
     {
