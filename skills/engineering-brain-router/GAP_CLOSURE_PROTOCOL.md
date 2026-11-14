@@ -33,6 +33,20 @@ Do not fabricate a rank, download count, popularity metric, or community consens
 
 Use a concise comparison table when it helps decision-making: candidate/source, adoption signals, maintenance, license, compatibility, security/permissions, fit, and known drawbacks. State why the selected candidate wins for this task and why notable alternatives were rejected. If reliable rankings/download data are unavailable, say so and make a qualitative evidence-based comparison instead of pretending the ranking is definitive.
 
+## 2.2 Operational discovery contract
+
+A gap is not considered handled when the agent only names a possible tool. Once a concrete gap is observed, the agent must do the following within the current authorization:
+
+1. Load `capability-gap-closure`; record the missing outcome and the evidence that exposed it.
+2. Inspect the current project's registry entry, applicable capability families, skill catalog, local scripts/evals, and relevant user-owned repositories.
+3. If still uncovered, use the available GitHub search/repository connector or an approved browser/search tool to identify credible upstream candidates. Search the capability category, not just a preselected name.
+4. Compare the best-fit shortlist using source identity, maintenance/release activity, license, compatibility, permissions, dependencies, security, cost/resource needs, and limitations. Include popularity/download data only when the source publishes it; label stars/forks as interest signals.
+5. Select one outcome: reuse existing; adapt existing skill; add a distinct skill; record a tool candidate; reject; or BLOCKED. Explain why.
+6. When authorized, implement the local closure on an isolated branch, add a regression case and update the catalog/registry. If only a recommendation is possible, state exactly why implementation is blocked.
+7. Re-run the focused checks and record the new revision. Never let an old green CI run stand in for validation of a new commit.
+
+**No hidden installation:** repository discovery and local skill adaptation do not authorize installing plugins/hooks, changing global agent settings, adding paid services, or executing downloaded code.
+
 ## 3. Choose the smallest adequate closure
 
 - **Already covered:** reuse the existing skill and add/repair routing or regression coverage if missing.
@@ -96,3 +110,7 @@ A valid JSON file is not proof of routing quality. A planned or skipped model ru
 - Reverse-skill: https://github.com/zhaoxuya520/reverse-skill — external example of scenario routing, structured routing regression tests, tool inventory, and evidence-focused workflows. Treat as a reference for ideas, not as an automatically trusted dependency or a pack to copy wholesale.
 
 Re-check upstream status, release, license, and setup instructions at the time of actual adoption; this file is not a permanent guarantee that any external project remains current or suitable.
+
+## 7. Required behavior when a gap is encountered
+
+The router must dispatch to `capability-gap-closure` when a task reveals a missing or uncertain capability. The agent should continue internal discovery and any authorized local implementation without asking the user to repeat the original request. A lack of external search access is a `BLOCKED` result, not a reason to silently skip discovery. The skill, registry, regression dataset, and final report must distinguish researched, proposed, integrated, and runtime-verified states.

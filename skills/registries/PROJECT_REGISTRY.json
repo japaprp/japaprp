@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "registry_kind": "project_registry",
-  "updated_on": "2026-11-10",
+  "updated_on": "2026-11-14",
   "policy": {
     "source_of_truth": "Each project's own repository, branch, environment, and verified artifacts remain authoritative.",
     "isolation": "Projects may share reusable skills and public references, but never implicitly share credentials, private datasets, tenants, databases, release cycles, or production environments.",
@@ -21,12 +21,23 @@
         "verification_note": "Repository and commit were inspected through GitHub during registry creation."
       },
       "project_family": null,
-      "phases": ["portfolio_orchestration", "capability_routing", "governance"],
+      "phases": [
+        "portfolio_orchestration",
+        "capability_routing",
+        "governance"
+      ],
       "resource_profile": {
         "compute_policy": "Prefer lightweight, on-demand tools; avoid loading all skills or cloning large repositories.",
         "cost_policy": "No paid services, metered API use, or resource-consuming installs without explicit approval."
       },
-      "evidence_status": "repository_verified"
+      "evidence_status": "repository_verified",
+      "primary_capabilities": [
+        "engineering-brain-router",
+        "capability-gap-closure",
+        "ponytail-engineering",
+        "testing-regression-quality",
+        "repo-reverse-engineering"
+      ]
     },
     {
       "project_id": "guerra-infinita",
@@ -41,7 +52,10 @@
           "role": "Analyze authorized original-game artifacts and behavior to understand systems and mechanics.",
           "local_project_folder": "DarkWar_Analysis_Core",
           "branch": "research/dark-war-survival-captures",
-          "backup_roots": ["/dark-war-survival/00_MANIFESTS", "/dark-war-survival/01_ORIGINAL_BUNDLES_AND_CABS"],
+          "backup_roots": [
+            "/dark-war-survival/00_MANIFESTS",
+            "/dark-war-survival/01_ORIGINAL_BUNDLES_AND_CABS"
+          ],
           "evidence_status": "conversation_context_unverified_in_this_commit"
         },
         "development_phase": {
@@ -55,8 +69,21 @@
         },
         "technical_isolation": "Keep REA originals, research artifacts, branches, and production source/build pipelines separate for provenance, licensing, and safety. Connect them only through reviewed findings and documented design decisions."
       },
-      "phases": ["authorized_reverse_engineering_research", "architecture_and_design", "independent_game_development", "testing_and_iteration"],
-      "primary_capabilities": ["game-development-engineering", "rea-assisted-analysis", "repo-reverse-engineering", "visual-asset-engineering", "targeted-debugging-performance", "testing-regression-quality", "cryptography-security-analysis"],
+      "phases": [
+        "authorized_reverse_engineering_research",
+        "architecture_and_design",
+        "independent_game_development",
+        "testing_and_iteration"
+      ],
+      "primary_capabilities": [
+        "game-development-engineering",
+        "rea-assisted-analysis",
+        "repo-reverse-engineering",
+        "visual-asset-engineering",
+        "targeted-debugging-performance",
+        "testing-regression-quality",
+        "cryptography-security-analysis"
+      ],
       "resource_profile": {
         "compute_policy": "Respect Galaxy Book Go RAM/storage constraints; prefer the Galaxy S21/Termux for suitable heavy analysis; use hypothesis-driven scans and existing mappings before rescanning large bundles.",
         "storage_policy": "Preserve the existing research backup and approximately 3 GB reserved research workspace; do not extract or duplicate large bundles without a demonstrated need.",
@@ -74,7 +101,12 @@
         "kwai": "https://www.kwai.com/@CasaPratica.ofc",
         "storefront": "https://collshp.com/casapratica.ofc?view=storefront"
       },
-      "primary_capabilities": ["content-commerce-distribution", "business-data-intelligence", "public-api-integration", "spreadsheet-data-engineering"],
+      "primary_capabilities": [
+        "content-commerce-distribution",
+        "business-data-intelligence",
+        "public-api-integration",
+        "spreadsheet-data-engineering"
+      ],
       "resource_profile": {
         "compute_policy": "Prefer browser-based and lightweight spreadsheet workflows.",
         "cost_policy": "No paid promotion, API subscription, or automation spend without explicit approval."
@@ -88,7 +120,12 @@
       "purpose": "Future business/project context; requirements and operational scope have not yet been established.",
       "project_family": null,
       "repository": null,
-      "primary_capabilities": ["product-discovery-delivery", "business-data-intelligence", "forms-crud-data-integrity", "payments-billing-integrations"],
+      "primary_capabilities": [
+        "product-discovery-delivery",
+        "business-data-intelligence",
+        "forms-crud-data-integrity",
+        "payments-billing-integrations"
+      ],
       "evidence_status": "mentioned_by_user; details_not_yet_confirmed"
     },
     {
@@ -98,7 +135,12 @@
       "purpose": "Future HR-related project context; requirements, legal scope, and data-controller responsibilities must be established before implementation.",
       "project_family": null,
       "repository": null,
-      "primary_capabilities": ["product-discovery-delivery", "application-security-auth", "forms-crud-data-integrity", "business-data-intelligence"],
+      "primary_capabilities": [
+        "product-discovery-delivery",
+        "application-security-auth",
+        "forms-crud-data-integrity",
+        "business-data-intelligence"
+      ],
       "evidence_status": "mentioned_by_user; details_not_yet_confirmed"
     },
     {
@@ -108,7 +150,12 @@
       "purpose": "Future retail/produce project context; requirements and operational scope have not yet been established.",
       "project_family": null,
       "repository": null,
-      "primary_capabilities": ["product-discovery-delivery", "business-data-intelligence", "spreadsheet-data-engineering", "forms-crud-data-integrity"],
+      "primary_capabilities": [
+        "product-discovery-delivery",
+        "business-data-intelligence",
+        "spreadsheet-data-engineering",
+        "forms-crud-data-integrity"
+      ],
       "evidence_status": "mentioned_by_user; details_not_yet_confirmed"
     }
   ]
