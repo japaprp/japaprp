@@ -53,7 +53,7 @@ Fatos, inferências, hipóteses e desconhecidos são separados no campo `source.
 | GI-005 | Guerra Infinita / expedições | P1 | NOT RUN | Sincronização autenticada e isolamento de dois usuários |
 | GI-006 | Guerra Infinita / chips | P2 | NOT RUN | Modelo, persistência e regressões determinísticas |
 | GI-007 | Guerra Infinita / conflito PR #22 | P0 | BLOCKED | Resolver dirty merge state e repetir testes |
-| GI-008 | Guerra Infinita / conflito PR #32 | P0 | BLOCKED | Resolver dirty merge state e repetir testes |
+| GI-008 | Guerra Infinita / PR #32 superado pela base | P0 | BLOCKED | Registrar disposição do PR sem mesclar a versão antiga |
 | REA-001 | Dark War REA / Lua 5.5 | P1 | BLOCKED | Decoder estrutural customizado |
 | REA-002 | Dark War REA / manifests | P1 | NOT RUN | Crosswalk LuaTxt vs LuaTxt_55 |
 | PP-001 | Perifa Pro | P0 | NOT RUN | Revalidar findings no código e adicionar regressões |
