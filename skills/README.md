@@ -60,6 +60,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 
 - [adversarial-decision-review](./adversarial-decision-review/SKILL.md) — protocolo limitado a decisões consequenciais; não cria agentes nem prova independência.
 - [Gate determinístico](../scripts/adversarial_review_gate.py) e [testes de regressão](../scripts/test_adversarial_review_gate.py) — classificam sinais de acionamento e validam a forma mínima do registro, sem atestar a veracidade das evidências.
+- Modelos prontos: [contexto de decisão](./templates/ADVERSARIAL_DECISION_CONTEXT.json) e [registro de revisão](./templates/ADVERSARIAL_DECISION_RECORD.json).
 
 ## Validação do roteador
 
