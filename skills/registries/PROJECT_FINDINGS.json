@@ -427,26 +427,41 @@
       "project_id": "hortifruti",
       "front": "application",
       "title": "Payment confirmation, recovery and JSON persistence concurrency findings need source-level revalidation",
-      "status": "NOT RUN",
+      "status": "FAIL",
       "priority": "P0",
       "source": {
-        "kind": "repository_audit",
-        "reference": "skills/registries/PORTFOLIO_REPOSITORY_AUDIT_2026-11-14.md#high-priority-findings",
+        "kind": "repository_code",
+        "reference": "https://github.com/japaprp/varejao-backend/blob/main/backend/src/routes/storeRoutes.js; backend/src/controllers/storeController.js; backend/src/services/cartService.js; backend/src/data/repository.js",
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "The portfolio audit records public payment confirmation, password recovery, JSON persistence/concurrency, CORS and local rate-limit blockers.",
-        "No source or runtime revalidation was performed in this turn."
+        "On main, POST /carrinho, GET /carrinho, GET /checkout, GET /stream/checkout and POST /finalizar are registered without authentication middleware; payment preference is also public by design and therefore needs cart-capability authorization rather than ordinary operator auth.",
+        "storeController.getCartId() accepts x-cart-id, query cartId or body cartId directly from the caller; cartService.resolveCartId() maps a missing ID to the shared key 'default'.",
+        "cartService derives the sale channel from patterns in the caller-controlled cart ID, so the channel is not server-owned. Checkout preview and the SSE stream use that caller-controlled identifier.",
+        "On the current PR #1 branch, POST /finalizar returns HTTP 410 and maquininha initiation/confirmation require an authenticated operational role, but cart ownership/capability, shared-default removal and server-owned channel are explicitly documented as remaining release blockers rather than implemented fixes.",
+        "The repository readDb()/writeDb() implementation still reads and overwrites the complete database.json synchronously without a transaction, inter-process lock or atomic revision check; the PostgreSQL repository in PR #1 is a separate prototype and is not wired into the live repository adapter.",
+        "PR #1 head 191de885af6f3506260522eeabf2897ee1b8982a is draft and mergeable; Backend QA run #91 completed SUCCESS on that exact head. CI does not prove live Render persistence, live backup, cart ownership or real Mercado Pago sandbox behavior.",
+        "PR #1's own release gates state that Render Free local filesystem data is ephemeral and no authorized live export/backup path was found. No live data or secrets were read and no infrastructure action was taken."
       ],
-      "fix": null,
+      "fix": {
+        "pr_numbers": [
+          1
+        ],
+        "branch": "fix/varejao-security-payment-authorization-20261114",
+        "correction_commit": null
+      },
       "regression_test": {
-        "path": "varejao-backend tests (not yet mapped)",
-        "test": "Payment webhook signature/idempotency, proof-of-possession recovery, concurrent persistence and CORS/rate-limit regressions."
+        "path": "backend/scripts/smoke_test.js; synthetic cart-capability integration tests; multi-process persistence tests; backup/restore rehearsal",
+        "test": "With two independent synthetic clients, verify that cart A cannot read, mutate, stream, checkout or pay cart B; missing cart credentials never resolve to a shared cart; channel is server-owned; payment preference and confirmation are idempotent; concurrent persistence mutations do not lose updates; backup restore reproduces the exact synthetic dataset."
       },
       "closure_gate": [
-        "Confirmed findings are mapped to exact source locations.",
-        "Payment and persistence regressions pass under isolated synthetic tests.",
-        "No production payment or customer data is touched."
+        "Implement a cart capability with a non-secret public locator and high-entropy secret; never trust a caller-supplied cart ID alone and remove the shared 'default' cart.",
+        "Bind cart reads, writes, SSE, checkout and payment preference to the capability; issue short-lived stream tickets or use authenticated polling.",
+        "Keep maquininha initiation and confirmation restricted to authenticated operational roles; verify NSU/authorization and reject duplicate settlement.",
+        "Keep Mercado Pago webhook signature, amount, order, collector and currency checks fail closed; run sandbox integration only with explicitly configured test credentials.",
+        "Replace live JSON whole-file persistence with an isolated transactional adapter and multi-process concurrency tests; do not use the prototype as proof of runtime wiring.",
+        "Preserve/export live data and complete a restore rehearsal before any restart, redeploy, storage change or migration; current live backup path remains BLOCKED.",
+        "Run all regression tests on the exact final commit; no merge, deployment, production write or live-data access is implied."
       ]
     },
     {
