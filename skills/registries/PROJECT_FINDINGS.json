@@ -600,7 +600,7 @@
       "priority": "P2",
       "source": {
         "kind": "repository_audit",
-        "reference": "skills/registries/PORTFOLIO_REPOSITORY_AUDIT_2026-11-14.md#high-priority-findings",
+        "reference": "skills/registries/REPOSITORY_INVENTORY.json#japaprp/portifolio",
         "evidence_label": "OBSERVED"
       },
       "evidence": [
