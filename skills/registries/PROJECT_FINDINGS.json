@@ -382,26 +382,44 @@
       "project_id": "perifa-pro",
       "front": "application",
       "title": "Authentication, authorization and password-reset concurrency findings require source-level revalidation",
-      "status": "NOT RUN",
+      "status": "FAIL",
       "priority": "P0",
       "source": {
-        "kind": "repository_audit",
-        "reference": "skills/registries/PORTFOLIO_REPOSITORY_AUDIT_2026-11-14.md#high-priority-findings",
+        "kind": "repository_code",
+        "reference": "https://github.com/japaprp/Perifa-Pro/tree/main/backend-php; PasswordResetRepository.php, RateLimiterService.php, config/jwt.php, config/cors.php",
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "The portfolio audit records auth rate-limit, JWT/CORS, room authorization, password-reset concurrency and Maestro device-proof gaps.",
-        "This turn did not inspect the Perifa Pro source or exact current CI."
+        "On main, PasswordResetRepository::resetPassword() selects an unused token inside a transaction without FOR UPDATE, consumes it with an unconditional UPDATE by id, and does not verify affected-row counts; this leaves the one-time token race identified by the audit.",
+        "PR #12 adds SELECT ... FOR UPDATE, conditional token consumption with exactly-one-row verification, account-update row-count validation and rollback on failure; CI run #178 passed on exact head 0b7fd05fc393275a2435acf9a8510831417f8da5.",
+        "PR #17 adds a two-process concurrency test against disposable MySQL requiring exactly one SUCCESS and one REJECTED; CI run #185 passed on exact head 04502c03be706188ce6ab79fb4827f9310c5a607.",
+        "PR #20 revokes active sessions in the same transaction as password reset and adds a MySQL session-revocation integration test; CI run #190 passed on exact head 3b990a982a6c73f2e9d6829c556a3cdefec0753b.",
+        "On main, RateLimiterService::hit() allows requests when storage creation/opening/locking fails or invalid limits are supplied. PR #18 changes these paths to deny; CI run #186 passed on exact head a4f77e443caa1bf8a5158f98ae6abf0c8e1f0a60, stacked on PR #7.",
+        "On main, config/jwt.php falls back to the known local placeholder secret when JWT_SECRET is absent, and config/cors.php defaults CORS_ALLOW_ORIGINS to '*'; no production fail-closed validation was found in the inspected configuration path. These remain unchanged in the shared-hardening PR #7 branch.",
+        "The AuthMiddleware class returns true, but the inspected Router does not wire it; protected controller actions use BaseController::requireAuth() and Jwt::decode(). The stub is not counted as a confirmed bypass.",
+        "All referenced PRs remain open; PR #7 is ready for review but unmerged, while PRs #12, #17, #18 and #20 are drafts. Green CI on stacked branches does not remediate main."
       ],
-      "fix": null,
+      "fix": {
+        "pr_numbers": [
+          7,
+          12,
+          17,
+          18,
+          20
+        ],
+        "branch": "stacked: fix/shared-backend-hardening; security/password-reset-atomic-consumption; test/password-reset-mysql-concurrency; fix/password-reset-revoke-sessions-stacked; fix/security-fail-closed-rate-limit-webhook",
+        "correction_commit": null
+      },
       "regression_test": {
-        "path": "Perifa-Pro repository tests (not yet mapped)",
-        "test": "Add auth rate-limit, JWT claim/issuer, room authorization, password-reset race and physical-device regressions after source revalidation."
+        "path": "backend-php/tests/password-reset-concurrency-integration.php; backend-php/tests/password-reset-session-revocation-integration.php; backend-php/tests/security.php",
+        "test": "Run the disposable-MySQL concurrent reset test and session-revocation test on the final integrated commit; add production-config tests proving missing JWT_SECRET and CORS_ALLOW_ORIGINS fail closed; verify rate-limit storage failure denies requests."
       },
       "closure_gate": [
-        "Source-level finding is reproduced or explicitly downgraded with evidence.",
-        "Each confirmed defect links to a narrow correction commit and regression.",
-        "Maestro device proof is recorded where required."
+        "Integrate the password-reset atomic-consumption, MySQL concurrency, and session-revocation changes only through their reviewed PR chain; no merge is performed here.",
+        "Make production JWT configuration reject missing or placeholder JWT_SECRET instead of silently using the local fallback.",
+        "Make production CORS configuration reject missing or wildcard origins unless a separately approved public-only policy explicitly requires it.",
+        "Integrate the fail-closed rate-limiter change and add trusted-proxy tests for the source IP and tenant dimensions used by rate limiting.",
+        "Run all relevant PHP, web, mobile and disposable-MySQL workflows on the exact final commit and independently verify the regressions."
       ]
     },
     {
@@ -436,26 +454,32 @@
       "project_id": "rh",
       "front": "application",
       "title": "Cross-company employee/document isolation requires source-level revalidation",
-      "status": "NOT RUN",
+      "status": "FAIL",
       "priority": "P0",
       "source": {
-        "kind": "repository_audit",
-        "reference": "skills/registries/PORTFOLIO_REPOSITORY_AUDIT_2026-11-14.md#high-priority-findings",
+        "kind": "repository_code",
+        "reference": "https://github.com/japaprp/web/blob/main/rh_documentos.php#L63-L69;#L149-L160;#L189-L207; https://github.com/japaprp/web/blob/main/seguranca.php#L112-L150",
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "The portfolio audit records cross-company document exposure and missing empresa_id scoping.",
-        "The HR application contains sensitive employee information; no production data was accessed in this turn."
+        "rh_documentos.php lists active users at line 200 without filtering by the authenticated session's empresa_id.",
+        "rh_documentos.php lists all non-deleted rh_documentos at line 207 without a company predicate.",
+        "Document validation at lines 63-69 updates by funcionario_id and tipo only; it does not require the target employee/document to belong to the current session company.",
+        "Document upload at lines 149-160 derives empresa_id from the submitted funcionario_id rather than first validating that the target employee belongs to the authenticated user's company.",
+        "Document deletion at line 189 updates by funcionario_id and tipo only, without empresa_id. seguranca.php loads empresa_id into the session but the inspected document queries do not enforce it.",
+        "This is a source-level cross-company isolation failure; no employee data, live database rows, or document contents were accessed, and no two-company runtime test has been executed."
       ],
       "fix": null,
       "regression_test": {
-        "path": "web repository tests (not yet mapped)",
-        "test": "Tenant-scoped authorization and cross-company document access-denial tests using synthetic tenants."
+        "path": "two-company synthetic MySQL integration suite for rh_documentos.php (not yet implemented)",
+        "test": "Create Company A and Company B with separate users and documents; verify A cannot list, upload, validate, delete, or access B's documents by changing funcionario_id or tipo; verify B remains unchanged."
       },
       "closure_gate": [
-        "Source-level tenant boundary is verified.",
-        "Cross-tenant negative tests pass on synthetic data.",
-        "Independent QA confirms no real employee documents were exposed during validation."
+        "Derive the authorized company from the authenticated user record, never from the submitted target employee ID.",
+        "Filter employee and document reads by the session user's empresa_id.",
+        "For upload, validation and deletion, verify the target employee and document share the authorized empresa_id inside the mutation query.",
+        "Add two-company integration tests covering list, upload, validate, delete and direct document access.",
+        "Run the tests against synthetic data and review all RH modules for the same missing company predicate before marking PASS."
       ]
     },
     {
