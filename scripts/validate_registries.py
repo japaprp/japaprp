@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
 PROJECTS_PATH = SKILLS_DIR / "registries" / "PROJECT_REGISTRY.json"
 CAPABILITIES_PATH = SKILLS_DIR / "registries" / "CAPABILITY_REGISTRY.json"
+INVENTORY_PATH = SKILLS_DIR / "registries" / "REPOSITORY_INVENTORY.json"
 errors: list[str] = []
 
 
@@ -58,12 +59,24 @@ def unique_ids(items: Any, field: str, label: str) -> set[str]:
 def main() -> int:
     projects_data = load_json(PROJECTS_PATH, "project_registry")
     capabilities_data = load_json(CAPABILITIES_PATH, "capability_registry")
+    inventory_data = load_json(INVENTORY_PATH, "repository_inventory")
 
     projects = projects_data.get("projects", [])
     families = capabilities_data.get("capability_families", [])
     candidates = capabilities_data.get("external_tool_candidates", [])
+    repositories = inventory_data.get("repositories", [])
 
     project_ids = unique_ids(projects, "project_id", "projects")
+    repository_ids = unique_ids(repositories, "repository_id", "repositories")
+    for repository in repositories if isinstance(repositories, list) else []:
+        if not isinstance(repository, dict):
+            continue
+        repository_id = repository.get("repository_id", "<unknown>")
+        project_id = repository.get("project_id")
+        if project_id not in project_ids:
+            errors.append(f"repository {repository_id!r}: unknown project_id {project_id!r}")
+        if not isinstance(repository.get("default_branch"), str) or not repository.get("default_branch", "").strip():
+            errors.append(f"repository {repository_id!r}: default_branch must be a non-empty string")
     family_ids = unique_ids(families, "capability_id", "capability_families")
     unique_ids(candidates, "tool_id", "external_tool_candidates")
 
@@ -153,7 +166,7 @@ def main() -> int:
 
     print(
         f"Validated {len(project_ids)} projects, {len(family_ids)} capability "
-        f"families, {len(skill_dirs)} skill folders, and "
+        f"families, {len(repository_ids)} repositories, {len(skill_dirs)} skill folders, and "
         f"{len(candidates) if isinstance(candidates, list) else 0} external candidates."
     )
     for error in errors:

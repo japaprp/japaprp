@@ -14,6 +14,7 @@ SKILLS_DIR = ROOT / "skills"
 PROJECTS_FILE = SKILLS_DIR / "registries" / "PROJECT_REGISTRY.json"
 CAPABILITIES_FILE = SKILLS_DIR / "registries" / "CAPABILITY_REGISTRY.json"
 EVAL_FILE = SKILLS_DIR / "tests" / "router-eval-cases.json"
+INVENTORY_FILE = SKILLS_DIR / "registries" / "REPOSITORY_INVENTORY.json"
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -38,6 +39,7 @@ def skill_ids() -> set[str]:
 
 def audit() -> dict[str, Any]:
     projects = read_json(PROJECTS_FILE).get("projects", [])
+    repositories = read_json(INVENTORY_FILE).get("repositories", [])
     registry = read_json(CAPABILITIES_FILE)
     families = registry.get("capability_families", [])
     candidates = registry.get("external_tool_candidates", [])
@@ -49,6 +51,13 @@ def audit() -> dict[str, Any]:
     family_by_project: dict[str, list[str]] = {}
 
     project_ids = {p.get("project_id") for p in projects if isinstance(p, dict)}
+    repository_ids = {r.get("repository_id") for r in repositories if isinstance(r, dict)}
+    for repository in repositories:
+        if not isinstance(repository, dict):
+            errors.append("repository inventory entries must be objects")
+            continue
+        if repository.get("project_id") not in project_ids:
+            errors.append("repository " + str(repository.get("repository_id")) + ": unknown project " + str(repository.get("project_id")))
     family_ids = {f.get("capability_id") for f in families if isinstance(f, dict)}
     if len(project_ids) != len(projects):
         errors.append("project IDs are missing or duplicated")
@@ -107,6 +116,7 @@ def audit() -> dict[str, Any]:
     return {
         "summary": {
             "projects": len(projects),
+            "repositories": len(repository_ids),
             "capability_families": len(families),
             "skills": len(available),
             "eval_cases": len(cases),

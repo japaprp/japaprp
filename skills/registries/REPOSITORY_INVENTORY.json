@@ -1,0 +1,239 @@
+{
+  "schema_version": "1.0.0",
+  "registry_kind": "repository_inventory",
+  "updated_on": "2026-11-14",
+  "source": "Authenticated GitHub repository listing, page_size=100, page_offset=0; 17 repositories returned.",
+  "policy": {
+    "scope": "Covers the 17 repositories visible in the connected GitHub account at audit time; not a production certification.",
+    "evidence": "README and recent-commit checks are recorded only where performed. Recent commit search is repository-wide and may not equal default-branch HEAD.",
+    "isolation": "Repositories remain independent. Similar names do not authorize shared databases, credentials, tenants, release pipelines or merges.",
+    "status": "Roadmap, static audit, green CI or recent commit does not establish end-to-end readiness."
+  },
+  "repositories": [
+    {
+      "repository_id": "japaprp/japaprp",
+      "project_id": "central-council",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "620615186370faaa71d22a016074fb53f22fd7b2",
+      "open_items": [],
+      "findings": [
+        "Feature branch inspected is 90 commits ahead of main.",
+        "Structural catalog exists; fresh-session A/B/C remains NOT RUN."
+      ]
+    },
+    {
+      "repository_id": "japaprp/Perifa-Pro",
+      "project_id": "perifa-pro",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "ec3cf469f6417af2c4bdaa186c10b81680a93191",
+      "open_items": [
+        14,
+        13,
+        6,
+        3
+      ],
+      "findings": [
+        "Auth rate-limit, JWT/CORS, room authorization and password-reset concurrency risks.",
+        "Maestro physical-device validation pending."
+      ]
+    },
+    {
+      "repository_id": "japaprp/Reboquei",
+      "project_id": "reboquei-repo-placeholder",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "repository_empty",
+      "observed_recent_commit_sha": null,
+      "open_items": [],
+      "findings": [
+        "Empty repository; no source-level audit possible."
+      ]
+    },
+    {
+      "repository_id": "japaprp/elegance",
+      "project_id": "elegance-repo-placeholder",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "repository_empty",
+      "observed_recent_commit_sha": null,
+      "open_items": [],
+      "findings": [
+        "Empty repository; no source-level audit possible."
+      ]
+    },
+    {
+      "repository_id": "japaprp/memorias-amigos",
+      "project_id": "memorias-amigos",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "not_found",
+      "observed_recent_commit_sha": "0220dcaa51e7a5468d80a08e578391fcdddf191d",
+      "open_items": [],
+      "findings": [
+        "Initial commit exists; purpose and requirements unknown."
+      ]
+    },
+    {
+      "repository_id": "japaprp/varejao-backend",
+      "project_id": "hortifruti",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "1b4198953e1b9a5fa0cf58638a5fc9691f0617da",
+      "open_items": [],
+      "findings": [
+        "Public payment confirmation, password reset, JSON persistence/concurrency, CORS and local rate-limit blockers."
+      ]
+    },
+    {
+      "repository_id": "japaprp/infinit-war-guerra-infinita",
+      "project_id": "guerra-infinita",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "7d9684d776965d5723f96bfc17773b0f83c4b46f",
+      "open_items": [
+        44,
+        43,
+        18,
+        16,
+        12,
+        21
+      ],
+      "findings": [
+        "Historical DB auth 28P01; APK/device validation and Firebase token verification pending.",
+        "No secret changes, deploy or production writes authorized.",
+        "Dark War REA remains isolated."
+      ]
+    },
+    {
+      "repository_id": "japaprp/estacia-renascer-belvedere",
+      "project_id": "estacia-renascer-belvedere",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "6bfda893a9761be273c09beb752e064b531fa462",
+      "open_items": [],
+      "findings": [
+        "Contact/reservation, authoritative availability, anti-spam and conversion behavior need runtime verification."
+      ]
+    },
+    {
+      "repository_id": "japaprp/portifolio",
+      "project_id": "portfolio-site",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "bab3e3e12e8eb2919a5520313bd1eeba6767fd0b",
+      "open_items": [],
+      "findings": [
+        "Media, accessibility, responsive layouts and product claims need runtime review."
+      ]
+    },
+    {
+      "repository_id": "japaprp/hamburgueria",
+      "project_id": "hamburgueria",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "34eb3f57e2bf83b6703bef46bcc89a4bbd9ce677",
+      "open_items": [],
+      "findings": [
+        "Missing role authorization on catalog mutations; client-controlled financial fee input."
+      ]
+    },
+    {
+      "repository_id": "japaprp/web",
+      "project_id": "rh",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "d8f77a77c82d17f5d161913f1c7f6f41fc05bea5",
+      "open_items": [],
+      "findings": [
+        "Cross-company document exposure and missing empresa_id scoping; HR data is sensitive."
+      ]
+    },
+    {
+      "repository_id": "japaprp/leitordecodigo",
+      "project_id": "leitor-de-codigo",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "30b7f9ae22f0c30e00a5e702db2a809d9a7d103b",
+      "open_items": [],
+      "findings": [
+        "Mock authentication/roles, client-authoritative totals and unproven backend idempotency."
+      ]
+    },
+    {
+      "repository_id": "japaprp/salao",
+      "project_id": "salao-da-lu",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "b22a7b43d2f55f1e457f03f0408ecaaf267aa8f2",
+      "open_items": [],
+      "findings": [
+        "Appointment race, tenant FK integrity, Prisma/SQL drift and client-provided pricing risks."
+      ]
+    },
+    {
+      "repository_id": "japaprp/salao-do-arthur",
+      "project_id": "barbearia-do-artur",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "c4e37de80e81c0976d20039ff2b23852e55d74db",
+      "open_items": [],
+      "findings": [
+        "Separate active repo; full production/security and physical-device validation not evidenced."
+      ]
+    },
+    {
+      "repository_id": "japaprp/salao-do-artur",
+      "project_id": "barbearia-do-artur",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "c4e37de80e81c0976d20039ff2b23852e55d74db",
+      "open_items": [],
+      "findings": [
+        "Duplicate row will be normalized out."
+      ]
+    },
+    {
+      "repository_id": "japaprp/eventosrp",
+      "project_id": "eventos-rp",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "verified",
+      "observed_recent_commit_sha": "8304f1e463d93b62f350ffabbfd0eb1d7476a6dc",
+      "open_items": [
+        5,
+        7,
+        4
+      ],
+      "findings": [
+        "Issue 6 reports payment lifecycle tests and CI PASS; migration application requires backup/review.",
+        "Host OAuth eligibility not confirmed for actual account."
+      ]
+    },
+    {
+      "repository_id": "japaprp/me-conta",
+      "project_id": "me-conta-prototype",
+      "default_branch": "main",
+      "archived": false,
+      "readme_status": "not_found",
+      "observed_recent_commit_sha": "217047b5daa8e0628e85e7c4ff07a6bcb3861eaa",
+      "open_items": [],
+      "findings": [
+        "Initial HTML prototype only; scope unknown."
+      ]
+    }
+  ]
+}

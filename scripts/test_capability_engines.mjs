@@ -10,6 +10,7 @@ const gapProtocol = read('skills/engineering-brain-router/GAP_CLOSURE_PROTOCOL.m
 const gapSkill = read('skills/capability-gap-closure/SKILL.md');
 const ponytail = read('skills/ponytail-engineering/SKILL.md');
 const status = read('skills/ENGINE_STATUS.md');
+const orchestration = read('skills/agent-orchestration/SKILL.md');
 const catalog = read('skills/README.md');
 const dataset = JSON.parse(read('skills/tests/router-eval-cases.json'));
 const registry = JSON.parse(read('skills/registries/CAPABILITY_REGISTRY.json'));
@@ -30,18 +31,20 @@ assert.match(ponytail, /Never cut/i);
 assert.match(ponytail, /upstream/i);
 assert.match(ponytail, /does not authorize installing the upstream plugin/i);
 assert.match(status, /Behavioral PASS/i);
+assert.match(orchestration, /DAG/);
+assert.match(orchestration, /NOT RUN/);
 assert.match(catalog, /ponytail-engineering/i);
 assert.match(catalog, /capability-gap-closure/i);
 
 const familySkills = new Set(registry.capability_families.flatMap((family) => family.skills));
 const evaluatedSkills = new Set(dataset.cases.map((item) => item.expected_primary_skill).filter(Boolean));
-assert.equal(skillIds.length, 36, 'catalog skill count must match the audited 36-skill inventory');
+assert.equal(skillIds.length, 37, 'catalog skill count must match the audited 37-skill inventory');
 for (const skillId of skillIds) {
   assert.ok(familySkills.has(skillId), `skill is not mapped to a capability family: ${skillId}`);
   assert.ok(evaluatedSkills.has(skillId), `skill has no direct primary-route eval case: ${skillId}`);
 }
-assert.equal(familySkills.size, 36, 'all catalog skills must be represented by capability families');
-assert.equal(evaluatedSkills.size, 36, 'all catalog skills must have direct route evaluation');
+assert.equal(familySkills.size, 37, 'all catalog skills must be represented by capability families');
+assert.equal(evaluatedSkills.size, 37, 'all catalog skills must have direct route evaluation');
 
 const ids = new Set(dataset.cases.map((item) => item.id));
 for (const id of [
@@ -49,6 +52,7 @@ for (const id of [
   'route-capability-gap-closure',
   'autonomy-discover-and-close-skill-gap',
   'autonomy-stop-before-paid-or-global-install',
+  'route-multi-agent-orchestration',
 ]) {
   assert.ok(ids.has(id), `missing capability-engine regression case: ${id}`);
 }

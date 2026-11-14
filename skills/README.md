@@ -12,6 +12,8 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 - [Guia para iniciantes e compartilhamento](./GUIA-PARA-AMIGOS.md) — explicação simples de todas as skills, exemplos de uso e cuidados ao compartilhar o pacote.
 - [Princípios comuns](#princípios-comuns) — regras transversais de segurança, evidência e entrega.
 
+- [agent-orchestration](./agent-orchestration/SKILL.md) — coordena tarefas paralelas por DAG, hierarquia de papéis, limites de concorrência, isolamento e QA; [contrato operacional](./agent-orchestration/ORCHESTRATION_CONTRACT.md).
+
 ## Catálogo por tarefa
 
 | Necessidade | Skill principal | Complementar somente quando necessário |
@@ -22,6 +24,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Testes e qualidade de release | [testing-regression-quality](./testing-regression-quality/SKILL.md) | segurança ou infraestrutura conforme o risco |
 | Revisão de diff/PR e correção cirúrgica | [code-review-minimal-change](./code-review-minimal-change/SKILL.md) | testes, segurança ou infraestrutura conforme os achados |
 | Simplificação de implementação e menor mudança completa | [ponytail-engineering](./ponytail-engineering/SKILL.md) | skill de domínio/testes conforme a tarefa |
+| Orquestrar um comando em múltiplas tarefas/agentes paralelos | [agent-orchestration](./agent-orchestration/SKILL.md) | [engineering-brain-router](./engineering-brain-router/SKILL.md) e QA/governança conforme o risco |
 | Lacuna de skill, ferramenta, roteamento ou avaliação | [capability-gap-closure](./capability-gap-closure/SKILL.md) | engineering-brain-router e protocolo de fechamento |
 | Design, versionamento e testes de APIs/webhooks próprios | [api-engineering-contracts](./api-engineering-contracts/SKILL.md) | segurança, CRUD ou testes conforme o fluxo |
 | Consumir APIs públicas/de terceiros, autenticação, quotas, paginação e resiliência | [public-api-integration](./public-api-integration/SKILL.md) | contratos, segurança ou testes conforme o fluxo |

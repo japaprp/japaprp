@@ -64,7 +64,9 @@
       "applies_to": [
         "casa-pratica-ofc",
         "hamburgueria",
-        "hortifruti"
+        "hortifruti",
+        "perifa-pro",
+        "eventos-rp"
       ]
     },
     {
@@ -79,7 +81,12 @@
       "applies_to": [
         "hamburgueria",
         "hortifruti",
-        "future_business_projects"
+        "future_business_projects",
+        "perifa-pro",
+        "eventos-rp",
+        "leitor-de-codigo",
+        "salao-da-lu",
+        "barbearia-do-artur"
       ]
     },
     {
@@ -172,6 +179,19 @@
       "applies_to": [
         "all_projects_when_needed"
       ]
+    },
+    {
+      "capability_id": "multi-agent-orchestration",
+      "purpose": "Decompose one command into governed parallel tasks across specialized agent roles, with DAG dependencies, admission control, isolation, independent QA and owner approval gates.",
+      "skills": [
+        "agent-orchestration",
+        "engineering-brain-router",
+        "testing-regression-quality",
+        "application-security-auth"
+      ],
+      "applies_to": [
+        "central-council"
+      ]
     }
   ],
   "external_tool_candidates": [
@@ -204,6 +224,7 @@
   "registry_notes": [
     "This is an initial portfolio and capability map, not proof that every listed skill is loaded or every project is currently active in a runtime.",
     "Project-specific skills and tools must be chosen from actual task requirements; capability mappings are suggestions, not automatic execution commands.",
-    "Do not create a new skill when an existing skill plus a small routing or evaluation update is sufficient."
+    "Do not create a new skill when an existing skill plus a small routing or evaluation update is sufficient.",
+    "Multi-agent orchestration is a governed contract; live child-agent dispatch remains NOT RUN until a compatible runtime is identified and tested."
   ]
 }
