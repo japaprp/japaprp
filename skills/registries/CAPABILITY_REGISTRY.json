@@ -32,7 +32,8 @@
         "code-review-minimal-change",
         "targeted-debugging-performance",
         "testing-regression-quality",
-        "ponytail-engineering"
+        "ponytail-engineering",
+        "vercel-react-performance"
       ],
       "applies_to": [
         "all_projects_when_needed"
@@ -108,7 +109,9 @@
         "cryptography-security-analysis",
         "infrastructure-database-engineering",
         "api-engineering-contracts",
-        "mcp-tooling-engineering"
+        "mcp-tooling-engineering",
+        "application-deployment-hosting",
+        "supabase-postgres-specialist"
       ],
       "applies_to": [
         "all_projects_when_needed"
@@ -120,7 +123,51 @@
       "skills": [
         "visual-asset-engineering",
         "premium-distinctive-web-design",
-        "web-motion-design"
+        "web-motion-design",
+        "app-showreel-launch-film",
+        "remotion-video-engineering",
+        "hyperframes-video-pipeline"
+      ],
+      "applies_to": [
+        "all_projects_when_needed"
+      ]
+    },
+    {
+      "capability_id": "ai-and-model-integration",
+      "description": "Model APIs, prompt/RAG evaluation, context and token efficiency.",
+      "skills": [
+        "ai-integration-evaluation",
+        "ai-token-budget"
+      ],
+      "applies_to": [
+        "all_projects_when_needed"
+      ]
+    },
+    {
+      "capability_id": "computer-vision-and-video-intelligence",
+      "description": "Authorized image/video analysis, detection, tracking, OCR and privacy controls.",
+      "skills": [
+        "computer-vision-video-intelligence"
+      ],
+      "applies_to": [
+        "all_projects_when_needed"
+      ]
+    },
+    {
+      "capability_id": "mobile-application-engineering",
+      "description": "Flutter and mobile application implementation and validation.",
+      "skills": [
+        "mobile-flutter-engineering"
+      ],
+      "applies_to": [
+        "all_projects_when_needed"
+      ]
+    },
+    {
+      "capability_id": "external-workspace-integrations",
+      "description": "Authorized access to user-owned Gmail, Drive, Calendar and external workspace data.",
+      "skills": [
+        "external-workspace-data-tools"
       ],
       "applies_to": [
         "all_projects_when_needed"
