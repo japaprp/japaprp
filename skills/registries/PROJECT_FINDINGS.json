@@ -34,8 +34,10 @@
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "The repository documents A/B/C as NOT RUN in a genuinely fresh target-client session.",
-        "Current structural CI does not prove instruction loading or runtime behavior."
+        "PR #4 capability/project registry HEAD f446b4f76525c7206a23da76a17a2b73a0c4402e passed Validate engineering skills run #69.",
+        "PR #5 Ponytail/capability-gap closure HEAD 7c8b93a79bc2b2081011dada57b0dd9749efd6dd passed run #79; this validates deterministic structural activation and routing regressions, not a fresh client session.",
+        "PR #6 orchestration/portfolio HEAD aee3f68464282231f64d2e9d6a6e9b033d697a07 passed run #109; the planner is side-effect-free and selects work but does not spawn child agents.",
+        "Fresh-session A/B/C behavioral tests on WIN-RPC1DR79TVC have not been executed in this environment; no verified session capture or runtime instruction-load evidence is available."
       ],
       "fix": {
         "pr_numbers": [
@@ -48,13 +50,14 @@
         "correction_commit": null
       },
       "regression_test": {
-        "path": "skills/tests/ACTIVATION_AUTONOMY_TESTS.md",
-        "test": "Run A/B/C in a genuinely new Codex/VS Code session and retain traces, client/version, loaded skill evidence and observed behavior."
+        "path": "fresh isolated Codex/VS Code session on WIN-RPC1DR79TVC with A/B/C activation test protocol",
+        "test": "Start a new session with no inherited context; verify correct Council/project selection, correct instruction/skill loading, correct routing and refusal boundaries; capture observable logs/screenshots and compare expected results."
       },
       "closure_gate": [
-        "Fresh-session A/B/C all pass against a recorded catalog commit.",
-        "Record target client and version, exact prompt, observed skill loading and evidence.",
-        "No merge or deployment is implied."
+        "Connect WIN-RPC1DR79TVC and verify the target application/version and active workspace without changing global settings.",
+        "Run A/B/C from a fresh session, record exact prompts, loaded instruction sources and resulting behavior.",
+        "Have an independent QA pass review the evidence and verify no project context leakage.",
+        "Only mark PASS against the exact code commit and test artifact; CI structural pass is insufficient."
       ]
     },
     {
@@ -70,8 +73,10 @@
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "PR #6 run #109 passed the deterministic planner and orchestration regression on the current HEAD.",
-        "The planner selects READY tasks but does not spawn agents; D1-D3 remain NOT RUN in the target runtime."
+        "PR #6 HEAD aee3f68464282231f64d2e9d6a6e9b033d697a07 passed Validate engineering skills run #109, including deterministic planner and orchestration regression steps.",
+        "The planner enforces project boundaries, dependency-cycle checks, ready-task selection, concurrency slots and exclusive resource locks; it defaults to 5 concurrent tasks with a hard verified ceiling of 10.",
+        "The implementation explicitly does not spawn agents or execute tools; the live D1-D3 protocol for dispatch, independent QA, write conflicts, concurrency and approval boundaries remains NOT RUN.",
+        "No verified child-agent dispatch, lock contention, checkpoint recovery or independent QA execution occurred in this session; no agent run is being claimed."
       ],
       "fix": {
         "pr_numbers": [
@@ -81,13 +86,15 @@
         "correction_commit": "aee3f68464282231f64d2e9d6a6e9b033d697a07"
       },
       "regression_test": {
-        "path": "skills/tests/AGENT_ORCHESTRATION_RUNTIME_TEST.md",
-        "test": "Execute D1-D3 with observable child-agent IDs, two independent tasks, independent QA, conflict/lock behavior, cancellation/recovery and approval boundaries."
+        "path": "live D1-D3 orchestration runtime test protocol on WIN-RPC1DR79TVC",
+        "test": "Run two independent isolated child tasks; verify actual dispatch, resource lock acquisition/release, bounded concurrency, conflict prevention, retry/idempotency, checkpoint recovery, independent QA and owner approval gate. Preserve separate project workspaces and evidence."
       },
       "closure_gate": [
-        "At least two real child-agent dispatches are observable with distinct task IDs.",
-        "Independent QA verifies results; resource conflicts are serialized or rejected.",
-        "Cancellation/recovery and Owner approval gates pass in the actual target client."
+        "Use a fresh runtime session on the verified target computer; do not infer dispatch from the side-effect-free planner.",
+        "Run D1 dispatch and capture child-agent identity, inputs, outputs and branch/workspace boundaries.",
+        "Run D2 concurrency/lock/conflict/recovery tests with independent QA and exact task IDs.",
+        "Run D3 approval-boundary tests proving no merge/deploy/publish/secrets/permissions/cost action occurs without explicit authorization.",
+        "Repeat the relevant regression suite and record exact final commit and evidence."
       ]
     },
     {
