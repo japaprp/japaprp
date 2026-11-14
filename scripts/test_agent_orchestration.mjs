@@ -57,7 +57,12 @@ assert.deepEqual(selectReadyTasks(plan, { completedIds: ['research', 'unit-tests
 assert.throws(() => validatePlan({ ...plan, tasks: [...plan.tasks, { ...plan.tasks[0] }] }), /duplicate task_id/);
 assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, project_id: 'guerra-infinita' } : task) }), /cross-project task rejected/);
 assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, depends_on: ['docs-update'] } : task) }), /dependency cycle detected/);
-assert.throws(() => selectReadyTasks(plan, { maxConcurrency: 0 }), /positive integer/);
+assert.throws(() => selectReadyTasks(plan, { maxConcurrency: 0 }), /verified ceiling/);
+assert.throws(() => selectReadyTasks(plan, { maxConcurrency: 11 }), /verified ceiling/);
+assert.throws(() => selectReadyTasks(plan, { completedIds: 'research' }), /must be arrays/);
+assert.throws(() => selectReadyTasks(plan, { completedIds: ['research', 'research'] }), /must be unique/);
+assert.throws(() => selectReadyTasks(plan, { completedIds: ['research'], runningIds: ['research'] }), /cannot be completed and running/);
+assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, resources: ['repo:docs', ''] } : task) }), /resources must contain non-empty strings/);
 console.log('PASS: DAG planner admits only ready tasks, respects concurrency and exclusive resource locks.');
 console.log('PASS: planner rejects duplicate IDs, cross-project tasks, invalid limits and dependency cycles.');
 
