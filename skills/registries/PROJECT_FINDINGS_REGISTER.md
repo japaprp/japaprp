@@ -56,9 +56,9 @@ Fatos, inferências, hipóteses e desconhecidos são separados no campo `source.
 | GI-008 | Guerra Infinita / PR #32 superado pela base | P0 | BLOCKED | Registrar disposição do PR sem mesclar a versão antiga |
 | REA-001 | Dark War REA / Lua 5.5 | P1 | BLOCKED | Decoder estrutural customizado |
 | REA-002 | Dark War REA / manifests | P1 | NOT RUN | Crosswalk LuaTxt vs LuaTxt_55 |
-| PP-001 | Perifa Pro | P0 | NOT RUN | Revalidar findings no código e adicionar regressões |
+| PP-001 | Perifa Pro | P0 | FAIL | Integrar correções de senha/rate-limit e fechar JWT/CORS fail-closed |
 | HF-001 | Hortifruti | P0 | NOT RUN | Pagamentos, recuperação e concorrência |
-| RH-001 | RH | P0 | NOT RUN | Isolamento multiempresa com dados sintéticos |
+| RH-001 | RH | P0 | FAIL | Corrigir escopo empresa_id e testar duas empresas sintéticas |
 | HAM-001 | Hamburgueria | P1 | NOT RUN | RBAC de catálogo e taxas server-side |
 | LC-001 | Leitor de Código | P1 | NOT RUN | Autenticação, totais e idempotência |
 | SAL-001 | Salão da Lu | P1 | NOT RUN | Concorrência de agendamento, tenant e preço |
