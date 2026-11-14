@@ -1,6 +1,6 @@
 # Conselho Central — engine and subsystem status
 
-Audit snapshot: 2026-11-14. Scope: the Council Central repository `japaprp/japaprp` and its agent-routing/governance machinery. This is not a health check of the separate Dark War REA, Guerra Infinita, Casa Prática, or other application runtimes.
+Audit snapshot: 2026-11-14, updated after PR #6 run #95. Scope: the Council Central repository `japaprp/japaprp` and its agent-routing/governance machinery. This is not a health check of the separate Dark War REA, Guerra Infinita, Casa Prática, or other application runtimes.
 
 ## Executive result
 
@@ -8,22 +8,22 @@ The repository has a working structural catalog and CI validation, but it does n
 
 | Engine / subsystem | Verified state | Status | Remaining work |
 |---|---|---|---|
-| Skill catalog and metadata validator | 37 skill directories and 50 routing cases are present in the branch; current validator run is pending | BLOCKED — current CI pending | Re-run structural validation on current PR #6 head |
-| Project registry | 19 project records, with active/planned status and evidence qualifiers | BLOCKED — current CI pending | Re-run project/repository cross-reference validation on current PR #6 head |
-| Capability registry | 13 capability families and the 37-skill mapping are present; current cross-reference/coverage validation is pending | BLOCKED — current CI pending | Re-run registry and coverage validators on current PR #6 head |
+| Skill catalog and metadata validator | 37 unique skill names and 50 routing cases validated by PR #6 CI run #95 | PASS — structural | Re-run after subsequent changes |
+| Project registry | 19 projects validated with cross-references against 17 repository records by PR #6 CI run #95 | PASS — structural | Re-verify each project's live repository before project-specific operations |
+| Capability registry | 13 capability families; all 37 skills referenced and directly evaluated, with zero missing or unreferenced skills in PR #6 CI run #95 | PASS — structural | Re-run after registry/catalog changes |
 | Engineering Brain router | Routing, project isolation, skill budget, autonomy and approval boundaries documented | PARTIAL | Runtime depends on the host loading repository instructions and selected skills |
 | Activation bootstrap | AGENTS.md and Copilot repository instructions contain the trigger procedure; deterministic structural test exists | PARTIAL | Fresh-session activation in each target client has not been behaviorally proven |
 | Capability gap closure | Dedicated skill, router dispatch, internal-first/external GitHub discovery contract, isolated closure procedure and regression coverage exist | PASS — structural; PARTIAL — behavior | Prove the target agent actually discovers, compares and closes a gap in a fresh session |
 | Ponytail engineering principles | Selective local minimal-change skill integrated; upstream review/audit/debt/gain functions intentionally not duplicated | PASS — local skill | Plugin/hooks remain uninstalled; review separately only if explicitly needed |
-| Multi-agent orchestration | Hierarchy, DAG contract, deterministic ready-task planner and tests authored; admission control, locks, QA and owner gates mapped only to Council Central | BLOCKED — current CI pending; live runtime NOT RUN | Live child-agent dispatch, isolation, conflict handling, cancellation and recovery remain NOT RUN until a runtime adapter is verified |
+| Multi-agent orchestration | Hierarchy, DAG planner, task validation, project isolation, exclusive resource locks and hard concurrency ceiling (10; default 5) pass deterministic tests in PR #6 CI run #95 | PASS — planner/contract structural; PARTIAL — operational | Live child-agent dispatch, real isolation, conflict handling, cancellation and recovery remain NOT RUN until a runtime adapter is verified |
 | Behavioral evaluation harness | 50 routing cases cover all 37 primary skills; manual no-API runner exists | PARTIAL | Run the target agent in a fresh session and record actual responses/traces; runner itself does not call a model |
-| GitHub Actions validation | PR #5 run #79 passed 14/14 steps. PR #6 run #80 failed at registry validation due to a SyntaxError in the validator; that syntax was corrected, then the portfolio/orchestration changes were added. No CI result exists yet for the current HEAD | BLOCKED — current HEAD awaiting CI | Re-run and inspect every step on the current PR #6 head |
+| GitHub Actions validation | PR #5 run #79 passed; PR #6 run #95 completed successfully with all 16 named job steps passing, including registry validation, coverage audit, capability tests, orchestration planner tests, activation and routing regressions | PASS — PR #6 tested HEAD at 45cdbf6 | Re-run after later commits; the subsequent concurrency-ceiling hardening is awaiting its own CI result |
 | Agent/client adapters | AGENTS.md and Copilot repository instructions exist | PARTIAL | Verify Codex/VS Code and other target clients separately; repository files do not globally configure every client |
 | Runtime tool/plugin installation | No evidence that Ponytail plugin/hooks or all external candidates are installed in Codex/VS Code | NOT VERIFIED | Do not install without explicit system-level authorization and hook review |
 
 ## Current implementation branch
 
-Branch stack: PR #5 `feat/cacd-autonomy-ponytail-engine-audit` → PR #6 `feat/central-portfolio-registry-20261114`. PR #6 extends the portfolio to 19 project records and 17 repository inventory rows, adds the `agent-orchestration` skill and its contract, maps all 37 catalog skills into 13 capability families, and expands direct routing/autonomy regressions to 50 cases. The audit is expected to verify 37/37 skill-to-family mappings and 37/37 direct primary-route evals once CI runs. PR #5 passed structural CI in run #79 (14/14 steps). PR #6 run #80 failed because of a SyntaxError in scripts/validate_registries.py; the syntax was corrected and the new portfolio/orchestration changes were added afterward. Current PR #6 HEAD has not yet produced a CI result; 0 unreferenced skills and 0 missing direct evals remain targets, not current verified results. Fresh-session behavioral tests A/B/C and live multi-agent dispatch remain NOT RUN in the target Codex/VS Code environment.
+Branch stack: PR #5 `feat/cacd-autonomy-ponytail-engine-audit` → PR #6 `feat/central-portfolio-registry-20261114`. PR #6 extends the portfolio to 19 project records and 17 repository inventory rows, adds the `agent-orchestration` skill and its contract, maps all 37 catalog skills into 13 capability families, and expands direct routing/autonomy regressions to 50 cases. PR #6 CI run #95 validated 19 projects, 13 capability families, 17 repositories, 37 skill folders, and 2 external candidates; coverage audit reported 37 referenced skills, 0 skills without direct eval, and 0 unreferenced skills. The earlier PR #6 run #80 validator SyntaxError was corrected before this successful run. Subsequent hardening commits bounding concurrency to 10 and strengthening planner input validation were added after run #95 and require a fresh CI result. Fresh-session behavioral tests A/B/C and live multi-agent dispatch remain NOT RUN in the target Codex/VS Code environment.
 
 ## What "working" means
 
