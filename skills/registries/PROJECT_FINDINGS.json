@@ -206,8 +206,10 @@
         "evidence_label": "OBSERVED"
       },
       "evidence": [
-        "PR #46 Android APK build run #49 completed successfully and produced a non-empty unsigned debug APK artifact.",
-        "The same PR's client and backend workflows passed; physical installation/login and gameplay acceptance remain unverified."
+        "PR #45 head 0e92151bb2b03bd129b0d79cf7b377f92a087ecf has Android APK build run #35 SUCCESS and Client Persistence run #972 SUCCESS.",
+        "PR #46 head e6765834afd240e36317f16d90317ecec6921a4c has Android APK build run #49 SUCCESS, Client Persistence run #1013 SUCCESS and Backend tests run #543 SUCCESS.",
+        "Both PRs remain open drafts; their CI proves build and automated test success only, not installation, launch, login, navigation, persistence or performance on a physical Galaxy S21.",
+        "No ADB/S21 session was available in this execution and no APK was installed or launched on the device."
       ],
       "fix": {
         "pr_numbers": [
@@ -218,13 +220,15 @@
         "correction_commit": "e6765834afd240e36317f16d90317ecec6921a4c"
       },
       "regression_test": {
-        "path": "issue #43 acceptance criteria",
-        "test": "Install the exact artifact on Galaxy S21 and verify login, touch navigation, game-state persistence, API recovery and back navigation."
+        "path": "physical Galaxy S21 acceptance run using APK from exact validated PR head",
+        "test": "Install the exact APK on S21; cold launch and relaunch; verify entry screen, login/configuration, navigation, persistence after process restart, touch controls, orientation/safe areas, memory stability and logcat; attach device model, Android version, APK SHA and evidence."
       },
       "closure_gate": [
-        "APK artifact SHA and source commit are recorded.",
-        "Physical Galaxy S21 installation and acceptance tests pass.",
-        "No Play Store publication or signing-secret change is implied."
+        "Choose the exact PR/commit and APK artifact; verify artifact SHA corresponds to the tested source commit.",
+        "Connect the authorized Galaxy S21 and confirm ADB device identity before any install.",
+        "Install and run the APK; exercise login, entry UI, core flows, persistence and relaunch.",
+        "Capture logcat and screenshots; record device/Android version, memory and test results.",
+        "Run any required follow-up CI on the exact final commit; do not mark PASS based only on APK build."
       ]
     },
     {
