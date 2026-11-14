@@ -23,6 +23,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Consumir APIs públicas/de terceiros, autenticação, quotas, paginação e resiliência | [public-api-integration](./public-api-integration/SKILL.md) | contratos, segurança ou testes conforme o fluxo |
 | Aplicativos móveis, especialmente Flutter/Dart | [mobile-flutter-engineering](./mobile-flutter-engineering/SKILL.md) | API, segurança ou testes conforme o fluxo |
 | Integração de modelos e APIs de IA, prompts e RAG | [ai-integration-evaluation](./ai-integration-evaluation/SKILL.md) | API, segurança ou ai-token-budget conforme a necessidade |
+| Decisões consequenciais com incerteza, alternativas conflitantes ou impacto alto | [adversarial-decision-review](./adversarial-decision-review/SKILL.md) | [testing-regression-quality](./testing-regression-quality/SKILL.md) quando houver correção/teste |
 | Descoberta de produto, MVP, critérios de aceitação e lançamento | [product-discovery-delivery](./product-discovery-delivery/SKILL.md) | design, API, testes ou infraestrutura conforme o risco |
 | Pagamentos, reembolsos, cashback e webhooks financeiros | [payments-billing-integrations](./payments-billing-integrations/SKILL.md) | API, segurança e testes conforme o fluxo |
 | Ferramentas MCP e integrações para agentes | [mcp-tooling-engineering](./mcp-tooling-engineering/SKILL.md) | API, segurança e testes conforme o fluxo |
@@ -54,6 +55,11 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 - [Template de resultados de avaliação](./tests/EVAL_RESULTS_TEMPLATE.md) — registre resultados reais de avaliações do roteador sem confundir expectativa com benchmark.
 - [Execução manual sem API](./tests/LOCAL_MANUAL_EVAL.md) e [runner local](../scripts/run_router_eval.py) — execute prompts no Codex/VS Code, registre respostas reais e avalie critérios sem chamadas pagas à API.
 - [Validador estrutural](../scripts/validate_skills.py) e [GitHub Actions](../.github/workflows/validate-skills.yml) — verificam metadados básicos das skills a cada mudança relevante no catálogo. Isso valida estrutura, não competência do agente.
+
+## Revisão adversarial de decisões
+
+- [adversarial-decision-review](./adversarial-decision-review/SKILL.md) — protocolo limitado a decisões consequenciais; não cria agentes nem prova independência.
+- [Gate determinístico](../scripts/adversarial_review_gate.py) e [testes de regressão](../scripts/test_adversarial_review_gate.py) — classificam sinais de acionamento e validam a forma mínima do registro, sem atestar a veracidade das evidências.
 
 ## Validação do roteador
 
