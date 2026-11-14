@@ -13,7 +13,7 @@
       "project_id": "central-council",
       "display_name": "Conselho Central",
       "portfolio_status": "active",
-      "purpose": "Multi-project orchestration, skill routing, capability discovery, governance, and evidence-based execution.",
+      "purpose": "Multi-project orchestration, including governed multi-agent parallel execution, skill routing, capability discovery, governance, and evidence-based execution.",
       "repository": {
         "url": "https://github.com/japaprp/japaprp",
         "branch": "feat/cacd-autonomy-ponytail-engine-audit",
@@ -36,7 +36,8 @@
         "capability-gap-closure",
         "ponytail-engineering",
         "testing-regression-quality",
-        "repo-reverse-engineering"
+        "repo-reverse-engineering",
+        "agent-orchestration"
       ]
     },
     {
