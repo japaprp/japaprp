@@ -1,0 +1,62 @@
+{
+  "decision_id": "ADR-YYYYMMDD-001",
+  "project_id": "replace-with-exact-project-id",
+  "question": "State one concrete decision question.",
+  "status": "inconclusive",
+  "confidence": "unknown",
+  "gate": {
+    "trigger_review": true,
+    "reasons": [
+      "material_uncertainty",
+      "conflicting_evidence"
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "E-001",
+      "source": "exact file:line, URL, log, test, or commit SHA",
+      "claim": "What this evidence directly demonstrates."
+    }
+  ],
+  "perspectives": [
+    {
+      "perspective": "first-principles",
+      "conclusion": "Initial conclusion.",
+      "confidence": "low",
+      "evidence_refs": [
+        "E-001"
+      ],
+      "strongest_objection": "Strongest objection to this conclusion."
+    },
+    {
+      "perspective": "contrarian",
+      "conclusion": "Alternative or refutation.",
+      "confidence": "low",
+      "evidence_refs": [
+        "E-001"
+      ],
+      "strongest_objection": "Strongest objection to this conclusion."
+    }
+  ],
+  "uncertainties": [
+    "List material unknowns; empty list only if none."
+  ],
+  "dissent": [
+    "Record substantive disagreement; empty list if none."
+  ],
+  "alternatives_considered": [
+    "Option A",
+    "Option B"
+  ],
+  "authorization": "State exact approval required, or none.",
+  "independence": "single_agent_multi_perspective",
+  "resource_budget": {
+    "max_perspectives": 5,
+    "cross_review_rounds": 1,
+    "synthesis_passes": 1,
+    "retries_per_transient_failure": 1,
+    "actual_cost": "unknown"
+  },
+  "regression_links": [],
+  "supersedes_decision_id": null
+}
