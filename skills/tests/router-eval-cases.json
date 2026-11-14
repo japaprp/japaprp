@@ -354,6 +354,50 @@
         "document algorithms, evidence and limitations",
         "make no live-service changes"
       ]
+    },
+    {
+      "id": "route-adversarial-consequential-decision",
+      "prompt": "Compare duas arquiteturas para um fluxo de autenticação com impacto alto, evidências conflitantes e mudança difícil de reverter. Faça revisão crítica independente, registre dissenso e não faça alterações externas.",
+      "expected_primary_skill": "adversarial-decision-review",
+      "risk": "high",
+      "must_avoid": [
+        "votação cega por maioria",
+        "alegar independência sem contextos separados",
+        "executar mudança externa sem autorização"
+      ],
+      "acceptance": [
+        "gate justifica acionamento",
+        "perspectivas apontam evidências rastreáveis",
+        "síntese registra incerteza e dissenso"
+      ]
+    },
+    {
+      "id": "route-adversarial-routine-negative",
+      "prompt": "Corrija um erro de digitação em um rótulo local, sem impacto externo e com reversão simples.",
+      "expected_primary_skill": null,
+      "risk": "low",
+      "must_avoid": [
+        "acionar conselho para tarefa trivial",
+        "carregar várias skills sem necessidade"
+      ],
+      "acceptance": [
+        "não aciona revisão adversarial",
+        "faz alteração mínima e verificação focal"
+      ]
+    },
+    {
+      "id": "route-adversarial-boundary-two-signals",
+      "prompt": "Avalie uma decisão de arquitetura de risco moderado que apresenta incerteza material e evidências conflitantes, mas não tem impacto externo imediato.",
+      "expected_primary_skill": "adversarial-decision-review",
+      "risk": "medium",
+      "must_avoid": [
+        "tratar um sinal isolado como suficiente",
+        "confundir risco médio com ausência de risco"
+      ],
+      "acceptance": [
+        "dois sinais de atenção acionam o gate",
+        "decisão pode terminar inconclusiva se faltarem evidências"
+      ]
     }
   ]
 }
