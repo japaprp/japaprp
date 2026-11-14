@@ -23,7 +23,7 @@ The repository has a working structural catalog and CI validation, but it does n
 
 ## Current implementation branch
 
-Branch stack: PR #5 `feat/cacd-autonomy-ponytail-engine-audit` → PR #6 `feat/central-portfolio-registry-20261114`. PR #6 extends the portfolio to 19 project records and 17 repository inventory rows, adds the `agent-orchestration` skill and its contract, maps all 37 catalog skills into 13 capability families, and expands direct routing/autonomy regressions to 50 cases. PR #6 CI run #95 validated 19 projects, 13 capability families, 17 repositories, 37 skill folders, and 2 external candidates; coverage audit reported 37 referenced skills, 0 skills without direct eval, and 0 unreferenced skills. The earlier PR #6 run #80 validator SyntaxError was corrected before this successful run. Subsequent hardening commits bounding concurrency to 10 and strengthening planner input validation were added after run #95 and require a fresh CI result. Fresh-session behavioral tests A/B/C and live multi-agent dispatch remain NOT RUN in the target Codex/VS Code environment.
+Branch stack: PR #5 `feat/cacd-autonomy-ponytail-engine-audit` → PR #6 `feat/central-portfolio-registry-20261114`. PR #6 extends the portfolio to 19 project records and 17 repository inventory rows, adds the `agent-orchestration` skill and its contract, maps all 37 catalog skills into 13 capability families, and expands direct routing/autonomy regressions to 50 cases. PR #6 CI run #95 validated 19 projects, 13 capability families, 17 repositories, 37 skill folders, and 2 external candidates; coverage audit reported 37 referenced skills, 0 skills without direct eval, and 0 unreferenced skills. The earlier PR #6 run #80 validator SyntaxError was corrected before this successful run. Subsequent hardening commits bounding concurrency to 10 and strengthening planner input validation were added after run #95 and require a fresh CI result. Fresh-session behavioral tests A/B/C and multi-agent runtime tests D1–D3 remain NOT RUN in the target Codex/VS Code environment.
 
 ## What "working" means
 
@@ -37,10 +37,11 @@ Branch stack: PR #5 `feat/cacd-autonomy-ponytail-engine-audit` → PR #6 `feat/c
 1. Structural validation on the current branch.
 2. GitHub Actions success for the current branch.
 3. Fresh-session tests A/B/C in the target Codex/VS Code environment.
-4. Focused routing cases for capability discovery and minimal-change engineering.
-5. Explicit verification of tool availability before any future plugin or system integration.
-6. Review of the resulting diff; no merge or deployment is implied.
-7. Verify real runtime dispatch with at least two independent tasks, resource isolation, QA, cancellation/recovery and authorization gates before marking orchestration operational.
+4. Multi-agent runtime tests D1–D3 from `skills/tests/AGENT_ORCHESTRATION_RUNTIME_TEST.md`, including real child-agent dispatch, locks, QA and approval gates.
+5. Focused routing cases for capability discovery and minimal-change engineering.
+6. Explicit verification of tool availability before any future plugin or system integration.
+7. Review of the resulting diff; no merge or deployment is implied.
+8. Verify real runtime dispatch with at least two independent tasks, resource isolation, QA, cancellation/recovery and authorization gates before marking orchestration operational.
 
 ## Non-goal
 
