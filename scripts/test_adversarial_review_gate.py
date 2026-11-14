@@ -43,6 +43,9 @@ class TriggerTests(unittest.TestCase):
     def test_missing_impact_is_not_assumed_low_or_high(self):
         self.assertFalse(should_trigger({})[0])
 
+    def test_malformed_impact_type_does_not_crash(self):
+        self.assertFalse(should_trigger({"impact": ["critical"]})[0])
+
 
 class RecordTests(unittest.TestCase):
     def valid_record(self):
@@ -95,6 +98,14 @@ class RecordTests(unittest.TestCase):
         record["status"] = "inconclusive"
         record["confidence"] = "unknown"
         self.assertEqual(validate_record(record), [])
+
+    def test_malformed_status_and_independence_types_fail_cleanly(self):
+        record = self.valid_record()
+        record["status"] = []
+        record["independence"] = {}
+        errors = validate_record(record)
+        self.assertTrue(any("status must" in error for error in errors))
+        self.assertTrue(any("independence must" in error for error in errors))
 
 
 if __name__ == "__main__":
