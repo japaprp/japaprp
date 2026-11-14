@@ -57,7 +57,7 @@ Fatos, inferências, hipóteses e desconhecidos são separados no campo `source.
 | REA-001 | Dark War REA / Lua 5.5 | P1 | BLOCKED | Decoder estrutural customizado |
 | REA-002 | Dark War REA / manifests | P1 | NOT RUN | Crosswalk LuaTxt vs LuaTxt_55 |
 | PP-001 | Perifa Pro | P0 | FAIL | Integrar correções de senha/rate-limit e fechar JWT/CORS fail-closed |
-| HF-001 | Hortifruti | P0 | NOT RUN | Pagamentos, recuperação e concorrência |
+| HF-001 | Hortifruti | P0 | FAIL | Capability do carrinho, transações e preservação de dados live |
 | RH-001 | RH | P0 | FAIL | Corrigir escopo empresa_id e testar duas empresas sintéticas |
 | HAM-001 | Hamburgueria | P1 | NOT RUN | RBAC de catálogo e taxas server-side |
 | LC-001 | Leitor de Código | P1 | NOT RUN | Autenticação, totais e idempotência |
