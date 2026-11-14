@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "registry_kind": "capability_registry",
-  "updated_on": "2026-11-10",
+  "updated_on": "2026-11-14",
   "activation_policy": {
     "selection": "Select capabilities per task from the project's verified context; do not load the whole catalog.",
     "default_skill_budget": "One primary skill and zero or one complementary skill; three total is an exceptional ceiling, not a target.",
