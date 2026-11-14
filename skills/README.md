@@ -24,7 +24,8 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Testes e qualidade de release | [testing-regression-quality](./testing-regression-quality/SKILL.md) | segurança ou infraestrutura conforme o risco |
 | Revisão de diff/PR e correção cirúrgica | [code-review-minimal-change](./code-review-minimal-change/SKILL.md) | testes, segurança ou infraestrutura conforme os achados |
 | Simplificação de implementação e menor mudança completa | [ponytail-engineering](./ponytail-engineering/SKILL.md) | skill de domínio/testes conforme a tarefa |
-| Orquestrar um comando em múltiplas tarefas/agentes paralelos | [agent-orchestration](./agent-orchestration/SKILL.md) | [engineering-brain-router](./engineering-brain-router/SKILL.md) e QA/governança conforme o risco |\n| Lacuna de skill, ferramenta, roteamento ou avaliação | [capability-gap-closure](./capability-gap-closure/SKILL.md) | engineering-brain-router e protocolo de fechamento |
+| Orquestrar um comando em múltiplas tarefas/agentes paralelos | [agent-orchestration](./agent-orchestration/SKILL.md) | [engineering-brain-router](./engineering-brain-router/SKILL.md) e QA/governança conforme o risco |
+| Lacuna de skill, ferramenta, roteamento ou avaliação | [capability-gap-closure](./capability-gap-closure/SKILL.md) | engineering-brain-router e protocolo de fechamento |
 | Design, versionamento e testes de APIs/webhooks próprios | [api-engineering-contracts](./api-engineering-contracts/SKILL.md) | segurança, CRUD ou testes conforme o fluxo |
 | Consumir APIs públicas/de terceiros, autenticação, quotas, paginação e resiliência | [public-api-integration](./public-api-integration/SKILL.md) | contratos, segurança ou testes conforme o fluxo |
 | Aplicativos móveis, especialmente Flutter/Dart | [mobile-flutter-engineering](./mobile-flutter-engineering/SKILL.md) | API, segurança ou testes conforme o fluxo |
