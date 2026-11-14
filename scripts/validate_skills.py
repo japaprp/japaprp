@@ -153,6 +153,15 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
         ):
             if marker.casefold() not in router_lower:
                 errors.append(f"activation trigger: router skill is missing required marker {marker!r}")
+    gate_path = ROOT / "scripts" / "adversarial_review_gate.py"
+    gate_tests = ROOT / "scripts" / "test_adversarial_review_gate.py"
+    if not gate_path.is_file():
+        errors.append("adversarial review gate: scripts/adversarial_review_gate.py is missing")
+    if not gate_tests.is_file():
+        errors.append("adversarial review gate: scripts/test_adversarial_review_gate.py is missing")
+    review_skill = SKILLS_DIR / "adversarial-decision-review" / "SKILL.md"
+    if not review_skill.is_file():
+        errors.append("adversarial review gate: dedicated skill is missing")
     return len(cases)
 
 
