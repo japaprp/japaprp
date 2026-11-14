@@ -153,6 +153,21 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
         ):
             if marker.casefold() not in router_lower:
                 errors.append(f"activation trigger: router skill is missing required marker {marker!r}")
+    adversarial_paths = (
+        ROOT / "skills" / "agent-orchestration" / "ADVERSARIAL_DECISION_REVIEW.md",
+        ROOT / "scripts" / "adversarial_review_gate.py",
+        ROOT / "scripts" / "test_adversarial_review_gate.py",
+        ROOT / "skills" / "templates" / "ADVERSARIAL_DECISION_CONTEXT.json",
+        ROOT / "skills" / "templates" / "ADVERSARIAL_DECISION_RECORD.json",
+    )
+    for path in adversarial_paths:
+        if not path.is_file():
+            errors.append(f"adversarial review: {path.relative_to(ROOT)} is missing")
+    for path in adversarial_paths[-2:]:
+        try:
+            json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"{path.relative_to(ROOT)}: invalid JSON: {exc}")
     return len(cases)
 
 
