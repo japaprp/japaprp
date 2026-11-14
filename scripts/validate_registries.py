@@ -166,7 +166,7 @@ def main() -> int:
 
     print(
         f"Validated {len(project_ids)} projects, {len(family_ids)} capability "
-        "f"families, {len(repository_ids)} repositories, {len(skill_dirs)} skill folders, and "
+        f"families, {len(repository_ids)} repositories, {len(skill_dirs)} skill folders, and "
         f"{len(candidates) if isinstance(candidates, list) else 0} external candidates."
     )
     for error in errors:
