@@ -56,5 +56,5 @@ for (const id of [
 console.log('PASS: router exposes the gap-closure and minimal-change capabilities.');
 console.log('PASS: discovery workflow requires internal-first research, external comparison, and evidence.');
 console.log('PASS: Ponytail adaptation preserves security, tests, and installation boundaries.');
-console.log('PASS: every catalog skill is mapped to a capability family and has a direct route-evaluation case.
-console.log('PASS: engine inventory and new routing/autonomy regression cases are present.');');
+console.log('PASS: every catalog skill is mapped to a capability family and has a direct route-evaluation case.');
+console.log('PASS: engine inventory and new routing/autonomy regression cases are present.');
