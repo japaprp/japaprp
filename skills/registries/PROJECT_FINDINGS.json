@@ -781,6 +781,111 @@
         "Rerun all three workflows on the exact new final commit.",
         "Keep isolated 28P01 diagnosis separate from production secrets and production data."
       ]
+    },
+    {
+      "finding_id": "BA-001",
+      "project_id": "barbearia-do-artur",
+      "front": "application",
+      "title": "Active Barbearia do Artur repository lacks current production/security and device validation evidence",
+      "status": "NOT RUN",
+      "priority": "P2",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/REPOSITORY_INVENTORY.json#japaprp/salao-do-arthur",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio audit records this as a separate active repository from the archived legacy repository.",
+        "A full production/security and physical-device validation is not evidenced in the current portfolio snapshot."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "salao-do-arthur repository tests (not yet mapped)",
+        "test": "Inspect the active repository independently and add regression coverage for authentication, role boundaries, data integrity and device workflows that are in scope."
+      },
+      "closure_gate": [
+        "Verify the active repository and its own current branch/CI.",
+        "Confirm all production/security findings with source-level evidence.",
+        "Keep the archived legacy repository separate."
+      ]
+    },
+    {
+      "finding_id": "MC-001",
+      "project_id": "me-conta-prototype",
+      "front": "application",
+      "title": "Me Conta prototype purpose and acceptance criteria are not documented in the current audit",
+      "status": "BLOCKED",
+      "priority": "P3",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/REPOSITORY_INVENTORY.json#japaprp/me-conta",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio registry lists a prototype repository but the current evidence snapshot does not establish its complete purpose or acceptance criteria."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "not applicable until requirements are known",
+        "test": "After owner intent is recorded, map source behavior to explicit acceptance tests."
+      },
+      "closure_gate": [
+        "Owner intent and acceptance criteria are recorded.",
+        "The repository is inspected without assuming product behavior from its name."
+      ]
+    },
+    {
+      "finding_id": "CB-001",
+      "project_id": "central-bridge",
+      "front": "cross-device-bridge",
+      "title": "Central Bridge cross-device validation remains unverified",
+      "status": "BLOCKED",
+      "priority": "P2",
+      "source": {
+        "kind": "portfolio_registry",
+        "reference": "skills/registries/PROJECT_REGISTRY.json#central-bridge",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "Prior continuity records a Windows device_info check as PASS while Android/cross-device validation remains NOT RUN.",
+        "The user previously instructed not to spend the remaining Desktop Commander quota on Central Bridge yet."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "Central Bridge validation plan (not yet executed)",
+        "test": "When the approved Windows environment and execution budget are available, run read-only device discovery and verify Android/Windows communication without changing configuration."
+      },
+      "closure_gate": [
+        "Use only an available, authorized execution environment.",
+        "Verify Android/cross-device behavior with read-only tests.",
+        "Do not consume the reserved Desktop Commander quota before the user changes that constraint."
+      ]
+    },
+    {
+      "finding_id": "LEGACY-001",
+      "project_id": "barbearia-do-artur-legacy",
+      "front": "legacy-repository-isolation",
+      "title": "Archived Barbearia do Artur repository must remain isolated from the active repository",
+      "status": "NOT RUN",
+      "priority": "P3",
+      "source": {
+        "kind": "github_repository",
+        "reference": "https://github.com/japaprp/salao-do-artur",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "Authenticated GitHub repository listing marks salao-do-artur as archived and salao-do-arthur as a separate active repository.",
+        "No legacy-to-active source, data, credential or release-pipeline migration was performed in this turn."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "skills/registries/PROJECT_REGISTRY.json and REPOSITORY_INVENTORY.json",
+        "test": "Verify the archived repository maps only to barbearia-do-artur-legacy and the active repository maps only to barbearia-do-artur."
+      },
+      "closure_gate": [
+        "Registry cross-reference confirms distinct project IDs and repository URLs.",
+        "No shared credentials, data stores or release pipelines are inferred or configured."
+      ]
     }
   ]
 }
