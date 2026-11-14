@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "registry_kind": "project_registry",
-  "updated_on": "2026-11-10",
+  "updated_on": "2026-11-14",
   "policy": {
     "source_of_truth": "Each project's own repository, branch, environment, and verified artifacts remain authoritative.",
     "isolation": "Projects may share reusable skills and public references, but never implicitly share credentials, private datasets, tenants, databases, release cycles, or production environments.",
