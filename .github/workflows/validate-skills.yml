@@ -14,6 +14,8 @@ on:
       - "scripts/agent-orchestration-planner.mjs"
       - "scripts/test_project_findings.mjs"
       - "scripts/test_registry_routing.mjs"
+      - "scripts/adversarial_review_gate.py"
+      - "scripts/test_adversarial_review_gate.py"
       - "scripts/run_router_eval.py"
       - "scripts/test_activation_trigger.mjs"
       - ".github/workflows/validate-skills.yml"
@@ -67,6 +69,10 @@ jobs:
         run: node --check scripts/test_project_findings.mjs
       - name: Run project findings integrity and closure regression
         run: node scripts/test_project_findings.mjs
+      - name: Run adversarial decision gate regression tests
+        run: python -m unittest discover -s scripts -p 'test_adversarial_review_gate.py' -v
+      - name: Run adversarial decision gate self-test
+        run: python scripts/adversarial_review_gate.py --self-test
       - name: Check local behavioral evaluation runner syntax
         run: python -m py_compile scripts/run_router_eval.py
       - name: Smoke-test local runner and dataset loading

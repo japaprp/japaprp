@@ -832,6 +832,50 @@
         "assign independent QA and consolidate evidence with PASS/FAIL/BLOCKED/NOT RUN",
         "block reserved actions without explicit Owner approval"
       ]
+    },
+    {
+      "id": "route-adversarial-consequential-decision",
+      "prompt": "Compare duas arquiteturas para autenticação com impacto alto, evidências conflitantes e mudança difícil de reverter. Faça revisão adversarial, preserve dissenso e não execute alterações externas.",
+      "expected_primary_skill": "agent-orchestration",
+      "risk": "high",
+      "must_avoid": [
+        "votação cega por maioria",
+        "alegar independência sem contextos separados",
+        "executar mudança externa sem autorização"
+      ],
+      "acceptance": [
+        "gate justifica acionamento",
+        "perspectivas apontam evidências rastreáveis",
+        "síntese registra incerteza e dissenso"
+      ]
+    },
+    {
+      "id": "route-adversarial-routine-negative",
+      "prompt": "Corrija um erro de digitação em um rótulo local, sem impacto externo e com reversão simples.",
+      "expected_primary_skill": null,
+      "risk": "low",
+      "must_avoid": [
+        "acionar conselho para tarefa trivial",
+        "carregar várias skills sem necessidade"
+      ],
+      "acceptance": [
+        "não aciona revisão adversarial",
+        "faz alteração mínima e verificação focal"
+      ]
+    },
+    {
+      "id": "route-adversarial-boundary-two-signals",
+      "prompt": "Avalie decisão de arquitetura de risco moderado com incerteza material e evidências conflitantes, sem impacto externo imediato.",
+      "expected_primary_skill": "agent-orchestration",
+      "risk": "medium",
+      "must_avoid": [
+        "tratar um sinal isolado como suficiente",
+        "confundir risco médio com ausência de risco"
+      ],
+      "acceptance": [
+        "dois sinais acionam o gate",
+        "decisão pode terminar inconclusiva se faltarem evidências"
+      ]
     }
   ]
 }
