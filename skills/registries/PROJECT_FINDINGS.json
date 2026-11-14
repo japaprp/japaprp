@@ -1,0 +1,968 @@
+{
+  "schema_version": "1.0.0",
+  "registry_kind": "project_findings",
+  "snapshot_date": "2026-11-14",
+  "policy": {
+    "source_of_truth": "Each project's own repository and runtime remain authoritative; this central register tracks provenance and closure evidence only.",
+    "status_values": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "NOT RUN"
+    ],
+    "closure_rule": "A finding may be marked PASS only when its linked correction commit and its regression test pass are verified on the final commit. A green CI run on another SHA does not close it.",
+    "isolation": "Findings are keyed by project_id and front. Dark War REA and Guerra Infinita development share a strategic product line but remain separate research and development fronts, branches, artifacts, and pipelines.",
+    "evidence_labels": [
+      "OBSERVED",
+      "INFERRED",
+      "HYPOTHESIS",
+      "UNKNOWN"
+    ],
+    "no_authority": "This registry does not authorize merge, deploy, publication, deletion, secrets, permissions, DNS, production writes, paid resources, or external communications."
+  },
+  "findings": [
+    {
+      "finding_id": "CC-001",
+      "project_id": "central-council",
+      "front": "orchestration",
+      "title": "Fresh-session activation and autonomy A/B/C are not behaviorally verified",
+      "status": "NOT RUN",
+      "priority": "P0",
+      "source": {
+        "kind": "repository_document",
+        "reference": "skills/tests/ACTIVATION_AUTONOMY_TESTS.md#current-result",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "PR #4 capability/project registry HEAD f446b4f76525c7206a23da76a17a2b73a0c4402e passed Validate engineering skills run #69.",
+        "PR #5 Ponytail/capability-gap closure HEAD 7c8b93a79bc2b2081011dada57b0dd9749efd6dd passed run #79; this validates deterministic structural activation and routing regressions, not a fresh client session.",
+        "PR #6 orchestration/portfolio HEAD aee3f68464282231f64d2e9d6a6e9b033d697a07 passed run #109; the planner is side-effect-free and selects work but does not spawn child agents.",
+        "Fresh-session A/B/C behavioral tests on WIN-RPC1DR79TVC have not been executed in this environment; no verified session capture or runtime instruction-load evidence is available."
+      ],
+      "fix": {
+        "pr_numbers": [
+          1,
+          4,
+          5,
+          6
+        ],
+        "branch": "feat/central-portfolio-registry-20261114",
+        "correction_commit": null
+      },
+      "regression_test": {
+        "path": "fresh isolated Codex/VS Code session on WIN-RPC1DR79TVC with A/B/C activation test protocol",
+        "test": "Start a new session with no inherited context; verify correct Council/project selection, correct instruction/skill loading, correct routing and refusal boundaries; capture observable logs/screenshots and compare expected results."
+      },
+      "closure_gate": [
+        "Connect WIN-RPC1DR79TVC and verify the target application/version and active workspace without changing global settings.",
+        "Run A/B/C from a fresh session, record exact prompts, loaded instruction sources and resulting behavior.",
+        "Have an independent QA pass review the evidence and verify no project context leakage.",
+        "Only mark PASS against the exact code commit and test artifact; CI structural pass is insufficient."
+      ]
+    },
+    {
+      "finding_id": "CC-002",
+      "project_id": "central-council",
+      "front": "orchestration",
+      "title": "Live child-agent dispatch, independent QA, locking and recovery remain unverified",
+      "status": "NOT RUN",
+      "priority": "P0",
+      "source": {
+        "kind": "repository_document",
+        "reference": "skills/tests/AGENT_ORCHESTRATION_RUNTIME_TEST.md#current-result",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "PR #6 HEAD aee3f68464282231f64d2e9d6a6e9b033d697a07 passed Validate engineering skills run #109, including deterministic planner and orchestration regression steps.",
+        "The planner enforces project boundaries, dependency-cycle checks, ready-task selection, concurrency slots and exclusive resource locks; it defaults to 5 concurrent tasks with a hard verified ceiling of 10.",
+        "The implementation explicitly does not spawn agents or execute tools; the live D1-D3 protocol for dispatch, independent QA, write conflicts, concurrency and approval boundaries remains NOT RUN.",
+        "No verified child-agent dispatch, lock contention, checkpoint recovery or independent QA execution occurred in this session; no agent run is being claimed."
+      ],
+      "fix": {
+        "pr_numbers": [
+          6
+        ],
+        "branch": "feat/central-portfolio-registry-20261114",
+        "correction_commit": "aee3f68464282231f64d2e9d6a6e9b033d697a07"
+      },
+      "regression_test": {
+        "path": "live D1-D3 orchestration runtime test protocol on WIN-RPC1DR79TVC",
+        "test": "Run two independent isolated child tasks; verify actual dispatch, resource lock acquisition/release, bounded concurrency, conflict prevention, retry/idempotency, checkpoint recovery, independent QA and owner approval gate. Preserve separate project workspaces and evidence."
+      },
+      "closure_gate": [
+        "Use a fresh runtime session on the verified target computer; do not infer dispatch from the side-effect-free planner.",
+        "Run D1 dispatch and capture child-agent identity, inputs, outputs and branch/workspace boundaries.",
+        "Run D2 concurrency/lock/conflict/recovery tests with independent QA and exact task IDs.",
+        "Run D3 approval-boundary tests proving no merge/deploy/publish/secrets/permissions/cost action occurs without explicit authorization.",
+        "Repeat the relevant regression suite and record exact final commit and evidence."
+      ]
+    },
+    {
+      "finding_id": "CC-003",
+      "project_id": "central-council",
+      "front": "open-source-readiness",
+      "title": "Public product packaging and license decisions remain open",
+      "status": "BLOCKED",
+      "priority": "P1",
+      "source": {
+        "kind": "repository_document",
+        "reference": "skills/tests/OPEN_SOURCE_READINESS_AND_GAP_MATRIX.md#lacunas-de-apresentacao-e-colaboracao",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The inspected branch has a readiness matrix but no verified license decision, distribution model, quickstart, contribution policy or release process.",
+        "License selection is a maintainer decision and must not be inferred."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "skills/tests/OPEN_SOURCE_READINESS_AND_GAP_MATRIX.md",
+        "test": "Re-run the documented readiness checklist after the maintainer explicitly decides product repository strategy and license."
+      },
+      "closure_gate": [
+        "Owner explicitly decides repository/distribution strategy and license.",
+        "Required community, security, onboarding and release documents are reviewed.",
+        "External publication remains separately gated."
+      ]
+    },
+    {
+      "finding_id": "GI-001",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "Firebase ID-token verification and legacy UID spoofing protection need final independent validation",
+      "status": "NOT RUN",
+      "priority": "P0",
+      "source": {
+        "kind": "github_issue",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/issues/21",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "Issue #21 remains open and defines token verification, fail-closed configuration and legacy route hardening.",
+        "PR #22 exists on branch fix/firebase-id-token-validation; current behavior must be checked against its exact HEAD and test runs."
+      ],
+      "fix": {
+        "pr_numbers": [
+          22
+        ],
+        "branch": "fix/firebase-id-token-validation",
+        "correction_commit": "1d4a8c98e5f2b54cef8333848e654fcf13346454"
+      },
+      "regression_test": {
+        "path": "issue #21 acceptance criteria",
+        "test": "Integration tests for missing, malformed, expired, wrong-project and valid ID tokens, plus UID spoofing on legacy and v1 endpoints."
+      },
+      "closure_gate": [
+        "All token and spoofing regressions pass on the final correction commit.",
+        "Independent review confirms trusted identity is derived only from verified claims.",
+        "Hosted fail-closed configuration is verified without exposing secrets."
+      ]
+    },
+    {
+      "finding_id": "GI-002",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "PostgreSQL/Supabase runtime authentication failure 28P01 is unresolved",
+      "status": "BLOCKED",
+      "priority": "P0",
+      "source": {
+        "kind": "github_issue",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/issues/44",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "PR #31 current head 107121a3ad22d54374df0272b97c002fc18b6b9d remains draft; Backend tests run #527, Backend Integration #1338 and Client Persistence #983 passed on that exact SHA.",
+        "The PR #31 description records PostgreSQL error 28P01 (password authentication rejected) on earlier connection-check commit 5fe46ff1a49cdbe632568f13b51b1e522c1b0d5a. PG_CONNECTION_OK was not observed there. No dedicated real-connection workflow is present among the three workflows on current HEAD, so a successful live PostgreSQL connection is still NOT VERIFIED.",
+        "PR #40 head da6cf0c1cf3fefd66ad152aa4ad94e4b7c394900 has Backend Integration run #1233 SUCCESS, but its own validation notes the real Supabase connection failed with 28P01 and the isolated persistence probe was skipped.",
+        "PR #35 head dfd2a89750fd5b085d9cf829b59db061c8ed58c1 adds MYSQL_PASSWORD fallback to DB_PASSWORD and has Backend tests #406, Backend Integration #1154 and Client Persistence #847 SUCCESS. Its description explicitly says live PostgreSQL connection and Render startup after configuration correction were not tested; it is a separate configuration fix, not proof that 28P01 is resolved.",
+        "PR #32 head e5b2679e0d50bb6183af981fc5346abf961568cf is 3 commits ahead and 35 behind its target branch and is dirty. The target branch already contains a stronger fail-closed check and explicit CA certificate validation; PR #32 is stale and should not be merged over it (details in GI-008).",
+        "All relevant PRs remain open drafts and no merge/deploy was performed. No GitHub secret value, database password, live game table or production connection string was read or changed."
+      ],
+      "fix": {
+        "pr_numbers": [
+          31,
+          32,
+          35,
+          40
+        ],
+        "branch": "work/postgres-connection-validation",
+        "correction_commit": "da6cf0c1cf3fefd66ad152aa4ad94e4b7c394900"
+      },
+      "regression_test": {
+        "path": "backend/scripts/check-postgres-connection.mjs; backend/test/postgres-connection-check.test.js; isolated PostgreSQL persistence probe",
+        "test": "Using the intended project-specific connection settings without exposing credentials, obtain PG_CONNECTION_OK on the exact current integration commit, then run read-only schema checks and temporary-table insert/read/update/stale-revision/rollback tests only in an isolated test database; keep production game tables untouched."
+      },
+      "closure_gate": [
+        "Identify the intended Supabase project host and database username using metadata only; never reveal or alter secret values without explicit authorization.",
+        "Verify the GitHub Actions connection secret is scoped to the intended Guerra Infinita database and obtain PG_CONNECTION_OK on the exact current commit.",
+        "Retain explicit PEM CA validation and rejectUnauthorized=true; do not revert to weaker TLS behavior.",
+        "Run the isolated persistence probe against a dedicated non-production database and verify rollback, stale-revision rejection, reconnect and concurrency behavior.",
+        "Verify Render environment variable names and CORS origin read-only; no live configuration change or deployment without explicit authorization.",
+        "Re-run Backend tests, Backend Integration, Client Persistence and the dedicated PostgreSQL connection workflow on the exact final SHA; only then reconsider BLOCKED."
+      ]
+    },
+    {
+      "finding_id": "GI-003",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "Android APK pipeline passes but physical Galaxy S21 acceptance is not run",
+      "status": "NOT RUN",
+      "priority": "P0",
+      "source": {
+        "kind": "github_issue",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/issues/43",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "PR #45 head 0e92151bb2b03bd129b0d79cf7b377f92a087ecf has Android APK build run #35 SUCCESS and Client Persistence run #972 SUCCESS.",
+        "PR #46 head e6765834afd240e36317f16d90317ecec6921a4c has Android APK build run #49 SUCCESS, Client Persistence run #1013 SUCCESS and Backend tests run #543 SUCCESS.",
+        "Both PRs remain open drafts; their CI proves build and automated test success only, not installation, launch, login, navigation, persistence or performance on a physical Galaxy S21.",
+        "No ADB/S21 session was available in this execution and no APK was installed or launched on the device."
+      ],
+      "fix": {
+        "pr_numbers": [
+          45,
+          46
+        ],
+        "branch": "fix/android-entry-login-ui",
+        "correction_commit": "e6765834afd240e36317f16d90317ecec6921a4c"
+      },
+      "regression_test": {
+        "path": "physical Galaxy S21 acceptance run using APK from exact validated PR head",
+        "test": "Install the exact APK on S21; cold launch and relaunch; verify entry screen, login/configuration, navigation, persistence after process restart, touch controls, orientation/safe areas, memory stability and logcat; attach device model, Android version, APK SHA and evidence."
+      },
+      "closure_gate": [
+        "Choose the exact PR/commit and APK artifact; verify artifact SHA corresponds to the tested source commit.",
+        "Connect the authorized Galaxy S21 and confirm ADB device identity before any install.",
+        "Install and run the APK; exercise login, entry UI, core flows, persistence and relaunch.",
+        "Capture logcat and screenshots; record device/Android version, memory and test results.",
+        "Run any required follow-up CI on the exact final commit; do not mark PASS based only on APK build."
+      ]
+    },
+    {
+      "finding_id": "GI-004",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "Hosted API base URL and CSP have CI coverage but live hosted flow remains unverified",
+      "status": "NOT RUN",
+      "priority": "P1",
+      "source": {
+        "kind": "github_issue",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/issues/18",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "PR #42 API configuration tests and Backend Integration workflows passed on its recorded HEAD.",
+        "The issue still requires confirmation of the real hosted frontend/backend origins and a live authenticated expedition flow."
+      ],
+      "fix": {
+        "pr_numbers": [
+          42
+        ],
+        "branch": "fix/hosted-api-base-url-tests",
+        "correction_commit": "3d5977acff42728e62768daa0af64b1143c0aa0d"
+      },
+      "regression_test": {
+        "path": "PR #42 API configuration tests",
+        "test": "Hosted build must not default to localhost; verify login, expedition status, start/collect and reload against the confirmed HTTPS API origin."
+      },
+      "closure_gate": [
+        "Public frontend and API origins are verified from authoritative deployment metadata.",
+        "Hosted authenticated end-to-end flow passes on the exact tested commit.",
+        "CSP permits only required origins."
+      ]
+    },
+    {
+      "finding_id": "GI-005",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "Authenticated expedition synchronization and multi-player isolation remain unverified",
+      "status": "NOT RUN",
+      "priority": "P1",
+      "source": {
+        "kind": "github_issue",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/issues/12",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "Issue #12 records partial client/server synchronization and requires authenticated reload/recovery and two-player isolation.",
+        "Prior CI evidence covers local/offline persistence and backend idempotency but does not prove the complete authenticated client-server flow."
+      ],
+      "fix": {
+        "pr_numbers": [
+          3,
+          4,
+          14,
+          29
+        ],
+        "branch": "fix/authoritative-expedition-state",
+        "correction_commit": "f93b9a41a9fcfc4b4563a0da3f05359d23170a05"
+      },
+      "regression_test": {
+        "path": "issue #12 acceptance criteria",
+        "test": "Authenticated start/reload/collect, lost-response retry, persistent receipt, no duplicate rewards, and two-user isolation."
+      },
+      "closure_gate": [
+        "Authenticated client/server lifecycle passes end-to-end.",
+        "Retries and restarts preserve a single receipt and balance.",
+        "Two-user tests prove no cross-player state leakage."
+      ]
+    },
+    {
+      "finding_id": "GI-006",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "Vehicle chip slots, presets, resonance and source-derived odds are incomplete",
+      "status": "NOT RUN",
+      "priority": "P2",
+      "source": {
+        "kind": "github_issue",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/issues/16",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "Issue #16 distinguishes observed screenshot values from unverified RNG and resonance formulas.",
+        "Open implementation PRs #15, #17 and #30 exist; full acceptance and persistence must be checked on their current commits."
+      ],
+      "fix": {
+        "pr_numbers": [
+          15,
+          17,
+          30
+        ],
+        "branch": "fix/chip-balance-and-loadout-persistence",
+        "correction_commit": "f2c7ffff5431b49654c72bd65910c0f20bae7468"
+      },
+      "regression_test": {
+        "path": "issue #16 acceptance criteria",
+        "test": "Deterministic equip/unequip, preset switch, resonance, duplicate-instance rejection, missing-chip handling and save/reopen."
+      },
+      "closure_gate": [
+        "Screenshot-derived values are transcribed with source filenames and no invented odds.",
+        "One physical chip instance cannot occupy multiple slots.",
+        "Persistence and all deterministic regressions pass."
+      ]
+    },
+    {
+      "finding_id": "REA-001",
+      "project_id": "guerra-infinita",
+      "front": "dark-war-survival-rea",
+      "title": "Custom family-55 Lua header decoder remains blocked",
+      "status": "BLOCKED",
+      "priority": "P1",
+      "source": {
+        "kind": "conversation_context",
+        "reference": "verified REA continuity note dated 2026-11-11; local artifacts not re-read in this turn",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The REA GitHub branch research/dark-war-survival-captures is at HEAD 3b50de341d7511c0c402fc416acdedc41be55a2c; the latest commit (2026-11-05) changes only the engineering README.",
+        "The repository tree contains no libxlua.so, libil2cpp.so, native library, or native symbol dump; the local S21/Termux native working files are not accessible in this session.",
+        "The existing engineering handoff records that the custom Lua family-55 header 0xA8 0x55 is rejected by standard Lua 5.5.1, and the application-specific decoder/semantic opcode interpretation remains unresolved.",
+        "The requested get_IsLua55, s_isLua55 and 0x30F19C4 native correlation has not been executed against a verified local native binary in this session; no symbol or offset conclusion is claimed.",
+        "The research branch's Backend Integration run #1957 passed on the branch HEAD, but it is a game backend workflow and does not validate REA bytecode or native analysis."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "local read-only native symbol/range analysis on preserved libil2cpp.so and libxlua.so copies (not available in current session)",
+        "test": "Verify file SHA-256 and ELF architecture; locate exact references to get_IsLua55 and s_isLua55; trace reads/writes and callers around 0x30F19C4; correlate with existing index and manifest evidence; record offsets and disassembly context without modifying original binaries."
+      },
+      "closure_gate": [
+        "Re-establish access to the preserved S21/Termux native analysis workspace or provide the exact preserved native binaries and their SHA-256 manifests.",
+        "Verify binary identity, architecture and hashes before analysis; use read-only copies only.",
+        "Trace get_IsLua55, s_isLua55 and the 0x30F19C4 reference with callers, cross-references and object/global relationships.",
+        "Correlate native findings with the manifest-level LuaTxt/LuaTxt_55 evidence; keep observed, inferred and unknown separate.",
+        "Do not change the Lua parser or claim family-55 semantic decode until a reproducible independent decoder test passes."
+      ]
+    },
+    {
+      "finding_id": "REA-002",
+      "project_id": "guerra-infinita",
+      "front": "dark-war-survival-rea",
+      "title": "LuaTxt versus LuaTxt_55 manifest crosswalk is pending",
+      "status": "BLOCKED",
+      "priority": "P1",
+      "source": {
+        "kind": "derived_manifest_analysis",
+        "reference": "research/dark-war-survival/data/manifests/DARKWAR_DATATABLE_ASSET_BUNDLE_MAP_2026-10-30.csv; DARKWAR_LUA_MODULE_BUNDLE_TRACE_2026-10-30.csv; DARKWAR_LUA_DATATABLE_MODULE_CROSSWALK_V2_2026-10-30.csv; DARKWAR_LUA_DATATABLE_DIRECT_REFERENCES_2026-10-30.csv; DARKWAR_LUA_DATATABLE_CANDIDATE_REFERENCES_2026-10-30.csv @ 3b50de341d7511c0c402fc416acdedc41be55a2c",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "Read-only manifest crosswalk executed against the existing branch files without rescanning or extracting any of the 4,656 bundles.",
+        "The datatable asset map contains 1,064 rows: 469 rows mapped to base LuaTxt bundles, 469 mapped to LuaTxt_55 bundles, and 126 localization rows in separate bundle families.",
+        "The Lua module bundle trace contains 66 records split evenly: 33 base and 33 Lua 5.5.",
+        "The Lua/DataTable crosswalk contains 66 rows across 30 modules: 33 base and 33 Lua 5.5. Extraction-status counts are 20 direct ASCII-token matches, 36 no-direct-token text projections, and 10 semantic links still blocked pending bytecode decompilation.",
+        "The direct-reference manifest contains 34 exact string-token matches: 17 base and 17 Lua 5.5; all 34 have matching LuaVariant/TableVariant and there are zero variant mismatches.",
+        "The candidate-reference manifest contains 14 rows split evenly by variant. HeroLevelUpTemplateManager -> heroes_levelup is MEDIUM confidence in both variants; the remaining 12 candidates are LOW confidence and still require bytecode decompilation.",
+        "This establishes manifest-level variant alignment only; it does not prove runtime selection, native get_IsLua55 behavior, semantic callsites or server authority.",
+        "The analysis is not yet recorded in a committed REA report or a reusable regression script; closure remains BLOCKED until that durable evidence is authorized and added."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "research/dark-war-survival/tools/validate-luatxt-family-crosswalk.js (planned; not yet committed)",
+        "test": "Parse the existing CSV manifests; assert 469 base and 469 Lua 5.5 datatable mappings, 33/33 Lua module traces, 34 direct-reference variant matches with zero mismatches, and 14 candidates split 7/7; report semantic-blocked and low-confidence rows separately."
+      },
+      "closure_gate": [
+        "Preserve the read-only manifest results and add a reproducible validator/report to the REA research branch when repository publication is explicitly authorized.",
+        "Keep all 10 semantic-blocked crosswalk rows and 12 low-confidence candidates open; do not promote them to confirmed callsites.",
+        "Correlate table-family alignment with native loader evidence for get_IsLua55/s_isLua55 and the relevant path selection.",
+        "Only claim runtime LuaTxt/LuaTxt_55 selection after a controlled, reproducible test; manifest alignment alone is insufficient."
+      ]
+    },
+    {
+      "finding_id": "PP-001",
+      "project_id": "perifa-pro",
+      "front": "application",
+      "title": "Authentication, authorization and password-reset concurrency findings require source-level revalidation",
+      "status": "FAIL",
+      "priority": "P0",
+      "source": {
+        "kind": "repository_code",
+        "reference": "https://github.com/japaprp/Perifa-Pro/tree/main/backend-php; PasswordResetRepository.php, RateLimiterService.php, config/jwt.php, config/cors.php",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "On main, PasswordResetRepository::resetPassword() selects an unused token inside a transaction without FOR UPDATE, consumes it with an unconditional UPDATE by id, and does not verify affected-row counts; this leaves the one-time token race identified by the audit.",
+        "PR #12 adds SELECT ... FOR UPDATE, conditional token consumption with exactly-one-row verification, account-update row-count validation and rollback on failure; CI run #178 passed on exact head 0b7fd05fc393275a2435acf9a8510831417f8da5.",
+        "PR #17 adds a two-process concurrency test against disposable MySQL requiring exactly one SUCCESS and one REJECTED; CI run #185 passed on exact head 04502c03be706188ce6ab79fb4827f9310c5a607.",
+        "PR #20 revokes active sessions in the same transaction as password reset and adds a MySQL session-revocation integration test; CI run #190 passed on exact head 3b990a982a6c73f2e9d6829c556a3cdefec0753b.",
+        "On main, RateLimiterService::hit() allows requests when storage creation/opening/locking fails or invalid limits are supplied. PR #18 changes these paths to deny; CI run #186 passed on exact head a4f77e443caa1bf8a5158f98ae6abf0c8e1f0a60, stacked on PR #7.",
+        "On main, config/jwt.php falls back to the known local placeholder secret when JWT_SECRET is absent, and config/cors.php defaults CORS_ALLOW_ORIGINS to '*'; no production fail-closed validation was found in the inspected configuration path. These remain unchanged in the shared-hardening PR #7 branch.",
+        "The AuthMiddleware class returns true, but the inspected Router does not wire it; protected controller actions use BaseController::requireAuth() and Jwt::decode(). The stub is not counted as a confirmed bypass.",
+        "All referenced PRs remain open; PR #7 is ready for review but unmerged, while PRs #12, #17, #18 and #20 are drafts. Green CI on stacked branches does not remediate main."
+      ],
+      "fix": {
+        "pr_numbers": [
+          7,
+          12,
+          17,
+          18,
+          20
+        ],
+        "branch": "stacked: fix/shared-backend-hardening; security/password-reset-atomic-consumption; test/password-reset-mysql-concurrency; fix/password-reset-revoke-sessions-stacked; fix/security-fail-closed-rate-limit-webhook",
+        "correction_commit": null
+      },
+      "regression_test": {
+        "path": "backend-php/tests/password-reset-concurrency-integration.php; backend-php/tests/password-reset-session-revocation-integration.php; backend-php/tests/security.php",
+        "test": "Run the disposable-MySQL concurrent reset test and session-revocation test on the final integrated commit; add production-config tests proving missing JWT_SECRET and CORS_ALLOW_ORIGINS fail closed; verify rate-limit storage failure denies requests."
+      },
+      "closure_gate": [
+        "Integrate the password-reset atomic-consumption, MySQL concurrency, and session-revocation changes only through their reviewed PR chain; no merge is performed here.",
+        "Make production JWT configuration reject missing or placeholder JWT_SECRET instead of silently using the local fallback.",
+        "Make production CORS configuration reject missing or wildcard origins unless a separately approved public-only policy explicitly requires it.",
+        "Integrate the fail-closed rate-limiter change and add trusted-proxy tests for the source IP and tenant dimensions used by rate limiting.",
+        "Run all relevant PHP, web, mobile and disposable-MySQL workflows on the exact final commit and independently verify the regressions."
+      ]
+    },
+    {
+      "finding_id": "HF-001",
+      "project_id": "hortifruti",
+      "front": "application",
+      "title": "Payment confirmation, recovery and JSON persistence concurrency findings need source-level revalidation",
+      "status": "FAIL",
+      "priority": "P0",
+      "source": {
+        "kind": "repository_code",
+        "reference": "https://github.com/japaprp/varejao-backend/blob/main/backend/src/routes/storeRoutes.js; backend/src/controllers/storeController.js; backend/src/services/cartService.js; backend/src/data/repository.js",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "On main, POST /carrinho, GET /carrinho, GET /checkout, GET /stream/checkout and POST /finalizar are registered without authentication middleware; payment preference is also public by design and therefore needs cart-capability authorization rather than ordinary operator auth.",
+        "storeController.getCartId() accepts x-cart-id, query cartId or body cartId directly from the caller; cartService.resolveCartId() maps a missing ID to the shared key 'default'.",
+        "cartService derives the sale channel from patterns in the caller-controlled cart ID, so the channel is not server-owned. Checkout preview and the SSE stream use that caller-controlled identifier.",
+        "On the current PR #1 branch, POST /finalizar returns HTTP 410 and maquininha initiation/confirmation require an authenticated operational role, but cart ownership/capability, shared-default removal and server-owned channel are explicitly documented as remaining release blockers rather than implemented fixes.",
+        "The repository readDb()/writeDb() implementation still reads and overwrites the complete database.json synchronously without a transaction, inter-process lock or atomic revision check; the PostgreSQL repository in PR #1 is a separate prototype and is not wired into the live repository adapter.",
+        "PR #1 head 191de885af6f3506260522eeabf2897ee1b8982a is draft and mergeable; Backend QA run #91 completed SUCCESS on that exact head. CI does not prove live Render persistence, live backup, cart ownership or real Mercado Pago sandbox behavior.",
+        "PR #1's own release gates state that Render Free local filesystem data is ephemeral and no authorized live export/backup path was found. No live data or secrets were read and no infrastructure action was taken."
+      ],
+      "fix": {
+        "pr_numbers": [
+          1
+        ],
+        "branch": "fix/varejao-security-payment-authorization-20261114",
+        "correction_commit": null
+      },
+      "regression_test": {
+        "path": "backend/scripts/smoke_test.js; synthetic cart-capability integration tests; multi-process persistence tests; backup/restore rehearsal",
+        "test": "With two independent synthetic clients, verify that cart A cannot read, mutate, stream, checkout or pay cart B; missing cart credentials never resolve to a shared cart; channel is server-owned; payment preference and confirmation are idempotent; concurrent persistence mutations do not lose updates; backup restore reproduces the exact synthetic dataset."
+      },
+      "closure_gate": [
+        "Implement a cart capability with a non-secret public locator and high-entropy secret; never trust a caller-supplied cart ID alone and remove the shared 'default' cart.",
+        "Bind cart reads, writes, SSE, checkout and payment preference to the capability; issue short-lived stream tickets or use authenticated polling.",
+        "Keep maquininha initiation and confirmation restricted to authenticated operational roles; verify NSU/authorization and reject duplicate settlement.",
+        "Keep Mercado Pago webhook signature, amount, order, collector and currency checks fail closed; run sandbox integration only with explicitly configured test credentials.",
+        "Replace live JSON whole-file persistence with an isolated transactional adapter and multi-process concurrency tests; do not use the prototype as proof of runtime wiring.",
+        "Preserve/export live data and complete a restore rehearsal before any restart, redeploy, storage change or migration; current live backup path remains BLOCKED.",
+        "Run all regression tests on the exact final commit; no merge, deployment, production write or live-data access is implied."
+      ]
+    },
+    {
+      "finding_id": "RH-001",
+      "project_id": "rh",
+      "front": "application",
+      "title": "Cross-company employee/document isolation requires source-level revalidation",
+      "status": "FAIL",
+      "priority": "P0",
+      "source": {
+        "kind": "repository_code",
+        "reference": "https://github.com/japaprp/web/blob/main/rh_documentos.php#L63-L69;#L149-L160;#L189-L207; https://github.com/japaprp/web/blob/main/seguranca.php#L112-L150",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "rh_documentos.php lists active users at line 200 and all non-deleted documents at line 207 without filtering by the authenticated session's empresa_id.",
+        "Document validation at lines 63-69 updates by funcionario_id and tipo only; upload at lines 149-160 derives empresa_id from the submitted target funcionario_id; deletion at line 189 updates by funcionario_id and tipo only. None verifies the target employee belongs to the authenticated user's company.",
+        "rh_ponto.php requires only the global ver_cartao_ponto permission; it lists all pessoas at line 75 and all matching rh_ponto rows through queries at lines 126-148 without an empresa_id predicate. Insert at line 40 omits empresa_id and deletion at line 61 uses only the point-row ID.",
+        "rh_ferias.php requires only the global definir_ferias permission; it lists all users at line 68, lists vacation records at lines 82-90 without empresa_id, inserts without empresa_id at line 38, and deletes by row ID at line 53.",
+        "pessoas.php lists and searches the pessoas table at lines 64-77 without empresa_id. pessoa_cadastrar.php inserts people without setting empresa_id. The foundation migration adds empresa_id to pessoas, rh_documentos, rh_ferias and rh_ponto, but these existing write/read paths do not consistently use it.",
+        "dossie_colaborador.php allows managers with global RH permissions to choose from all active users at lines 24-34 without restricting the list to the session company.",
+        "seguranca.php refreshes the user's empresa_id into the session, but the inspected HR queries and mutations do not consistently enforce that scope.",
+        "This is a source-level cross-company isolation failure across employee, document, time and vacation modules. No employee data, live database rows, or document contents were accessed; no two-company runtime test has been executed."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "two-company synthetic MySQL integration suite covering rh_documentos.php, rh_ponto.php, rh_ferias.php, pessoas.php and dossie_colaborador.php",
+        "test": "Create two companies with separate HR managers and employees. Verify each manager can only list, create, validate, delete and view employees/documents/time/vacations in their own company; verify all new records persist the authenticated empresa_id; test cross-company IDs and row IDs are rejected."
+      },
+      "closure_gate": [
+        "Use the authenticated user's empresa_id as the only tenant scope; never derive authorization from a submitted funcionario_id or row ID.",
+        "Add empresa_id to every relevant SELECT, INSERT, UPDATE and DELETE in documents, time, vacation, people and dossier flows; preserve global super-admin access only through an explicit audited policy.",
+        "For document operations, verify the employee and document empresa_id match the session company in the mutation statement itself.",
+        "For point and vacation creation, write the authorized empresa_id and validate the employee belongs to that company before insert.",
+        "Restrict dossier employee pickers and data loaders to the session company.",
+        "Add two-company synthetic MySQL tests for read, create, update, delete and IDOR-style cross-company IDs.",
+        "Run all PHP lint and relevant integration tests; inspect remaining RH pages for tenant predicates before marking PASS."
+      ]
+    },
+    {
+      "finding_id": "HAM-001",
+      "project_id": "hamburgueria",
+      "front": "application",
+      "title": "Catalog role authorization and server-authoritative fee validation need source-level revalidation",
+      "status": "NOT RUN",
+      "priority": "P1",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/PORTFOLIO_REPOSITORY_AUDIT_2026-11-14.md#high-priority-findings",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio audit records missing role authorization on catalog mutations and client-controlled financial fee input.",
+        "No source-level reproduction was run in this turn."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "hamburgueria tests (not yet mapped)",
+        "test": "Role matrix for catalog mutations and server-side fee calculation/validation tests."
+      },
+      "closure_gate": [
+        "Authorization is enforced server-side for each mutation.",
+        "Client-supplied fee values cannot override authoritative pricing.",
+        "Regression suite passes with role and tampering cases."
+      ]
+    },
+    {
+      "finding_id": "LC-001",
+      "project_id": "leitor-de-codigo",
+      "front": "application",
+      "title": "Mock authentication/roles and client-authoritative totals require source-level revalidation",
+      "status": "NOT RUN",
+      "priority": "P1",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/PORTFOLIO_REPOSITORY_AUDIT_2026-11-14.md#high-priority-findings",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio audit records mock authentication/roles, client-authoritative totals and unproven backend idempotency.",
+        "No source-level reproduction or CI inspection was performed in this turn."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "leitordecodigo tests (not yet mapped)",
+        "test": "Server-side identity/role enforcement, total recomputation and idempotent mutation tests."
+      },
+      "closure_gate": [
+        "Mock auth is removed from protected flows or clearly confined to test mode.",
+        "Server recomputes authoritative totals.",
+        "Backend idempotency is proven with repeat/restart tests."
+      ]
+    },
+    {
+      "finding_id": "SAL-001",
+      "project_id": "salao-da-lu",
+      "front": "application",
+      "title": "Appointment concurrency, tenant integrity, schema drift and pricing authority require revalidation",
+      "status": "NOT RUN",
+      "priority": "P1",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/PORTFOLIO_REPOSITORY_AUDIT_2026-11-14.md#high-priority-findings",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio audit records appointment race, tenant foreign-key integrity, Prisma/SQL drift and client-provided pricing risks.",
+        "No source-level reproduction was run in this turn."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "salao tests (not yet mapped)",
+        "test": "Concurrent booking exclusion, tenant foreign-key isolation, schema migration consistency and server-authoritative pricing tests."
+      },
+      "closure_gate": [
+        "Concurrent requests cannot double-book the same slot.",
+        "Tenant relations and schema are consistent.",
+        "Pricing is computed/validated server-side and regression tests pass."
+      ]
+    },
+    {
+      "finding_id": "EVT-001",
+      "project_id": "eventos-rp",
+      "front": "application",
+      "title": "OAuth eligibility, commissions, migration application and live payment remain unverified",
+      "status": "NOT RUN",
+      "priority": "P1",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/PORTFOLIO_REPOSITORY_AUDIT_2026-11-14.md#high-priority-findings",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio audit records lifecycle CI PASS but OAuth account eligibility, commission handling, migration application and live payment validation remain incomplete.",
+        "No live payment, migration or OAuth change was attempted in this turn."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "eventosrp CI and integration tests (not yet mapped)",
+        "test": "OAuth callback/account eligibility, commission accounting, migration dry-run/backup verification and payment lifecycle tests in staging."
+      },
+      "closure_gate": [
+        "OAuth eligibility is confirmed for the actual intended account.",
+        "Commission calculations and payment lifecycle pass in staging.",
+        "Migration plan is reviewed with backup evidence before any production action."
+      ]
+    },
+    {
+      "finding_id": "ERB-001",
+      "project_id": "estacia-renascer-belvedere",
+      "front": "application",
+      "title": "Reservation/contact availability and anti-spam behavior need runtime verification",
+      "status": "NOT RUN",
+      "priority": "P2",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/PORTFOLIO_REPOSITORY_AUDIT_2026-11-14.md#seven-front-readiness-snapshot",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio audit lists contact/reservation, authoritative availability, anti-spam and conversion behavior as needing runtime verification."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "repository tests (not yet mapped)",
+        "test": "Availability, reservation idempotency, anti-spam and contact delivery in a safe test environment."
+      },
+      "closure_gate": [
+        "Reservation availability and duplicate prevention pass.",
+        "Anti-spam behavior and contact delivery are verified without sending unsolicited real messages."
+      ]
+    },
+    {
+      "finding_id": "PORT-001",
+      "project_id": "portfolio-site",
+      "front": "application",
+      "title": "Media, accessibility, responsive layouts and product claims need runtime review",
+      "status": "NOT RUN",
+      "priority": "P2",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/REPOSITORY_INVENTORY.json#japaprp/portifolio",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio audit identifies media, accessibility, responsive layout and product-claim review as pending."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "portifolio repository tests (not yet mapped)",
+        "test": "Responsive viewport checks, keyboard/accessibility checks, media loading and factual claim review."
+      },
+      "closure_gate": [
+        "Required viewport and accessibility checks pass.",
+        "Media assets load and public claims are supported by evidence."
+      ]
+    },
+    {
+      "finding_id": "CASA-001",
+      "project_id": "casa-pratica-ofc",
+      "front": "affiliate-commerce",
+      "title": "No verified GitHub repository or CI source is currently linked to Casa Prática OFC",
+      "status": "BLOCKED",
+      "priority": "P2",
+      "source": {
+        "kind": "portfolio_registry",
+        "reference": "skills/registries/PROJECT_REGISTRY.json#casa-pratica-ofc",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The project registry records channels/storefront but no verified repository URL.",
+        "Affiliate content operations remain separate from repository CI monitoring."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "not applicable until a repository is verified",
+        "test": "When a repository is linked, verify branch, CI, and project isolation before adding it to the PR monitor."
+      },
+      "closure_gate": [
+        "A repository is explicitly linked and verified, or the project is confirmed as non-code/managed outside GitHub."
+      ]
+    },
+    {
+      "finding_id": "EMPTY-001",
+      "project_id": "reboquei-repo-placeholder",
+      "front": "application",
+      "title": "Repository is empty; source-level audit is blocked",
+      "status": "BLOCKED",
+      "priority": "P3",
+      "source": {
+        "kind": "github_repository",
+        "reference": "https://github.com/japaprp/Reboquei",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The authenticated repository inventory identifies an empty repository."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "not applicable while repository is empty",
+        "test": "Re-run source inventory after source code and requirements are added."
+      },
+      "closure_gate": [
+        "Source and requirements exist and can be audited."
+      ]
+    },
+    {
+      "finding_id": "EMPTY-002",
+      "project_id": "elegance-repo-placeholder",
+      "front": "application",
+      "title": "Repository is empty; source-level audit is blocked",
+      "status": "BLOCKED",
+      "priority": "P3",
+      "source": {
+        "kind": "github_repository",
+        "reference": "https://github.com/japaprp/elegance",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The authenticated repository inventory identifies an empty repository."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "not applicable while repository is empty",
+        "test": "Re-run source inventory after source code and requirements are added."
+      },
+      "closure_gate": [
+        "Source and requirements exist and can be audited."
+      ]
+    },
+    {
+      "finding_id": "UNKNOWN-001",
+      "project_id": "memorias-amigos",
+      "front": "application",
+      "title": "Project purpose and acceptance criteria are unknown",
+      "status": "BLOCKED",
+      "priority": "P3",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/REPOSITORY_INVENTORY.json#japaprp/memorias-amigos",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The repository inventory records an initial commit but no README or known purpose."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "not applicable until requirements are known",
+        "test": "Define acceptance criteria before source-level validation."
+      },
+      "closure_gate": [
+        "Project purpose, owner intent and acceptance criteria are documented."
+      ]
+    },
+    {
+      "finding_id": "GI-007",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "Firebase ID-token PR #22 is blocked by a dirty merge state",
+      "status": "BLOCKED",
+      "priority": "P0",
+      "source": {
+        "kind": "github_pull_request",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/pull/22",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "GitHub reports mergeable=false and mergeable_state=dirty for PR #22; head 1d4a8c98e5f2b54cef8333848e654fcf13346454 is 53 commits ahead and 7 behind fix/deployment-config-prep.",
+        "The current target-branch HEAD is b435bdde043c54f67a307662166f26e5487bfcbd; its Backend tests #252, Drop Probability Calibration #504, Backend Integration #1001 and Client Persistence #676 workflows passed.",
+        "PR #22's own Backend tests #115, Drop Probability Calibration #473, Backend Integration #828 and Client Persistence #512 workflows passed on its exact head; this does not resolve the dirty merge state.",
+        "The base and head both modify DEPLOYMENT_PREPARATION.md, backend/test/deployment-config.test.js and index.html. The index.html API meta value differs: the current base sets https://infinit-war-api.onrender.com, while the PR head leaves it blank.",
+        "The base api/config.js enforces exact HTTPS origins and local-only localhost through URL parsing; the PR head contains an older, less strict version. The base implementation must be preserved.",
+        "A safe integration must retain the current base API origin and strict URL-validation tests, while adding the Firebase login UI, FIREBASE_PROJECT_ID production requirement, signed-token verification and its regression tests.",
+        "The API does not expose a definitive per-file conflict list in the metadata response; shared-file overlap is verified, but only the index.html API-meta divergence is confirmed as a same-line conflict candidate."
+      ],
+      "fix": {
+        "pr_numbers": [
+          22
+        ],
+        "branch": "fix/firebase-id-token-validation",
+        "correction_commit": "1d4a8c98e5f2b54cef8333848e654fcf13346454"
+      },
+      "regression_test": {
+        "path": "PR #22 backend tests and integration workflow",
+        "test": "After conflict resolution on an isolated branch, rerun backend unit/configuration and integration token-verification tests on the new final commit."
+      },
+      "closure_gate": [
+        "Resolve the index.html API-meta divergence on an isolated integration branch without overwriting the current verified API origin.",
+        "Preserve the base branch's strict api/config.js validation and its existing deployment-config regressions while combining Firebase project-ID tests.",
+        "Review the complete merged diff for legacy and v1 authentication routes, server-generated production guest IDs, and Firebase signature/claim validation.",
+        "Rerun backend tests, backend integration, client persistence and API configuration regressions on the exact resulting commit.",
+        "Verify the new PR head is mergeable before considering any further integration; do not merge or deploy automatically."
+      ]
+    },
+    {
+      "finding_id": "GI-008",
+      "project_id": "guerra-infinita",
+      "front": "development",
+      "title": "PR #32 is stale and superseded by the stronger fail-closed implementation on its target branch",
+      "status": "BLOCKED",
+      "priority": "P0",
+      "source": {
+        "kind": "github_pull_request",
+        "reference": "https://github.com/japaprp/infinit-war-guerra-infinita/pull/32",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "GitHub reports mergeable=false and mergeable_state=dirty for PR #32; its head e5b2679e0d50bb6183af981fc5346abf961568cf is 3 commits ahead and 35 behind integration/postgres-auth-isolated.",
+        "The current target-branch HEAD is 107121a3ad22d54374df0272b97c002fc18b6b9d and already fails closed when GAME_SUPABASE_DATABASE_URL is missing or is not a PostgreSQL URL.",
+        "The target branch also requires an explicit PEM CA certificate and tests missing/malformed CA configuration; the PR head's older script omits this stronger TLS configuration and its test file has less coverage.",
+        "Target-branch CI passed on exact HEAD: Backend tests run #527, Backend Integration #1338 and Client Persistence #983.",
+        "PR #32 CI passed on its own stale HEAD, but its changes are redundant relative to the target branch and must not be merged over the stronger implementation.",
+        "The PR remains open; no PR state change, merge, database access, secret inspection, or deployment was performed."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "backend/test/postgres-connection-check.test.js and backend/scripts/check-postgres-connection.mjs on integration/postgres-auth-isolated",
+        "test": "Verify missing and malformed database URLs fail closed; explicit CA is required and malformed CA is rejected; confirm the test:deploy suite passes on the exact target-branch HEAD."
+      },
+      "closure_gate": [
+        "Keep the stronger target-branch CA verification and fail-closed behavior intact.",
+        "Reconfirm the three required workflows on the exact target-branch HEAD after any subsequent change.",
+        "Record PR #32 as superseded; do not merge its stale head.",
+        "Change the PR's open/draft state only after explicit owner disposition; no deployment or production database access is implied."
+      ]
+    },
+    {
+      "finding_id": "BA-001",
+      "project_id": "barbearia-do-artur",
+      "front": "application",
+      "title": "Active Barbearia do Artur repository lacks current production/security and device validation evidence",
+      "status": "NOT RUN",
+      "priority": "P2",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/REPOSITORY_INVENTORY.json#japaprp/salao-do-arthur",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio audit records this as a separate active repository from the archived legacy repository.",
+        "A full production/security and physical-device validation is not evidenced in the current portfolio snapshot."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "salao-do-arthur repository tests (not yet mapped)",
+        "test": "Inspect the active repository independently and add regression coverage for authentication, role boundaries, data integrity and device workflows that are in scope."
+      },
+      "closure_gate": [
+        "Verify the active repository and its own current branch/CI.",
+        "Confirm all production/security findings with source-level evidence.",
+        "Keep the archived legacy repository separate."
+      ]
+    },
+    {
+      "finding_id": "MC-001",
+      "project_id": "me-conta-prototype",
+      "front": "application",
+      "title": "Me Conta prototype purpose and acceptance criteria are not documented in the current audit",
+      "status": "BLOCKED",
+      "priority": "P3",
+      "source": {
+        "kind": "repository_audit",
+        "reference": "skills/registries/REPOSITORY_INVENTORY.json#japaprp/me-conta",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "The portfolio registry lists a prototype repository but the current evidence snapshot does not establish its complete purpose or acceptance criteria."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "not applicable until requirements are known",
+        "test": "After owner intent is recorded, map source behavior to explicit acceptance tests."
+      },
+      "closure_gate": [
+        "Owner intent and acceptance criteria are recorded.",
+        "The repository is inspected without assuming product behavior from its name."
+      ]
+    },
+    {
+      "finding_id": "CB-001",
+      "project_id": "central-bridge",
+      "front": "cross-device-bridge",
+      "title": "Central Bridge cross-device validation remains unverified",
+      "status": "BLOCKED",
+      "priority": "P2",
+      "source": {
+        "kind": "portfolio_registry",
+        "reference": "skills/registries/PROJECT_REGISTRY.json#central-bridge",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "Prior continuity records a Windows device_info check as PASS while Android/cross-device validation remains NOT RUN.",
+        "The user previously instructed not to spend the remaining Desktop Commander quota on Central Bridge yet."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "Central Bridge validation plan (not yet executed)",
+        "test": "When the approved Windows environment and execution budget are available, run read-only device discovery and verify Android/Windows communication without changing configuration."
+      },
+      "closure_gate": [
+        "Use only an available, authorized execution environment.",
+        "Verify Android/cross-device behavior with read-only tests.",
+        "Do not consume the reserved Desktop Commander quota before the user changes that constraint."
+      ]
+    },
+    {
+      "finding_id": "LEGACY-001",
+      "project_id": "barbearia-do-artur-legacy",
+      "front": "legacy-repository-isolation",
+      "title": "Archived Barbearia do Artur repository must remain isolated from the active repository",
+      "status": "NOT RUN",
+      "priority": "P3",
+      "source": {
+        "kind": "github_repository",
+        "reference": "https://github.com/japaprp/salao-do-artur",
+        "evidence_label": "OBSERVED"
+      },
+      "evidence": [
+        "Authenticated GitHub repository listing marks salao-do-artur as archived and salao-do-arthur as a separate active repository.",
+        "No legacy-to-active source, data, credential or release-pipeline migration was performed in this turn."
+      ],
+      "fix": null,
+      "regression_test": {
+        "path": "skills/registries/PROJECT_REGISTRY.json and REPOSITORY_INVENTORY.json",
+        "test": "Verify the archived repository maps only to barbearia-do-artur-legacy and the active repository maps only to barbearia-do-artur."
+      },
+      "closure_gate": [
+        "Registry cross-reference confirms distinct project IDs and repository URLs.",
+        "No shared credentials, data stores or release pipelines are inferred or configured."
+      ]
+    }
+  ]
+}
