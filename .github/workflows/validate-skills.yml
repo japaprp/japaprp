@@ -9,7 +9,7 @@ on:
       - "scripts/validate_skills.py"
       - "scripts/validate_registries.py"
       - "scripts/audit_capability_coverage.py"
-      - "scripts/test_capability_engines.mjs"
+      - "scripts/test_capability_engines.mjs"\n      - "scripts/test_agent_orchestration.mjs"
       - "scripts/test_registry_routing.mjs"
       - "scripts/run_router_eval.py"
       - "scripts/test_activation_trigger.mjs"
@@ -52,7 +52,7 @@ jobs:
         run: node --check scripts/test_capability_engines.mjs
       - name: Run capability engine regression
         run: node scripts/test_capability_engines.mjs
-      - name: Check local behavioral evaluation runner syntax
+      - name: Check agent orchestration regression syntax\n        run: node --check scripts/test_agent_orchestration.mjs\n      - name: Run deterministic agent orchestration regression\n        run: node scripts/test_agent_orchestration.mjs\n      - name: Check local behavioral evaluation runner syntax
         run: python -m py_compile scripts/run_router_eval.py
       - name: Smoke-test local runner and dataset loading
         run: python scripts/run_router_eval.py --list
