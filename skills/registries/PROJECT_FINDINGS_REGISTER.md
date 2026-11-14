@@ -69,6 +69,10 @@ Fatos, inferências, hipóteses e desconhecidos são separados no campo `source.
 | EMPTY-001 | Reboquei | P3 | BLOCKED | Repositório sem código |
 | EMPTY-002 | Elegance | P3 | BLOCKED | Repositório sem código |
 | UNKNOWN-001 | Memórias Amigos | P3 | BLOCKED | Definir propósito e critérios de aceite |
+| BA-001 | Barbearia do Artur ativa | P2 | NOT RUN | Revalidar código e CI próprios |
+| MC-001 | Me Conta protótipo | P3 | BLOCKED | Registrar propósito e critérios de aceite |
+| CB-001 | Central Bridge | P2 | BLOCKED | Aguardar ambiente/orçamento autorizado para validação read-only |
+| LEGACY-001 | Barbearia do Artur legado | P3 | NOT RUN | Testar separação do repositório ativo |
 
 ## Cobertura e limitações do snapshot
 
