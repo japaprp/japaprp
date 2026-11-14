@@ -23,7 +23,7 @@ O sintetizador/presidente recebe os rascunhos somente depois. Rascunhos não pod
 
 ## 3. Síntese e dissenso
 
-O presidente avalia qualidade das evidências, não quantidade de votos. Pode rejeitar a maioria quando a evidência justificar. Deve responder às objeções fortes, preservar divergências relevantes, explicar alternativas descartadas e explicitar confiança e incerteza. Se evidência crítica faltar, use `inconclusive`; se faltar acesso, capacidade ou autorização, use `blocked`.
+O presidente não decide por maioria: avalia qualidade das evidências, não quantidade de votos. Pode rejeitar a maioria quando a evidência justificar. Deve responder às objeções fortes, preservar divergências relevantes, explicar alternativas descartadas e explicitar confiança e incerteza. Se evidência crítica faltar, use `inconclusive`; se faltar acesso, capacidade ou autorização, use `blocked`.
 
 ## 4. Limites contra loops e custos
 
