@@ -301,7 +301,7 @@ class ExecutionBundleTests(unittest.TestCase):
     def test_second_transient_failure_exhausts_retry_budget(self):
         bundle = self.valid_bundle()
         failed = dict(bundle["runs"][0], run_id="run-1-retry", attempt=2, retry_authorization_ref="controller-log/retry-1",
-                      status="unavailable", context_id="ctx-1-retry", agent_id="agent-1-retry",
+                      status="unavailable", failure_reason="retry attempt unavailable", context_id="ctx-1-retry", agent_id="agent-1-retry",
                       runtime_receipt_ref="logs/run-1-retry.json",
                       runtime_attestation_ref="attestations/run-1-retry.json")
         bundle["runs"][0]["status"] = "failed"
