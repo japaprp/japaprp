@@ -292,6 +292,7 @@ class ExecutionBundleTests(unittest.TestCase):
     def test_transient_failure_is_blocked_but_one_retry_is_eligible(self):
         bundle = self.valid_bundle()
         bundle["runs"][0]["status"] = "timeout"
+        bundle["runs"][0]["failure_reason"] = "simulated timeout"
         result = validate_execution_bundle(bundle)
         self.assertEqual(result["status"], "BLOCKED")
         self.assertEqual(result["retry_eligible_perspectives"], ["first-principles"])
@@ -299,11 +300,12 @@ class ExecutionBundleTests(unittest.TestCase):
 
     def test_second_transient_failure_exhausts_retry_budget(self):
         bundle = self.valid_bundle()
-        failed = dict(bundle["runs"][0], run_id="run-1-retry", attempt=2,
+        failed = dict(bundle["runs"][0], run_id="run-1-retry", attempt=2, retry_authorization_ref="controller-log/retry-1",
                       status="unavailable", context_id="ctx-1-retry", agent_id="agent-1-retry",
                       runtime_receipt_ref="logs/run-1-retry.json",
                       runtime_attestation_ref="attestations/run-1-retry.json")
         bundle["runs"][0]["status"] = "failed"
+        bundle["runs"][0]["failure_reason"] = "transient provider error"
         bundle["runs"][0]["attempt"] = 1
         bundle["runs"].insert(1, failed)
         result = validate_execution_bundle(bundle)
@@ -313,6 +315,7 @@ class ExecutionBundleTests(unittest.TestCase):
     def test_unavailable_runtime_is_not_silently_treated_as_success(self):
         bundle = self.valid_bundle()
         bundle["runs"][0]["status"] = "unavailable"
+        bundle["runs"][0]["failure_reason"] = "runtime unavailable"
         result = validate_execution_bundle(bundle)
         self.assertEqual(result["status"], "BLOCKED")
         self.assertTrue(result["retry_eligible_perspectives"])
@@ -320,6 +323,7 @@ class ExecutionBundleTests(unittest.TestCase):
     def test_non_retryable_cancelled_run_blocks(self):
         bundle = self.valid_bundle()
         bundle["runs"][0]["status"] = "cancelled"
+        bundle["runs"][0]["failure_reason"] = "cancelled by runtime"
         result = validate_execution_bundle(bundle)
         self.assertEqual(result["status"], "BLOCKED")
         self.assertTrue(any("non-retryable state" in error for error in result["errors"]))
@@ -378,6 +382,42 @@ class ExecutionBundleTests(unittest.TestCase):
         result = validate_execution_bundle(bundle)
         self.assertEqual(result["status"], "BLOCKED")
         self.assertTrue(any("must not precede" in error for error in result["errors"]))
+
+    def test_bundle_requires_decision_and_project_provenance(self):
+        bundle = self.valid_bundle()
+        bundle["decision_id"] = ""
+        bundle["project_id"] = None
+        result = validate_execution_bundle(bundle)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertTrue(any("decision_id must" in error for error in result["errors"]))
+        self.assertTrue(any("project_id must" in error for error in result["errors"]))
+
+    def test_duplicate_runtime_receipt_is_rejected(self):
+        bundle = self.valid_bundle()
+        bundle["runs"][1]["runtime_receipt_ref"] = bundle["runs"][0]["runtime_receipt_ref"]
+        result = validate_execution_bundle(bundle)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertTrue(any("runtime_receipt_ref must be unique" in error for error in result["errors"]))
+
+    def test_failed_run_requires_failure_reason(self):
+        bundle = self.valid_bundle()
+        bundle["runs"][0]["status"] = "failed"
+        result = validate_execution_bundle(bundle)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertTrue(any("failure_reason is required" in error for error in result["errors"]))
+
+    def test_retry_requires_controller_authorization_reference(self):
+        bundle = self.valid_bundle()
+        retry = dict(bundle["runs"][0], run_id="run-1-retry", attempt=2,
+                     context_id="ctx-1-retry", agent_id="agent-1-retry",
+                     runtime_receipt_ref="logs/run-1-retry.json",
+                     runtime_attestation_ref="attestations/run-1-retry.json")
+        bundle["runs"][0]["status"] = "timeout"
+        bundle["runs"][0]["failure_reason"] = "simulated timeout"
+        bundle["runs"].append(retry)
+        result = validate_execution_bundle(bundle)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertTrue(any("retry_authorization_ref is required" in error for error in result["errors"]))
 
 
 if __name__ == "__main__":
