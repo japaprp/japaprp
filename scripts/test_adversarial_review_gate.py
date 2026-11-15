@@ -420,5 +420,31 @@ class ExecutionBundleTests(unittest.TestCase):
         self.assertTrue(any("retry_authorization_ref is required" in error for error in result["errors"]))
 
 
+    def test_non_object_bundle_fails_closed_without_exception(self):
+        result = validate_execution_bundle([])
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertEqual(result["structural_validation"], "FAIL")
+        self.assertFalse(result["synthesis_allowed"])
+        self.assertIn("bundle must be an object", result["errors"])
+
+    def test_unhashable_perspective_and_evidence_ids_fail_closed(self):
+        bundle = self.valid_bundle()
+        bundle["expected_perspective_ids"] = ["first-principles", {"unexpected": "object"}]
+        bundle["evidence_ids"] = ["E-001", ["unexpected", "list"]]
+        result = validate_execution_bundle(bundle)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertEqual(result["structural_validation"], "FAIL")
+        self.assertFalse(result["synthesis_allowed"])
+        self.assertTrue(any("expected_perspective_ids" in error for error in result["errors"]))
+        self.assertTrue(any("evidence_ids" in error for error in result["errors"]))
+
+    def test_duplicate_string_ids_still_fail_closed(self):
+        bundle = self.valid_bundle()
+        bundle["expected_perspective_ids"] = ["first-principles", "first-principles"]
+        result = validate_execution_bundle(bundle)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertTrue(any("expected_perspective_ids must be unique" in error for error in result["errors"]))
+
+
 if __name__ == "__main__":
     unittest.main()
