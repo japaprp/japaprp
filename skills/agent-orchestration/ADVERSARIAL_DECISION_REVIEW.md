@@ -7,9 +7,9 @@
 
 Use `python scripts/adversarial_review_gate.py --input skills/templates/ADVERSARIAL_DECISION_CONTEXT.json`.
 
-Acione a revisão para impacto `high` ou `critical`, operação irreversível, efeito externo, fronteira de segurança ou dados sensíveis. Também acione quando pelo menos dois sinais de atenção coexistirem: incerteza material, evidências conflitantes, mudança arquitetural, custo relevante ou dependência entre projetos. Uma tarefa rotineira e reversível não aciona a revisão.
+Acione a revisão para impacto `high` ou `critical`, operação irreversível, efeito externo, fronteira de segurança ou dados sensíveis. Também acione quando pelo menos dois sinais de atenção coexistirem: incerteza material, evidências conflitantes, mudança arquitetural, custo relevante ou dependência entre projetos. Uma tarefa rotineira e reversível só dispensa revisão quando o contexto estiver completo e todos os sinais forem explicitamente avaliados como falsos.
 
-Os campos ausentes não devem ser adivinhados. O gate usa somente valores explicitamente verdadeiros; incertezas sobre o contexto devem ser registradas no resultado e resolvidas antes de uma decisão de alto impacto.
+O gate exige `impact` válido (`low`, `medium`, `high`, `critical`) e valor booleano explícito para cada sinal forte e contextual. Campo ausente, nulo, inválido ou com tipo incorreto falha fechado: `trigger_review=true`, estado `BLOCKED`, `decision_allowed=false`. Complete a classificação antes de decidir. Nunca interprete contexto ausente como risco baixo nem como autorização para prosseguir.
 
 ## 2. Perspectivas e independência
 
@@ -47,7 +47,7 @@ A revisão não concede permissões. Merge, deploy, publicação, exclusão, alt
 
 ## 7. Verificações determinísticas
 
-`adversarial_review_gate.py` verifica o gate e a forma mínima do registro; não verifica a verdade das fontes nem prova independência. Execute:
+`adversarial_review_gate.py` verifica completude do contexto, gate e forma mínima do registro; contexto incompleto retorna BLOCKED e impede decisão. O validador não verifica a verdade das fontes nem prova independência. Execute:
 
 ```bash
 python -m unittest discover -s scripts -p 'test_adversarial_review_gate.py' -v
