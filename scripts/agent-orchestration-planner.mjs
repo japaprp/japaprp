@@ -8,22 +8,22 @@ const MAX_VERIFIED_CONCURRENCY = 10;
 
 export function validatePlan(plan) {
   if (!plan || typeof plan !== 'object' || Array.isArray(plan)) throw new TypeError('plan must be an object');
-  if (typeof plan.project_id !== 'string' || !plan.project_id.trim()) throw new Error('plan.project_id is required');
+  if (typeof plan.project_id !== 'string' || !plan.project_id.trim() || plan.project_id !== plan.project_id.trim()) throw new Error('plan.project_id must be a canonical non-empty string');
   if (!Array.isArray(plan.tasks) || plan.tasks.length === 0) throw new Error('plan.tasks must be a non-empty array');
 
   const byId = new Map();
   for (const task of plan.tasks) {
     if (!task || typeof task !== 'object' || Array.isArray(task)) throw new Error('each task must be an object');
-    if (typeof task.task_id !== 'string' || !task.task_id.trim()) throw new Error('task_id is required');
+    if (typeof task.task_id !== 'string' || !task.task_id.trim() || task.task_id !== task.task_id.trim()) throw new Error('task_id must be a canonical non-empty string');
     if (byId.has(task.task_id)) throw new Error(`duplicate task_id: ${task.task_id}`);
     if (task.project_id !== plan.project_id) throw new Error(`cross-project task rejected: ${task.task_id}`);
-    if (typeof task.assigned_role !== 'string' || !task.assigned_role.trim()) throw new Error(`assigned_role is required: ${task.task_id}`);
+    if (typeof task.assigned_role !== 'string' || !task.assigned_role.trim() || task.assigned_role !== task.assigned_role.trim()) throw new Error(`assigned_role must be a canonical non-empty string: ${task.task_id}`);
     if (!VALID_RISKS.has(task.risk)) throw new Error(`invalid risk for task: ${task.task_id}`);
     const dependencies = task.depends_on ?? [];
     const resources = task.resources ?? [];
-    if (!Array.isArray(dependencies) || dependencies.some((id) => typeof id !== 'string' || !id.trim())) throw new Error(`depends_on must contain non-empty task IDs: ${task.task_id}`);
+    if (!Array.isArray(dependencies) || dependencies.some((id) => typeof id !== 'string' || !id.trim() || id !== id.trim())) throw new Error(`depends_on must contain canonical non-empty task IDs: ${task.task_id}`);
     if (new Set(dependencies).size !== dependencies.length) throw new Error(`duplicate dependency: ${task.task_id}`);
-    if (!Array.isArray(resources) || resources.some((resource) => typeof resource !== 'string' || !resource.trim())) throw new Error(`resources must contain non-empty strings: ${task.task_id}`);
+    if (!Array.isArray(resources) || resources.some((resource) => typeof resource !== 'string' || !resource.trim() || resource !== resource.trim())) throw new Error(`resources must contain canonical non-empty strings: ${task.task_id}`);
     if (new Set(resources).size !== resources.length) throw new Error(`duplicate resource: ${task.task_id}`);
     byId.set(task.task_id, task);
   }

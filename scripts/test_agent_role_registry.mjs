@@ -30,6 +30,11 @@ assert.equal(new Set(roleCaseIds).size, roleCaseIds.length, 'specialist role eva
 const roleCaseById = new Map(roleCases.map((c) => [c.expected_specialist_role, c]));
 assert.equal(roleCaseById.size, registry.roles.length, 'each specialist role must have one unique behavioral evaluation case');
 assert.deepEqual(registry.roles.map((r) => r.role_id).sort(), [...expected].sort());
+const allTriggers = registry.roles.flatMap((role) => role.triggers);
+assert.ok(allTriggers.every((trigger) => typeof trigger === 'string' && /^[a-z][a-z0-9_]*$/.test(trigger)),
+  'specialist triggers must use canonical snake_case identifiers');
+assert.equal(new Set(allTriggers).size, allTriggers.length,
+  'specialist trigger ownership must be unique to avoid ambiguous role selection');
 assert.equal(registry.default_permission_profile.mode, 'read_only');
 assert.equal(registry.runtime_candidates[0].runtime_id, 'openai-agents-api');
 assert.equal(registry.runtime_candidates[0].status, 'research_candidate_not_integrated');

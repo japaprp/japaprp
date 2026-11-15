@@ -68,6 +68,11 @@ assert.throws(() => selectReadyTasks(plan, { completedIds: ['docs-update'] }), /
 assert.throws(() => selectReadyTasks(plan, { completedIds: [' research'] }), /canonical non-empty task ID strings/);
 assert.throws(() => selectReadyTasks({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'unit-tests' ? { ...task, resources: ['repo:docs'] } : task) }, { runningIds: ['research', 'unit-tests'] }), /conflict on exclusive resource/);
 assert.throws(() => selectReadyTasks(plan, { runningIds: ['unit-tests', 'unit-tests'] }), /must be unique/);
+assert.throws(() => validatePlan({ ...plan, project_id: ' central-council' }), /canonical non-empty string/);
+assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, task_id: ' research' } : task) }), /task_id must be a canonical/);
+assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, assigned_role: ' qa' } : task) }), /assigned_role must be a canonical/);
+assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'docs-update' ? { ...task, depends_on: [' research'] } : task) }), /canonical non-empty task IDs/);
+assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, resources: [' repo:docs'] } : task) }), /canonical non-empty strings/);
 assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, resources: ['repo:docs', ''] } : task) }), /resources must contain non-empty strings/);
 console.log('PASS: DAG planner admits only ready tasks, respects concurrency and exclusive resource locks.');
 console.log('PASS: planner rejects duplicate IDs, cross-project tasks, invalid limits and dependency cycles.');
