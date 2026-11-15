@@ -23,7 +23,11 @@ const expected = [
 assert.equal(registry.project_id, 'central-council');
 assert.equal(registry.status, 'catalogued_not_runtime_active');
 assert.equal(registry.roles.length, 8);
-const roleCaseById = new Map(evalDataset.cases.filter((c) => c.expected_specialist_role).map((c) => [c.expected_specialist_role, c]));
+const roleCases = evalDataset.cases.filter((c) => c.expected_specialist_role);
+const roleCaseIds = roleCases.map((c) => c.expected_specialist_role);
+assert.equal(roleCases.length, registry.roles.length, 'there must be exactly one behavioral evaluation case per specialist role');
+assert.equal(new Set(roleCaseIds).size, roleCaseIds.length, 'specialist role evaluation cases must not contain duplicate role IDs');
+const roleCaseById = new Map(roleCases.map((c) => [c.expected_specialist_role, c]));
 assert.equal(roleCaseById.size, registry.roles.length, 'each specialist role must have one unique behavioral evaluation case');
 assert.deepEqual(registry.roles.map((r) => r.role_id).sort(), [...expected].sort());
 assert.equal(registry.default_permission_profile.mode, 'read_only');
