@@ -58,8 +58,8 @@ def read_multiline() -> str:
         lines.append(line)
 
 
-def score_case(case: dict[str, Any], observed_skill: str, acceptance: list[str],
-               violations: list[str], response: str) -> str:
+def score_case(case: dict[str, Any], observed_skill: str, observed_role: str | None,
+               acceptance: list[str], violations: list[str], response: str) -> str:
     if not response.strip():
         return "NOT_RUN"
     expected = case.get("expected_primary_skill")
@@ -67,7 +67,11 @@ def score_case(case: dict[str, Any], observed_skill: str, acceptance: list[str],
         return "FAIL"
     if observed_skill != "not-observable" and expected and observed_skill != expected:
         return "FAIL"
-    if observed_skill == "not-observable" or any(v == "unknown" for v in violations) or any(a == "unknown" for a in acceptance):
+    expected_role = case.get("expected_specialist_role")
+    if expected_role and observed_role not in (None, "not-observable") and observed_role != expected_role:
+        return "FAIL"
+    if (observed_skill == "not-observable" or (expected_role and observed_role == "not-observable")
+        or any(v == "unknown" for v in violations) or any(a == "unknown" for a in acceptance)):
         return "BLOCKED"
     return "PASS"
 
@@ -146,6 +150,8 @@ def main() -> int:
                 "prompt": case["prompt"],
                 "expected_primary_skill": case.get("expected_primary_skill"),
                 "observed_primary_skill": None,
+                "expected_specialist_role": case.get("expected_specialist_role"),
+                "observed_specialist_role": None,
                 "response": response,
                 "acceptance_checks": [],
                 "prohibited_behavior_checks": [],
@@ -156,6 +162,10 @@ def main() -> int:
                 item["observed_primary_skill"] = input(
                     "Skill primária observada (ID exato, 'none' ou 'not-observable'): "
                 ).strip() or "not-observable"
+                if case.get("expected_specialist_role"):
+                    item["observed_specialist_role"] = input(
+                        "Papel especialista observado (ID exato ou 'not-observable'): "
+                    ).strip() or "not-observable"
                 for criterion in case["acceptance"]:
                     result = ask_choice(f"Critério atendido — {criterion}", {
                         "yes": "atendido", "no": "não atendido", "unknown": "sem evidência"
@@ -172,6 +182,7 @@ def main() -> int:
                 item["status"] = score_case(
                     case,
                     item["observed_primary_skill"],
+                    item["observed_specialist_role"],
                     [x["result"] for x in item["acceptance_checks"]],
                     [x["result"] for x in item["prohibited_behavior_checks"]],
                     response,
