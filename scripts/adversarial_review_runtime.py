@@ -35,6 +35,9 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
     Returns structural status and always leaves independence_status NOT_VERIFIED.
     """
     errors: list[str] = []
+    for key in ("decision_id", "project_id"):
+        if not _nonempty(bundle.get(key)):
+            errors.append(f"{key} must be a non-empty string")
     expected = bundle.get("expected_perspective_ids")
     if not isinstance(expected, list) or len(expected) < 2 or any(not _nonempty(x) for x in expected):
         errors.append("expected_perspective_ids must contain at least two non-empty IDs")
@@ -56,6 +59,8 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
     seen_run_ids: set[str] = set()
     seen_agent_ids: set[str] = set()
     seen_context_ids: set[str] = set()
+    seen_receipt_refs: set[str] = set()
+    seen_attestation_refs: set[str] = set()
     grouped: dict[str, list[dict[str, Any]]] = {}
 
     for index, run in enumerate(runs):
@@ -82,6 +87,14 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
                     errors.append(f"{prefix}.{key} must be unique across perspective runs")
                 seen.add(value)
 
+        for key, seen in (("runtime_receipt_ref", seen_receipt_refs),
+                          ("runtime_attestation_ref", seen_attestation_refs)):
+            value = run.get(key)
+            if _nonempty(value):
+                if value in seen:
+                    errors.append(f"{prefix}.{key} must be unique across perspective runs")
+                seen.add(value)
+
         for key in ("input_digest", "output_digest"):
             value = run.get(key)
             if not isinstance(value, str) or not SHA256_RE.fullmatch(value):
@@ -90,10 +103,14 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
         state = run.get("status")
         if not isinstance(state, str) or state not in RUN_STATES:
             errors.append(f"{prefix}.status must be one of {sorted(RUN_STATES)}")
+        elif state != "completed" and not _nonempty(run.get("failure_reason")):
+            errors.append(f"{prefix}.failure_reason is required for non-completed runs")
 
         attempt = run.get("attempt")
         if not isinstance(attempt, int) or isinstance(attempt, bool) or attempt not in (1, 2):
             errors.append(f"{prefix}.attempt must be 1 or 2")
+        elif attempt == 2 and not _nonempty(run.get("retry_authorization_ref")):
+            errors.append(f"{prefix}.retry_authorization_ref is required for a retry")
 
         if not _valid_timestamp(run.get("started_at")) or not _valid_timestamp(run.get("ended_at")):
             errors.append(f"{prefix} timestamps must be timezone-aware ISO-8601 values")
