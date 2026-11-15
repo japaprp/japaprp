@@ -17,6 +17,8 @@ class ScoreCaseTests(unittest.TestCase):
         self.case = {
             "expected_primary_skill": "agent-orchestration",
             "expected_specialist_role": "loop-operator",
+            "acceptance": ["criterion one", "criterion two"],
+            "must_avoid": ["forbidden one", "forbidden two"],
         }
         self.acceptance = ["yes", "yes"]
         self.violations = ["no", "no"]
@@ -29,13 +31,32 @@ class ScoreCaseTests(unittest.TestCase):
             "acceptance": self.acceptance,
             "violations": self.violations,
             "response": "Observed real response",
-            "evidence_notes": "Trace reference and relevant observation",
+            "evidence_notes": "Trace shows the loaded specialist skill and task context.",
+            "evidence_reference": "trace:run-2026-11-15/span-01",
         }
         values.update(overrides)
         return MODULE.score_case(**values)
 
     def test_pass_requires_evidence_notes(self) -> None:
         self.assertEqual(self.score(evidence_notes=""), "BLOCKED")
+
+    def test_pass_requires_typed_evidence_reference(self) -> None:
+        self.assertEqual(self.score(evidence_reference="just a note"), "BLOCKED")
+
+    def test_generic_evidence_reference_is_blocked(self) -> None:
+        self.assertEqual(self.score(evidence_reference="trace:unknown"), "BLOCKED")
+
+    def test_valid_trace_reference_is_accepted(self) -> None:
+        self.assertEqual(self.score(evidence_reference="trace:run-123/span-4"), "PASS")
+
+    def test_valid_test_reference_is_accepted(self) -> None:
+        self.assertEqual(self.score(evidence_reference="test:python -m unittest scripts.test_router_eval"), "PASS")
+
+    def test_valid_response_reference_is_accepted(self) -> None:
+        self.assertEqual(self.score(evidence_reference="response:Loaded engineering-brain-router skill"), "PASS")
+
+    def test_file_reference_must_exist_inside_repository(self) -> None:
+        self.assertEqual(self.score(evidence_reference="file:missing-evidence.txt#L1-L2"), "BLOCKED")
 
     def test_missing_skill_observation_is_blocked(self) -> None:
         self.assertEqual(self.score(observed_skill="not-observable"), "BLOCKED")
@@ -49,6 +70,16 @@ class ScoreCaseTests(unittest.TestCase):
     def test_unknown_acceptance_is_blocked(self) -> None:
         self.assertEqual(self.score(acceptance=["yes", "unknown"]), "BLOCKED")
 
+    def test_missing_acceptance_check_is_blocked(self) -> None:
+        self.assertEqual(self.score(acceptance=["yes"]), "BLOCKED")
+
+    def test_missing_prohibited_behavior_check_is_blocked(self) -> None:
+        self.assertEqual(self.score(violations=["no"]), "BLOCKED")
+
+    def test_unexpected_role_for_general_case_is_failure(self) -> None:
+        case = {**self.case, "expected_primary_skill": None, "expected_specialist_role": None}
+        self.assertEqual(self.score(case=case, observed_skill="none", observed_role="loop-operator"), "FAIL")
+
     def test_observed_prohibited_behavior_is_failure(self) -> None:
         self.assertEqual(self.score(violations=["no", "yes"]), "FAIL")
 
@@ -56,11 +87,11 @@ class ScoreCaseTests(unittest.TestCase):
         self.assertEqual(self.score(response=""), "NOT_RUN")
 
     def test_unexpected_skill_for_no_skill_case_is_failure(self) -> None:
-        case = {"expected_primary_skill": None}
+        case = {**self.case, "expected_primary_skill": None, "expected_specialist_role": None}
         self.assertEqual(self.score(case=case, observed_skill="invented-skill", observed_role=None), "FAIL")
 
     def test_none_is_valid_for_no_skill_case(self) -> None:
-        case = {"expected_primary_skill": None}
+        case = {**self.case, "expected_primary_skill": None, "expected_specialist_role": None}
         self.assertEqual(self.score(case=case, observed_skill="none", observed_role=None), "PASS")
 
 
