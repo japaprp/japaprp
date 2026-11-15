@@ -8,6 +8,7 @@ const read = (path) => readFileSync(resolve(root, path), 'utf8');
 const registry = JSON.parse(read('skills/registries/AGENT_ROLE_REGISTRY.json'));
 const adapter = read('skills/agent-orchestration/AGENT_RUNTIME_ADAPTER_CONTRACT.md');
 const orchestration = read('skills/agent-orchestration/SKILL.md');
+const router = read('skills/engineering-brain-router/SKILL.md');
 const skillFiles = new Set([
   'agent-orchestration','ai-integration-evaluation','ai-token-budget','api-engineering-contracts',
   'application-security-auth','code-review-minimal-change','cryptography-security-analysis',
@@ -38,7 +39,11 @@ assert.match(adapter, /BLOCKED/);
 assert.match(adapter, /independent QA/i);
 assert.match(orchestration, /AGENT_ROLE_REGISTRY\.json/);
 assert.match(orchestration, /catalogued_not_runtime_active/);
+assert.match(router, /AGENT_ROLE_REGISTRY\\.json/);
+assert.match(router, /AGENT_RUNTIME_ADAPTER_CONTRACT/);
+assert.match(router, /não carregue nem despache todos os papéis por padrão/i);
 console.log('PASS: eight specialist roles are uniquely registered and mapped to existing skills.');
+console.log('PASS: Router selects specialist roles by trigger and refuses unverified runtime dispatch.');
 console.log('PASS: all roles default to read-only with independent QA required.');
 console.log('PASS: runtime adapter operations, isolation, receipts, cancellation and failure gates are specified.');
 console.log('LIMIT: these checks validate registry and contract structure only; no live agent runtime is activated.');
