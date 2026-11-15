@@ -97,8 +97,11 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
 
         if not _valid_timestamp(run.get("started_at")) or not _valid_timestamp(run.get("ended_at")):
             errors.append(f"{prefix} timestamps must be timezone-aware ISO-8601 values")
-        elif run["ended_at"] < run["started_at"]:
-            errors.append(f"{prefix}.ended_at must not precede started_at")
+        else:
+            started = datetime.fromisoformat(run["started_at"].replace("Z", "+00:00"))
+            ended = datetime.fromisoformat(run["ended_at"].replace("Z", "+00:00"))
+            if ended < started:
+                errors.append(f"{prefix}.ended_at must not precede started_at")
 
         peer_outputs = run.get("visible_peer_output_ids")
         if not isinstance(peer_outputs, list):
@@ -126,6 +129,8 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
         numbers = [item.get("attempt") for item in attempts]
         if numbers and (numbers != list(range(1, len(numbers) + 1)) or len(numbers) > 2):
             errors.append(f"{perspective} attempts must be sequential and capped at one retry")
+        if len(attempts) == 2 and attempts[0].get("status") not in RETRYABLE_STATES:
+            errors.append(f"{perspective} retry is allowed only after a transient first-attempt failure")
         if not attempts:
             continue
         final = attempts[-1]
