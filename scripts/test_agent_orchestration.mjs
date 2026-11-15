@@ -66,7 +66,7 @@ assert.throws(() => selectReadyTasks(plan, { completedIds: ['research'], running
 assert.throws(() => selectReadyTasks(plan, { runningIds: ['unit-tests', 'integration-qa'], maxConcurrency: 2 }), /dependency-closed/);
 assert.throws(() => selectReadyTasks(plan, { completedIds: ['docs-update'] }), /dependency-closed/);
 assert.throws(() => selectReadyTasks(plan, { completedIds: [' research'] }), /canonical non-empty task ID strings/);
-assert.throws(() => selectReadyTasks(plan, { runningIds: ['research', 'docs-update'] }), /conflict on exclusive resource/);
+assert.throws(() => selectReadyTasks({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'unit-tests' ? { ...task, resources: ['repo:docs'] } : task) }, { runningIds: ['research', 'unit-tests'] }), /conflict on exclusive resource/);
 assert.throws(() => selectReadyTasks(plan, { runningIds: ['unit-tests', 'unit-tests'] }), /must be unique/);
 assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, resources: ['repo:docs', ''] } : task) }), /resources must contain non-empty strings/);
 console.log('PASS: DAG planner admits only ready tasks, respects concurrency and exclusive resource locks.');
