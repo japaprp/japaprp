@@ -2,6 +2,9 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -58,6 +61,44 @@ class TriggerTests(unittest.TestCase):
         triggered, reasons = should_trigger({"impact": "low", "irreversible": False})
         self.assertTrue(triggered)
         self.assertTrue(any("sensitive_data" in reason for reason in reasons))
+
+    def test_cli_blocks_incomplete_context(self):
+        script = Path(__file__).with_name("adversarial_review_gate.py")
+        with tempfile.TemporaryDirectory() as directory:
+            input_path = Path(directory) / "context.json"
+            input_path.write_text(json.dumps({"impact": "low"}), encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, str(script), "--input", str(input_path)],
+                capture_output=True, text=True, check=False,
+            )
+        payload = json.loads(result.stdout)
+        self.assertEqual(result.returncode, 3)
+        self.assertEqual(payload["status"], "BLOCKED")
+        self.assertFalse(payload["decision_allowed"])
+        self.assertTrue(payload["trigger_review"])
+
+    def test_cli_allows_complete_routine_context_without_review(self):
+        script = Path(__file__).with_name("adversarial_review_gate.py")
+        context = {
+            "impact": "low",
+            "irreversible": False, "external_effect": False,
+            "security_boundary": False, "sensitive_data": False,
+            "material_uncertainty": False, "conflicting_evidence": False,
+            "architectural_change": False, "meaningful_cost": False,
+            "cross_project_dependency": False,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            input_path = Path(directory) / "context.json"
+            input_path.write_text(json.dumps(context), encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, str(script), "--input", str(input_path)],
+                capture_output=True, text=True, check=False,
+            )
+        payload = json.loads(result.stdout)
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(payload["status"], "PASS")
+        self.assertFalse(payload["trigger_review"])
+        self.assertTrue(payload["decision_allowed"])
 
     def test_unknown_flag_value_is_incomplete_not_false(self):
         context = complete_context(material_uncertainty="unknown")
