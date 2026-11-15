@@ -71,6 +71,7 @@ def validate_record(record: dict[str, Any]) -> list[str]:
         errors.append("status must be decided, inconclusive, or blocked")
 
     evidence = record.get("evidence")
+    evidence_ids: set[str] = set()
     if not isinstance(evidence, list) or not evidence:
         errors.append("evidence must be a non-empty list")
     else:
@@ -81,8 +82,15 @@ def validate_record(record: dict[str, Any]) -> list[str]:
             for key in ("evidence_id", "source", "claim"):
                 if not isinstance(item.get(key), str) or not item[key].strip():
                     errors.append(f"evidence[{index}].{key} must be a non-empty string")
+            evidence_id = item.get("evidence_id")
+            if isinstance(evidence_id, str) and evidence_id.strip():
+                if evidence_id in evidence_ids:
+                    errors.append(f"duplicate evidence_id: {evidence_id}")
+                evidence_ids.add(evidence_id)
 
     perspectives = record.get("perspectives")
+    perspective_ids: set[str] = set()
+    conclusions: set[str] = set()
     if not isinstance(perspectives, list) or len(perspectives) < 2:
         errors.append("perspectives must contain at least two entries")
     else:
@@ -93,16 +101,42 @@ def validate_record(record: dict[str, Any]) -> list[str]:
             for key in ("perspective", "conclusion", "confidence", "evidence_refs", "strongest_objection"):
                 if key not in item or item[key] in (None, "", []):
                     errors.append(f"perspectives[{index}].{key} is required")
+            perspective_id = item.get("perspective")
+            if isinstance(perspective_id, str) and perspective_id:
+                if perspective_id in perspective_ids:
+                    errors.append(f"duplicate perspective: {perspective_id}")
+                perspective_ids.add(perspective_id)
+            conclusion = item.get("conclusion")
+            if isinstance(conclusion, str) and conclusion.strip():
+                conclusions.add(conclusion.strip())
+            refs = item.get("evidence_refs")
+            if not isinstance(refs, list) or not refs:
+                errors.append(f"perspectives[{index}].evidence_refs must be a non-empty list")
+            else:
+                for ref in refs:
+                    if ref not in evidence_ids:
+                        errors.append(f"perspectives[{index}] references unknown evidence_id: {ref}")
 
     if not isinstance(record.get("uncertainties"), list):
         errors.append("uncertainties must be a list (empty is allowed)")
-    if not isinstance(record.get("dissent"), list):
+    dissent = record.get("dissent")
+    if not isinstance(dissent, list):
         errors.append("dissent must be a list (empty is allowed)")
+    elif len(conclusions) > 1 and not dissent:
+        errors.append("dissent must preserve conflicting perspective conclusions")
     if not isinstance(record.get("authorization"), str) or not record["authorization"].strip():
         errors.append("authorization must state required approval or 'none'")
     independence = record.get("independence")
     if not isinstance(independence, str) or independence not in {"verified_separate_contexts", "single_agent_multi_perspective", "not_verified"}:
         errors.append("independence must explicitly state its verification level")
+    if independence == "verified_separate_contexts":
+        audit = record.get("independence_audit")
+        if not isinstance(audit, dict):
+            errors.append("verified_separate_contexts requires independence_audit evidence")
+        else:
+            for key in ("execution_bundle_ref", "external_verifier", "verification_ref", "verified_at"):
+                if not isinstance(audit.get(key), str) or not audit[key].strip():
+                    errors.append(f"independence_audit.{key} must be a non-empty string")
     if record.get("status") == "decided" and record.get("confidence") in (None, "", "unknown"):
         errors.append("decided records must state confidence")
     return errors
