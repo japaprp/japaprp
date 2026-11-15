@@ -24,6 +24,9 @@ assert.equal(registry.status, 'catalogued_not_runtime_active');
 assert.equal(registry.roles.length, 8);
 assert.deepEqual(registry.roles.map((r) => r.role_id).sort(), [...expected].sort());
 assert.equal(registry.default_permission_profile.mode, 'read_only');
+assert.equal(registry.runtime_candidates[0].runtime_id, 'openai-agents-api');
+assert.equal(registry.runtime_candidates[0].status, 'research_candidate_not_integrated');
+assert.ok(registry.runtime_candidates[0].approval_gate.includes('explicit Owner approval'));
 assert.equal(registry.default_permission_profile.write_scope, 'none_by_default');
 for (const role of registry.roles) {
   assert.ok(skillFiles.has(role.primary_skill), `unknown primary skill for ${role.role_id}`);
@@ -37,6 +40,8 @@ for (const field of registry.runtime_binding.required_receipt_fields) assert.ok(
 assert.match(adapter, /parallel set of ordinary tool calls is not proof/i);
 assert.match(adapter, /BLOCKED/);
 assert.match(adapter, /independent QA/i);
+assert.match(adapter, /model usage is billed at API rates/i);
+assert.match(adapter, /Do not create\/configure an API key/i);
 assert.match(orchestration, /AGENT_ROLE_REGISTRY\.json/);
 assert.match(orchestration, /catalogued_not_runtime_active/);
 assert.match(router, /AGENT_ROLE_REGISTRY\.json/);
@@ -46,4 +51,5 @@ console.log('PASS: eight specialist roles are uniquely registered and mapped to 
 console.log('PASS: Router selects specialist roles by trigger and refuses unverified runtime dispatch.');
 console.log('PASS: all roles default to read-only with independent QA required.');
 console.log('PASS: runtime adapter operations, isolation, receipts, cancellation and failure gates are specified.');
+console.log('PASS: OpenAI Agents API is documented as a candidate behind explicit API-key and cost approval gates.');
 console.log('LIMIT: these checks validate registry and contract structure only; no live agent runtime is activated.');
