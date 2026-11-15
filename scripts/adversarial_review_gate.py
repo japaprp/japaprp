@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Deterministic trigger and record-shape checks for Adversarial Decision Review.
 
-This module does not call an LLM and cannot prove evidence truth or agent independence.
-Standard-library only.
+Missing or malformed risk context fails closed: review is required and the CLI
+returns BLOCKED until the context is completed. Standard-library only.
 """
 from __future__ import annotations
 
@@ -25,18 +25,35 @@ SOFT_FLAGS = (
     "meaningful_cost",
     "cross_project_dependency",
 )
+VALID_IMPACTS = {"low", "medium", "high", "critical"}
+
+
+def context_errors(context: dict[str, Any]) -> list[str]:
+    """Return missing/invalid risk dimensions; never infer absent values."""
+    errors: list[str] = []
+    impact = context.get("impact")
+    if not isinstance(impact, str) or impact not in VALID_IMPACTS:
+        errors.append("impact must be one of: low, medium, high, critical")
+    for flag in STRONG_FLAGS + SOFT_FLAGS:
+        if not isinstance(context.get(flag), bool):
+            errors.append(f"{flag} must be explicitly true or false")
+    return errors
 
 
 def should_trigger(context: dict[str, Any]) -> tuple[bool, list[str]]:
-    """Return whether consequential review is warranted and why."""
+    """Fail closed: incomplete context requires review instead of silently passing."""
+    errors = context_errors(context)
+    if errors:
+        return True, [f"context_incomplete:{error}" for error in errors]
+
     reasons: list[str] = []
-    impact = context.get("impact", "unknown")
-    if isinstance(impact, str) and impact in {"high", "critical"}:
+    impact = context["impact"]
+    if impact in {"high", "critical"}:
         reasons.append(f"impact:{impact}")
     for flag in STRONG_FLAGS:
-        if context.get(flag) is True:
+        if context[flag] is True:
             reasons.append(flag)
-    soft = [flag for flag in SOFT_FLAGS if context.get(flag) is True]
+    soft = [flag for flag in SOFT_FLAGS if context[flag] is True]
     if len(soft) >= 2:
         reasons.extend(soft)
     return bool(reasons), reasons
@@ -99,13 +116,12 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.self_test:
-        cases = [
-            ({"impact": "low"}, False),
-            ({"impact": "high"}, True),
-            ({"irreversible": True}, True),
-            ({"material_uncertainty": True}, False),
-            ({"material_uncertainty": True, "conflicting_evidence": True}, True),
-        ]
+        low = {"impact": "low", **{flag: False for flag in STRONG_FLAGS + SOFT_FLAGS}}
+        high = {**low, "impact": "high"}
+        incomplete = {"impact": "low"}
+        ambiguous = {**low, "material_uncertainty": True, "conflicting_evidence": True}
+        cases = [(low, False), (high, True), ({"impact": "critical", **{flag: False for flag in STRONG_FLAGS + SOFT_FLAGS}}, True),
+                 ({**low, "irreversible": True}, True), (incomplete, True), (ambiguous, True)]
         failed = [(case, expected, should_trigger(case)[0]) for case, expected in cases
                   if should_trigger(case)[0] != expected]
         if failed:
@@ -130,8 +146,15 @@ def main() -> int:
         print(json.dumps({"status": "PASS" if not errors else "FAIL", "errors": errors}, indent=2))
         return 0 if not errors else 1
 
+    errors = context_errors(payload)
     triggered, reasons = should_trigger(payload)
-    print(json.dumps({"status": "PASS", "trigger_review": triggered, "reasons": reasons}, indent=2))
+    if errors:
+        print(json.dumps({"status": "BLOCKED", "trigger_review": True,
+                          "decision_allowed": False, "context_errors": errors,
+                          "reasons": reasons}, indent=2))
+        return 3
+    print(json.dumps({"status": "PASS", "trigger_review": triggered,
+                      "decision_allowed": True, "reasons": reasons}, indent=2))
     return 0
 
 
