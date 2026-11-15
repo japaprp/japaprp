@@ -91,3 +91,15 @@ The runtime adapter must return these exact fields (additional runtime-specific 
 ```
 
 These are schema examples only. Placeholder values are not execution evidence. A receipt is accepted only when retrieved from the real runtime and independently checked against its original trace.
+
+
+## Runtime candidate research (2026-11-15)
+
+The current best-documented candidate for true child-agent dispatch is the **OpenAI Agents API managed Codex harness**. Its official multi-agent guide documents independent subagents with separate contexts, parallel execution, session-level `multi_agent.enabled`, configurable concurrency, and observable subagent events. The API overview documents a self-hosted environment option; the observability guide documents session history, turns, traces and token-usage inspection.
+
+Official references:
+- https://developers.openai.com/api/docs/guides/agents-api/multi-agent
+- https://developers.openai.com/api/docs/guides/agents-api/overview
+- https://developers.openai.com/api/docs/guides/agents-api/observability
+
+**Decision:** research candidate only; not integrated or activated. The API requires an API key and model usage is billed at API rates; hosted sandbox and tool use may add costs. No key, session, paid call or environment may be created until the Owner explicitly approves the integration and budget. If approved later, start with a read-only proof of concept using isolated project data and least-privilege MCP tools, then run all conformance gates above. Do not infer that this ChatGPT conversation or the current GitHub connector has enabled Agents API for the repository.
