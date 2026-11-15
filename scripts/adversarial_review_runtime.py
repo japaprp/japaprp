@@ -64,7 +64,7 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
             errors.append(f"{prefix} must be an object")
             continue
         perspective = run.get("perspective_id")
-        if perspective not in expected:
+        if not _nonempty(perspective) or perspective not in expected:
             errors.append(f"{prefix}.perspective_id is not declared in expected_perspective_ids")
         else:
             grouped.setdefault(perspective, []).append(run)
@@ -88,7 +88,7 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
                 errors.append(f"{prefix}.{key} must be a lowercase SHA-256 hex digest")
 
         state = run.get("status")
-        if state not in RUN_STATES:
+        if not isinstance(state, str) or state not in RUN_STATES:
             errors.append(f"{prefix}.status must be one of {sorted(RUN_STATES)}")
 
         attempt = run.get("attempt")
@@ -111,7 +111,7 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
             errors.append(f"{prefix}.evidence_refs must be a non-empty list")
         else:
             for ref in refs:
-                if ref not in evidence_set:
+                if not isinstance(ref, str) or ref not in evidence_set:
                     errors.append(f"{prefix} references unknown evidence_id: {ref}")
 
     missing = sorted(set(expected) - set(grouped))
@@ -122,7 +122,7 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
     retry_exhausted: list[str] = []
     final_runs: list[dict[str, Any]] = []
     for perspective in expected:
-        attempts = sorted(grouped.get(perspective, []), key=lambda item: item.get("attempt", 0))
+        attempts = sorted(grouped.get(perspective, []), key=lambda item: item.get("attempt") if isinstance(item.get("attempt"), int) and not isinstance(item.get("attempt"), bool) else 0)
         numbers = [item.get("attempt") for item in attempts]
         if numbers and (numbers != list(range(1, len(numbers) + 1)) or len(numbers) > 2):
             errors.append(f"{perspective} attempts must be sequential and capped at one retry")
@@ -131,9 +131,9 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
         final = attempts[-1]
         final_runs.append(final)
         if final.get("status") != "completed":
-            if final.get("status") in RETRYABLE_STATES and final.get("attempt") == 1:
+            if isinstance(final.get("status"), str) and final.get("status") in RETRYABLE_STATES and final.get("attempt") == 1:
                 retry_eligible.append(perspective)
-            elif final.get("status") in RETRYABLE_STATES and final.get("attempt") == 2:
+            elif isinstance(final.get("status"), str) and final.get("status") in RETRYABLE_STATES and final.get("attempt") == 2:
                 retry_exhausted.append(perspective)
             else:
                 errors.append(f"{perspective} ended in non-retryable state: {final.get('status')}")
