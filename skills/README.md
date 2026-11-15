@@ -68,6 +68,7 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 
 - [Protocolo de revisão adversarial](./agent-orchestration/ADVERSARIAL_DECISION_REVIEW.md) — extensão da skill `agent-orchestration`, sem criar uma skill duplicada.
 - [Gate determinístico](../scripts/adversarial_review_gate.py), [testes](../scripts/test_adversarial_review_gate.py) e [modelos de contexto/registro](./templates/ADVERSARIAL_DECISION_CONTEXT.json) / [registro completo](./templates/ADVERSARIAL_DECISION_RECORD.json) — acionamento objetivo e validação estrutural; não provam a veracidade das evidências nem independência dos agentes.
+- [Validador de recibos de execução](../scripts/adversarial_review_runtime.py), [testes de isolamento/falhas](../scripts/test_adversarial_review_gate.py) e [modelo de pacote de execução](./templates/ADVERSARIAL_EXECUTION_BUNDLE.json) — verifica consistência dos recibos, tentativas, contaminação e rastreabilidade; não autentica o runtime nem prova independência real.
 
 ## Validação do roteador
 
