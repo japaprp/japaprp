@@ -54,6 +54,11 @@ export function selectReadyTasks(plan, options = {}) {
   const completedIds = options.completedIds ?? [];
   const runningIds = options.runningIds ?? [];
   if (!Array.isArray(completedIds) || !Array.isArray(runningIds)) throw new Error('completedIds and runningIds must be arrays');
+  for (const [label, ids] of [['completedIds', completedIds], ['runningIds', runningIds]]) {
+    if (ids.some((id) => typeof id !== 'string' || !id.trim() || id !== id.trim())) {
+      throw new Error(`${label} must contain canonical non-empty task ID strings`);
+    }
+  }
   const completed = new Set(completedIds);
   const running = new Set(runningIds);
   if (completed.size !== completedIds.length || running.size !== runningIds.length) throw new Error('task state IDs must be unique');
@@ -62,14 +67,32 @@ export function selectReadyTasks(plan, options = {}) {
   if (!Number.isInteger(maxConcurrency) || maxConcurrency < 1 || maxConcurrency > MAX_VERIFIED_CONCURRENCY) {
     throw new Error(`maxConcurrency must be between 1 and the verified ceiling of ${MAX_VERIFIED_CONCURRENCY}`);
   }
+  if (running.size > maxConcurrency) throw new Error('running task count exceeds maxConcurrency');
 
   const byId = new Map(plan.tasks.map((task) => [task.task_id, task]));
   for (const id of [...completed, ...running]) {
     if (!byId.has(id)) throw new Error(`unknown task state id: ${id}`);
   }
+
+  // State snapshots must be dependency-closed: a task cannot be RUNNING or DONE
+  // while any direct prerequisite is still pending, running, blocked, or failed.
+  for (const id of [...completed, ...running]) {
+    const task = byId.get(id);
+    for (const dependency of task.depends_on ?? []) {
+      if (!completed.has(dependency)) {
+        throw new Error(`task state is not dependency-closed: ${id} requires completed dependency ${dependency}`);
+      }
+    }
+  }
+
   const activeResources = new Set();
   for (const id of running) {
-    for (const resource of byId.get(id).resources ?? []) activeResources.add(resource);
+    for (const resource of byId.get(id).resources ?? []) {
+      if (activeResources.has(resource)) {
+        throw new Error(`running tasks conflict on exclusive resource: ${resource}`);
+      }
+      activeResources.add(resource);
+    }
   }
   const slots = Math.max(0, maxConcurrency - running.size);
   if (slots === 0) return [];
