@@ -129,7 +129,7 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
         numbers = [item.get("attempt") for item in attempts]
         if numbers and (numbers != list(range(1, len(numbers) + 1)) or len(numbers) > 2):
             errors.append(f"{perspective} attempts must be sequential and capped at one retry")
-        if len(attempts) == 2 and attempts[0].get("status") not in RETRYABLE_STATES:
+        if len(attempts) == 2 and (not isinstance(attempts[0].get("status"), str) or attempts[0].get("status") not in RETRYABLE_STATES):
             errors.append(f"{perspective} retry is allowed only after a transient first-attempt failure")
         if not attempts:
             continue
