@@ -41,7 +41,7 @@ assert.match(adapter, /parallel set of ordinary tool calls is not proof/i);
 assert.match(adapter, /BLOCKED/);
 assert.match(adapter, /independent QA/i);
 assert.match(adapter, /model usage is billed at API rates/i);
-assert.match(adapter, /Do not create\/configure an API key/i);
+assert.match(adapter, /No key, session, paid call or environment may be created until the Owner explicitly approves/i);
 assert.match(orchestration, /AGENT_ROLE_REGISTRY\.json/);
 assert.match(orchestration, /catalogued_not_runtime_active/);
 assert.match(router, /AGENT_ROLE_REGISTRY\.json/);
