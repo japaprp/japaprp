@@ -205,5 +205,33 @@
     ],
     "activation_status": "not_verified",
     "rule": "Do not mark any role active until an actual runtime dispatch and independently verified receipt exist."
-  }
+  },
+  "runtime_candidates": [
+    {
+      "runtime_id": "openai-agents-api",
+      "name": "OpenAI Agents API (managed Codex harness)",
+      "status": "research_candidate_not_integrated",
+      "evidence_urls": [
+        "https://developers.openai.com/api/docs/guides/agents-api/multi-agent",
+        "https://developers.openai.com/api/docs/guides/agents-api/overview",
+        "https://developers.openai.com/api/docs/guides/agents-api/observability"
+      ],
+      "verified_capabilities": [
+        "real_child_agent_dispatch",
+        "independent_subagent_contexts",
+        "parallel_execution",
+        "subagent_event_stream",
+        "session_history_and_trace_inspection",
+        "self_hosted_environment_option"
+      ],
+      "constraints": [
+        "requires an OpenAI API key",
+        "model usage is billed at selected API rates",
+        "hosted sandbox and tool usage may add costs",
+        "subagents inherit configured MCP tools and credentials; least-privilege tool configuration is mandatory"
+      ],
+      "approval_gate": "Do not create/configure an API key, start a session, enable paid usage, or provision an environment without explicit Owner approval.",
+      "adoption_gate": "Implement a small isolated proof of concept only after Owner approves API usage and budget; verify receipts, context isolation, cancellation, project isolation and approval boundaries before operational status."
+    }
+  ]
 }
