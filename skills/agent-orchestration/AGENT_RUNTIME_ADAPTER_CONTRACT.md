@@ -67,3 +67,27 @@ A runtime adapter may be called **operational** only after all are PASS:
 - no cross-project context or credential leakage.
 
 Until then, role profiles are catalogued only and live child-agent dispatch remains **NOT RUN** or **BLOCKED**. Structural tests of this contract do not change that status.
+
+
+## Canonical execution receipt shape
+
+The runtime adapter must return these exact fields (additional runtime-specific fields are allowed):
+
+```json
+{
+  "task_id": "runtime-generated-task-id",
+  "project_id": "central-council",
+  "role_id": "agent-evaluator",
+  "runtime_id": "runtime-name-and-version",
+  "agent_instance_id": "runtime-generated-agent-instance-id",
+  "context_id": "runtime-generated-isolated-context-id",
+  "started_at": "2026-11-15T10:00:00Z",
+  "ended_at": "2026-11-15T10:01:00Z",
+  "status": "completed",
+  "input_digest": "sha256:...",
+  "output_digest": "sha256:...",
+  "tool_trace_ref": "immutable-runtime-trace-reference"
+}
+```
+
+These are schema examples only. Placeholder values are not execution evidence. A receipt is accepted only when retrieved from the real runtime and independently checked against its original trace.
