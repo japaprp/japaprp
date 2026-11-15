@@ -58,5 +58,7 @@
     "actual_cost": "unknown"
   },
   "regression_links": [],
-  "supersedes_decision_id": null
+  "supersedes_decision_id": null,
+  "execution_bundle_ref": null,
+  "independence_audit": null
 }
