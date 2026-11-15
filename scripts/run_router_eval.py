@@ -70,7 +70,7 @@ def score_case(case: dict[str, Any], observed_skill: str, observed_role: str | N
     expected_role = case.get("expected_specialist_role")
     if expected_role and observed_role not in (None, "not-observable") and observed_role != expected_role:
         return "FAIL"
-    if (observed_skill == "not-observable" or (expected_role and observed_role == "not-observable")
+    if (observed_skill == "not-observable" or (expected_role and observed_role in (None, "not-observable"))
         or any(v == "unknown" for v in violations) or any(a == "unknown" for a in acceptance)):
         return "BLOCKED"
     return "PASS"
@@ -138,6 +138,8 @@ def main() -> int:
             print("PROMPT A EXECUTAR NO AGENTE:")
             print(case["prompt"])
             print("\nSkill primária esperada:", case.get("expected_primary_skill") or "(nenhuma obrigatória)")
+            if case.get("expected_specialist_role"):
+                print("Papel especialista esperado:", case["expected_specialist_role"])
             print("Critérios de aceitação:")
             for i, criterion in enumerate(case["acceptance"], 1):
                 print(f"  {i}. {criterion}")
