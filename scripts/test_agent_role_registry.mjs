@@ -57,6 +57,16 @@ for (const field of registry.runtime_binding.required_receipt_fields) assert.ok(
 assert.match(adapter, /parallel set of ordinary tool calls is not proof/i);
 assert.match(adapter, /BLOCKED/);
 assert.match(adapter, /independent QA/i);
+assert.match(adapter, /Each independent child agent must receive a distinct runtime context identifier/i);
+assert.match(adapter, /must not receive peer drafts or outputs before the blind-work phase ends/i);
+assert.match(adapter, /Cancellation is complete only after the runtime reports a terminal cancelled state/i);
+assert.match(adapter, /Retry is allowed only for a classified transient failure, with idempotency evidence/i);
+assert.match(adapter, /No automatic retry of external or non-idempotent actions/i);
+assert.match(adapter, /timeouts, missing receipts, context collisions, unexpected tools, or failed cancellation stop dependent work/i);
+assert.match(adapter, /two real independent child-agent dispatches with distinct contexts/i);
+assert.match(adapter, /reserved-action denial test/i);
+assert.match(adapter, /no cross-project context or credential leakage/i);
+assert.match(adapter, /QA must inspect original runtime traces/i);
 assert.match(adapter, /model usage is billed at API rates/i);
 assert.match(adapter, /No key, session, paid call or environment may be created until the Owner explicitly approves/i);
 assert.match(orchestration, /AGENT_ROLE_REGISTRY\.json/);
@@ -69,5 +79,6 @@ console.log('PASS: Router selects specialist roles by trigger and refuses unveri
 console.log('PASS: all eight specialist roles have unique behavioral evaluation cases with matching primary skills.');
 console.log('PASS: all roles default to read-only with independent QA required.');
 console.log('PASS: runtime adapter operations, isolation, receipts, cancellation and failure gates are specified.');
+console.log('PASS: adapter contract requires isolated contexts, blind-work, confirmed cancellation, bounded idempotent retries and reserved-action denial.');
 console.log('PASS: OpenAI Agents API is documented as a candidate behind explicit API-key and cost approval gates.');
 console.log('LIMIT: these checks validate registry and contract structure only; no live agent runtime is activated.');
