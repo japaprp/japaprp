@@ -159,6 +159,7 @@ def validate_eval_dataset(skill_names: set[str]) -> int:
         ROOT / "scripts" / "test_adversarial_review_gate.py",
         ROOT / "skills" / "templates" / "ADVERSARIAL_DECISION_CONTEXT.json",
         ROOT / "skills" / "templates" / "ADVERSARIAL_DECISION_RECORD.json",
+        ROOT / "skills" / "templates" / "ADVERSARIAL_EXECUTION_BUNDLE.json",
     )
     for path in adversarial_paths:
         if not path.is_file():
