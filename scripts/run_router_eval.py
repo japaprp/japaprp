@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -58,16 +59,55 @@ def read_multiline() -> str:
         lines.append(line)
 
 
-def score_case(case: dict[str, Any], observed_skill: str, acceptance: list[str],
-               violations: list[str], response: str) -> str:
+def validate_evidence_reference(reference: str) -> bool:
+    """Require a concrete, typed evidence locator; free-form notes are not proof."""
+    if not isinstance(reference, str) or ":" not in reference:
+        return False
+    kind, value = reference.split(":", 1)
+    value = value.strip()
+    if not value or value.lower() in {"todo", "unknown", "n/a", "evidence", "proof"}:
+        return False
+    if kind == "file":
+        raw_path, marker, line_range = value.partition("#")
+        candidate = (ROOT / raw_path).resolve()
+        if not candidate.is_relative_to(ROOT.resolve()) or not candidate.is_file():
+            return False
+        return not marker or bool(re.fullmatch(r"L[1-9][0-9]*(?:-L[1-9][0-9]*)?", line_range))
+    if kind == "trace":
+        return bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:/#-]{2,255}", value))
+    if kind == "test":
+        return len(value) >= 4 and not value.startswith("<")
+    if kind == "response":
+        return len(value) >= 12 and not value.startswith("<")
+    return False
+
+
+def score_case(case: dict[str, Any], observed_skill: str, observed_role: str | None,
+               acceptance: list[str], violations: list[str], response: str,
+               evidence_notes: str = "", evidence_reference: str = "") -> str:
     if not response.strip():
         return "NOT_RUN"
     expected = case.get("expected_primary_skill")
+    expected_acceptance_count = len(case.get("acceptance", []))
+    expected_violation_count = len(case.get("must_avoid", []))
+    if any(value not in {"yes", "no", "unknown"} for value in acceptance + violations):
+        return "BLOCKED"
     if any(v == "yes" for v in violations) or any(a == "no" for a in acceptance):
         return "FAIL"
-    if observed_skill != "not-observable" and expected and observed_skill != expected:
+    if len(acceptance) != expected_acceptance_count or len(violations) != expected_violation_count:
+        return "BLOCKED"
+    if expected and observed_skill not in ("not-observable", expected):
         return "FAIL"
-    if observed_skill == "not-observable" or any(v == "unknown" for v in violations) or any(a == "unknown" for a in acceptance):
+    if not expected and observed_skill not in ("none", "not-observable"):
+        return "FAIL"
+    expected_role = case.get("expected_specialist_role")
+    if expected_role and observed_role not in (None, "not-observable", expected_role):
+        return "FAIL"
+    if not expected_role and observed_role not in (None, "none", "not-observable"):
+        return "FAIL"
+    if (observed_skill == "not-observable" or (expected_role and observed_role in (None, "not-observable"))
+        or any(v == "unknown" for v in violations) or any(a == "unknown" for a in acceptance)
+        or not evidence_notes.strip() or not validate_evidence_reference(evidence_reference)):
         return "BLOCKED"
     return "PASS"
 
@@ -116,7 +156,8 @@ def main() -> int:
         "results": [],
         "notes": [
             "Responses must come from the target agent, not be reconstructed after the fact.",
-            "PASS requires observed response, expected routing where specified, acceptance checks met, and no observed prohibited behavior.",
+            "PASS requires observed response, expected routing where specified, acceptance checks met, no observed prohibited behavior, and a typed evidence reference.",
+            "Evidence references use file:path#line-range, trace:ID, test:command, or response:quoted-snippet; arbitrary notes alone never qualify.",
             "BLOCKED means evidence was insufficient; NOT_RUN means no response was evaluated.",
             "This file may contain prompts and agent responses. Keep it local and do not commit sensitive content."
         ],
@@ -134,6 +175,8 @@ def main() -> int:
             print("PROMPT A EXECUTAR NO AGENTE:")
             print(case["prompt"])
             print("\nSkill primária esperada:", case.get("expected_primary_skill") or "(nenhuma obrigatória)")
+            if case.get("expected_specialist_role"):
+                print("Papel especialista esperado:", case["expected_specialist_role"])
             print("Critérios de aceitação:")
             for i, criterion in enumerate(case["acceptance"], 1):
                 print(f"  {i}. {criterion}")
@@ -146,16 +189,23 @@ def main() -> int:
                 "prompt": case["prompt"],
                 "expected_primary_skill": case.get("expected_primary_skill"),
                 "observed_primary_skill": None,
+                "expected_specialist_role": case.get("expected_specialist_role"),
+                "observed_specialist_role": None,
                 "response": response,
                 "acceptance_checks": [],
                 "prohibited_behavior_checks": [],
                 "evidence_notes": "",
+                "evidence_reference": "",
                 "status": "NOT_RUN" if not response else "BLOCKED",
             }
             if response:
                 item["observed_primary_skill"] = input(
                     "Skill primária observada (ID exato, 'none' ou 'not-observable'): "
                 ).strip() or "not-observable"
+                if case.get("expected_specialist_role"):
+                    item["observed_specialist_role"] = input(
+                        "Papel especialista observado (ID exato ou 'not-observable'): "
+                    ).strip() or "not-observable"
                 for criterion in case["acceptance"]:
                     result = ask_choice(f"Critério atendido — {criterion}", {
                         "yes": "atendido", "no": "não atendido", "unknown": "sem evidência"
@@ -166,15 +216,21 @@ def main() -> int:
                         "yes": "ocorreu (falha)", "no": "não ocorreu", "unknown": "não foi possível verificar"
                     })
                     item["prohibited_behavior_checks"].append({"behavior": forbidden, "result": result})
+                item["evidence_reference"] = input(
+                    "Referência concreta (file:caminho#L1-L5, trace:ID, test:comando ou response:trecho): "
+                ).strip()
                 item["evidence_notes"] = input(
-                    "Evidência/observação breve (ex.: caminho de skill, teste, trecho ou limitação): "
+                    "O que essa referência comprova? (resumo curto): "
                 ).strip()
                 item["status"] = score_case(
                     case,
                     item["observed_primary_skill"],
+                    item["observed_specialist_role"],
                     [x["result"] for x in item["acceptance_checks"]],
                     [x["result"] for x in item["prohibited_behavior_checks"]],
                     response,
+                    item["evidence_notes"],
+                    item["evidence_reference"],
                 )
             run["results"].append(item)
             run["updated_at_utc"] = datetime.now(timezone.utc).isoformat()

@@ -1,0 +1,84 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const read = (path) => readFileSync(resolve(root, path), 'utf8');
+const registry = JSON.parse(read('skills/registries/AGENT_ROLE_REGISTRY.json'));
+const adapter = read('skills/agent-orchestration/AGENT_RUNTIME_ADAPTER_CONTRACT.md');
+const orchestration = read('skills/agent-orchestration/SKILL.md');
+const router = read('skills/engineering-brain-router/SKILL.md');
+const evalDataset = JSON.parse(read('skills/tests/router-eval-cases.json'));
+const skillFiles = new Set([
+  'agent-orchestration','ai-integration-evaluation','ai-token-budget','api-engineering-contracts',
+  'application-security-auth','code-review-minimal-change','cryptography-security-analysis',
+  'engineering-brain-router','mcp-tooling-engineering','rea-assisted-analysis',
+  'repo-reverse-engineering','targeted-debugging-performance','testing-regression-quality'
+]);
+const expected = [
+  'agent-evaluator','harness-optimizer','silent-failure-hunter','spec-miner',
+  'loop-operator','security-reviewer','pr-test-analyzer','opensource-sanitizer'
+];
+assert.equal(registry.project_id, 'central-council');
+assert.equal(registry.status, 'catalogued_not_runtime_active');
+assert.equal(registry.roles.length, 8);
+const roleCases = evalDataset.cases.filter((c) => c.expected_specialist_role);
+const roleCaseIds = roleCases.map((c) => c.expected_specialist_role);
+assert.equal(roleCases.length, registry.roles.length, 'there must be exactly one behavioral evaluation case per specialist role');
+assert.equal(new Set(roleCaseIds).size, roleCaseIds.length, 'specialist role evaluation cases must not contain duplicate role IDs');
+const roleCaseById = new Map(roleCases.map((c) => [c.expected_specialist_role, c]));
+assert.equal(roleCaseById.size, registry.roles.length, 'each specialist role must have one unique behavioral evaluation case');
+assert.deepEqual(registry.roles.map((r) => r.role_id).sort(), [...expected].sort());
+const allTriggers = registry.roles.flatMap((role) => role.triggers);
+assert.ok(allTriggers.every((trigger) => typeof trigger === 'string' && /^[a-z][a-z0-9_]*$/.test(trigger)),
+  'specialist triggers must use canonical snake_case identifiers');
+assert.equal(new Set(allTriggers).size, allTriggers.length,
+  'specialist trigger ownership must be unique to avoid ambiguous role selection');
+assert.equal(registry.default_permission_profile.mode, 'read_only');
+assert.equal(registry.runtime_candidates[0].runtime_id, 'openai-agents-api');
+assert.equal(registry.runtime_candidates[0].status, 'research_candidate_not_integrated');
+assert.ok(registry.runtime_candidates[0].approval_gate.includes('explicit Owner approval'));
+assert.equal(registry.default_permission_profile.write_scope, 'none_by_default');
+for (const role of registry.roles) {
+  assert.ok(skillFiles.has(role.primary_skill), `unknown primary skill for ${role.role_id}`);
+  for (const skill of role.supporting_skills) assert.ok(skillFiles.has(skill), `unknown supporting skill ${skill}`);
+  assert.equal(role.default_permission_profile, 'read_only');
+  assert.equal(role.qa_independence_required, true);
+  assert.ok(role.triggers.length > 0);
+  const roleCase = roleCaseById.get(role.role_id);
+  assert.ok(roleCase, `missing behavioral eval case for ${role.role_id}`);
+  assert.equal(roleCase.expected_primary_skill, role.primary_skill, `primary skill mismatch for ${role.role_id}`);
+  assert.ok(roleCase.acceptance.length >= 3);
+  assert.ok(roleCase.must_avoid.length >= 2);
+}
+for (const operation of ['discover_runtime','inspect_capabilities','dispatch_child_agent','get_task_status','cancel_task','collect_execution_receipt']) assert.ok(adapter.includes(operation), `missing adapter operation ${operation}`);
+for (const field of registry.runtime_binding.required_receipt_fields) assert.ok(adapter.includes(field), `missing receipt field ${field}`);
+assert.match(adapter, /parallel set of ordinary tool calls is not proof/i);
+assert.match(adapter, /BLOCKED/);
+assert.match(adapter, /independent QA/i);
+assert.match(adapter, /Each independent child agent must receive a distinct runtime context identifier/i);
+assert.match(adapter, /must not receive peer drafts or outputs before the blind-work phase ends/i);
+assert.match(adapter, /Cancellation is complete only after the runtime reports a terminal cancelled state/i);
+assert.match(adapter, /Retry is allowed only for a classified transient failure, with idempotency evidence/i);
+assert.match(adapter, /No automatic retry of external or non-idempotent actions/i);
+assert.match(adapter, /timeouts, missing receipts, context collisions, unexpected tools, or failed cancellation stop dependent work/i);
+assert.match(adapter, /two real independent child-agent dispatches with distinct contexts/i);
+assert.match(adapter, /reserved-action denial test/i);
+assert.match(adapter, /no cross-project context or credential leakage/i);
+assert.match(adapter, /QA must inspect original runtime traces/i);
+assert.match(adapter, /model usage is billed at API rates/i);
+assert.match(adapter, /No key, session, paid call or environment may be created until the Owner explicitly approves/i);
+assert.match(orchestration, /AGENT_ROLE_REGISTRY\.json/);
+assert.match(orchestration, /catalogued_not_runtime_active/);
+assert.match(router, /AGENT_ROLE_REGISTRY\.json/);
+assert.match(router, /AGENT_RUNTIME_ADAPTER_CONTRACT/);
+assert.match(router, /não carregue nem despache todos os papéis por padrão/i);
+console.log('PASS: eight specialist roles are uniquely registered and mapped to existing skills.');
+console.log('PASS: Router selects specialist roles by trigger and refuses unverified runtime dispatch.');
+console.log('PASS: all eight specialist roles have unique behavioral evaluation cases with matching primary skills.');
+console.log('PASS: all roles default to read-only with independent QA required.');
+console.log('PASS: runtime adapter operations, isolation, receipts, cancellation and failure gates are specified.');
+console.log('PASS: adapter contract requires isolated contexts, blind-work, confirmed cancellation, bounded idempotent retries and reserved-action denial.');
+console.log('PASS: OpenAI Agents API is documented as a candidate behind explicit API-key and cost approval gates.');
+console.log('LIMIT: these checks validate registry and contract structure only; no live agent runtime is activated.');

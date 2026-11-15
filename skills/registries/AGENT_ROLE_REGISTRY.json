@@ -1,0 +1,237 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "council-central-specialist-agent-roles",
+  "project_id": "central-council",
+  "status": "catalogued_not_runtime_active",
+  "design_principles": [
+    "Agent roles are execution profiles, not duplicate skills.",
+    "The Router selects a role only when the task requires its specialization.",
+    "Every role reuses existing Council Central skills.",
+    "Roles default to read-only; scoped writes require an explicit task grant within Owner-approved boundaries.",
+    "A role definition is not evidence that a runtime can instantiate or dispatch that agent."
+  ],
+  "default_permission_profile": {
+    "mode": "read_only",
+    "allowed": [
+      "read_repository",
+      "read_registered_evidence",
+      "analyze",
+      "run_safe_local_tests"
+    ],
+    "write_scope": "none_by_default",
+    "may_request_scoped_write": true,
+    "forbidden": [
+      "merge",
+      "deploy",
+      "publish_external",
+      "delete",
+      "change_secrets",
+      "change_permissions",
+      "create_paid_resources",
+      "cross_project_access"
+    ]
+  },
+  "roles": [
+    {
+      "role_id": "agent-evaluator",
+      "display_name": "Agent Evaluator",
+      "inspired_by": "ECC agent-evaluator",
+      "purpose": "Avaliar qualidade, precisão, completude, rastreabilidade e aderência aos critérios das saídas de agentes.",
+      "primary_skill": "ai-integration-evaluation",
+      "supporting_skills": [
+        "testing-regression-quality",
+        "agent-orchestration"
+      ],
+      "triggers": [
+        "agent_output_review",
+        "quality_scorecard",
+        "independent_result_evaluation"
+      ],
+      "default_permission_profile": "read_only",
+      "qa_independence_required": true
+    },
+    {
+      "role_id": "harness-optimizer",
+      "display_name": "Harness Optimizer",
+      "inspired_by": "ECC harness-optimizer",
+      "purpose": "Auditar roteamento, carregamento de contexto, ferramentas, hooks, limites e cobertura do harness sem alterar configurações globais.",
+      "primary_skill": "mcp-tooling-engineering",
+      "supporting_skills": [
+        "engineering-brain-router",
+        "testing-regression-quality",
+        "ai-token-budget"
+      ],
+      "triggers": [
+        "runtime_harness_audit",
+        "routing_efficiency",
+        "toolchain_reliability"
+      ],
+      "default_permission_profile": "read_only",
+      "qa_independence_required": true
+    },
+    {
+      "role_id": "silent-failure-hunter",
+      "display_name": "Silent Failure Hunter",
+      "inspired_by": "ECC silent-failure-hunter",
+      "purpose": "Encontrar exceções engolidas, fallbacks silenciosos, estados inconsistentes e falhas sem telemetria.",
+      "primary_skill": "targeted-debugging-performance",
+      "supporting_skills": [
+        "testing-regression-quality",
+        "application-security-auth"
+      ],
+      "triggers": [
+        "silent_failure_audit",
+        "error_propagation_review",
+        "reliability_investigation"
+      ],
+      "default_permission_profile": "read_only",
+      "qa_independence_required": true
+    },
+    {
+      "role_id": "spec-miner",
+      "display_name": "Specification Miner",
+      "inspired_by": "ECC spec-miner",
+      "purpose": "Extrair requisitos, invariantes, formatos e contratos de sistemas existentes com evidências rastreáveis.",
+      "primary_skill": "repo-reverse-engineering",
+      "supporting_skills": [
+        "rea-assisted-analysis",
+        "api-engineering-contracts"
+      ],
+      "triggers": [
+        "legacy_system_specification",
+        "reverse_engineering",
+        "implicit_contract_discovery"
+      ],
+      "default_permission_profile": "read_only",
+      "qa_independence_required": true
+    },
+    {
+      "role_id": "loop-operator",
+      "display_name": "Loop Operator",
+      "inspired_by": "ECC loop-operator",
+      "purpose": "Supervisionar ciclos de execução, detectar travamentos, repetição, limites excedidos e necessidade de recuperação segura.",
+      "primary_skill": "agent-orchestration",
+      "supporting_skills": [
+        "testing-regression-quality",
+        "ai-token-budget"
+      ],
+      "triggers": [
+        "long_running_agent_loop",
+        "retry_supervision",
+        "stalled_task_recovery"
+      ],
+      "default_permission_profile": "read_only",
+      "qa_independence_required": true
+    },
+    {
+      "role_id": "security-reviewer",
+      "display_name": "Security Reviewer",
+      "inspired_by": "ECC security-reviewer",
+      "purpose": "Revisar autenticação, autorização, validação de entrada, exposição de dados e superfícies de ataque.",
+      "primary_skill": "application-security-auth",
+      "supporting_skills": [
+        "cryptography-security-analysis",
+        "api-engineering-contracts"
+      ],
+      "triggers": [
+        "security_sensitive_change",
+        "auth_review",
+        "threat_surface_audit"
+      ],
+      "default_permission_profile": "read_only",
+      "qa_independence_required": true
+    },
+    {
+      "role_id": "pr-test-analyzer",
+      "display_name": "PR Test Analyzer",
+      "inspired_by": "ECC pr-test-analyzer",
+      "purpose": "Analisar se os testes de uma mudança cobrem requisitos, regressões, caminhos negativos e riscos do diff.",
+      "primary_skill": "testing-regression-quality",
+      "supporting_skills": [
+        "code-review-minimal-change",
+        "ai-integration-evaluation"
+      ],
+      "triggers": [
+        "pull_request_test_review",
+        "coverage_gap_analysis",
+        "regression_risk_review"
+      ],
+      "default_permission_profile": "read_only",
+      "qa_independence_required": true
+    },
+    {
+      "role_id": "opensource-sanitizer",
+      "display_name": "Open Source Sanitizer",
+      "inspired_by": "ECC opensource-sanitizer",
+      "purpose": "Auditar um repositório antes de distribuição pública: segredos acidentais, dados privados, licença, dependências, documentação e higiene de release.",
+      "primary_skill": "repo-reverse-engineering",
+      "supporting_skills": [
+        "application-security-auth",
+        "code-review-minimal-change"
+      ],
+      "triggers": [
+        "open_source_readiness",
+        "public_release_safety_review",
+        "repository_sanitization_audit"
+      ],
+      "default_permission_profile": "read_only",
+      "qa_independence_required": true
+    }
+  ],
+  "runtime_binding": {
+    "required": true,
+    "adapter_contract": "skills/agent-orchestration/AGENT_RUNTIME_ADAPTER_CONTRACT.md",
+    "required_operations": [
+      "discover_runtime",
+      "inspect_capabilities",
+      "dispatch_child_agent",
+      "get_task_status",
+      "cancel_task",
+      "collect_execution_receipt"
+    ],
+    "required_receipt_fields": [
+      "task_id",
+      "project_id",
+      "role_id",
+      "runtime_id",
+      "agent_instance_id",
+      "context_id",
+      "started_at",
+      "ended_at",
+      "status",
+      "input_digest",
+      "output_digest",
+      "tool_trace_ref"
+    ],
+    "activation_status": "not_verified",
+    "rule": "Do not mark any role active until an actual runtime dispatch and independently verified receipt exist."
+  },
+  "runtime_candidates": [
+    {
+      "runtime_id": "openai-agents-api",
+      "name": "OpenAI Agents API (managed Codex harness)",
+      "status": "research_candidate_not_integrated",
+      "evidence_urls": [
+        "https://developers.openai.com/api/docs/guides/agents-api/multi-agent",
+        "https://developers.openai.com/api/docs/guides/agents-api/overview",
+        "https://developers.openai.com/api/docs/guides/agents-api/observability"
+      ],
+      "verified_capabilities": [
+        "real_child_agent_dispatch",
+        "independent_subagent_contexts",
+        "parallel_execution",
+        "subagent_event_stream",
+        "session_history_and_trace_inspection",
+        "self_hosted_environment_option"
+      ],
+      "constraints": [
+        "requires an OpenAI API key",
+        "model usage is billed at selected API rates",
+        "hosted sandbox and tool usage may add costs",
+        "subagents inherit configured MCP tools and credentials; least-privilege tool configuration is mandatory"
+      ],
+      "approval_gate": "Do not create/configure an API key, start a session, enable paid usage, or provision an environment without explicit Owner approval.",
+      "adoption_gate": "Implement a small isolated proof of concept only after Owner approves API usage and budget; verify receipts, context isolation, cancellation, project isolation and approval boundaries before operational status."
+    }
+  ]
+}

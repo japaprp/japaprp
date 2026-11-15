@@ -20,7 +20,7 @@ Um comando gera um plano com:
 - critérios de aceite;
 - responsável e verificador independente.
 
-Somente tarefas READY (todas as dependências DONE) entram na fila. Tarefas independentes podem executar em paralelo se passarem admission control. Tarefas com recurso compartilhado exclusivo são serializadas por lock.
+Somente tarefas READY (todas as dependências DONE) entram na fila. Tarefas independentes podem executar em paralelo se passarem admission control. Tarefas com recurso compartilhado exclusivo são serializadas por lock. O snapshot de estado informado ao planejador também precisa ser consistente: IDs devem ser canônicos e únicos; cada tarefa RUNNING ou DONE deve ter todas as dependências diretas em DONE; a quantidade de tarefas RUNNING não pode exceder o limite ativo; e tarefas RUNNING não podem disputar o mesmo recurso exclusivo. Snapshot contraditório é rejeitado, não corrigido silenciosamente.
 
 ## Estados e transições
 
