@@ -34,21 +34,36 @@ def validate_execution_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
 
     Returns structural status and always leaves independence_status NOT_VERIFIED.
     """
+    if not isinstance(bundle, dict):
+        return {
+            "status": "BLOCKED",
+            "independence_status": "NOT_VERIFIED",
+            "structural_validation": "FAIL",
+            "errors": ["bundle must be an object"],
+            "retry_eligible_perspectives": [],
+            "retry_exhausted_perspectives": [],
+            "conflicting_conclusions": False,
+            "dissent_required": False,
+            "completed_perspectives": [],
+            "synthesis_allowed": False,
+            "external_runtime_audit_required": True,
+        }
+
     errors: list[str] = []
     for key in ("decision_id", "project_id"):
         if not _nonempty(bundle.get(key)):
             errors.append(f"{key} must be a non-empty string")
-    expected = bundle.get("expected_perspective_ids")
-    if not isinstance(expected, list) or len(expected) < 2 or any(not _nonempty(x) for x in expected):
-        errors.append("expected_perspective_ids must contain at least two non-empty IDs")
-        expected = []
+    expected_raw = bundle.get("expected_perspective_ids")
+    expected = [value for value in expected_raw if _nonempty(value)] if isinstance(expected_raw, list) else []
+    if not isinstance(expected_raw, list) or len(expected) < 2 or len(expected) != len(expected_raw):
+        errors.append("expected_perspective_ids must contain at least two non-empty string IDs")
     if len(set(expected)) != len(expected):
         errors.append("expected_perspective_ids must be unique")
 
-    evidence_ids = bundle.get("evidence_ids")
-    if not isinstance(evidence_ids, list) or any(not _nonempty(x) for x in evidence_ids):
-        errors.append("evidence_ids must be a list of non-empty IDs")
-        evidence_ids = []
+    evidence_raw = bundle.get("evidence_ids")
+    evidence_ids = [value for value in evidence_raw if _nonempty(value)] if isinstance(evidence_raw, list) else []
+    if not isinstance(evidence_raw, list) or len(evidence_ids) != len(evidence_raw):
+        errors.append("evidence_ids must be a list of non-empty string IDs")
     evidence_set = set(evidence_ids)
 
     runs = bundle.get("runs")
