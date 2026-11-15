@@ -76,7 +76,9 @@
         "PR #6 HEAD aee3f68464282231f64d2e9d6a6e9b033d697a07 passed Validate engineering skills run #109, including deterministic planner and orchestration regression steps.",
         "The planner enforces project boundaries, dependency-cycle checks, ready-task selection, concurrency slots and exclusive resource locks; it defaults to 5 concurrent tasks with a hard verified ceiling of 10.",
         "The implementation explicitly does not spawn agents or execute tools; the live D1-D3 protocol for dispatch, independent QA, write conflicts, concurrency and approval boundaries remains NOT RUN.",
-        "No verified child-agent dispatch, lock contention, checkpoint recovery or independent QA execution occurred in this session; no agent run is being claimed."
+        "No verified child-agent dispatch, lock contention, checkpoint recovery or independent QA execution occurred in this session; no agent run is being claimed.",
+        "PR #9 adds structural execution-receipt validation for perspective IDs, run/agent/context uniqueness, input/output digests, runtime receipt/attestation references, timestamps, evidence references and peer-output contamination; this is not live runtime proof.",
+        "PR #9 regression fixtures cover failed, timeout, unavailable, cancelled and retry-exhausted runs plus conflicting conclusions; actual agent dispatch and external verification remain NOT RUN."
       ],
       "fix": {
         "pr_numbers": [
@@ -87,14 +89,18 @@
       },
       "regression_test": {
         "path": "live D1-D3 orchestration runtime test protocol on WIN-RPC1DR79TVC",
-        "test": "Run two independent isolated child tasks; verify actual dispatch, resource lock acquisition/release, bounded concurrency, conflict prevention, retry/idempotency, checkpoint recovery, independent QA and owner approval gate. Preserve separate project workspaces and evidence."
+        "test": "Run two real isolated child evaluators and capture immutable runtime receipts; verify distinct agent/run/context IDs, blind inputs, no peer-output visibility, evidence-reference integrity, timeout/unavailable/failure behavior, at most one bounded retry, conflict-preserving synthesis, independent QA and owner approval gate."
       },
       "closure_gate": [
         "Use a fresh runtime session on the verified target computer; do not infer dispatch from the side-effect-free planner.",
         "Run D1 dispatch and capture child-agent identity, inputs, outputs and branch/workspace boundaries.",
         "Run D2 concurrency/lock/conflict/recovery tests with independent QA and exact task IDs.",
         "Run D3 approval-boundary tests proving no merge/deploy/publish/secrets/permissions/cost action occurs without explicit authorization.",
-        "Repeat the relevant regression suite and record exact final commit and evidence."
+        "Repeat the relevant regression suite and record exact final commit and evidence.",
+        "For each adversarial perspective, preserve the runtime-generated receipt, runtime log reference, external attestation reference, agent/model identity, unique context_id, input/output digests and timezone-aware timestamps; synthetic fixtures do not satisfy this gate.",
+        "Have independent QA inspect original runtime logs and attestations to verify no evaluator received another evaluator's draft or output; a self-reported verified_separate_contexts string is insufficient.",
+        "Exercise failed, timeout, unavailable, cancelled, first-retry and retry-exhaustion cases in the actual runtime; prove the controller never exceeds one retry and never starts a paid call without an approved budget.",
+        "Feed conflicting completed perspectives to synthesis; verify all strong objections and dissent remain traceable to known evidence IDs and no majority-vote shortcut is used."
       ]
     },
     {
