@@ -114,7 +114,7 @@ def validate_record(record: dict[str, Any]) -> list[str]:
                 errors.append(f"perspectives[{index}].evidence_refs must be a non-empty list")
             else:
                 for ref in refs:
-                    if ref not in evidence_ids:
+                    if not isinstance(ref, str) or ref not in evidence_ids:
                         errors.append(f"perspectives[{index}] references unknown evidence_id: {ref}")
 
     if not isinstance(record.get("uncertainties"), list):
