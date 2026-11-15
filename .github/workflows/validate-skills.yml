@@ -15,6 +15,7 @@ on:
       - "scripts/test_project_findings.mjs"
       - "scripts/test_registry_routing.mjs"
       - "scripts/adversarial_review_gate.py"
+      - "scripts/adversarial_review_runtime.py"
       - "scripts/test_adversarial_review_gate.py"
       - "scripts/run_router_eval.py"
       - "scripts/test_activation_trigger.mjs"
