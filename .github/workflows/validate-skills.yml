@@ -19,6 +19,7 @@ on:
       - "scripts/adversarial_review_runtime.py"
       - "scripts/test_adversarial_review_gate.py"
       - "scripts/run_router_eval.py"
+      - "scripts/test_router_eval.py"
       - "scripts/test_activation_trigger.mjs"
       - ".github/workflows/validate-skills.yml"
   push:
@@ -39,6 +40,7 @@ on:
       - "scripts/adversarial_review_runtime.py"
       - "scripts/test_adversarial_review_gate.py"
       - "scripts/run_router_eval.py"
+      - "scripts/test_router_eval.py"
       - "scripts/test_activation_trigger.mjs"
       - ".github/workflows/validate-skills.yml"
   workflow_dispatch:
@@ -87,6 +89,8 @@ jobs:
         run: python -m py_compile scripts/run_router_eval.py
       - name: Smoke-test local runner and dataset loading
         run: python scripts/run_router_eval.py --list
+      - name: Run deterministic Router evaluator scoring tests
+        run: python -m unittest scripts.test_router_eval -v
       - name: Check activation regression script syntax
         run: node --check scripts/test_activation_trigger.mjs
       - name: Run deterministic activation regression
@@ -95,3 +99,5 @@ jobs:
         run: node --check scripts/test_registry_routing.mjs
       - name: Run deterministic registry routing regression
         run: node scripts/test_registry_routing.mjs
+
+[executed on device: localhost (328c2981-abe2-4e41-b527-a2413916dfa7)]

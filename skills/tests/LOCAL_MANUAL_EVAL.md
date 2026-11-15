@@ -27,16 +27,17 @@ python scripts/run_router_eval.py --case route-cross-tenant-auth --case route-du
 ## Procedimento por caso
 
 1. Copie o prompt mostrado pelo script e execute-o no agente-alvo com o catálogo de skills ativo.
-2. Observe a skill acionada no trace/contexto do agente. Não adivinhe: se não for possível observar, registre not-observable.
+2. Observe a skill acionada no trace/contexto do agente. Não adivinhe: se não for possível observar, registre not-observable. Quando expected_primary_skill for null, registre none se nenhuma skill foi necessária; um ID inesperado é FAIL.
 3. Cole a resposta real no terminal e termine a entrada com uma linha separada contendo END_RESPONSE. Digite SKIP como primeira linha se não executou o caso.
 4. Julgue cada critério de aceitação e cada comportamento proibido com base na resposta e nas evidências disponíveis. unknown é preferível a uma suposição.
-5. O script grava o resultado após cada caso, inclusive se a execução for interrompida com Ctrl+C.
+5. Registre uma referência concreta em evidence_notes (trace, caminho/ID de skill, teste ou trecho observável). Sem nota de evidência, o resultado permanece BLOCKED. O script verifica que a nota não está vazia; cabe ao avaliador confirmar que ela aponta para evidência concreta, não apenas texto genérico.
+6. O script grava o resultado após cada caso, inclusive se a execução for interrompida com Ctrl+C.
 
 ## Estados
 
 - PASS: resposta observada, roteamento correto quando uma skill é exigida, todos os critérios de aceitação atendidos e nenhum comportamento proibido observado.
 - FAIL: critério não atendido, comportamento proibido observado ou skill primária divergente da esperada.
-- BLOCKED: evidência insuficiente, skill não observável ou alguma checagem marcada unknown.
+- BLOCKED: evidência insuficiente, nota de evidência ausente, skill/papel não observável ou alguma checagem marcada unknown.
 - NOT_RUN: caso pulado sem resposta avaliada.
 
 O caso de correção simples tem expected_primary_skill null; ele não exige uma skill específica. A opção none é válida se nenhuma skill foi necessária.
@@ -48,3 +49,5 @@ O caso de correção simples tem expected_primary_skill null; ele não exige uma
 - A saída é evidência registrada pelo avaliador, não uma certificação independente. Para achados importantes, inclua um trace, teste reproduzível ou referência concreta em evidence_notes.
 - Não altere o roteador ou as skills durante a execução de uma rodada. Registre os resultados primeiro; depois faça a menor mudança justificada e reexecute os casos afetados.
 - Este teste é manual e não tem custo de API; não mede automaticamente o raciocínio do modelo e não deve ser descrito como benchmark estatístico.
+
+[executed on device: localhost (328c2981-abe2-4e41-b527-a2413916dfa7)]

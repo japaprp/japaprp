@@ -59,19 +59,23 @@ def read_multiline() -> str:
 
 
 def score_case(case: dict[str, Any], observed_skill: str, observed_role: str | None,
-               acceptance: list[str], violations: list[str], response: str) -> str:
+               acceptance: list[str], violations: list[str], response: str,
+               evidence_notes: str = "") -> str:
     if not response.strip():
         return "NOT_RUN"
     expected = case.get("expected_primary_skill")
     if any(v == "yes" for v in violations) or any(a == "no" for a in acceptance):
         return "FAIL"
-    if observed_skill != "not-observable" and expected and observed_skill != expected:
+    if expected and observed_skill not in ("not-observable", expected):
+        return "FAIL"
+    if not expected and observed_skill not in ("none", "not-observable"):
         return "FAIL"
     expected_role = case.get("expected_specialist_role")
-    if expected_role and observed_role not in (None, "not-observable") and observed_role != expected_role:
+    if expected_role and observed_role not in (None, "not-observable", expected_role):
         return "FAIL"
     if (observed_skill == "not-observable" or (expected_role and observed_role in (None, "not-observable"))
-        or any(v == "unknown" for v in violations) or any(a == "unknown" for a in acceptance)):
+        or any(v == "unknown" for v in violations) or any(a == "unknown" for a in acceptance)
+        or not evidence_notes.strip()):
         return "BLOCKED"
     return "PASS"
 
@@ -188,6 +192,7 @@ def main() -> int:
                     [x["result"] for x in item["acceptance_checks"]],
                     [x["result"] for x in item["prohibited_behavior_checks"]],
                     response,
+                    item["evidence_notes"],
                 )
             run["results"].append(item)
             run["updated_at_utc"] = datetime.now(timezone.utc).isoformat()
@@ -221,3 +226,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+[executed on device: localhost (328c2981-abe2-4e41-b527-a2413916dfa7)]
