@@ -42,7 +42,26 @@ Retry exige causa identificada, limite de tentativas e idempotência. Não repet
 | Alto volume | 20–30 | filas, locks, cancelamento, observabilidade e orçamento testados |
 | Aspiracional | 100+ | teste de carga, isolamento, quotas e supervisão; nunca padrão |
 
-O helper determinístico scripts/agent-orchestration-planner.mjs valida IDs, dependências, ciclos, projeto único, concorrência e locks exclusivos; ele seleciona tarefas READY, mas não inicia agentes nem executa ferramentas. O limite implementado no planejador é no máximo 10 tarefas concorrentes; o padrão é 5. Valores superiores são rejeitados até que um runtime e uma política de escala sejam testados e aprovados.\n\nO limite efetivo é min(runtime, ferramentas, quotas, recursos, orçamento, política). Se a capacidade do runtime não estiver confirmada, não simular agentes reais: marcar dispatch multiagente como NOT RUN e executar apenas o paralelismo de ferramentas disponível.
+O helper determinístico scripts/agent-orchestration-planner.mjs valida IDs, dependências, ciclos, projeto único, concorrência e locks exclusivos; ele seleciona tarefas READY, mas não inicia agentes nem executa ferramentas. O limite implementado no planejador é no máximo 10 tarefas concorrentes; o padrão é 5. Valores superiores são rejeitados até que um runtime e uma política de escala sejam testados e aprovados.
+
+O limite efetivo é min(runtime, ferramentas, quotas, recursos, orçamento, política). Se a capacidade do runtime não estiver confirmada, não simular agentes reais: marcar dispatch multiagente como NOT RUN e executar apenas o paralelismo de ferramentas disponível.
+
+## Revisão adversarial e síntese
+
+Para decisões consequenciais, aplicar [ADVERSARIAL_DECISION_REVIEW.md](./ADVERSARIAL_DECISION_REVIEW.md) e registrar um decision_id estável ligado ao project_id.
+
+- Gate forte: impacto high/critical, irreversibilidade, efeito externo, fronteira de segurança ou dados sensíveis.
+- Gate contextual: pelo menos dois sinais de incerteza material, evidências conflitantes, mudança arquitetural, custo relevante ou dependência entre projetos.
+- Perspectivas de análise produzem rascunhos sem acesso aos demais; a síntese ocorre depois.
+- Cada perspectiva gera recibo imutável com `run_id`, `agent_id`, `model_id`, `context_id`, digests de entrada/saída, timestamps, estado, referências de evidência, log e atestação do runtime.
+- O helper `scripts/adversarial_review_runtime.py` valida recibos, IDs únicos, referências, contaminação, falhas e limite de uma repetição; sua saída estrutural mantém independência como NOT VERIFIED.
+- Timeout, falha, runtime indisponível, cancelamento, contexto compartilhado ou referência de evidência ausente bloqueiam a síntese; no máximo uma repetição transitória é permitida e nunca é disparada pelo validador.
+- Conclusões conflitantes exigem síntese e dissenso explícito; não se resolve por votação majoritária.
+- O presidente não faz contagem de votos: pode rejeitar a maioria, deve responder às objeções e preservar dissenso.
+- Evidência insuficiente resulta em INCONCLUSIVE; falta de acesso/autorização/capacidade resulta em BLOCKED.
+- Independência multiagente exige contextos/execuções separados observáveis; caso contrário, classificar como multi-perspectiva de agente único.
+- Teto padrão: cinco perspectivas, uma rodada cruzada, uma síntese, zero recursão e uma repetição transitória.
+- Toda decisão pode ser reaberta por evidência nova, regressão ou mudança de premissa.
 
 ## Matriz de autoridade
 

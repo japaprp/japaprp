@@ -66,4 +66,29 @@ assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task
 console.log('PASS: DAG planner admits only ready tasks, respects concurrency and exclusive resource locks.');
 console.log('PASS: planner rejects duplicate IDs, cross-project tasks, invalid limits and dependency cycles.');
 
+const adversarialProtocol = read('skills/agent-orchestration/ADVERSARIAL_DECISION_REVIEW.md');
+const adversarialGate = read('scripts/adversarial_review_gate.py');
+const adversarialRuntime = read('scripts/adversarial_review_runtime.py');
+const executionBundle = JSON.parse(read('skills/templates/ADVERSARIAL_EXECUTION_BUNDLE.json'));
+assert.match(skill, /Revisão adversarial de decisões consequenciais/);
+assert.match(contract, /pode rejeitar a maioria/);
+assert.match(router, /ADVERSARIAL_DECISION_REVIEW/);
+assert.match(adversarialProtocol, /não decide por maioria/i);
+assert.match(adversarialProtocol, /inconclusive/);
+assert.match(adversarialProtocol, /independence_status=NOT_VERIFIED/);
+assert.match(adversarialGate, /def should_trigger/);
+assert.match(adversarialRuntime, /def validate_execution_bundle/);
+assert.match(adversarialRuntime, /independence_status.*NOT_VERIFIED/);
+assert.match(adversarialRuntime, /visible_peer_output_ids/);
+assert.ok(executionBundle.expected_perspective_ids.length >= 2);
+assert.ok(executionBundle.runs.every((run) => run.context_id && run.runtime_receipt_ref && run.runtime_attestation_ref));
+for (const id of [
+  'route-adversarial-consequential-decision',
+  'route-adversarial-routine-negative',
+  'route-adversarial-boundary-two-signals'
+]) assert.ok(cases.some((testCase) => testCase.id === id), `missing adversarial routing regression: ${id}`);
+assert.equal(cases.find((testCase) => testCase.id === 'route-adversarial-routine-negative').expected_primary_skill, null);
+console.log('PASS: adversarial review is integrated into the existing orchestration skill without duplication.');
+console.log('PASS: majority-independent synthesis, dissent, uncertainty, independence labeling and trigger regressions are present.');
+console.log('PASS: execution receipt schema and fail-closed isolation validator are integrated.');
 console.log('LIMIT: the planner selects work but does not spawn agents; live agent dispatch remains unverified.');

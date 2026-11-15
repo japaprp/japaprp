@@ -53,6 +53,12 @@ for (const finding of findings.findings) {
   }
 }
 
+const orchestrationRuntimeFinding = findings.findings.find((finding) => finding.finding_id === 'CC-002');
+assert.ok(orchestrationRuntimeFinding, 'missing live orchestration runtime finding CC-002');
+assert.equal(orchestrationRuntimeFinding.status, 'NOT RUN', 'synthetic adversarial receipt tests must not close live runtime validation');
+assert.ok(orchestrationRuntimeFinding.closure_gate.some((gate) => gate.includes('runtime-generated receipt')));
+assert.ok(orchestrationRuntimeFinding.closure_gate.some((gate) => gate.includes('independent QA')));
+
 assert.equal(ids.size, findings.findings.length);
 console.log(`PASS: ${ids.size} findings have unique stable IDs and valid project references.`);
 console.log('PASS: every finding has provenance, evidence, a regression-test definition and closure gates.');

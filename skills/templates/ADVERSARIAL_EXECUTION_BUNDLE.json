@@ -1,0 +1,57 @@
+{
+  "decision_id": "ADR-YYYYMMDD-001",
+  "project_id": "exact-project-id",
+  "expected_perspective_ids": [
+    "first-principles",
+    "contrarian"
+  ],
+  "evidence_ids": [
+    "E-001",
+    "E-002"
+  ],
+  "runs": [
+    {
+      "perspective_id": "first-principles",
+      "run_id": "runtime-generated-run-id-1",
+      "agent_id": "runtime-generated-agent-id-1",
+      "model_id": "runtime-model-id",
+      "context_id": "unique-isolated-context-id-1",
+      "input_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "output_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "status": "completed",
+      "attempt": 1,
+      "started_at": "2026-11-14T10:00:00Z",
+      "ended_at": "2026-11-14T10:01:00Z",
+      "runtime": "runtime-name-and-version",
+      "runtime_receipt_ref": "immutable-runtime-log-reference",
+      "runtime_attestation_ref": "external-attestation-reference",
+      "visible_peer_output_ids": [],
+      "evidence_refs": [
+        "E-001"
+      ],
+      "conclusion": "example conclusion"
+    },
+    {
+      "perspective_id": "contrarian",
+      "run_id": "runtime-generated-run-id-2",
+      "agent_id": "runtime-generated-agent-id-2",
+      "model_id": "runtime-model-id",
+      "context_id": "unique-isolated-context-id-2",
+      "input_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "output_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "status": "completed",
+      "attempt": 1,
+      "started_at": "2026-11-14T10:00:00Z",
+      "ended_at": "2026-11-14T10:01:10Z",
+      "runtime": "runtime-name-and-version",
+      "runtime_receipt_ref": "immutable-runtime-log-reference",
+      "runtime_attestation_ref": "external-attestation-reference",
+      "visible_peer_output_ids": [],
+      "evidence_refs": [
+        "E-002"
+      ],
+      "conclusion": "alternative conclusion"
+    }
+  ],
+  "warning": "Illustrative schema only. Placeholder IDs and references are not evidence. Structural validation never proves real runtime isolation."
+}

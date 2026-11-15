@@ -57,6 +57,10 @@ Os registries são dados de referência, não um serviço runtime nem um mecanis
 
 Quando um único comando envolver múltiplas entregas independentes, use a skill agent-orchestration e seu ORCHESTRATION_CONTRACT.md. Resolva primeiro o projeto e os limites; depois decomponha em tarefas com IDs, dependências DAG, responsáveis, critérios de aceite, risco e recursos. Paralelize somente tarefas independentes após confirmar runtime, ferramentas, permissões, quotas e capacidade. Serialize recursos compartilhados e mantenha um único writer por arquivo/recurso. Exija QA independente e consolide evidências. A hierarquia Owner → Conselho Central → Diretores → Gerentes → Líderes → Executores define responsabilidade lógica, não exige uma instância de agente por cargo. Não declare pool ativo sem dispatch real verificado; 100+ agentes é limite aspiracional, nunca padrão. O gatilho “DEUS É FIEL” não amplia permissões.
 
+## 3.3 Avalie decisões consequenciais, mesmo sem trabalho paralelo
+
+A revisão adversarial não depende de haver múltiplas tarefas ou agentes. Antes de recomendar ou executar qualquer decisão consequencial, aplique `skills/agent-orchestration/ADVERSARIAL_DECISION_REVIEW.md` e o gate determinístico. Se o contexto de risco estiver incompleto ou inválido, marque BLOCKED, complete a classificação e não trate a ausência de sinais como baixo risco. Decisões rotineiras e reversíveis só dispensam revisão quando todos os campos obrigatórios foram avaliados explicitamente e o gate retornou não acionamento. A revisão não concede autorização.
+
 ## 4. Selecione skills sem redundância
 
 Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma segunda complementar apenas se houver necessidade clara; três no total é o limite padrão, não uma meta. Carregue apenas a seção pertinente.
