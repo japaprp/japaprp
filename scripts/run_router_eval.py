@@ -226,5 +226,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
-[executed on device: localhost (328c2981-abe2-4e41-b527-a2413916dfa7)]

@@ -49,5 +49,3 @@ O caso de correção simples tem expected_primary_skill null; ele não exige uma
 - A saída é evidência registrada pelo avaliador, não uma certificação independente. Para achados importantes, inclua um trace, teste reproduzível ou referência concreta em evidence_notes.
 - Não altere o roteador ou as skills durante a execução de uma rodada. Registre os resultados primeiro; depois faça a menor mudança justificada e reexecute os casos afetados.
 - Este teste é manual e não tem custo de API; não mede automaticamente o raciocínio do modelo e não deve ser descrito como benchmark estatístico.
-
-[executed on device: localhost (328c2981-abe2-4e41-b527-a2413916dfa7)]

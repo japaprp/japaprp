@@ -66,5 +66,3 @@ class ScoreCaseTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-[executed on device: localhost (328c2981-abe2-4e41-b527-a2413916dfa7)]

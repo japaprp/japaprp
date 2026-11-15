@@ -99,5 +99,3 @@ jobs:
         run: node --check scripts/test_registry_routing.mjs
       - name: Run deterministic registry routing regression
         run: node scripts/test_registry_routing.mjs
-
-[executed on device: localhost (328c2981-abe2-4e41-b527-a2413916dfa7)]
