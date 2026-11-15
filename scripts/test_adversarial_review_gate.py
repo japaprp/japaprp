@@ -207,6 +207,12 @@ class RecordTests(unittest.TestCase):
         errors = validate_record(record)
         self.assertTrue(any("independence_audit.external_verifier" in error for error in errors))
 
+    def test_malformed_evidence_reference_fails_cleanly(self):
+        record = self.valid_record()
+        record["perspectives"][0]["evidence_refs"] = [{}]
+        errors = validate_record(record)
+        self.assertTrue(any("unknown evidence_id" in error for error in errors))
+
 
 class ExecutionBundleTests(unittest.TestCase):
     def valid_bundle(self):
