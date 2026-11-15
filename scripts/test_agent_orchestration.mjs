@@ -75,7 +75,7 @@ assert.match(contract, /pode rejeitar a maioria/);
 assert.match(router, /ADVERSARIAL_DECISION_REVIEW/);
 assert.match(adversarialProtocol, /não decide por maioria/i);
 assert.match(adversarialProtocol, /inconclusive/);
-assert.match(adversarialProtocol, /single_agent_multi_perspective/);
+assert.match(adversarialProtocol, /independence_status=NOT_VERIFIED/);
 assert.match(adversarialGate, /def should_trigger/);
 assert.match(adversarialRuntime, /def validate_execution_bundle/);
 assert.match(adversarialRuntime, /independence_status.*NOT_VERIFIED/);
