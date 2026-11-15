@@ -39,7 +39,7 @@ assert.match(adapter, /BLOCKED/);
 assert.match(adapter, /independent QA/i);
 assert.match(orchestration, /AGENT_ROLE_REGISTRY\.json/);
 assert.match(orchestration, /catalogued_not_runtime_active/);
-assert.match(router, /AGENT_ROLE_REGISTRY\\.json/);
+assert.match(router, /AGENT_ROLE_REGISTRY\.json/);
 assert.match(router, /AGENT_RUNTIME_ADAPTER_CONTRACT/);
 assert.match(router, /não carregue nem despache todos os papéis por padrão/i);
 console.log('PASS: eight specialist roles are uniquely registered and mapped to existing skills.');
