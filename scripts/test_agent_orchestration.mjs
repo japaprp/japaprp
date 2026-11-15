@@ -73,7 +73,7 @@ assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task
 assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, assigned_role: ' qa' } : task) }), /assigned_role must be a canonical/);
 assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'docs-update' ? { ...task, depends_on: [' research'] } : task) }), /canonical non-empty task IDs/);
 assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, resources: [' repo:docs'] } : task) }), /canonical non-empty strings/);
-assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, resources: ['repo:docs', ''] } : task) }), /resources must contain non-empty strings/);
+assert.throws(() => validatePlan({ ...plan, tasks: plan.tasks.map((task) => task.task_id === 'research' ? { ...task, resources: ['repo:docs', ''] } : task) }), /resources must contain canonical non-empty strings/);
 console.log('PASS: DAG planner admits only ready tasks, respects concurrency and exclusive resource locks.');
 console.log('PASS: planner rejects duplicate IDs, cross-project tasks, invalid limits and dependency cycles.');
 
