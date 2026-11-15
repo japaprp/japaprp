@@ -5,48 +5,74 @@ import json
 import unittest
 from pathlib import Path
 
-from adversarial_review_gate import should_trigger, validate_record
+from adversarial_review_gate import context_errors, should_trigger, validate_record
+
+
+def complete_context(**overrides):
+    context = {
+        "impact": "low",
+        "irreversible": False,
+        "external_effect": False,
+        "security_boundary": False,
+        "sensitive_data": False,
+        "material_uncertainty": False,
+        "conflicting_evidence": False,
+        "architectural_change": False,
+        "meaningful_cost": False,
+        "cross_project_dependency": False,
+    }
+    context.update(overrides)
+    return context
 
 
 class TriggerTests(unittest.TestCase):
-    def test_routine_reversible_task_does_not_trigger(self):
-        self.assertEqual(should_trigger({"impact": "low"}), (False, []))
+    def test_complete_routine_reversible_task_does_not_trigger(self):
+        self.assertEqual(should_trigger(complete_context()), (False, []))
 
-    def test_high_impact_triggers(self):
-        triggered, reasons = should_trigger({"impact": "high"})
-        self.assertTrue(triggered)
-        self.assertIn("impact:high", reasons)
-
-    def test_critical_impact_triggers(self):
-        self.assertTrue(should_trigger({"impact": "critical"})[0])
+    def test_high_and_critical_impact_trigger(self):
+        for impact in ("high", "critical"):
+            with self.subTest(impact=impact):
+                self.assertTrue(should_trigger(complete_context(impact=impact))[0])
 
     def test_each_strong_flag_triggers(self):
         for flag in ("irreversible", "external_effect", "security_boundary", "sensitive_data"):
             with self.subTest(flag=flag):
-                self.assertTrue(should_trigger({flag: True})[0])
+                self.assertTrue(should_trigger(complete_context(**{flag: True}))[0])
 
     def test_one_soft_signal_does_not_trigger(self):
-        self.assertFalse(should_trigger({"material_uncertainty": True})[0])
+        self.assertFalse(should_trigger(complete_context(material_uncertainty=True))[0])
 
     def test_two_soft_signals_trigger(self):
-        triggered, reasons = should_trigger({
-            "material_uncertainty": True,
-            "conflicting_evidence": True,
-        })
+        triggered, reasons = should_trigger(complete_context(
+            material_uncertainty=True, conflicting_evidence=True))
         self.assertTrue(triggered)
         self.assertEqual(len(reasons), 2)
 
-    def test_false_and_unknown_values_do_not_count(self):
-        self.assertFalse(should_trigger({
-            "material_uncertainty": "unknown",
-            "conflicting_evidence": False,
-        })[0])
+    def test_missing_context_fails_closed_and_blocks_decision(self):
+        triggered, reasons = should_trigger({})
+        self.assertTrue(triggered)
+        self.assertTrue(any(reason.startswith("context_incomplete:") for reason in reasons))
+        self.assertTrue(context_errors({}))
 
-    def test_missing_impact_is_not_assumed_low_or_high(self):
-        self.assertFalse(should_trigger({})[0])
+    def test_partial_context_fails_closed_even_when_impact_is_low(self):
+        triggered, reasons = should_trigger({"impact": "low", "irreversible": False})
+        self.assertTrue(triggered)
+        self.assertTrue(any("sensitive_data" in reason for reason in reasons))
 
-    def test_malformed_impact_type_does_not_crash(self):
-        self.assertFalse(should_trigger({"impact": ["critical"]})[0])
+    def test_unknown_flag_value_is_incomplete_not_false(self):
+        context = complete_context(material_uncertainty="unknown")
+        triggered, reasons = should_trigger(context)
+        self.assertTrue(triggered)
+        self.assertTrue(any("material_uncertainty" in reason for reason in reasons))
+
+    def test_malformed_impact_fails_closed(self):
+        for impact in (None, ["critical"], "unknown"):
+            with self.subTest(impact=impact):
+                self.assertTrue(should_trigger(complete_context(impact=impact))[0])
+
+    def test_false_and_unknown_soft_signals_do_not_count_when_complete(self):
+        self.assertFalse(should_trigger(complete_context(
+            material_uncertainty=False, conflicting_evidence=False))[0])
 
 
 class TemplateTests(unittest.TestCase):
@@ -69,11 +95,8 @@ class RecordTests(unittest.TestCase):
             "question": "Adopt bounded adversarial review?",
             "status": "decided",
             "confidence": "medium",
-            "evidence": [{
-                "evidence_id": "E-001",
-                "source": "skills/engineering-brain-router/SKILL.md#section-7",
-                "claim": "The router requires evidence-backed gap closure.",
-            }],
+            "evidence": [{"evidence_id": "E-001", "source": "skills/engineering-brain-router/SKILL.md#section-7",
+                          "claim": "The router requires evidence-backed gap closure."}],
             "perspectives": [
                 {"perspective": "first-principles", "conclusion": "adopt", "confidence": "medium",
                  "evidence_refs": ["E-001"], "strongest_objection": "Could add overhead."},
@@ -92,20 +115,17 @@ class RecordTests(unittest.TestCase):
     def test_missing_traceability_fails(self):
         record = self.valid_record()
         record["evidence"] = []
-        errors = validate_record(record)
-        self.assertTrue(any("evidence must" in error for error in errors))
+        self.assertTrue(any("evidence must" in error for error in validate_record(record)))
 
     def test_decided_record_requires_confidence(self):
         record = self.valid_record()
         record["confidence"] = "unknown"
-        errors = validate_record(record)
-        self.assertTrue(any("decided records must state confidence" in error for error in errors))
+        self.assertTrue(any("decided records must state confidence" in error for error in validate_record(record)))
 
     def test_independence_must_be_explicit(self):
         record = self.valid_record()
         record["independence"] = "multi-agent"
-        errors = validate_record(record)
-        self.assertTrue(any("independence must" in error for error in errors))
+        self.assertTrue(any("independence must" in error for error in validate_record(record)))
 
     def test_inconclusive_can_have_unknown_confidence(self):
         record = self.valid_record()
