@@ -106,6 +106,10 @@ Falha, timeout, runtime indisponível, cancelamento, contexto compartilhado ou e
 
 Limites padrão: até cinco perspectivas, uma rodada cruzada, uma síntese, sem recursão automática e no máximo uma repetição por falha transitória. Registre decision_id, project_id, fontes exatas, confiança, incertezas, dissenso, orçamento e ligação com findings/testes/commits. Reabra decisões quando surgirem evidências novas. A revisão não concede autorização nem inicia chamadas pagas.
 
+## 7.2 Seleção de papéis especialistas
+
+O catálogo de papéis especializados fica em `skills/registries/AGENT_ROLE_REGISTRY.json`. Ele define oito perfis inspirados em agentes ECC, mas reutiliza as skills existentes e mantém permissões read-only por padrão. O Router deve selecionar apenas o papel necessário para a tarefa; não carregar nem despachar todos os papéis por padrão. O catálogo declara explicitamente `catalogued_not_runtime_active`: só um adapter compatível, dispatch real, recibos do runtime e QA independente podem provar ativação. O contrato do adapter está em [AGENT_RUNTIME_ADAPTER_CONTRACT.md](./AGENT_RUNTIME_ADAPTER_CONTRACT.md). Se o runtime não suportar dispatch observável, registrar BLOCKED/NOT RUN; nunca simular agentes com chamadas paralelas de ferramentas.
+
 ## 8. Relatório final obrigatório
 
 Para cada frente: responsável/papel, resultado, evidência, testes, recursos/custo conhecido, status e próximo bloqueio. O relatório global deve distinguir:
