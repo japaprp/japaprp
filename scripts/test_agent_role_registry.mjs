@@ -9,6 +9,7 @@ const registry = JSON.parse(read('skills/registries/AGENT_ROLE_REGISTRY.json'));
 const adapter = read('skills/agent-orchestration/AGENT_RUNTIME_ADAPTER_CONTRACT.md');
 const orchestration = read('skills/agent-orchestration/SKILL.md');
 const router = read('skills/engineering-brain-router/SKILL.md');
+const evalDataset = JSON.parse(read('skills/tests/router-eval-cases.json'));
 const skillFiles = new Set([
   'agent-orchestration','ai-integration-evaluation','ai-token-budget','api-engineering-contracts',
   'application-security-auth','code-review-minimal-change','cryptography-security-analysis',
@@ -22,6 +23,8 @@ const expected = [
 assert.equal(registry.project_id, 'central-council');
 assert.equal(registry.status, 'catalogued_not_runtime_active');
 assert.equal(registry.roles.length, 8);
+const roleCaseById = new Map(evalDataset.cases.filter((c) => c.expected_specialist_role).map((c) => [c.expected_specialist_role, c]));
+assert.equal(roleCaseById.size, registry.roles.length, 'each specialist role must have one unique behavioral evaluation case');
 assert.deepEqual(registry.roles.map((r) => r.role_id).sort(), [...expected].sort());
 assert.equal(registry.default_permission_profile.mode, 'read_only');
 assert.equal(registry.runtime_candidates[0].runtime_id, 'openai-agents-api');
@@ -34,6 +37,11 @@ for (const role of registry.roles) {
   assert.equal(role.default_permission_profile, 'read_only');
   assert.equal(role.qa_independence_required, true);
   assert.ok(role.triggers.length > 0);
+  const roleCase = roleCaseById.get(role.role_id);
+  assert.ok(roleCase, `missing behavioral eval case for ${role.role_id}`);
+  assert.equal(roleCase.expected_primary_skill, role.primary_skill, `primary skill mismatch for ${role.role_id}`);
+  assert.ok(roleCase.acceptance.length >= 3);
+  assert.ok(roleCase.must_avoid.length >= 2);
 }
 for (const operation of ['discover_runtime','inspect_capabilities','dispatch_child_agent','get_task_status','cancel_task','collect_execution_receipt']) assert.ok(adapter.includes(operation), `missing adapter operation ${operation}`);
 for (const field of registry.runtime_binding.required_receipt_fields) assert.ok(adapter.includes(field), `missing receipt field ${field}`);
@@ -49,6 +57,7 @@ assert.match(router, /AGENT_RUNTIME_ADAPTER_CONTRACT/);
 assert.match(router, /não carregue nem despache todos os papéis por padrão/i);
 console.log('PASS: eight specialist roles are uniquely registered and mapped to existing skills.');
 console.log('PASS: Router selects specialist roles by trigger and refuses unverified runtime dispatch.');
+console.log('PASS: all eight specialist roles have unique behavioral evaluation cases with matching primary skills.');
 console.log('PASS: all roles default to read-only with independent QA required.');
 console.log('PASS: runtime adapter operations, isolation, receipts, cancellation and failure gates are specified.');
 console.log('PASS: OpenAI Agents API is documented as a candidate behind explicit API-key and cost approval gates.');
