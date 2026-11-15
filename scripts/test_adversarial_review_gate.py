@@ -346,6 +346,33 @@ class ExecutionBundleTests(unittest.TestCase):
         self.assertEqual(result["status"], "READY_FOR_SYNTHESIS")
         self.assertEqual(result["independence_status"], "NOT_VERIFIED")
 
+    def test_retry_after_successful_first_attempt_is_rejected(self):
+        bundle = self.valid_bundle()
+        retry = dict(bundle["runs"][0], run_id="run-1-retry", attempt=2,
+                     context_id="ctx-1-retry", agent_id="agent-1-retry",
+                     runtime_receipt_ref="logs/run-1-retry.json",
+                     runtime_attestation_ref="attestations/run-1-retry.json")
+        bundle["runs"].append(retry)
+        result = validate_execution_bundle(bundle)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertTrue(any("retry is allowed only after" in error for error in result["errors"]))
+
+    def test_malformed_unhashable_status_and_evidence_refs_fail_cleanly(self):
+        bundle = self.valid_bundle()
+        bundle["runs"][0]["status"] = []
+        bundle["runs"][1]["evidence_refs"] = [{}]
+        result = validate_execution_bundle(bundle)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertTrue(result["errors"])
+
+    def test_ended_timestamp_before_start_is_rejected(self):
+        bundle = self.valid_bundle()
+        bundle["runs"][0]["started_at"] = "2026-11-14T10:02:00Z"
+        bundle["runs"][0]["ended_at"] = "2026-11-14T10:01:00Z"
+        result = validate_execution_bundle(bundle)
+        self.assertEqual(result["status"], "BLOCKED")
+        self.assertTrue(any("must not precede" in error for error in result["errors"]))
+
 
 if __name__ == "__main__":
     unittest.main()
