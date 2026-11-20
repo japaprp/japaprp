@@ -35,6 +35,24 @@ Não transforme tarefa simples em relatório longo. Não use o modo rápido para
 4. Escolha a ferramenta pelo tipo de evidência: busca para localizar; leitura de arquivo para compreender; terminal para reproduzir; testes para comportamento; profiler/EXPLAIN para desempenho; integração oficial para dados externos quando autorizada.
 5. Prefira ferramenta determinística para fatos e use o modelo para síntese, julgamento e mudanças que exigem raciocínio. Evite executar várias ferramentas que respondem à mesma pergunta.
 
+## 3.1 Consulte os registries de projeto e capacidades
+
+Quando os arquivos estiverem presentes no repositório, use-os como referência operacional antes de selecionar skills:
+
+1. Leia `skills/registries/PROJECT_REGISTRY.json` e identifique somente o registro do projeto resolvido. Não carregue nem exponha o portfólio inteiro se uma entrada basta.
+2. Resolva a identidade nesta ordem: projeto explicitamente nomeado na mensagem atual; fase/produto identificável pelo contexto atual; continuidade coerente da conversa e evidências do repositório. Se dois projetos continuarem igualmente plausíveis, faça uma única pergunta objetiva antes de qualquer alteração específica.
+3. Verifique `portfolio_status` e `evidence_status`. Entradas `planned_or_not_yet_confirmed` são contexto futuro, não projetos operacionais confirmados. Repositório, branch, ambiente e estado marcados como não verificados devem ser inspecionados na fonte autoritativa antes de agir.
+4. Leia `skills/registries/CAPABILITY_REGISTRY.json` e filtre famílias cujo `applies_to` inclua o projeto ou um escopo genérico aplicável (`all_projects` / `all_projects_when_needed`). Use `primary_capabilities` do projeto e `skills` da família como candidatos; eles não são uma ordem para carregar todas as skills.
+5. Cruze os candidatos com a intenção, stack, risco e evidência da tarefa. Escolha a menor combinação útil conforme a seção 4. Se a tarefa não exigir uma competência listada, não a carregue. Se houver lacuna, siga `GAP_CLOSURE_PROTOCOL.md`.
+6. Respeite `mandatory_constraints`, `resource_profile`, `activation_policy` e os limites de autorização. Um candidato externo em `research_candidate_not_integrated` não está instalado, aprovado ou autorizado para uso.
+7. Se os registries estiverem ausentes, inválidos ou contraditórios, não invente uma associação: use as instruções do projeto e o catálogo local como fallback, registre a limitação e proponha corrigir a fonte de verdade.
+
+**Regra de família Guerra Infinita:** Dark War: Survival REA e Guerra Infinita são fases de uma única linha estratégica. Identifique a fase pela tarefa: análise de artefatos originais → `rea-assisted-analysis`; desenvolvimento do sucessor independente → `game-development-engineering`. Preserve a fronteira técnica: originais, evidências, branches, source code, builds, credenciais e pipelines permanecem separados; conecte as fases apenas por achados revisados e decisões de design documentadas.
+
+**Regra de RH:** antes de lidar com dados pessoais reais, aplique as restrições obrigatórias da família `people-and-sensitive-data`: minimização, menor privilégio, limitação de finalidade, revisão de privacidade e proibição de reutilização de dados entre projetos.
+
+Os registries são dados de referência, não um serviço runtime nem um mecanismo de instalação/ativação automática de ferramentas.
+
 ## 4. Selecione skills sem redundância
 
 Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma segunda complementar apenas se houver necessidade clara; três no total é o limite padrão, não uma meta. Carregue apenas a seção pertinente.
@@ -54,6 +72,7 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Publicar site, API, backend, worker ou job; escolher provedor, configurar domínio/HTTPS, CI/CD, health checks, custos ou rollback → application-deployment-hosting; acrescente infrastructure-database-engineering quando houver banco, migração, SSH ou operação de infraestrutura.
 - Aplicativo móvel/Flutter → mobile-flutter-engineering; acrescente API, segurança ou testes somente se o fluxo exigir.
 - Integração de modelos/API de IA, avaliação de prompts ou RAG → ai-integration-evaluation; use ai-token-budget para controle de contexto/custo, não como substituta da avaliação.
+- Visão computacional, câmeras, detecção/rastreamento de pessoas e objetos, OCR/LPR/ANPR ou reconhecimento facial → computer-vision-video-intelligence; combine com application-security-auth e ai-integration-evaluation apenas quando necessário. Trate biometria como alto risco e exija avaliação jurídica/privacidade e autorização antes de processamento real.
 - Ideia ampla, definição de MVP, priorização ou plano de lançamento → product-discovery-delivery; não carregue para bug técnico claramente definido.
 - Pagamento, checkout, reembolso, cashback, split ou webhook financeiro → payments-billing-integrations; acrescente API/segurança/testes conforme o fluxo.
 - Construir/alterar servidor ou ferramenta MCP para agentes → mcp-tooling-engineering; use API/segurança conforme as integrações expostas.
@@ -65,9 +84,12 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Supabase/PostgreSQL/RLS → supabase-postgres-specialist; não aplicar comandos específicos a MySQL.
 - Remotion/HyperFrames → skill específica do pipeline usado.
 - REA / análise assistida autorizada → rea-assisted-analysis.
+- Criptografia, hashes, KDFs, protocolos TLS/SSH, certificados, formatos de chaves, auditoria de implementações ou recuperação legítima de arquivos/chaves próprios → cryptography-security-analysis; combine com rea-assisted-analysis apenas quando for necessário localizar ou observar rotinas em binários, e com application-security-auth quando autenticação/contas fizerem parte do escopo. Para repositórios-fonte completos, use repo-reverse-engineering como principal quando a pergunta for arquitetura geral.
 - Eficiência de IA/contexto → ai-token-budget.
 - Pessoa iniciante, stack desconhecida ou não sabe qual skill escolher → skill-onboarding-profiler para entrevista simples e recomendações explicadas; não presumir tecnologias.
-- Skills novas → primeiro identificar lacuna real, sobreposição e teste de utilidade; não criar por popularidade.
+- Engenharia reversa / descoberta de código aberto → `repo-reverse-engineering` para repositório-fonte e arquitetura; `rea-assisted-analysis` para análise estática/dinâmica autorizada de aplicações, artefatos ou binários; segurança apenas se o escopo envolver controles de acesso ou risco real. Verifique fontes oficiais e licenças antes de adotar ferramentas externas.
+- Lacuna de skill, ferramenta, procedimento ou avaliação → seguir `GAP_CLOSURE_PROTOCOL.md`: pesquisar primeiro o catálogo local e fontes públicas confiáveis; para a categoria identificada, comparar os principais candidatos e rankings disponíveis (GitHub, registros/marketplaces e comunidades públicas), registrando data, estrelas/forks, downloads quando publicados, atividade/manutenção, licença, compatibilidade, segurança e limitações. Não inventar ranking nem tratar estrelas como downloads ou qualidade; quando métricas não existirem, declarar isso e comparar qualitativamente. Depois testar se a capacidade já existe, reutilizar/ajustar skill existente quando suficiente e só criar uma nova skill se a lacuna for distinta e demonstrável.
+- Skills novas → nunca criar por popularidade ou ausência presumida; pesquisar, registrar fontes/licença/limitações, definir critérios de aceitação e adicionar regressão para cada lacuna de roteamento confirmada.
 
 ## 5. Memória técnica por projeto
 
@@ -92,6 +114,8 @@ Atualize o resumo apenas depois de confirmar a mudança. Diferencie estado atual
 
 ## 7. Melhoria contínua com evidência
 
+- Quando uma capacidade necessária estiver ausente ou incerta, não deixe a tarefa vaga: aplique `GAP_CLOSURE_PROTOCOL.md` para pesquisar, comparar, decidir e fechar a lacuna com uma mudança mínima revisável.
+- Toda nova categoria de roteamento identificada deve receber ao menos um caso de regressão positivo e casos negativos/limítrofes quando houver risco de confusão; valide a integridade do dataset e execute a avaliação comportamental no agente-alvo quando possível.
 - Só proponha alterar uma skill quando uma lacuna real for observada, uma regra falhar repetidamente ou um conflito entre instruções for demonstrado.
 - Antes de adicionar conteúdo, procure a regra equivalente e melhore a fonte única de verdade; prefira consolidar a criar outra skill.
 - Preserve instruções gerais no roteador e conhecimento especializado na skill de domínio.
@@ -125,6 +149,31 @@ O aprendizado precisa ser rastreável: evidência observada → classificação 
 - **Agency Agents:** use seletivamente os padrões de Code Reviewer, Minimal Change Engineer, Reality Checker/Evidence Collector e UI Finish-Gate Reviewer. Não adote comandos específicos de um agente sem verificar stack/ferramentas locais. Se a tarefa realmente envolver um sistema multiagente, considere contratos explícitos de entrada/saída, menor privilégio, fallback, observabilidade, orçamento de contexto e avaliação; não proponha orquestração multiagente para tarefas que um agente resolve com segurança.
 - **Auditoria de competências:** para tarefas de API, Flutter/mobile, IA/RAG, pagamentos, MCP, produto e distribuição de conteúdo, use as skills dedicadas do catálogo. Backend/frontend/banco/segurança/design já cobertos devem ser reutilizados; crie outra skill somente quando houver lacuna distinta demonstrável.
 - **Vídeo/HyperFrames/HeyGen:** use a skill HyperFrames ou Remotion conforme o pipeline real. Não presuma integração/API do HeyGen apenas porque o fluxo produz vídeos; confirme CLI, credenciais, permissões e versão antes de automatizar serviços externos.
+
+## 9. Gatilho persistente de ativação — “Deus é fiel”
+
+Trate **“Deus é fiel”** como gatilho do protocolo completo do Engineering Brain somente quando a expressão for usada pelo usuário como comando de ativação (por exemplo, no início de uma mensagem ou acompanhada de um pedido para continuar/trabalhar). Não ative quando ela aparecer apenas citada, discutida ou dentro de exemplos que não sejam uma ordem de ativação.
+
+Ao ativar:
+1. Confirme que esta skill e as instruções do projeto estão realmente carregadas. Em uma sessão nova, não presuma que o histórico anterior esteja disponível.
+2. Identifique o repositório/projeto e a branch pelo ambiente real; se não puder inspecionar o estado, declare a limitação e não invente continuidade.
+3. Leia o estado registrado mais recente, compare-o com o estado real e retome o próximo passo pendente. Se o estado não existir, reconstrua-o com inspeção segura antes de agir.
+4. Classifique risco e autorização, selecione as skills mínimas, pesquise lacunas quando necessário, decida a abordagem e execute as ações permitidas sem pedir confirmação para cada etapa rotineira.
+5. Valide as alterações e os resultados; registre o que foi verificado, o que falhou, o que ficou bloqueado e o próximo passo.
+6. Preserve isolamento entre projetos, privacidade, licenças e todos os guardrails desta skill. O gatilho não concede permissões novas nem substitui aprovação explícita para operações de alto impacto.
+
+Se a skill não estiver carregada ou o ambiente não reconhecer o gatilho automaticamente, siga o procedimento de bootstrap: localize e leia `skills/engineering-brain-router/SKILL.md` e `skills/engineering-brain-router/GAP_CLOSURE_PROTOCOL.md`; se o runtime não tiver acesso a esses arquivos, informe que a ativação persistente ainda não está comprovada e peça para registrar/carregar o catálogo no ambiente. Nunca afirme que a palavra-chave ativa sessões futuras apenas porque está escrita neste repositório.
+
+## 10. Política de autonomia e limites de decisão
+
+**Padrão:** decidir e executar dentro do escopo autorizado; pedir esclarecimento somente quando uma ambiguidade muda materialmente a decisão, o resultado esperado ou o risco.
+
+- **Nível 1 — rotina, baixo risco:** leitura, pesquisa, comparação, análise, seleção de skills, documentação local e testes seguros. Decida e execute sem pedir confirmação adicional.
+- **Nível 2 — mudança reversível e isolada:** correção de código, documentação, testes e alterações em branch de trabalho. Escolha a menor solução adequada, implemente, teste e apresente o diff; não faça merge nem deploy automaticamente.
+- **Nível 3 — impacto/custo/permissões externos:** instalação que altera o sistema, serviço pago, uso de créditos, envio/publicação externa, mudança de permissões, credenciais ou dados compartilhados. Pesquise e prepare a proposta; peça autorização específica antes da ação de impacto.
+- **Nível 4 — crítico ou potencialmente irreversível:** exclusão/reset, migração destrutiva, alteração de produção/DNS/segredos, merge, release ou deploy. Exija autorização explícita específica e verificações de segurança; se não houver autorização, pare antes da operação.
+
+Para toda decisão relevante, registre de forma concisa: objetivo, evidências, alternativa escolhida, alternativas descartadas, risco/impacto, autorização necessária e verificação de sucesso. Não transfira autorização de um projeto para outro. Se a execução não for possível, entregue a melhor decisão fundamentada e identifique o bloqueio sem simular execução.
 
 ## Saída padrão
 
