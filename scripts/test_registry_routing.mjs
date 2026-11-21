@@ -19,6 +19,8 @@ assert.match(router, /Os registries são dados de referência/i);
 assert.match(router, /Guerra Infinita/);
 assert.match(router, /fronteira técnica/i);
 assert.match(router, /Regra de RH/i);
+assert.match(router, /capability-gap-closure/i);
+assert.match(router, /ponytail-engineering/i);
 
 const projects = projectsRegistry.projects;
 const families = capabilitiesRegistry.capability_families;
@@ -41,6 +43,12 @@ assert.notEqual(
 );
 assert.ok(guerra.primary_capabilities.includes('rea-assisted-analysis'));
 assert.ok(guerra.primary_capabilities.includes('game-development-engineering'));
+const council = projectById.get('central-council');
+assert.ok(council, 'Council Central project entry must exist');
+assert.ok(council.primary_capabilities.includes('capability-gap-closure'));
+assert.ok(council.primary_capabilities.includes('ponytail-engineering'));
+assert.ok(familyById.get('portfolio-orchestration').skills.includes('capability-gap-closure'));
+assert.ok(familyById.get('source-repository-engineering').skills.includes('ponytail-engineering'));
 
 const rh = projectById.get('rh');
 assert.ok(rh, 'RH project entry must exist');

@@ -91,6 +91,14 @@ Use **uma skill principal e, normalmente, zero ou uma complementar**. Use uma se
 - Lacuna de skill, ferramenta, procedimento ou avaliação → seguir `GAP_CLOSURE_PROTOCOL.md`: pesquisar primeiro o catálogo local e fontes públicas confiáveis; para a categoria identificada, comparar os principais candidatos e rankings disponíveis (GitHub, registros/marketplaces e comunidades públicas), registrando data, estrelas/forks, downloads quando publicados, atividade/manutenção, licença, compatibilidade, segurança e limitações. Não inventar ranking nem tratar estrelas como downloads ou qualidade; quando métricas não existirem, declarar isso e comparar qualitativamente. Depois testar se a capacidade já existe, reutilizar/ajustar skill existente quando suficiente e só criar uma nova skill se a lacuna for distinta e demonstrável.
 - Skills novas → nunca criar por popularidade ou ausência presumida; pesquisar, registrar fontes/licença/limitações, definir critérios de aceitação e adicionar regressão para cada lacuna de roteamento confirmada.
 
+## 4.1 Fechamento operacional de lacunas e engenharia mínima
+
+- Quando uma tarefa revelar uma capacidade ausente, incerta ou insuficiente, carregue `capability-gap-closure` e execute o fluxo; não encerre apenas com uma recomendação. Pesquise o catálogo e os repositórios internos primeiro; se a lacuna persistir, pesquise fontes externas com as ferramentas realmente disponíveis, compare candidatos, verifique licença/segurança/manutenção/compatibilidade/custo e feche a lacuna localmente quando autorizado.
+- Se a busca externa não estiver disponível, registre `BLOCKED`, identifique a ferramenta/acesso ausente e continue as verificações internas seguras. Nunca diga que pesquisou sem evidência.
+- Ao implementar ou simplificar código, use `ponytail-engineering` como método de menor mudança completa quando isso agregar valor. Não carregue junto de `code-review-minimal-change` apenas para duplicar revisão; a skill Ponytail não substitui testes, segurança, análise de domínio nem autorização.
+- Não instale o plugin Ponytail, hooks, dependências globais ou serviços pagos como parte da adoção da skill local. A adaptação do catálogo é independente da instalação do plugin upstream.
+- Mantenha a composição enxuta: uma skill principal e, normalmente, uma complementar. `capability-gap-closure` é acionada por lacuna demonstrada; `ponytail-engineering` é acionada por necessidade de simplificação/implementação mínima, não em toda tarefa.
+
 ## 5. Memória técnica por projeto
 
 Use as instruções e documentos do próprio repositório como fonte principal. Quando houver necessidade e permissão, mantenha um resumo curto do projeto contendo:
@@ -114,7 +122,7 @@ Atualize o resumo apenas depois de confirmar a mudança. Diferencie estado atual
 
 ## 7. Melhoria contínua com evidência
 
-- Quando uma capacidade necessária estiver ausente ou incerta, não deixe a tarefa vaga: aplique `GAP_CLOSURE_PROTOCOL.md` para pesquisar, comparar, decidir e fechar a lacuna com uma mudança mínima revisável.
+- Quando uma capacidade necessária estiver ausente ou incerta, acione `capability-gap-closure` e aplique `GAP_CLOSURE_PROTOCOL.md` para pesquisar, comparar, decidir e fechar a lacuna com uma mudança mínima revisável; não pare em uma recomendação quando a execução local estiver autorizada.
 - Toda nova categoria de roteamento identificada deve receber ao menos um caso de regressão positivo e casos negativos/limítrofes quando houver risco de confusão; valide a integridade do dataset e execute a avaliação comportamental no agente-alvo quando possível.
 - Só proponha alterar uma skill quando uma lacuna real for observada, uma regra falhar repetidamente ou um conflito entre instruções for demonstrado.
 - Antes de adicionar conteúdo, procure a regra equivalente e melhore a fonte única de verdade; prefira consolidar a criar outra skill.

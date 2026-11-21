@@ -4,6 +4,8 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 
 ## Comece pelo cérebro
 
+- [ENGINE_STATUS](./ENGINE_STATUS.md) — inventário dos motores, nível de validação e lacunas conhecidas.
+
 - [engineering-brain-router](./engineering-brain-router/SKILL.md) — roteia a tarefa para o menor conjunto de skills necessário; use como ponto de entrada quando a tarefa não for óbvia.
 - [Ciclo operacional de engenharia](./engineering-brain-router/OPERATING_CYCLE.md) — protocolo de planejar, executar, verificar e aprender com evidências.
 - [skill-onboarding-profiler](./skill-onboarding-profiler/SKILL.md) — entrevista iniciantes para identificar área, objetivo, stack e nível; recomenda skills e explica como começar.
@@ -19,6 +21,8 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Bug, crash, lentidão, regressão | [targeted-debugging-performance](./targeted-debugging-performance/SKILL.md) | [testing-regression-quality](./testing-regression-quality/SKILL.md) |
 | Testes e qualidade de release | [testing-regression-quality](./testing-regression-quality/SKILL.md) | segurança ou infraestrutura conforme o risco |
 | Revisão de diff/PR e correção cirúrgica | [code-review-minimal-change](./code-review-minimal-change/SKILL.md) | testes, segurança ou infraestrutura conforme os achados |
+| Simplificação de implementação e menor mudança completa | [ponytail-engineering](./ponytail-engineering/SKILL.md) | skill de domínio/testes conforme a tarefa |
+| Lacuna de skill, ferramenta, roteamento ou avaliação | [capability-gap-closure](./capability-gap-closure/SKILL.md) | engineering-brain-router e protocolo de fechamento |
 | Design, versionamento e testes de APIs/webhooks próprios | [api-engineering-contracts](./api-engineering-contracts/SKILL.md) | segurança, CRUD ou testes conforme o fluxo |
 | Consumir APIs públicas/de terceiros, autenticação, quotas, paginação e resiliência | [public-api-integration](./public-api-integration/SKILL.md) | contratos, segurança ou testes conforme o fluxo |
 | Aplicativos móveis, especialmente Flutter/Dart | [mobile-flutter-engineering](./mobile-flutter-engineering/SKILL.md) | API, segurança ou testes conforme o fluxo |
@@ -31,7 +35,8 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 | Infra, banco, migração, SSH e operações de infraestrutura | [infrastructure-database-engineering](./infrastructure-database-engineering/SKILL.md) | segurança ou testes conforme o risco |
 | Hospedar/publicar sites, APIs e backends; provedor, domínio, HTTPS, CI/CD, custos e rollback | [application-deployment-hosting](./application-deployment-hosting/SKILL.md) | infraestrutura/banco quando necessário |
 | Análises de negócio, KPIs, previsão, demanda, estoque, recomendação e modelos tabulares | [business-data-intelligence](./business-data-intelligence/SKILL.md) | [spreadsheet-data-engineering](./spreadsheet-data-engineering/SKILL.md) para arquivos tabulares; segurança quando houver dados pessoais |
-| Visão computacional, câmeras, detecção/rastreamento de pessoas e objetos, OCR/LPR e biometria facial autorizada | [computer-vision-video-intelligence](./computer-vision-video-intelligence/SKILL.md) | [application-security-auth](./application-security-auth/SKILL.md) e [ai-integration-evaluation](./ai-integration-evaluation/SKILL.md) somente quando necessário |\n| Planilhas Excel/CSV, fórmulas, transformação e reconciliação de dados | [spreadsheet-data-engineering](./spreadsheet-data-engineering/SKILL.md) | infraestrutura/banco quando houver integração persistente |
+| Visão computacional, câmeras, detecção/rastreamento de pessoas e objetos, OCR/LPR e biometria facial autorizada | [computer-vision-video-intelligence](./computer-vision-video-intelligence/SKILL.md) | [application-security-auth](./application-security-auth/SKILL.md) e [ai-integration-evaluation](./ai-integration-evaluation/SKILL.md) somente quando necessário |
+| Planilhas Excel/CSV, fórmulas, transformação e reconciliação de dados | [spreadsheet-data-engineering](./spreadsheet-data-engineering/SKILL.md) | infraestrutura/banco quando houver integração persistente |
 | Imagens, assets visuais, formatos, otimização e integração no app/site | [visual-asset-engineering](./visual-asset-engineering/SKILL.md) | design ou vídeo somente se o escopo também exigir |
 | Desenvolvimento de jogos, gameplay, engine, build e profiling | [game-development-engineering](./game-development-engineering/SKILL.md) | segurança/API conforme multiplayer ou serviços online |
 | Formulários, cadastro, CRUD e integridade | [forms-crud-data-integrity](./forms-crud-data-integrity/SKILL.md) | segurança se houver dados privados ou permissões |
@@ -53,7 +58,8 @@ Catálogo enxuto de skills autorais para Codex, VS Code e agentes compatíveis c
 - [Casos de regressão do roteador](./tests/router-eval-cases.json) — dataset estruturado de prompts, skill esperada, risco e critérios de aceitação.
 - [Template de resultados de avaliação](./tests/EVAL_RESULTS_TEMPLATE.md) — registre resultados reais de avaliações do roteador sem confundir expectativa com benchmark.
 - [Execução manual sem API](./tests/LOCAL_MANUAL_EVAL.md) e [runner local](../scripts/run_router_eval.py) — execute prompts no Codex/VS Code, registre respostas reais e avalie critérios sem chamadas pagas à API.
-- [Validador estrutural](../scripts/validate_skills.py) e [GitHub Actions](../.github/workflows/validate-skills.yml) — verificam metadados básicos das skills a cada mudança relevante no catálogo. Isso valida estrutura, não competência do agente.
+- [Inventário de engines](./ENGINE_STATUS.md) — diferencia validação estrutural, comportamento do agente e operação real.
+- [Validador estrutural](../scripts/validate_skills.py), [auditoria de cobertura](../scripts/audit_capability_coverage.py) e [GitHub Actions](../.github/workflows/validate-skills.yml) — verificam metadados, referências e cobertura do catálogo. Isso valida estrutura, não competência do agente.
 
 ## Validação do roteador
 
