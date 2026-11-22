@@ -57,7 +57,7 @@ No other Blender operation is available in phase 1.
 The preferred implementation is a small, purpose-built bridge with a fixed command allowlist. It is not a general-purpose Python console.
 
 - Do not install or expose the upstream MCP for Blender `execute_blender_code` tool as the adapter's execution path.
-- Do not expose raw Python, `exec`, `eval`, arbitrary file paths, shell commands, network fetches, Blender operators with implicit context, add-on installation, or arbitrary imports.
+- Do not expose arbitrary Python or raw Python, `exec`, `eval`, arbitrary file paths, shell commands, network fetches, Blender operators with implicit context, add-on installation, or arbitrary imports.
 - Every command maps to a fixed, reviewed handler that uses the Blender Data API for reads.
 - Reject unknown command names, unknown fields, oversized payloads, invalid IDs, traversal paths, and cross-project references.
 - Keep the listener bound to IPv4 loopback only. No LAN binding, port forwarding, public tunnel, or remote listener in the pilot.
