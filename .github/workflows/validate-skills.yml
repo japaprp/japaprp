@@ -15,6 +15,7 @@ on:
       - "scripts/agent-orchestration-planner.mjs"
       - "scripts/test_project_findings.mjs"
       - "scripts/test_registry_routing.mjs"
+      - "scripts/test_blender_project_adapter_contract.mjs"
       - "scripts/adversarial_review_gate.py"
       - "scripts/adversarial_review_runtime.py"
       - "scripts/test_adversarial_review_gate.py"
@@ -36,6 +37,7 @@ on:
       - "scripts/test_agent_role_registry.mjs"
       - "scripts/test_project_findings.mjs"
       - "scripts/test_registry_routing.mjs"
+      - "scripts/test_blender_project_adapter_contract.mjs"
       - "scripts/adversarial_review_gate.py"
       - "scripts/adversarial_review_runtime.py"
       - "scripts/test_adversarial_review_gate.py"
@@ -77,6 +79,10 @@ jobs:
         run: node --check scripts/test_agent_role_registry.mjs
       - name: Run specialist agent role registry regression
         run: node scripts/test_agent_role_registry.mjs
+      - name: Check Blender Project Adapter contract regression syntax
+        run: node --check scripts/test_blender_project_adapter_contract.mjs
+      - name: Run Blender Project Adapter contract regression
+        run: node scripts/test_blender_project_adapter_contract.mjs
       - name: Check project findings regression syntax
         run: node --check scripts/test_project_findings.mjs
       - name: Run project findings integrity and closure regression
