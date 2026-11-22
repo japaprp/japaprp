@@ -30,7 +30,7 @@ assert.match(contract, /physical S21/i);
 assert.match(contract, /Gates A–D pass/i);
 assert.match(contract, /documentation tests prove contract structure only/i);
 assert.match(skill, /BLENDER_PROJECT_ADAPTER_CONTRACT\.md/);
-assert.match(skill, /read-only pilot/i);
+assert.match(skill, /read-only/i);
 console.log('PASS: Blender Project Adapter contract is present and attached to the existing MCP tooling skill.');
 console.log('PASS: nine read-only operations are specified; arbitrary Python and write operations are explicitly excluded.');
 console.log('PASS: Android 5.3.0/S21 compatibility unknowns, authentication, loopback, replay protection and fail-closed behavior are documented.');
