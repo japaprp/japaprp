@@ -112,8 +112,16 @@ Observed source and issue evidence:
 - The add-on registers an `execute_code` command that calls Python `exec` in Blender.
 - The socket protocol has no client authentication; loopback-only binding reduces network exposure but does not isolate local applications.
 - The upstream Safe Mode validates the MCP server's code path; it is explicitly not a sandbox around the Blender socket.
-- Upstream issues #404 and #406 document unauthenticated socket code execution and internal-network URL fetching.
-- Upstream issue #429 reports Blender 5.3.0 exceptions that terminate the add-on socket server thread. The report is from Linux, not the Android port; treat it as a relevant regression risk, not proof of an S21 failure.
+- Upstream issue [#404](https://github.com/ahujasid/mcp-for-blender/issues/404) documents unauthenticated socket code execution through the `execute_code` handler. The issue remains a security boundary for this design: loopback binding alone is not client authentication.
+- Upstream issue [#406](https://github.com/ahujasid/mcp-for-blender/issues/406) documented internal-network URL fetching. Its activity links upstream fix commit `38e47dc` dated 2026-11-04; the current upstream `main` source contains `_check_public_url` and validates each redirect hop. Treat #406 as a historical finding with a reported fix, not as proof that every published release is still vulnerable. Any future source adoption must pin a reviewed tag/commit and regression-test DNS resolution, redirects, loopback, private, link-local, and metadata-service addresses.
+- Upstream issue [#429](https://github.com/ahujasid/mcp-for-blender/issues/429) reports that an exception in `execute_blender_code` can terminate the add-on socket server thread on Blender 5.3.0.
+- Upstream issue [#430](https://github.com/ahujasid/mcp-for-blender/issues/430) reports that long-running calls have no reliable progress/cancel path and a disconnected client can leave the single-client socket blocked.
+- Upstream issue [#431](https://github.com/ahujasid/mcp-for-blender/issues/431) reports that a 5.2→5.3 upgrade can leave the add-on in the old version's scripts folder, so the new Blender process never starts the socket and the wrapper only times out.
+- Upstream issue [#437](https://github.com/ahujasid/mcp-for-blender/issues/437) reports that `bpy.ops.wm.read_factory_settings()` can disable/unregister the add-on and permanently stop the socket until a human reconnects it. The issue also describes a latent stale-`running` flag that can prevent listener recovery.
+- Upstream issue [#440](https://github.com/ahujasid/mcp-for-blender/issues/440), opened 2026-11-24, is a community supply-chain warning alleging that 11 typosquatted repositories distribute an infostealer. This report has not been independently forensically verified by Council Central. Use only the canonical repository `ahujasid/mcp-for-blender`; reject similarly named forks and third-party ZIPs, and verify repository owner, reviewed tag, exact commit, and downloaded artifact SHA-256 before any future installation.
+- These reports were made against desktop Linux/macOS/Windows configurations; they are threat and reliability inputs, not proof that the same failures occur on the Android port. The physical S21 must pass its own gates.
+
+The custom phase-1 bridge must therefore keep every handler bounded and read-only, reject factory/preferences-reset operations, return an actionable `BLOCKED` result rather than hanging when the add-on is absent or version-mismatched, and remain able to accept a fresh client after a handler exception or client disconnect. It must enforce per-request deadlines and payload/result limits; it must not expose unbounded jobs or imply cancellation support that has not been implemented.
 
 Do not patch, fork, install, or expose upstream code until a separate source audit, dependency/license review, Android compatibility check, and security regression plan are complete.
 
@@ -132,6 +140,10 @@ Do not patch, fork, install, or expose upstream code until a separate source aud
 - [ ] Pass runtime discovery and read-only scene/object/asset inspection.
 - [ ] Capture a viewport image and verify it matches the visible scene.
 - [ ] Prove a rejected unknown command and invalid authentication do not change scene/file hashes.
+- [ ] Prove a handler exception and a client disconnect do not kill or monopolize the listener; a fresh client can reconnect.
+- [ ] Prove missing/wrong-version add-on states return an actionable BLOCKED response within a bounded timeout instead of hanging.
+- [ ] Enforce request/response size limits and per-request deadlines; reject factory/preferences-reset operations, including `read_factory_settings`.
+- [ ] Verify only the canonical upstream repository, pinned revision, and artifact hash are accepted as future installation inputs; do not use lookalike forks or third-party ZIPs.
 - [ ] Repeat after closing/reopening Blender and after loading a disposable .blend.
 
 ### Gate C — continuity
