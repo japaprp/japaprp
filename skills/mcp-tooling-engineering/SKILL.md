@@ -24,6 +24,9 @@ Use quando criar ou manter servidores MCP, ferramentas para agentes ou integraç
 - Evite repetir efeitos colaterais automaticamente sem idempotência; torne o resultado recuperável quando possível.
 - Erros devem indicar o que falhou e o próximo passo seguro sem vazar detalhes internos.
 
+## Blender Project Adapter
+Para integração com Blender e continuidade cross-device/cross-agent, use o contrato existente em `BLENDER_PROJECT_ADAPTER_CONTRACT.md`. A primeira fase é read-only e exige identidade verificável do projeto/runtime, inspeção de cena/assets, captura visual e verificação de checkpoints. Não exponha `execute_blender_code`, Python arbitrário ou operações de escrita como superfície do Adapter. Compatibilidade de Blender Android deve ser comprovada no dispositivo físico; declarações de suporte a Blender desktop não bastam.
+
 ## Teste o ciclo completo
 1. Teste schema e validação de parâmetros, autenticação, permissões e erros.
 2. Teste o ciclo real: agente lê a descrição, escolhe a ferramenta, envia parâmetros, interpreta a resposta e decide o próximo passo.
