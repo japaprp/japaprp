@@ -25,7 +25,7 @@ assert.match(contract, /challenge\/response MAC/i);
 assert.match(contract, /fresh nonces/i);
 assert.match(contract, /fail closed/i);
 assert.match(contract, /Safe Mode.*not a sandbox/is);
-assert.match(contract, /issue #429/i);
+assert.match(contract, /issue\s+\[#429\]/i);
 for (const issue of ["#430", "#431", "#437", "#440"]) assert.ok(contract.includes(issue), `missing current upstream risk reference: ${issue}`);
 assert.match(contract, /historical finding with a reported fix/i);
 assert.match(contract, /_check_public_url/);
